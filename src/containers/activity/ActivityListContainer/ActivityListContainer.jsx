@@ -21,6 +21,11 @@ const ActivityListContainerBlock = styled.div`
 const ActivityListContainer = ({ location, history }) => {
   const currentLocation = location.search.replace('?semester=', '');
 
+  const onToggleRegisterActivity = (id) => {
+    console.log(id);
+    /* 요청 보내는 코드 작성 */
+  };
+
   const activities = [
     {
       id: 0,
@@ -169,7 +174,10 @@ const ActivityListContainer = ({ location, history }) => {
     <ActivityListContainerBlock>
       {/* <ActivityModalContainer /> */}
       <ActivityMenu semesters={semesters} currentLocation={currentLocation} />
-      <ActivityList activities={activities} />
+      <ActivityList
+        activities={activities}
+        onToggleRegisterActivity={onToggleRegisterActivity}
+      />
     </ActivityListContainerBlock>
   );
 };

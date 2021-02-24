@@ -55,7 +55,7 @@ const ActivityListHeader = styled.header`
   max-width: 1200px;
 `;
 
-const ActivityList = ({ activities }) => {
+const ActivityList = ({ activities, onToggleRegisterActivity }) => {
   return (
     <>
       <ActivityListBlock>
@@ -66,7 +66,11 @@ const ActivityList = ({ activities }) => {
           </ActivityListHeader>
           <List>
             {activities.map((activity) => (
-              <ActivityCard key={activity.id} activity={activity} />
+              <ActivityCard
+                onToggleRegisterActivity={onToggleRegisterActivity}
+                key={activity.id}
+                activity={activity}
+              />
             ))}
           </List>
         </ActivityListContainer>

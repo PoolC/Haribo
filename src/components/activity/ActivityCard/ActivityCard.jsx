@@ -1,9 +1,10 @@
 import { MENU } from '../../../constants/menus';
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import ActivityModalContainer from '../../../containers/activity/ActivityModalContainer/ActivityModalContainer';
 
 const ActivityCardBlock = styled.li`
   list-style: none;
@@ -105,7 +106,22 @@ const StyledLink = styled(Link)`
   margin: 10px 0;
 `;
 
-const ActivityCard = ({ activity }) => {
+const ActivityCard = ({ activity, onToggleRegisterActivity }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleModalOpen = () => {
+    setModalVisible(true);
+  };
+
+  const handleConfirm = () => {
+    onToggleRegisterActivity(id);
+    setModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setModalVisible(false);
+  };
+
   const {
     id,
     title,
@@ -119,30 +135,42 @@ const ActivityCard = ({ activity }) => {
     tags,
   } = activity;
   return (
-    <ActivityCardBlock>
-      <ActivityCardContainer>
-        <StyledLink to={`/${MENU.ACTIVITY}/${id}`}>
-          <ActivityTitle>{title}</ActivityTitle>
-        </StyledLink>
-        <ActivityClassHour>{classHour}</ActivityClassHour>
-        <ActivityDate>{`${startDate} ~ `}</ActivityDate>
-        <ActivityHost>{host}</ActivityHost>
-        <ActivityTags>
-          {tags.map((tag) => (
-            <ActivityTag key={tag.id}>#{tag.name}</ActivityTag>
-          ))}
-        </ActivityTags>
-        <ActivityButtons>
-          <StyledActionButton to={`/${MENU.ACTIVITY}/create/${id}`}>
-            관리
-          </StyledActionButton>
-          <StyledActionButton to={`/${MENU.ACTIVITY}/${id}/attendance`}>
-            출석
-          </StyledActionButton>
-          {available && <StyledActionButton>신청</StyledActionButton>}
-        </ActivityButtons>
-      </ActivityCardContainer>
-    </ActivityCardBlock>
+    <>
+      <ActivityModalContainer
+        visible={modalVisible}
+        activityTitle={title}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+      <ActivityCardBlock>
+        <ActivityCardContainer>
+          <StyledLink to={`/${MENU.ACTIVITY}/${id}`}>
+            <ActivityTitle>{title}</ActivityTitle>
+          </StyledLink>
+          <ActivityClassHour>{classHour}</ActivityClassHour>
+          <ActivityDate>{`${startDate} ~ `}</ActivityDate>
+          <ActivityHost>{host}</ActivityHost>
+          <ActivityTags>
+            {tags.map((tag) => (
+              <ActivityTag key={tag.id}>#{tag.name}</ActivityTag>
+            ))}
+          </ActivityTags>
+          <ActivityButtons>
+            <StyledActionButton to={`/${MENU.ACTIVITY}/create/${id}`}>
+              관리
+            </StyledActionButton>
+            <StyledActionButton to={`/${MENU.ACTIVITY}/${id}/attendance`}>
+              출석
+            </StyledActionButton>
+            {available && (
+              <StyledActionButton onClick={handleModalOpen}>
+                신청
+              </StyledActionButton>
+            )}
+          </ActivityButtons>
+        </ActivityCardContainer>
+      </ActivityCardBlock>
+    </>
   );
 };
 
