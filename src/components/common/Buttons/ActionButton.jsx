@@ -11,6 +11,7 @@ const StyledActionButton = styled.button`
   border-radius: 8px;
   transition: 0.3s;
   font-weight: 700;
+  font-size: 0.8rem;
   &:hover {
     background-color: ${colors.mint[2]};
     transition: 0.3s;
