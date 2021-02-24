@@ -1,6 +1,42 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled, { css, keyframes } from 'styled-components';
 import colors from '../../../lib/styles/colors';
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+
+const slideUp = keyframes`
+  from {
+    transform: translateY(200px);
+  }
+  to {
+    transform: translateY(0px);
+    }
+`;
+
+const slideDown = keyframes`
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(200px);
+    }
+`;
 
 const ModalBlock = styled.div`
   position: fixed;
@@ -13,6 +49,17 @@ const ModalBlock = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+  animation-name: ${fadeIn};
+  animation-fill-mode: forwards;
+
+  ${(props) =>
+    props.disappear &&
+    css`
+      animation-name: ${fadeOut};
+    `}
 `;
 
 const ModalContainer = styled.div`
@@ -25,6 +72,17 @@ const ModalContainer = styled.div`
   width: 300px;
   height: 200px;
   border-radius: 20px;
+
+  animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+  animation-name: ${slideUp};
+  animation-fill-mode: forwards;
+
+  ${(props) =>
+    props.disappear &&
+    css`
+      animation-name: ${slideDown};
+    `}
 `;
 
 const HeaderBar = styled.div`
@@ -53,9 +111,12 @@ const ContentContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 80%;
+  text-align: center;
+  word-break: keep-all;
+  line-height: 1.5rem;
   flex: 2;
-  font-weight: 500;
+  font-weight: 300;
 `;
 
 const ButtonContainer = styled.div`
@@ -66,12 +127,25 @@ const ButtonContainer = styled.div`
   justify-content: center;
 `;
 
-const Modal = ({ contents, buttons }) => {
+const Modal = ({ contents, buttons, visible, onConfirm, onCancel }) => {
+  const [animate, setAnimate] = useState(false);
+  const [localVisible, setLocalVisible] = useState(visible);
+
+  useEffect(() => {
+    if (localVisible && !visible) {
+      setAnimate(true);
+      setTimeout(() => setAnimate(false), 250);
+    }
+    setLocalVisible(visible);
+  }, [localVisible, visible]);
+
+  if (!localVisible && !animate) return null;
+
   return (
-    <ModalBlock>
-      <ModalContainer>
+    <ModalBlock disappear={!visible}>
+      <ModalContainer disappear={!visible}>
         <HeaderBar>
-          <i class="fas fa-times"></i>
+          <i class="fas fa-times" onClick={onCancel}></i>
         </HeaderBar>
         <ContentContainer>{contents}</ContentContainer>
         <ButtonContainer>{buttons}</ButtonContainer>
