@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import colors from '../../lib/styles/colors';
-
 const AuthFormBlock = styled.div`
   position: relative;
   top: 0px;
@@ -10,7 +9,10 @@ const AuthFormBlock = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
-  margin: 0px 0 50px 0;
+  margin: 0px 0 300px 0;
+  @media (max-width: 576px) {
+    margin-bottom: 500px;
+  }
 `;
 
 const FormContainer = styled.div`

@@ -10,7 +10,7 @@ const FooterBlock = styled.div`
   color: ${colors.brown[1]};
   background-color: ${colors.gray[1]};
   margin-top: 30px;
-  position: relative;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;

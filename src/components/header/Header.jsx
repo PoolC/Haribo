@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import LinkButton from '../common/LinkButton';
 import logoImage from '../../resources/poolc.icon.transparent.png';
-import ActionButton from '../common/ActionButton';
 import { Link } from 'react-router-dom';
 import colors from '../../lib/styles/colors';
+import LinkButton from '../common/Buttons/LinkButton';
+import ActionButton from '../common/Buttons/ActionButton';
 
 const HeaderBlock = styled.div`
   display: flex;
