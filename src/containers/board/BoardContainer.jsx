@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import BoardContent from '../../components/board/BoardContent';
-import BoardMenu from '../../components/board/BoardMenu';
 import { withRouter } from 'react-router-dom';
+import BoardMenu from '../../components/board/BoardMenu/BoardMenu';
+import BoardContent from '../../components/board/BoardContent/BoardContent';
 
 const BoardContainerBlock = styled.div`
   position: relative;
@@ -11,8 +11,9 @@ const BoardContainerBlock = styled.div`
   left: 5%;
   right: 5%;
   display: flex;
-  margin: 0px 0 50px 0;
+  margin: 0px 0 300px 0;
   @media (max-width: 576px) {
+    margin-bottom: 600px;
     flex-direction: column;
   }
 `;
@@ -34,14 +35,14 @@ const BoardContainer = ({ location, history }) => {
       title: '게시물 제목 테스트',
       author: 'TESTER',
       date: '2021-01-28',
-      commentsCount: 5,
+      commentsCount: 15,
     },
     {
       id: 2,
       title: '게시물 제목 테스트',
       author: 'TESTER',
       date: '2021-01-28',
-      commentsCount: 1,
+      commentsCount: 100,
     },
     {
       id: 3,
