@@ -39,7 +39,7 @@ const List = styled.ul`
   max-width: 1200px;
 `;
 
-const BookList = ({ books }) => {
+const BookList = ({ books, onChangeBookStatus }) => {
   return (
     <>
       <BookListBlock>
@@ -47,7 +47,11 @@ const BookList = ({ books }) => {
           <h3 className="book_container_title">보유 도서</h3>
           <List>
             {books.map((book) => (
-              <BookCard key={book.id} book={book} />
+              <BookCard
+                key={book.id}
+                book={book}
+                onChangeBookStatus={onChangeBookStatus}
+              />
             ))}
           </List>
         </BookListContainer>

@@ -1,7 +1,26 @@
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
+import styled, { css, keyframes } from 'styled-components';
+import BookModalContainer from '../../../containers/book/BookModal/BookModalContainer';
+
+const openCard = keyframes`
+  from {
+    height: 0;
+  }
+  to {
+    height: 100px;
+  }
+`;
+
+const closeCard = keyframes`
+  from {
+    height: 100px;
+  }
+  to {
+    height: 0;
+    }
+`;
 
 const BookCardBlock = styled.li`
   margin: 20px 0;
@@ -23,7 +42,7 @@ const BookCardContainer = styled.div`
   box-shadow: 0px -10px 10px ${colors.gray[1]};
   padding: 10px 20px;
   cursor: pointer;
-  transition: opacity 0.3s;
+  transition: 0.3s;
   ${(props) => !props.open && 'border-radius: 20px;'}
 
   &:hover {
@@ -80,7 +99,6 @@ const BookStatus = styled.p`
 
 const BookContentsContainer = styled.div`
   background-color: ${colors.mint[0]};
-  height: 100px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   width: 80%;
@@ -88,6 +106,17 @@ const BookContentsContainer = styled.div`
   padding: 10px 20px;
   transition: 0.3s;
   display: ${(props) => (props.open ? 'flex' : 'none')};
+
+  animation-duration: 0.25s;
+  animation-timing-function: ease-out;
+  animation-name: ${openCard};
+  animation-fill-mode: forwards;
+
+  ${(props) =>
+    props.disappear &&
+    css`
+      animation-name: ${closeCard};
+    `}
 `;
 
 const BookImageContainer = styled.div`
@@ -147,14 +176,15 @@ const BorrowDate = styled.p`
 `;
 
 const BookDetailButton = styled(ActionButton)`
-  flex: 1;
+  flex: 0.5;
   height: 2rem;
-  min-width: 3.5rem;
-  max-width: 3.5rem;
   margin: auto;
+  @media (max-width: 576px) {
+    flex: 2;
+  }
 `;
 
-const BookCard = ({ book }) => {
+const BookCard = ({ book, onChangeBookStatus }) => {
   const {
     id,
     title,
@@ -166,54 +196,93 @@ const BookCard = ({ book }) => {
     borrowDate,
   } = book;
 
+  const [animate, setAnimate] = useState(false);
   const [open, setOpen] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const handleOpen = () => {
-    setOpen((open) => !open);
+  useEffect(() => {
+    if (open) {
+      setAnimate(true);
+      setTimeout(() => setAnimate(false), 250);
+    }
+  }, [open]);
+
+  const handleCard = () => {
+    if (open) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  };
+
+  const handleModalOpen = () => {
+    setModalVisible(true);
+  };
+
+  const handleConfirm = () => {
+    onChangeBookStatus(id, status);
+    setModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setModalVisible(false);
   };
 
   return (
-    <BookCardBlock>
-      <BookCardContainer open={open} onClick={handleOpen}>
-        <BookInfoContainer>
-          <BookTitle>{title}</BookTitle>
-          <BookAuthor>{author}</BookAuthor>
-        </BookInfoContainer>
-        <BookStatus>
-          {status === 'available' ? '이용 가능' : '대출중'}
-          {open ? (
-            <i class="fas fa-caret-up"></i>
-          ) : (
-            <i class="fas fa-caret-down"></i>
-          )}
-        </BookStatus>
-      </BookCardContainer>
-      <BookContentsContainer open={open}>
-        <BookImageContainer>
-          <BookImage src={imageURL} alt="book_image" />
-        </BookImageContainer>
-        <BookDetailContainer>
-          <BookDetailInfoContainer>
-            {status !== 'available' && (
-              <Borrower>
-                <span>대출자</span> {borrower.name}
-              </Borrower>
+    <>
+      <BookModalContainer
+        visible={modalVisible}
+        bookTitle={title}
+        status={status}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+      <BookCardBlock>
+        <BookCardContainer open={open} animate={animate} onClick={handleCard}>
+          <BookInfoContainer>
+            <BookTitle>{title}</BookTitle>
+            <BookAuthor>{author}</BookAuthor>
+          </BookInfoContainer>
+          <BookStatus>
+            {status === 'available' ? '이용 가능' : '대출중'}
+            {open ? (
+              <i className="fas fa-caret-up"></i>
+            ) : (
+              <i className="fas fa-caret-down"></i>
             )}
-            {status !== 'available' && (
-              <BorrowDate>
-                <span>대출일</span> {borrowDate}
-              </BorrowDate>
+          </BookStatus>
+        </BookCardContainer>
+        <BookContentsContainer open={open}>
+          <BookImageContainer>
+            <BookImage src={imageURL} alt="book_image" />
+          </BookImageContainer>
+          <BookDetailContainer>
+            <BookDetailInfoContainer>
+              {status !== 'available' && (
+                <Borrower>
+                  <span>대출자</span> {borrower.name}
+                </Borrower>
+              )}
+              {status !== 'available' && (
+                <BorrowDate>
+                  <span>대출일</span> {borrowDate}
+                </BorrowDate>
+              )}
+              {info && <BookInfo>[{info}]</BookInfo>}
+            </BookDetailInfoContainer>
+            {status === 'available' ? (
+              <BookDetailButton onClick={handleModalOpen}>
+                대출
+              </BookDetailButton>
+            ) : (
+              <BookDetailButton onClick={handleModalOpen}>
+                반납
+              </BookDetailButton>
             )}
-            {info && <BookInfo>[{info}]</BookInfo>}
-          </BookDetailInfoContainer>
-          {status === 'available' ? (
-            <BookDetailButton>대출</BookDetailButton>
-          ) : (
-            <BookDetailButton>반납</BookDetailButton>
-          )}
-        </BookDetailContainer>
-      </BookContentsContainer>
-    </BookCardBlock>
+          </BookDetailContainer>
+        </BookContentsContainer>
+      </BookCardBlock>
+    </>
   );
 };
 

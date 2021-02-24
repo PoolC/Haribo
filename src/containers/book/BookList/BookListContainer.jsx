@@ -1,5 +1,4 @@
 import BookList from '../../../components/books/BookList/BookList';
-import BookModalContainer from '../BookModal/BookModalContainer';
 import React from 'react';
 
 const BookListContainer = () => {
@@ -36,10 +35,15 @@ const BookListContainer = () => {
       borrowDate: '2021-02-18',
     },
   ];
+
+  const onChangeBookStatus = (id, status) => {
+    console.log(id, status);
+    /* 요청 보내는 코드 작성 */
+  };
+
   return (
     <>
-      {/* <BookModalContainer /> */}
-      <BookList books={books} />
+      <BookList books={books} onChangeBookStatus={onChangeBookStatus} />
     </>
   );
 };
