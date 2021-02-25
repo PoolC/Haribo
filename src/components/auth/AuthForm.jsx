@@ -1,90 +1,24 @@
-import React from 'react';
-import styled from 'styled-components';
-import colors from '../../lib/styles/colors';
-const AuthFormBlock = styled.div`
-  position: relative;
-  top: 0px;
-  left: 0;
-  right: 0;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  margin: 0px 0 300px 0;
-  @media (max-width: 576px) {
-    margin-bottom: 500px;
-  }
-`;
-
-const FormContainer = styled.div`
-  width: 100%;
-  margin: 0 5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  box-shadow: 0px 0px 20px ${colors.gray[1]};
-  border-radius: 50px;
-  padding: 40px 40px 60px 40px;
-  min-height: 60vh;
-`;
-
-const FormListHeader = styled.header`
-  display: flex;
-  align-items: center;
-  margin: auto;
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-top: 1rem;
-  margin-bottom: 3rem;
-`;
-
-const FormList = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 320px;
-  & > label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 5px 0 8px 0;
-    font-size: 0.8rem;
-    width: 100%;
-  }
-  & > input {
-    border: 1px solid ${colors.brown[0]};
-    height: 2rem;
-    border-radius: 2px;
-    margin-bottom: 8px;
-    width: 100%;
-    max-width: 320px;
-    outline: ${colors.gray[1]};
-  }
-  & > input:disabled {
-    background-color: ${colors.gray[1]};
-  }
-`;
-
-const SubmitButton = styled.button`
-  cursor: pointer;
-  margin: 40px 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 320px;
-  height: 2rem;
-  background-color: ${colors.mint[1]};
-  color: white;
-  border-radius: 12px;
-  font-weight: 600;
-  transition: 0.3s;
-  &:hover {
-    background-color: ${colors.mint[2]};
-    transition: 0.3s;
-  }
-`;
+import React, { useState } from 'react';
+import RegisterModalContainer from '../../containers/auth/RegisterModalContainer/RegisterModalContainer';
+import ModalContainer from '../../containers/common/ModalContainer';
+import useInput from '../../hooks/useInput';
+import {
+  emailValidation,
+  idValidation,
+  notEmptyValidation,
+  passwordValidation,
+  phoneNumberValidation,
+} from '../../lib/utils/validation';
+import {
+  AuthFormBlock,
+  FormContainer,
+  FormList,
+  FormListHeader,
+  SubmitButton,
+  StyledInput,
+  Warning,
+  StyledTextarea,
+} from './AuthForm.styles';
 
 const textMap = {
   login: '로그인',
@@ -92,150 +26,257 @@ const textMap = {
   update: '회원 정보 수정',
 };
 
-const AuthForm = ({ type }) => {
-  const headerText = textMap[type];
+const Input = ({
+  labelText,
+  typeText,
+  nameText,
+  error,
+  onChangeFunc,
+  placeholderText,
+  disabledCondition,
+}) => {
+  const errorMessage = '형식이 올바르지 않습니다.';
   return (
-    <AuthFormBlock>
-      <FormContainer>
-        <FormListHeader>
-          <h2 className="form_list_title">{headerText}</h2>
-        </FormListHeader>
-        <FormList>
-          <label htmlFor="id">
-            아이디
-            <span className="form_warning form_warning_id">
-              형식이 올바르지 않습니다.
-            </span>
-          </label>
-          <input
-            type="text"
-            name="id"
-            id="id"
-            disabled={type === 'update'}
-            className="id_form member_form inavailable_input"
-          />
-          <label htmlFor="password">
-            비밀번호
-            <span className="form_warning form_warning_password">
-              형식이 올바르지 않습니다.
-            </span>
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            className="password_form member_form"
-          />
-          {type === 'register' && (
-            <>
-              <label htmlFor="password">
-                비밀번호 확인
-                <span className="form_warning form_warning_password_check">
-                  형식이 올바르지 않습니다.
-                </span>
-              </label>
-              <input
-                type="password"
-                name="password_check"
-                id="password_check"
-                className="password_check_form member_form"
+    <>
+      <label htmlFor={nameText}>
+        {labelText}
+        <Warning error={error}>{errorMessage}</Warning>
+      </label>
+      <StyledInput
+        type={typeText}
+        name={nameText}
+        id={nameText}
+        disabled={disabledCondition}
+        error={error}
+        onChange={onChangeFunc}
+        placeholder={placeholderText}
+      />
+    </>
+  );
+};
+
+const AuthForm = ({ type, onSubmit }) => {
+  const headerText = textMap[type];
+
+  const [id, onChangeId, idError] = useInput('', idValidation);
+  const [password, onChangePassword, passwordError] = useInput(
+    '',
+    passwordValidation,
+  );
+  const [name, onChangeName, nameError] = useInput('', notEmptyValidation);
+  const [email, onChangeEmail, emailError] = useInput('', emailValidation);
+  const [phoneNumber, onChangePhoneNumber, phoneNumberError] = useInput(
+    '',
+    phoneNumberValidation,
+  );
+  const [department, onChangeDepartment, departmentError] = useInput(
+    '',
+    notEmptyValidation,
+  );
+  const [studentId, onChangeStudentId, studentIdError] = useInput(
+    '',
+    notEmptyValidation,
+  );
+  const [introduction, onChangeIntroduction, introductionError] = useInput(
+    '',
+    notEmptyValidation,
+  );
+
+  const [passwordCheck, setPasswordCheck] = useState('');
+  const [passwordCheckError, setPasswordError] = useState(false);
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleModalOpen = () => {
+    setModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setModalVisible(false);
+  };
+
+  const handlePasswordCheckError = (input) => {
+    if (password !== input) {
+      setPasswordError(true);
+      return;
+    }
+    setPasswordError(false);
+  };
+
+  const onChangePasswordCheck = (e) => {
+    setPasswordCheck(e.target.value);
+    handlePasswordCheckError(e.target.value);
+  };
+
+  const registerValidation = () => {
+    return !(
+      idError ||
+      !id ||
+      passwordError ||
+      !password ||
+      passwordCheckError ||
+      !passwordCheck ||
+      nameError ||
+      !name ||
+      emailError ||
+      !email ||
+      phoneNumberError ||
+      !phoneNumber ||
+      departmentError ||
+      !department ||
+      studentIdError ||
+      !studentId ||
+      introductionError ||
+      !introduction
+    );
+  };
+
+  const updateValidation = () => {
+    return !(emailError || !email || phoneNumberError || !phoneNumber);
+  };
+
+  const loginValidation = () => {
+    return !(idError || !id || passwordError || !password);
+  };
+
+  const handleLogin = () => {
+    if (!loginValidation()) {
+      handleModalOpen();
+      return;
+    }
+    onSubmit();
+  };
+
+  const handleRegister = () => {
+    if (!registerValidation()) {
+      handleModalOpen();
+      return;
+    }
+    onSubmit();
+  };
+
+  const handleUpdate = () => {
+    if (!updateValidation()) {
+      handleModalOpen();
+      return;
+    }
+    onSubmit();
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (type === 'login') {
+      handleLogin();
+    }
+    if (type === 'register') {
+      handleRegister();
+    }
+    if (type === 'update') {
+      handleUpdate();
+    }
+  };
+
+  return (
+    <>
+      <RegisterModalContainer
+        visible={modalVisible}
+        onConfirm={handleModalClose}
+        onCancel={handleModalClose}
+      />
+      <AuthFormBlock>
+        <FormContainer>
+          <FormListHeader>
+            <h2 className="form_list_title">{headerText}</h2>
+          </FormListHeader>
+          <FormList onSubmit={handleSubmit}>
+            <Input
+              labelText="아이디"
+              typeText="text"
+              nameText="id"
+              error={idError}
+              disabledCondition={type === 'update'}
+              onChangeFunc={onChangeId}
+              placeholderText="영/숫자 4~12자리"
+            />
+            <Input
+              labelText="비밀번호"
+              typeText="password"
+              nameText="password"
+              error={passwordError}
+              onChangeFunc={onChangePassword}
+              placeholderText="8자리 이상"
+            />
+            {type === 'register' && (
+              <Input
+                labelText="비밀번호 확인"
+                typeText="password"
+                nameText="password_check"
+                error={passwordCheckError}
+                onChangeFunc={onChangePasswordCheck}
+                placeholderText="8자리 이상"
               />
-            </>
-          )}
-          {type !== 'login' && (
-            <>
-              <label htmlFor="name">이름</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                className="name_form member_form"
-                disabled={type === 'update'}
-              />
-            </>
-          )}
-          {type !== 'login' && (
-            <>
-              <label htmlFor="email">
-                이메일
-                <span className="form_warning form_warning_email">
-                  형식이 올바르지 않습니다.
-                </span>
-              </label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className="email_form member_form"
-              />
-            </>
-          )}
-          {type !== 'login' && (
-            <>
-              <label htmlFor="phone">
-                전화번호
-                <span className="form_warning form_warning_phone">
-                  형식이 올바르지 않습니다.
-                </span>
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                id="phone"
-                className="phone_form member_form"
-              />
-            </>
-          )}
-          {type !== 'login' && (
-            <>
-              <label htmlFor="major">소속 학과</label>
-              <input
-                type="text"
-                name="major"
-                id="major"
-                className="major_form member_form"
-                disabled={type === 'update'}
-              />
-            </>
-          )}
-          {type !== 'login' && (
-            <>
-              <label htmlFor="student_number">
-                학번
-                <span className="form_warning form_warning_student_number">
-                  형식이 올바르지 않습니다.
-                </span>
-              </label>
-              <input
-                type="text"
-                name="student_number"
-                id="student_number"
-                className="student_number_form member_form"
-                disabled={type === 'update'}
-              />
-            </>
-          )}
-          {type !== 'login' && (
-            <>
-              <label htmlFor="profile">프로필 이미지</label>
-            </>
-          )}
-          {type !== 'login' && (
-            <>
-              <label htmlFor="intro">자기소개</label>
-              <textarea
-                name="intro"
-                id="intro"
-                cols="30"
-                rows="5"
-                className="intro_form member_form"
-              ></textarea>
-            </>
-          )}
-        </FormList>
-        <SubmitButton>{headerText}</SubmitButton>
-      </FormContainer>
-    </AuthFormBlock>
+            )}
+            {type !== 'login' && (
+              <>
+                <Input
+                  labelText="이름"
+                  typeText="text"
+                  nameText="name"
+                  error={nameError}
+                  disabledCondition={type === 'update'}
+                  onChangeFunc={onChangeName}
+                  placeholderText="ex) 김풀씨"
+                />
+                <Input
+                  labelText="이메일"
+                  typeText="email"
+                  nameText="email"
+                  error={emailError}
+                  onChangeFunc={onChangeEmail}
+                  placeholderText="ex) email@example.com"
+                />
+                <Input
+                  labelText="전화번호"
+                  typeText="tel"
+                  nameText="phoneNumber"
+                  error={phoneNumberError}
+                  onChangeFunc={onChangePhoneNumber}
+                  placeholderText="ex) 010-0000-0000"
+                />
+                <Input
+                  labelText="소속 학과"
+                  typeText="text"
+                  nameText="department"
+                  error={departmentError}
+                  onChangeFunc={onChangeDepartment}
+                  disabledCondition={type === 'update'}
+                  placeholderText="ex) 컴퓨터과학과"
+                />
+                <Input
+                  labelText="학번"
+                  typeText="text"
+                  nameText="studentId"
+                  error={studentIdError}
+                  onChangeFunc={onChangeStudentId}
+                  disabledCondition={type === 'update'}
+                  placeholderText="ex) 2021000000"
+                />
+                <label htmlFor="introduction">자기소개</label>
+                <StyledTextarea
+                  name="introduction"
+                  id="introduction"
+                  cols="30"
+                  rows="5"
+                  onChange={onChangeIntroduction}
+                  placeholder="자기 소개를 적어주세요"
+                />
+              </>
+            )}
+            <SubmitButton>{headerText}</SubmitButton>
+          </FormList>
+        </FormContainer>
+      </AuthFormBlock>
+    </>
   );
 };
 
