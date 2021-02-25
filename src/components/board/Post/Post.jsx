@@ -34,6 +34,8 @@ const TitleContainer = styled.div`
   padding: 10px 0;
   font-size: 2rem;
   font-weight: 600;
+  word-break: keep-all;
+  line-height: 2.5rem;
 `;
 
 const InfoContainer = styled.div`
@@ -45,6 +47,12 @@ const InfoContainer = styled.div`
   color: ${colors.brown[0]};
   padding: 5px 0 20px 0;
   border-bottom: 1px solid ${colors.mint[0]};
+  & > div {
+    width: 1px;
+    height: 100%;
+    background-color: ${colors.brown[0]};
+    margin: 0 0.5rem;
+  }
 `;
 
 const BodyContainer = styled.div`
