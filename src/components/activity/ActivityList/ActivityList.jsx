@@ -44,7 +44,6 @@ const ActivityListTitle = styled.h3`
   justify-content: center;
   align-items: center;
   font-weight: 700;
-  margin: 40px 0;
 `;
 
 const ActivityListHeader = styled.header`
@@ -53,6 +52,20 @@ const ActivityListHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   max-width: 1200px;
+  margin: 40px 0 10px 0;
+`;
+
+const Description = styled.div`
+  display: flex;
+  width: 83%;
+  margin: 0px 0 40px 0;
+  font-size: 0.8rem;
+  color: ${colors.brown[0]};
+  word-break: keep-all;
+  line-height: 1.2rem;
+  @media (max-width: 576px) {
+    text-align: center;
+  }
 `;
 
 const ActivityList = ({ activities, onToggleRegisterActivity }) => {
@@ -64,6 +77,7 @@ const ActivityList = ({ activities, onToggleRegisterActivity }) => {
             <ActivityListTitle>세미나&스터디</ActivityListTitle>
             <ActionButton to={`/${MENU.ACTIVITY}/create`}>개설</ActionButton>
           </ActivityListHeader>
+          <Description>상세 내용을 보려면 각 제목을 클릭해주세요.</Description>
           <List>
             {activities.map((activity) => (
               <ActivityCard
