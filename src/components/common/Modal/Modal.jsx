@@ -145,7 +145,7 @@ const Modal = ({ contents, buttons, visible, onConfirm, onCancel }) => {
     <ModalBlock disappear={!visible}>
       <ModalContainer disappear={!visible}>
         <HeaderBar>
-          <i class="fas fa-times" onClick={onCancel}></i>
+          <i className="fas fa-times" onClick={onCancel}></i>
         </HeaderBar>
         <ContentContainer>{contents}</ContentContainer>
         <ButtonContainer>{buttons}</ButtonContainer>
