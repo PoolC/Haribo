@@ -152,7 +152,16 @@ const AuthForm = ({ type, onSubmit }) => {
       handleModalOpen();
       return;
     }
-    onSubmit();
+    onSubmit({
+      id,
+      password,
+      name,
+      email,
+      department,
+      studentId,
+      phoneNumber,
+      introduction,
+    });
   };
 
   const handleUpdate = () => {
