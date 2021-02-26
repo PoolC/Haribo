@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { MENU } from './constants/menus';
 import FooterContainer from './containers/footer/FooterContainer';
@@ -22,6 +22,7 @@ import ProjectListPage from './pages/project/ProjectListPage';
 import AdminHomePage from './pages/admin/AdminHomePage';
 import PostWritePage from './pages/post/PostWritePage';
 import PostPage from './pages/post/PostPage';
+import NotFoundPage from './pages/error/NotFoundPage';
 
 function App() {
   return (
@@ -72,6 +73,7 @@ function App() {
         <Route component={ApplyPage} path={`/${MENU.APPLY}`} />
         <Route component={AdminHomePage} path={`/${MENU.ADMIN}`} />
         <Route component={MyInfoPage} path={`/${MENU.MYINFO}`} />
+        <Route component={NotFoundPage} path="/" />
       </Switch>
       <FooterContainer />
     </>
