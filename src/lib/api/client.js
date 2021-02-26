@@ -2,7 +2,11 @@ import axios from 'axios';
 
 const client = axios.create();
 
-client.defaults.baseURL = 'https://localhost:8080';
+if (localStorage.getItem('accessToken')) {
+  client.defaults.headers.common[
+    'Authorization'
+  ] = `Bearer ${localStorage.getItem('accessToken')}`;
+}
 
 /*
   글로벌 설정 예시:

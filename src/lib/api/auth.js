@@ -1,13 +1,14 @@
 import client from './client';
 
 // 로그인
-export const login = ({ username, password }) =>
-  client.post('/login', { username, password });
+export const login = ({ id, password }) =>
+  client.post('/login', { loginID: id, password });
 
 // 회원가입
 export const register = ({
   id,
   password,
+  passwordCheck,
   name,
   email,
   department,
@@ -15,19 +16,47 @@ export const register = ({
   phoneNumber,
   introduction,
 }) =>
-  client.post('/member', {
-    id,
+  client.post(
+    '/member',
+    {
+      loginID: id,
+      password,
+      passwordCheck,
+      name,
+      email,
+      department,
+      studentID: studentId,
+      phoneNumber,
+      introduction,
+    },
+
+    // client.post('/member', {
+    //   loginID: 'test4',
+    //   password: '1111111',
+    //   passwordCheck: '1111111',
+    //   name: '김민지',
+    //   email: 'test4@gmail.com',
+    //   department: '국어국문학과',
+    //   studentID: '2015110024',
+    //   phoneNumber: '010-0000-0004',
+    //   introduction: 'hihi',
+    // }
+  );
+
+// 본인 정보 조회
+export const loadUser = () => client.get('/member/me');
+
+export const updateUser = ({
+  password,
+  passwordCheck,
+  email,
+  phoneNumber,
+  introduction,
+}) =>
+  client.put('/member/me', {
     password,
-    name,
+    passwordCheck,
     email,
-    department,
-    studentId,
     phoneNumber,
     introduction,
   });
-
-// 로그인 상태 확인
-export const check = () => client.get('/api/auth/check');
-
-// 로그아웃
-export const logout = () => client.post('/api/auth/logout');
