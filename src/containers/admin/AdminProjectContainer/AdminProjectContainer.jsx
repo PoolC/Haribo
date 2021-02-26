@@ -17,10 +17,7 @@ const AdminProjectContainer = () => {
   if (projects === null) {
     return null;
   }
-  // const projects = [
-  //   { id: 0, name: '프로젝트1', genre: '플랫포머' },
-  //   { id: 1, name: '프로젝트2', genre: '슈팅' },
-  // ];
+
   return <AdminProject projects={projects} />;
 };
 
