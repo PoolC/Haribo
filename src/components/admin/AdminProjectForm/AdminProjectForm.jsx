@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import useInput from '../../../hooks/useInput';
 import colors from '../../../lib/styles/colors';
+import { notEmptyValidation } from '../../../lib/utils/validation';
 import ActionButton from '../../common/Buttons/ActionButton';
 import MemberCard from '../../members/MemberCard/MemberCard';
 
@@ -113,38 +115,75 @@ const Member = ({ member }) => {
       </MemberInfo>
       <ButtonContainer>
         <ActionButton>
-          <i class="fas fa-times"></i>
+          <i className="fas fa-times"></i>
         </ActionButton>
       </ButtonContainer>
     </MemberBlock>
   );
 };
 
-const AdminProjectForm = () => {
-  const members = [
-    {
-      id: 0,
-      name: '김민지',
-      department: '국어국문학과',
-      studentId: '2015110019',
-    },
-    {
-      id: 1,
-      name: '김민지',
-      department: '국어국문학과',
-      studentId: '2015110019',
-    },
-    {
-      id: 2,
-      name: '김민지',
-      department: '국어국문학과',
-      studentId: '2015110019',
-    },
-  ];
+const Input = ({
+  valueText,
+  labelText,
+  typeText,
+  nameText,
+  error,
+  onChangeFunc,
+  placeholderText,
+  disabledCondition,
+}) => {
+  return (
+    <>
+      <label htmlFor={nameText}>{labelText}</label>
+      <StyledInput
+        value={valueText}
+        type={typeText}
+        name={nameText}
+        id={nameText}
+        disabled={disabledCondition}
+        error={error}
+        onChange={onChangeFunc}
+        placeholder={placeholderText}
+      />
+    </>
+  );
+};
+
+const AdminProjectForm = ({ onCreateProject, onSearchMember, members }) => {
+  // const members = [
+  //   {
+  //     id: 0,
+  //     name: '김민지',
+  //     department: '국어국문학과',
+  //     studentId: '2015110019',
+  //   },
+  //   {
+  //     id: 1,
+  //     name: '김민지',
+  //     department: '국어국문학과',
+  //     studentId: '2015110019',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: '김민지',
+  //     department: '국어국문학과',
+  //     studentId: '2015110019',
+  //   },
+  // ];
+  const [searchMember, onChangeSearchMember] = useInput('', notEmptyValidation);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    onCreateProject();
+    console.log('submit');
+  };
+  const onClickSearch = (e) => {
+    e.preventDefault();
+    onSearchMember(searchMember);
+  };
   return (
     <AdminProjectFormBlock>
       <TitleContainer>프로젝트 생성</TitleContainer>
-      <StyledForm>
+      <StyledForm onSubmit={onSubmit}>
         <label>프로젝트 이름</label>
         <StyledInput type="text" placeholder="프로젝트 이름" />
         <label>장르</label>
@@ -159,13 +198,20 @@ const AdminProjectForm = () => {
         <StyledTextarea />
         <label>참여자</label>
         <MemberSearchForm>
-          <StyledInput type="text" placeholder="회원 이름으로 검색" />
-          <ActionButton>검색</ActionButton>
+          <Input
+            valueText={searchMember}
+            labelText=""
+            typeText="text"
+            nameText="id"
+            onChangeFunc={onChangeSearchMember}
+            placeholderText="회원 이름으로 검색"
+          />
+          <ActionButton onClick={onClickSearch}>검색</ActionButton>
         </MemberSearchForm>
         <MemberContainer>
           <h3>참여자 목록</h3>
           {members.map((member) => (
-            <Member member={member} />
+            <Member key={member.loginID} member={member} />
           ))}
         </MemberContainer>
         <div></div>

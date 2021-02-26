@@ -150,6 +150,7 @@ const StyledActionButton = styled(ActionButton)`
 `;
 
 const AdminMember = ({ members }) => {
+  console.log(members);
   return (
     <AdminMembersBlock>
       <TitleContainer>회원 관리</TitleContainer>
@@ -170,13 +171,13 @@ const AdminMember = ({ members }) => {
           </thead>
           <tbody>
             {members.map((member) => (
-              <MemberListRow key={member.id}>
+              <MemberListRow key={member.loginID}>
                 <td className="member-list-row">{member.name}</td>
                 <td className="member-list-row stuendtId">
-                  {member.studentId}
+                  {member.studentID}
                 </td>
                 <td className="member-list-row loginId hide">
-                  {member.loginId}
+                  {member.loginID}
                 </td>
                 <td className="member-list-row email hide">{member.email}</td>
                 <td className="member-list-row phone hide">
