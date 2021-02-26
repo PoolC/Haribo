@@ -149,8 +149,25 @@ const StyledActionButton = styled(ActionButton)`
   }
 `;
 
-const AdminMember = ({ members }) => {
-  console.log(members);
+const AdminMember = ({
+  members,
+  onAcceptMember,
+  onWithdrawMember,
+  onToggleAdmin,
+}) => {
+  const handleWithdrawMember = (e, loginID) => {
+    e.preventDefault();
+    onWithdrawMember(loginID);
+  };
+  const handleAcceptMember = (e, loginID) => {
+    e.preventDefault();
+    onAcceptMember(loginID);
+  };
+  const handleToggleAdmin = (e, loginID, isAdmin) => {
+    e.preventDefault();
+    onToggleAdmin({ loginID, isAdmin });
+  };
+
   return (
     <AdminMembersBlock>
       <TitleContainer>회원 관리</TitleContainer>
@@ -187,17 +204,41 @@ const AdminMember = ({ members }) => {
                   {member.isActivated ? 'o' : 'x'}
                 </td>
                 <td className="member-list-row">
-                  <StyledActionButton>
-                    {member.isActivated ? '탈퇴' : '승인'}
-                  </StyledActionButton>
+                  {member.isActivated ? (
+                    <StyledActionButton
+                      onClick={(e) => handleWithdrawMember(e, member.loginID)}
+                    >
+                      탈퇴
+                    </StyledActionButton>
+                  ) : (
+                    <StyledActionButton
+                      onClick={(e) => handleAcceptMember(e, member.loginID)}
+                    >
+                      승인
+                    </StyledActionButton>
+                  )}
                 </td>
                 <td className="member-list-row etc">
                   {member.isAdmin ? 'o' : 'x'}
                 </td>
                 <td className="member-list-row">
-                  <StyledActionButton>
-                    {member.isAdmin ? '해제' : '임명'}
-                  </StyledActionButton>
+                  {member.isAdmin ? (
+                    <StyledActionButton
+                      onClick={(e) =>
+                        handleToggleAdmin(e, member.loginID, member.isAdmin)
+                      }
+                    >
+                      해제
+                    </StyledActionButton>
+                  ) : (
+                    <StyledActionButton
+                      onClick={(e) =>
+                        handleToggleAdmin(e, member.loginID, member.isAdmin)
+                      }
+                    >
+                      임명
+                    </StyledActionButton>
+                  )}
                 </td>
               </MemberListRow>
             ))}
