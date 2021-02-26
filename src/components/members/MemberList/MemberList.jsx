@@ -62,7 +62,7 @@ const MemberList = ({ members }) => {
         </MemberListHeader>
         <StyledMemberList>
           {members.map((member) => (
-            <MemberCard key={member.id} member={member} />
+            <MemberCard key={member.loginID} member={member} />
           ))}
         </StyledMemberList>
       </MemberListContainer>

@@ -147,8 +147,9 @@ const Activities = styled.ul`
 `;
 
 const MemberDetail = ({ member }) => {
+  console.log(member);
   const {
-    id,
+    loginID,
     name,
     department,
     profileImageURL,
@@ -162,7 +163,7 @@ const MemberDetail = ({ member }) => {
       <MemberDetailContainer>
         <ContentContainer>
           <ImageContainer>
-            <StyledImage src={member.profileImageURL} />
+            <StyledImage src={profileImageURL} />
           </ImageContainer>
           <TextContainer>
             <NameContainer>
@@ -189,10 +190,10 @@ const MemberDetail = ({ member }) => {
         <ActivityContainer>
           <h2>참여 활동</h2>
           <Activities>
-            {projects.map((project) => (
+            {projects?.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
-            {activities.map((activity) => (
+            {activities?.map((activity) => (
               <ActivityCard activity={activity} />
             ))}
           </Activities>

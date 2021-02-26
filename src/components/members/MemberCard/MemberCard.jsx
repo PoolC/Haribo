@@ -69,10 +69,9 @@ const StyledLink = styled(Link)`
 `;
 
 const MemberCard = ({ member }) => {
-  const { id, name, department, isAdmin, profileImageURL } = member;
+  const { loginID, name, department, isAdmin, profileImageURL } = member;
   return (
-    <StyledLink to={`/${MENU.MEMBER}/${id}`}>
-      {' '}
+    <StyledLink to={`/${MENU.MEMBER}/${loginID}`}>
       <MemberCardBlock>
         <MemberItem
           style={{
