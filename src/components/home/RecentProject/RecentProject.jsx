@@ -10,7 +10,8 @@ const RecentProjectBlock = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  margin: 60px 0 300px 0;
+  margin: 0px 0 300px 0;
+  max-width: 1366px;
   @media (max-width: 576px) {
     margin-bottom: 600px;
   }

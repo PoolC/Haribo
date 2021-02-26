@@ -7,6 +7,7 @@ const CarouselBlock = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
+  max-width: 1366px;
   height: 50vh;
   margin: 0px 0 80px 0;
 `;

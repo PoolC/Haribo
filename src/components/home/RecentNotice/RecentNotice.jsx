@@ -8,6 +8,8 @@ const RecentNoticeBlock = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 1366px;
   margin: 20px 0 100px 0;
 `;
 
