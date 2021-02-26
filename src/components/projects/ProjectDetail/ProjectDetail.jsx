@@ -156,7 +156,8 @@ const Members = styled.ul`
 `;
 
 const ProjectDetail = ({ project, member }) => {
-  const { id, thumbnailURL, name, genre, duration, body, members } = project;
+  const { id, thumbnailURL, name, genre, duration, body } = project;
+  const members = [];
   const {
     status: { isLogin },
     user: { isAdmin },

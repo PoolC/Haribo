@@ -171,9 +171,16 @@ const AdminProjectForm = ({ onCreateProject, onSearchMember, members }) => {
   //   },
   // ];
   const [searchMember, onChangeSearchMember] = useInput('', notEmptyValidation);
+  const [name, onChangeName] = useInput('', notEmptyValidation);
+  const [thumbnailURL, onChangeThumbnailURL] = useInput('', notEmptyValidation);
+  const [genre, onChangeGenre] = useInput('', notEmptyValidation);
+  const [duration, onChangeDuration] = useInput('', notEmptyValidation);
+  const [description, onChangeDescription] = useInput('', notEmptyValidation);
+  const [body, onChangeBody] = useInput('', notEmptyValidation);
+
   const onSubmit = (e) => {
     e.preventDefault();
-    onCreateProject();
+    onCreateProject({ name, genre, duration, thumbnailURL, description, body });
     console.log('submit');
   };
   const onClickSearch = (e) => {
@@ -184,18 +191,52 @@ const AdminProjectForm = ({ onCreateProject, onSearchMember, members }) => {
     <AdminProjectFormBlock>
       <TitleContainer>프로젝트 생성</TitleContainer>
       <StyledForm onSubmit={onSubmit}>
-        <label>프로젝트 이름</label>
-        <StyledInput type="text" placeholder="프로젝트 이름" />
-        <label>장르</label>
-        <StyledInput type="text" placeholder="ex) 모바일 게임, 슈팅, 웹, .." />
-        <label>활동 기간</label>
-        <StyledInput type="text" placeholder="2019.10.23 ~ 2020.10.23" />
-        <label>썸네일 이미지 첨부</label>
-        <StyledInput type="text" />
-        <label>설명 요약</label>
-        <StyledInput type="text" placeholder="공백 포함 30자 이내" />
+        <Input
+          valueText={name}
+          labelText="프로젝트 이름"
+          typeText="text"
+          nameText="name"
+          onChangeFunc={onChangeName}
+          placeholderText="프로젝트 이름"
+        />
+        <Input
+          valueText={genre}
+          labelText="장르"
+          typeText="text"
+          nameText="genre"
+          onChangeFunc={onChangeGenre}
+          placeholderText="ex) 모바일 게임, 슈팅, 웹, .."
+        />
+        <Input
+          valueText={duration}
+          labelText="활동 기간"
+          typeText="text"
+          nameText="duration"
+          onChangeFunc={onChangeDuration}
+          placeholderText="ex) 2019.10.23 ~ 2020.10.23"
+        />
+        <Input
+          valueText={thumbnailURL}
+          labelText="썸네일 이미지 첨부"
+          typeText="text"
+          nameText="thumbnailURL"
+          onChangeFunc={onChangeThumbnailURL}
+        />
+        <Input
+          valueText={description}
+          labelText="설명 요약"
+          typeText="text"
+          nameText="description"
+          onChangeFunc={onChangeDescription}
+          placeholderText="공백 포함 30자 이내"
+        />
         <label>프로젝트 내용</label>
-        <StyledTextarea />
+        <StyledTextarea
+          value={body}
+          nameText="body"
+          onChange={onChangeBody}
+          placeholderText="프로젝트 내용을 자세히 적어주세요"
+        />
         <label>참여자</label>
         <MemberSearchForm>
           <Input
