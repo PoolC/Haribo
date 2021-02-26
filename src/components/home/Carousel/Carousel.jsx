@@ -8,7 +8,7 @@ const CarouselBlock = styled.div`
   align-items: center;
   width: 100vw;
   max-width: 1366px;
-  height: 50vh;
+  max-height: 400px;
   margin: 0px 0 80px 0;
 `;
 
@@ -21,10 +21,12 @@ const MainCarousel = styled.div`
   box-shadow: ${colors.gray[1]};
   height: 50vh;
   overflow: hidden;
+  max-height: 400px;
 `;
 
 const MainCarouselImage = styled.img`
   height: 50vh;
+  max-height: 400px;
   border-radius: 50px;
 `;
 
