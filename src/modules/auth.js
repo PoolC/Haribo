@@ -1,63 +1,133 @@
 import { createAction, handleActions } from 'redux-actions';
-import { callExpression } from '../../../../../Library/Caches/typescript/4.1/node_modules/@babel/types/lib/index';
 import * as authAPI from '../lib/api/auth';
 import { call, put } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 
-const SAMPLE_ACTION = 'auth/SAMPLE_ACTION';
+const LOGIN = 'auth/LOGIN';
+const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
+const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 
-const REGISTER = 'auth/REGISTER';
-const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
-const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
+const LOAD_USER = 'auth/LOAD_USER';
+const LOAD_USER_SUCCESS = 'auth/LOAD_USER_SUCCESS';
+const LOAD_USER_FAILURE = 'auth/LOAD_USER_FAILURE';
 
-export const sampleAction = createAction(SAMPLE_ACTION);
+const LOGOUT = 'auth/LOGOUT';
+const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
+const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
 
-export const register = createAction(REGISTER, ({ username, password }) => ({
-  username,
+export const login = createAction(LOGIN, ({ id, password }) => ({
+  id,
   password,
 }));
 
-const registerSaga = () => {
-  const SUCCESS = `REGISTER_SUCCESS`;
-  const FAILURE = `REGISTER_FAILURE`;
+export const loadUser = createAction(LOAD_USER);
 
-  return function* (action) {
-    //yield put(startLoading(REGISTER)); // 로딩 시작
-    try {
-      const response = yield call(authAPI.register, action.payload);
-      yield put({
-        type: SUCCESS,
-        payload: response.data,
-        meta: response,
-      });
-    } catch (e) {
-      yield put({
-        type: FAILURE,
-        payload: e,
-        error: true,
-      });
-    }
-    //yield put(finishLoading(REGISTER)); // 로딩 끝
-  };
-};
+export const logout = createAction(LOGOUT);
+
+function* loadUserSaga(action) {
+  try {
+    const result = yield call(authAPI.loadUser);
+    yield put({
+      type: LOAD_USER_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: LOAD_USER_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function* loginSaga(action) {
+  try {
+    const result = yield call(authAPI.login, action.payload);
+    localStorage.setItem('accessToken', result.data.accessToken);
+    yield put({
+      type: LOGIN_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error('*****');
+    console.error(err.response.status);
+    yield put({
+      type: LOGIN_FAILURE,
+      error: err,
+    });
+  }
+}
+
+function logoutRequest() {
+  localStorage.removeItem('accessToken');
+}
+
+export function* authSaga() {
+  yield takeLatest(LOGIN, loginSaga);
+  yield takeLatest(LOGIN_SUCCESS, loadUserSaga);
+  yield takeLatest(LOAD_USER, loadUserSaga);
+  yield takeLatest(LOGOUT, logoutRequest);
+}
 
 const initialState = {
+  authError: null,
   login: {
     status: 'INIT',
   },
   status: {
     isLogin: false,
-    isAdmin: false,
     init: false,
   },
   user: {
-    id: '',
+    memberId: '',
     password: '',
+    isAdmin: false,
   },
 };
 
 const auth = handleActions(
   {
-    [SAMPLE_ACTION]: (state, action) => state,
+    [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
+      ...state,
+      status: {
+        isLogin: true,
+        init: false,
+      },
+      authError: null,
+    }),
+    [LOGIN_FAILURE]: (state, { error }) => ({
+      ...state,
+      authError: error,
+    }),
+    [LOAD_USER_SUCCESS]: (state, { data }) => {
+      return {
+        ...state,
+        status: {
+          isLogin: true,
+          init: false,
+        },
+        user: {
+          memberId: data.loginID,
+          isAdmin: data.isAdmin,
+        },
+      };
+    },
+    [LOAD_USER_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    [LOGOUT]: (state, { payload: error }) => ({
+      ...state,
+      status: {
+        isLogin: false,
+        init: false,
+      },
+      user: {
+        memberId: '',
+        password: '',
+        isAdmin: false,
+      },
+    }),
   },
   initialState,
 );
