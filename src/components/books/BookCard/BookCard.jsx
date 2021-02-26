@@ -184,7 +184,7 @@ const BookDetailButton = styled(ActionButton)`
   }
 `;
 
-const BookCard = ({ book, onChangeBookStatus }) => {
+const BookCard = ({ book, onChangeBookStatus, isLogin }) => {
   const {
     id,
     title,
@@ -270,15 +270,16 @@ const BookCard = ({ book, onChangeBookStatus }) => {
               )}
               {info && <BookInfo>[{info}]</BookInfo>}
             </BookDetailInfoContainer>
-            {status === 'available' ? (
-              <BookDetailButton onClick={handleModalOpen}>
-                대출
-              </BookDetailButton>
-            ) : (
-              <BookDetailButton onClick={handleModalOpen}>
-                반납
-              </BookDetailButton>
-            )}
+            {isLogin &&
+              (status === 'available' ? (
+                <BookDetailButton onClick={handleModalOpen}>
+                  대출
+                </BookDetailButton>
+              ) : (
+                <BookDetailButton onClick={handleModalOpen}>
+                  반납
+                </BookDetailButton>
+              ))}
           </BookDetailContainer>
         </BookContentsContainer>
       </BookCardBlock>

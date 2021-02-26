@@ -155,8 +155,13 @@ const Members = styled.ul`
   }
 `;
 
-const ProjectDetail = ({ project }) => {
+const ProjectDetail = ({ project, member }) => {
   const { id, thumbnailURL, name, genre, duration, body, members } = project;
+  const {
+    status: { isLogin },
+    user: { isAdmin },
+  } = member;
+
   return (
     <ProjectDetailBlock>
       <ProjectDetailContainer>
@@ -185,14 +190,16 @@ const ProjectDetail = ({ project }) => {
             </Introduction>
           </IntroductionContainer>
         </TextContainer>
-        <MemberContainer>
-          <h2>참여 멤버</h2>
-          <Members>
-            {members.map((member) => (
-              <MemberCard key={member.id} member={member} />
-            ))}
-          </Members>
-        </MemberContainer>
+        {isLogin && (
+          <MemberContainer>
+            <h2>참여 멤버</h2>
+            <Members>
+              {members.map((member) => (
+                <MemberCard key={member.id} member={member} />
+              ))}
+            </Members>
+          </MemberContainer>
+        )}
       </ProjectDetailContainer>
     </ProjectDetailBlock>
   );

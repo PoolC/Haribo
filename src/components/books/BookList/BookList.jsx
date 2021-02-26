@@ -39,7 +39,12 @@ const List = styled.ul`
   max-width: 1200px;
 `;
 
-const BookList = ({ books, onChangeBookStatus }) => {
+const BookList = ({ books, onChangeBookStatus, member }) => {
+  const {
+    status: { isLogin },
+    user: { isAdmin },
+  } = member;
+
   return (
     <>
       <BookListBlock>
@@ -51,6 +56,7 @@ const BookList = ({ books, onChangeBookStatus }) => {
                 key={book.id}
                 book={book}
                 onChangeBookStatus={onChangeBookStatus}
+                isLogin={isLogin}
               />
             ))}
           </List>

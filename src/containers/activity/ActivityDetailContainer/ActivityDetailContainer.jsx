@@ -1,5 +1,6 @@
 import ActivityDetail from '../../../components/activity/ActivityDetail/ActivityDetail';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const ActivityDetailContainer = () => {
   const activity = {
@@ -106,8 +107,8 @@ const ActivityDetailContainer = () => {
       },
     ],
   };
-
-  return <ActivityDetail activity={activity} />;
+  const member = useSelector((state) => state.auth);
+  return <ActivityDetail activity={activity} member={member} />;
 };
 
 export default ActivityDetailContainer;

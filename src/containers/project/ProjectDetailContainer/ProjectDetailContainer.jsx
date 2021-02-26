@@ -1,7 +1,9 @@
 import ProjectDetail from '../../../components/projects/ProjectDetail/ProjectDetail';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const ProjectDetailContainer = () => {
+  const member = useSelector((state) => state.auth);
   const project = {
     id: 0,
     thumbnailURL: 'https://api.poolc.org/files/Yourtail.png',
@@ -49,7 +51,7 @@ const ProjectDetailContainer = () => {
       },
     ],
   };
-  return <ProjectDetail project={project} />;
+  return <ProjectDetail project={project} member={member} />;
 };
 
 export default ProjectDetailContainer;

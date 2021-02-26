@@ -1,7 +1,9 @@
 import BookList from '../../../components/books/BookList/BookList';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const BookListContainer = () => {
+  const member = useSelector((state) => state.auth);
   const books = [
     {
       id: 0,
@@ -43,7 +45,11 @@ const BookListContainer = () => {
 
   return (
     <>
-      <BookList books={books} onChangeBookStatus={onChangeBookStatus} />
+      <BookList
+        member={member}
+        books={books}
+        onChangeBookStatus={onChangeBookStatus}
+      />
     </>
   );
 };

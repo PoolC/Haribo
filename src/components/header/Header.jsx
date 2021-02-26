@@ -15,6 +15,8 @@ const HeaderBlock = styled.div`
   left: 0;
   right: 0;
   margin-bottom: 0px;
+  max-width: 1366px;
+  margin: auto;
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
@@ -95,8 +97,11 @@ const SelectedLinkButton = styled(LinkButton)`
   color: ${colors.brown[1]};
 `;
 
-const Header = ({ member, applyURL, selected }) => {
-  const isAdmin = member?.isAdmin;
+const Header = ({ member, applyURL, selected, onLogout }) => {
+  const {
+    status: { isLogin },
+    user: { isAdmin },
+  } = member;
 
   return (
     <HeaderBlock>
@@ -113,7 +118,7 @@ const Header = ({ member, applyURL, selected }) => {
           ) : (
             <LinkButton to="/intro">PoolC</LinkButton>
           )}
-          {member &&
+          {isLogin &&
             (selected === 'members' ? (
               <SelectedLinkButton to="/members">Members</SelectedLinkButton>
             ) : (
@@ -139,7 +144,7 @@ const Header = ({ member, applyURL, selected }) => {
           ) : (
             <LinkButton to="/books">Books</LinkButton>
           )}
-          {!member &&
+          {!isLogin &&
             (selected === 'apply' ? (
               <SelectedLinkButton to="/apply">Apply</SelectedLinkButton>
             ) : (
@@ -147,27 +152,27 @@ const Header = ({ member, applyURL, selected }) => {
             ))}
         </LeftHeaderMenu>
         <RightHeaderMenu>
-          {member &&
+          {isLogin &&
             isAdmin &&
             (selected === 'admin' ? (
               <SelectedLinkButton to="/admin">Admin</SelectedLinkButton>
             ) : (
               <LinkButton to="/admin">Admin</LinkButton>
             ))}
-          {member &&
+          {isLogin &&
             (selected === 'my-info' ? (
               <SelectedLinkButton to="/my-info">My Info</SelectedLinkButton>
             ) : (
               <LinkButton to="/my-info">My Info</LinkButton>
             ))}
-          {!member &&
+          {!isLogin &&
             (selected === 'register' ? (
               <SelectedLinkButton to="/register">Sign Up</SelectedLinkButton>
             ) : (
               <LinkButton to="/register">Sign Up</LinkButton>
             ))}
-          {!member && <ActionButton to="/login">Sign In</ActionButton>}
-          {member && <ActionButton>Sign Out</ActionButton>}
+          {!isLogin && <ActionButton to="/login">Sign In</ActionButton>}
+          {isLogin && <ActionButton onClick={onLogout}>Sign Out</ActionButton>}
         </RightHeaderMenu>
       </Menus>
     </HeaderBlock>

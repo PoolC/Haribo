@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import ActivityMenu from '../../../components/activity/ActivityMenu/ActivityMenu';
 import ActivityList from '../../../components/activity/ActivityList/ActivityList';
+import { useSelector } from 'react-redux';
 
 const ActivityListContainerBlock = styled.div`
   position: relative;
@@ -20,6 +21,7 @@ const ActivityListContainerBlock = styled.div`
 
 const ActivityListContainer = ({ location, history }) => {
   const currentLocation = location.search.replace('?semester=', '');
+  const member = useSelector((state) => state.auth);
 
   const onToggleRegisterActivity = (id) => {
     console.log(id);
@@ -177,6 +179,7 @@ const ActivityListContainer = ({ location, history }) => {
       <ActivityList
         activities={activities}
         onToggleRegisterActivity={onToggleRegisterActivity}
+        member={member}
       />
     </ActivityListContainerBlock>
   );

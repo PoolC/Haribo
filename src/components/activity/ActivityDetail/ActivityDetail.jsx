@@ -209,13 +209,16 @@ const Tag = ({ tag }) => {
   return <TagCard>#{tag}</TagCard>;
 };
 
-const Session = ({ session }) => {
+const Session = ({ session, memberInfo }) => {
   const { id, description, date, sessionNumber, attendances } = session;
   const { members } = attendances;
+  const {
+    status: { isLogin },
+    user: { memberId, isAdmin },
+  } = memberInfo;
 
   return (
     <>
-      {' '}
       <SessionCard>
         <SessionNumber>{sessionNumber}회차</SessionNumber>
         <Date>{date}</Date>
@@ -229,15 +232,24 @@ const Session = ({ session }) => {
           </AttendanceList>
         )}
       </SessionCard>
-      <ActionButton to={`/${MENU.ACTIVITY}/${id}/attendance/${sessionNumber}`}>
-        수정
-      </ActionButton>
+      {isLogin && (
+        <ActionButton
+          to={`/${MENU.ACTIVITY}/${id}/attendance/${sessionNumber}`}
+        >
+          수정
+        </ActionButton>
+      )}
       <SessionDivider />
     </>
   );
 };
 
-const ActivityDetail = ({ activity }) => {
+const ActivityDetail = ({ activity, member }) => {
+  const {
+    status: { isLogin },
+    user: { memberId, isAdmin },
+  } = member;
+
   const {
     id,
     title,
@@ -290,19 +302,21 @@ const ActivityDetail = ({ activity }) => {
           <h2>계획서</h2>
           <Plan>{description}</Plan>
         </PlanContainer>
-        <MemberContainer>
-          <h2>참여 멤버</h2>
-          <Member>
-            {members.map((member) => (
-              <MemberCard key={member.id} member={member} />
-            ))}
-          </Member>
-        </MemberContainer>
+        {isLogin && (
+          <MemberContainer>
+            <h2>참여 멤버</h2>
+            <Member>
+              {members.map((member) => (
+                <MemberCard key={member.id} member={member} />
+              ))}
+            </Member>
+          </MemberContainer>
+        )}
         <SessionContainer>
           <h2>회차 정보</h2>
           <Sessions>
             {sessions.map((session) => (
-              <Session key={session.id} session={session} />
+              <Session key={session.id} session={session} memberInfo={member} />
             ))}
           </Sessions>
         </SessionContainer>

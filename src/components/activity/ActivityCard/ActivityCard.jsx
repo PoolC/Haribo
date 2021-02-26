@@ -106,7 +106,7 @@ const StyledLink = styled(Link)`
   margin: 10px 0;
 `;
 
-const ActivityCard = ({ activity, onToggleRegisterActivity }) => {
+const ActivityCard = ({ activity, onToggleRegisterActivity, isLogin }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleModalOpen = () => {
@@ -155,19 +155,21 @@ const ActivityCard = ({ activity, onToggleRegisterActivity }) => {
               <ActivityTag key={tag.id}>#{tag.name}</ActivityTag>
             ))}
           </ActivityTags>
-          <ActivityButtons>
-            <StyledActionButton to={`/${MENU.ACTIVITY}/create/${id}`}>
-              관리
-            </StyledActionButton>
-            <StyledActionButton to={`/${MENU.ACTIVITY}/${id}/attendance`}>
-              출석
-            </StyledActionButton>
-            {available && (
-              <StyledActionButton onClick={handleModalOpen}>
-                신청
+          {isLogin && (
+            <ActivityButtons>
+              <StyledActionButton to={`/${MENU.ACTIVITY}/create/${id}`}>
+                관리
               </StyledActionButton>
-            )}
-          </ActivityButtons>
+              <StyledActionButton to={`/${MENU.ACTIVITY}/${id}/attendance`}>
+                출석
+              </StyledActionButton>
+              {available && (
+                <StyledActionButton onClick={handleModalOpen}>
+                  신청
+                </StyledActionButton>
+              )}
+            </ActivityButtons>
+          )}
         </ActivityCardContainer>
       </ActivityCardBlock>
     </>
