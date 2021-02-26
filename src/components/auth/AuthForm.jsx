@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import RegisterModalContainer from '../../containers/auth/RegisterModalContainer/RegisterModalContainer';
 import ModalContainer from '../../containers/common/ModalContainer';
 import useInput from '../../hooks/useInput';
@@ -27,6 +27,7 @@ const textMap = {
 };
 
 const Input = ({
+  valueText,
   labelText,
   typeText,
   nameText,
@@ -35,14 +36,15 @@ const Input = ({
   placeholderText,
   disabledCondition,
 }) => {
-  const errorMessage = '형식이 올바르지 않습니다.';
+  const message = '형식이 올바르지 않습니다.';
   return (
     <>
       <label htmlFor={nameText}>
         {labelText}
-        <Warning error={error}>{errorMessage}</Warning>
+        <Warning error={error}>{message}</Warning>
       </label>
       <StyledInput
+        value={valueText}
         type={typeText}
         name={nameText}
         id={nameText}
@@ -55,45 +57,56 @@ const Input = ({
   );
 };
 
-const AuthForm = ({ type, onSubmit }) => {
+const AuthForm = ({
+  history,
+  type,
+  onSubmit,
+  message,
+  onChangeMessage,
+  modalVisible,
+  handleModalOpen,
+  handleModalClose,
+  userInfo,
+}) => {
   const headerText = textMap[type];
 
-  const [id, onChangeId, idError] = useInput('', idValidation);
+  const [id, onChangeId, idError] = useInput(
+    userInfo ? userInfo.loginID : '',
+    idValidation,
+  );
   const [password, onChangePassword, passwordError] = useInput(
-    '',
+    userInfo ? userInfo.password : '',
     passwordValidation,
   );
-  const [name, onChangeName, nameError] = useInput('', notEmptyValidation);
-  const [email, onChangeEmail, emailError] = useInput('', emailValidation);
+  const [name, onChangeName, nameError] = useInput(
+    userInfo ? userInfo.name : '',
+    notEmptyValidation,
+  );
+  const [email, onChangeEmail, emailError] = useInput(
+    userInfo ? userInfo.email : '',
+    emailValidation,
+  );
   const [phoneNumber, onChangePhoneNumber, phoneNumberError] = useInput(
-    '',
+    userInfo ? userInfo.phoneNumber : '',
     phoneNumberValidation,
   );
   const [department, onChangeDepartment, departmentError] = useInput(
-    '',
+    userInfo ? userInfo.department : '',
     notEmptyValidation,
   );
   const [studentId, onChangeStudentId, studentIdError] = useInput(
-    '',
+    userInfo ? userInfo.studentID : '',
     notEmptyValidation,
   );
   const [introduction, onChangeIntroduction, introductionError] = useInput(
-    '',
+    userInfo ? userInfo.introduction : '',
     notEmptyValidation,
   );
 
-  const [passwordCheck, setPasswordCheck] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState(
+    userInfo ? userInfo?.passwordCheck : '',
+  );
   const [passwordCheckError, setPasswordError] = useState(false);
-
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const handleModalOpen = () => {
-    setModalVisible(true);
-  };
-
-  const handleModalClose = () => {
-    setModalVisible(false);
-  };
 
   const handlePasswordCheckError = (input) => {
     if (password !== input) {
@@ -132,29 +145,53 @@ const AuthForm = ({ type, onSubmit }) => {
   };
 
   const updateValidation = () => {
-    return !(emailError || !email || phoneNumberError || !phoneNumber);
+    return !(
+      passwordError ||
+      !password ||
+      passwordCheckError ||
+      !passwordCheck ||
+      emailError ||
+      !email ||
+      phoneNumberError ||
+      !phoneNumber ||
+      introductionError ||
+      !introduction
+    );
   };
 
   const loginValidation = () => {
     return !(idError || !id || passwordError || !password);
   };
 
-  const handleLogin = () => {
-    if (!loginValidation()) {
-      handleModalOpen();
-      return;
-    }
-    onSubmit();
+  const setInputErrorMessage = () => {
+    console.log('setInputErrorMessage');
+    onChangeMessage('모든 값을 올바르게 입력해주세요.');
   };
 
-  const handleRegister = () => {
-    if (!registerValidation()) {
+  const handleLogin = () => {
+    if (!loginValidation()) {
+      setInputErrorMessage();
       handleModalOpen();
       return;
     }
     onSubmit({
       id,
       password,
+    });
+  };
+
+  const handleRegister = () => {
+    console.log('handleRegister');
+    if (!registerValidation()) {
+      console.log('!registerValidation');
+      setInputErrorMessage();
+      handleModalOpen();
+      return;
+    }
+    onSubmit({
+      id,
+      password,
+      passwordCheck,
       name,
       email,
       department,
@@ -166,10 +203,17 @@ const AuthForm = ({ type, onSubmit }) => {
 
   const handleUpdate = () => {
     if (!updateValidation()) {
+      setInputErrorMessage();
       handleModalOpen();
       return;
     }
-    onSubmit();
+    onSubmit({
+      password,
+      passwordCheck,
+      email,
+      phoneNumber,
+      introduction,
+    });
   };
 
   const handleSubmit = (e) => {
@@ -191,6 +235,7 @@ const AuthForm = ({ type, onSubmit }) => {
         visible={modalVisible}
         onConfirm={handleModalClose}
         onCancel={handleModalClose}
+        message={message}
       />
       <AuthFormBlock>
         <FormContainer>
@@ -199,6 +244,7 @@ const AuthForm = ({ type, onSubmit }) => {
           </FormListHeader>
           <FormList onSubmit={handleSubmit}>
             <Input
+              valueText={id}
               labelText="아이디"
               typeText="text"
               nameText="id"
@@ -208,6 +254,7 @@ const AuthForm = ({ type, onSubmit }) => {
               placeholderText="영/숫자 4~12자리"
             />
             <Input
+              valueText={password}
               labelText="비밀번호"
               typeText="password"
               nameText="password"
@@ -215,8 +262,9 @@ const AuthForm = ({ type, onSubmit }) => {
               onChangeFunc={onChangePassword}
               placeholderText="8자리 이상"
             />
-            {type === 'register' && (
+            {type !== 'login' && (
               <Input
+                valueText={passwordCheck}
                 labelText="비밀번호 확인"
                 typeText="password"
                 nameText="password_check"
@@ -228,6 +276,7 @@ const AuthForm = ({ type, onSubmit }) => {
             {type !== 'login' && (
               <>
                 <Input
+                  valueText={name}
                   labelText="이름"
                   typeText="text"
                   nameText="name"
@@ -237,6 +286,7 @@ const AuthForm = ({ type, onSubmit }) => {
                   placeholderText="ex) 김풀씨"
                 />
                 <Input
+                  valueText={email}
                   labelText="이메일"
                   typeText="email"
                   nameText="email"
@@ -245,6 +295,7 @@ const AuthForm = ({ type, onSubmit }) => {
                   placeholderText="ex) email@example.com"
                 />
                 <Input
+                  valueText={phoneNumber}
                   labelText="전화번호"
                   typeText="tel"
                   nameText="phoneNumber"
@@ -253,6 +304,7 @@ const AuthForm = ({ type, onSubmit }) => {
                   placeholderText="ex) 010-0000-0000"
                 />
                 <Input
+                  valueText={department}
                   labelText="소속 학과"
                   typeText="text"
                   nameText="department"
@@ -262,6 +314,7 @@ const AuthForm = ({ type, onSubmit }) => {
                   placeholderText="ex) 컴퓨터과학과"
                 />
                 <Input
+                  valueText={studentId}
                   labelText="학번"
                   typeText="text"
                   nameText="studentId"
@@ -272,6 +325,7 @@ const AuthForm = ({ type, onSubmit }) => {
                 />
                 <label htmlFor="introduction">자기소개</label>
                 <StyledTextarea
+                  valueText={introduction}
                   name="introduction"
                   id="introduction"
                   cols="30"
