@@ -65,7 +65,7 @@ export const createActivitySession = ({
 export const getActivitySessions = (activityID) =>
   client.get(`/activity/session/${activityID}`);
 
-export const updateActivitySession = ({ date, description }) =>
+export const updateActivitySession = ({ sessionID, date, description }) =>
   client.post(`/activity/session/${sessionID}`, {
     date,
     description,
