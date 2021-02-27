@@ -9,7 +9,7 @@ const BookModalContainer = ({
   onConfirm,
   onCancel,
 }) => {
-  const action = status === 'available' ? '대출' : '반납';
+  const action = status === 'AVAILABLE' ? '대출' : '반납';
   const contents = `<${bookTitle}>을(를) ${action}하시겠습니까?`;
   const buttons = <ActionButton onClick={onConfirm}>{action}</ActionButton>;
   return (
