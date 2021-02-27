@@ -23,8 +23,25 @@ export const createProject = ({
     members,
   });
 
-export const updateProject = ({ projectID }) =>
-  client.put(`/project/${projectID}`);
+export const updateProject = ({
+  projectID,
+  name,
+  description,
+  genre,
+  duration,
+  thumbnailURL,
+  body,
+  members,
+}) =>
+  client.put(`/project/${projectID}`, {
+    name,
+    description,
+    genre,
+    duration,
+    thumbnailURL,
+    body,
+    members,
+  });
 
 export const deleteProject = ({ projectID }) =>
   client.delete(`/project/${projectID}`);
