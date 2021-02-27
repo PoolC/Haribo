@@ -43,14 +43,14 @@ function* loadUserSaga(action) {
 function* loginSaga(action) {
   try {
     const result = yield call(authAPI.login, action.payload);
-    localStorage.setItem('accessToken', result.data.accessToken);
+    yield localStorage.setItem('accessToken', result.data.accessToken);
     yield put({
       type: LOGIN_SUCCESS,
       data: result.data,
     });
   } catch (err) {
     console.error('*****');
-    console.error(err.response.status);
+    console.error(err);
     yield put({
       type: LOGIN_FAILURE,
       error: err,
@@ -80,6 +80,7 @@ const initialState = {
   },
   user: {
     memberId: '',
+    name: '',
     password: '',
     isAdmin: false,
   },
@@ -109,6 +110,7 @@ const auth = handleActions(
         user: {
           memberId: data.loginID,
           isAdmin: data.isAdmin,
+          name: data.name,
         },
       };
     },
@@ -125,6 +127,7 @@ const auth = handleActions(
       user: {
         memberId: '',
         password: '',
+        name: '',
         isAdmin: false,
       },
     }),
