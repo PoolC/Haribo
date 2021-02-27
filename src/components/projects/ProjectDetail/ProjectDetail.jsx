@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 import MemberCard from '../../members/MemberCard/MemberCard';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
 
 const ProjectDetailBlock = styled.div`
   position: relative;
@@ -155,6 +157,11 @@ const Members = styled.ul`
   }
 `;
 
+const BodyContainer = styled.div`
+  width: 100%;
+  padding: 40px 0 20px 0;
+`;
+
 const ProjectDetail = ({ project, member }) => {
   const { id, thumbnailURL, name, genre, duration, body } = project;
   const members = [];
@@ -184,7 +191,9 @@ const ProjectDetail = ({ project, member }) => {
               <span>
                 <i className="fas fa-quote-left"></i>
               </span>
-              {body}
+              <BodyContainer>
+                <ReactMarkdown plugins={[gfm]} source={body} />
+              </BodyContainer>
               <span>
                 <i className="fas fa-quote-right"></i>
               </span>
