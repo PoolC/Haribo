@@ -3,6 +3,10 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as authAPI from '../../../lib/api/auth';
+import {
+  removeHeaderAccessToken,
+  setHeaderAccessToken,
+} from '../../../lib/utils/axiosUtil';
 
 const MyInfoFormContainer = ({ location, history }) => {
   const [message, setMessage] = useState(null);
@@ -15,6 +19,23 @@ const MyInfoFormContainer = ({ location, history }) => {
   const handleModalClose = () => {
     setModalVisible(false);
   };
+
+  useEffect(() => {
+    (async () => {
+      removeHeaderAccessToken();
+      setHeaderAccessToken();
+      const response = await authAPI.loadUser();
+      setUserInfo(response.data);
+    })();
+  }, []);
+
+  if (userInfo === null) {
+    return null;
+  }
+
+  function onChangeMessage(msg) {
+    setMessage(msg);
+  }
 
   const onSubmit = ({
     password,
@@ -60,21 +81,6 @@ const MyInfoFormContainer = ({ location, history }) => {
       //console.log(e);
     }
   };
-
-  useEffect(() => {
-    (async () => {
-      const response = await authAPI.loadUser();
-      setUserInfo(response.data);
-    })();
-  }, []);
-
-  if (userInfo === null) {
-    return null;
-  }
-
-  function onChangeMessage(msg) {
-    setMessage(msg);
-  }
 
   return (
     <AuthForm
