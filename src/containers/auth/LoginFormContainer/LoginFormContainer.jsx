@@ -28,7 +28,6 @@ const LoginFormContainer = ({ location, history }) => {
   };
 
   useEffect(() => {
-    removeHeaderAccessToken();
     if (authError) {
       if (authError.response.status === 403) {
         setMessage('관리자 승인 전에는 로그인이 불가능합니다.');
