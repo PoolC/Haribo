@@ -244,7 +244,7 @@ const BookCard = ({ book, onChangeBookStatus, isLogin }) => {
             <BookAuthor>{author}</BookAuthor>
           </BookInfoContainer>
           <BookStatus>
-            {status === 'available' ? '이용 가능' : '대출중'}
+            {status === 'AVAILABLE' ? '이용 가능' : '대출중'}
             {open ? (
               <i className="fas fa-caret-up"></i>
             ) : (
@@ -258,12 +258,12 @@ const BookCard = ({ book, onChangeBookStatus, isLogin }) => {
           </BookImageContainer>
           <BookDetailContainer>
             <BookDetailInfoContainer>
-              {status !== 'available' && (
+              {status !== 'AVAILABLE' && (
                 <Borrower>
                   <span>대출자</span> {borrower.name}
                 </Borrower>
               )}
-              {status !== 'available' && (
+              {status !== 'AVAILABLE' && (
                 <BorrowDate>
                   <span>대출일</span> {borrowDate}
                 </BorrowDate>
@@ -271,7 +271,7 @@ const BookCard = ({ book, onChangeBookStatus, isLogin }) => {
               {info && <BookInfo>[{info}]</BookInfo>}
             </BookDetailInfoContainer>
             {isLogin &&
-              (status === 'available' ? (
+              (status === 'AVAILABLE' ? (
                 <BookDetailButton onClick={handleModalOpen}>
                   대출
                 </BookDetailButton>
