@@ -43,5 +43,5 @@ export const updateProject = ({
     members,
   });
 
-export const deleteProject = ({ projectID }) =>
+export const deleteProject = (projectID) =>
   client.delete(`/project/${projectID}`);
