@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import useInput from '../../../hooks/useInput';
 import colors from '../../../lib/styles/colors';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import ActionButton from '../../common/Buttons/ActionButton';
 import Input from '../../common/Input/Input';
-import MemberCard from '../../members/MemberCard/MemberCard';
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
 
 const AdminProjectFormBlock = styled.div`
   display: flex;
@@ -122,48 +124,71 @@ const Member = ({ member }) => {
   );
 };
 
-const AdminProjectForm = ({ onCreateProject, onSearchMember, members }) => {
-  // const members = [
-  //   {
-  //     id: 0,
-  //     name: '김민지',
-  //     department: '국어국문학과',
-  //     studentId: '2015110019',
-  //   },
-  //   {
-  //     id: 1,
-  //     name: '김민지',
-  //     department: '국어국문학과',
-  //     studentId: '2015110019',
-  //   },
-  //   {
-  //     id: 2,
-  //     name: '김민지',
-  //     department: '국어국문학과',
-  //     studentId: '2015110019',
-  //   },
-  // ];
-  const [searchMember, onChangeSearchMember] = useInput('', notEmptyValidation);
-  const [name, onChangeName] = useInput('', notEmptyValidation);
-  const [thumbnailURL, onChangeThumbnailURL] = useInput('', notEmptyValidation);
-  const [genre, onChangeGenre] = useInput('', notEmptyValidation);
-  const [duration, onChangeDuration] = useInput('', notEmptyValidation);
-  const [description, onChangeDescription] = useInput('', notEmptyValidation);
-  const [body, onChangeBody] = useInput('', notEmptyValidation);
+const AdminProjectForm = ({
+  onCreateProject,
+  onSearchMember,
+  onUpdateProject,
+  members,
+  project,
+}) => {
+  console.log(project);
+  const editorRef = useRef();
 
-  const onSubmit = (e) => {
+  const [searchMember, onChangeSearchMember] = useInput(
+    members,
+    notEmptyValidation,
+  );
+  const [name, onChangeName] = useInput(
+    project ? project.name : '',
+    notEmptyValidation,
+  );
+  const [thumbnailURL, onChangeThumbnailURL] = useInput(
+    project ? project.thumbnailURL : '',
+    notEmptyValidation,
+  );
+  const [genre, onChangeGenre] = useInput(
+    project ? project.genre : '',
+    notEmptyValidation,
+  );
+  const [duration, onChangeDuration] = useInput(
+    project ? project.duration : '',
+    notEmptyValidation,
+  );
+  const [description, onChangeDescription] = useInput(
+    project ? project.description : '',
+    notEmptyValidation,
+  );
+  const [body, setBody] = useState(project ? project.body : '');
+
+  const handleCreate = (e) => {
     e.preventDefault();
     onCreateProject({ name, genre, duration, thumbnailURL, description, body });
     console.log('submit');
   };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    onUpdateProject({ name, description, genre, duration, thumbnailURL, body });
+  };
+
   const onClickSearch = (e) => {
     e.preventDefault();
     onSearchMember(searchMember);
   };
+
+  function onEditorChange(e) {
+    const editorInstance = editorRef.current.getInstance();
+    const markdownContent = editorInstance.getMarkdown();
+    console.log(markdownContent);
+    const HTMLContent = editorInstance.getHtml();
+    console.log(HTMLContent);
+    setBody(markdownContent);
+  }
+
   return (
     <AdminProjectFormBlock>
       <TitleContainer>프로젝트 생성</TitleContainer>
-      <StyledForm onSubmit={onSubmit}>
+      <StyledForm>
         <Input
           valueText={name}
           labelText="프로젝트 이름"
@@ -204,11 +229,10 @@ const AdminProjectForm = ({ onCreateProject, onSearchMember, members }) => {
           placeholderText="공백 포함 30자 이내"
         />
         <label>프로젝트 내용</label>
-        <StyledTextarea
-          value={body}
-          nameText="body"
-          onChange={onChangeBody}
-          placeholderText="프로젝트 내용을 자세히 적어주세요"
+        <Editor
+          initialValue={body}
+          ref={editorRef}
+          onChange={(e) => onEditorChange(e)}
         />
         <label>참여자</label>
         <MemberSearchForm>
@@ -230,8 +254,11 @@ const AdminProjectForm = ({ onCreateProject, onSearchMember, members }) => {
             <Member key={member.loginID} member={member} />
           ))}
         </MemberContainer>
-        <div></div>
-        <StyledActionButton>제출</StyledActionButton>
+        {project ? (
+          <StyledActionButton onClick={handleUpdate}>수정</StyledActionButton>
+        ) : (
+          <StyledActionButton onClick={handleCreate}>제출</StyledActionButton>
+        )}
       </StyledForm>
     </AdminProjectFormBlock>
   );

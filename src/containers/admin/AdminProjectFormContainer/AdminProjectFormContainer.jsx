@@ -1,12 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminProjectForm from '../../../components/admin/AdminProjectForm/AdminProjectForm';
 import * as projectAPI from '../../../lib/api/project';
 import * as memberAPI from '../../../lib/api/member';
 import { useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-const AdminProjectFormContainer = ({ history }) => {
-  const [members, setMembers] = useState([]);
+const AdminProjectFormContainer = ({ match, history }) => {
+  const projectID = match.params.projectID;
   const hostID = useSelector((state) => state.auth.user.memberId);
+
+  const [members, setMembers] = useState([]);
+  const [project, setProject] = useState(null);
+
+  useEffect(() => {
+    if (projectID) {
+      (async () => {
+        const response = await projectAPI.getProject(projectID);
+        console.log(response.data);
+        setProject(response.data);
+      })();
+    }
+  }, []);
+
+  if (projectID && project === null) {
+    return null;
+  }
+
   const onCreateProject = ({
     name,
     thumbnailURL,
@@ -15,15 +34,6 @@ const AdminProjectFormContainer = ({ history }) => {
     description,
     body,
   }) => {
-    console.log(
-      name,
-      thumbnailURL,
-      genre,
-      duration,
-      description,
-      body,
-      members,
-    );
     projectAPI
       .createProject({
         name,
@@ -40,6 +50,36 @@ const AdminProjectFormContainer = ({ history }) => {
         }
       });
   };
+
+  const onUpdateProject = ({
+    name,
+    description,
+    genre,
+    duration,
+    thumbnailURL,
+    body,
+    members,
+  }) => {
+    console.log(projectID);
+    console.log(body);
+    projectAPI
+      .updateProject({
+        projectID,
+        name,
+        description,
+        genre,
+        duration,
+        thumbnailURL,
+        body,
+        members,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          history.push('/admin/projects');
+        }
+      });
+  };
+
   const onSearchMember = (name) => {
     console.log(name);
     const response = memberAPI.searchMember({ name });
@@ -51,9 +91,11 @@ const AdminProjectFormContainer = ({ history }) => {
     <AdminProjectForm
       onCreateProject={onCreateProject}
       onSearchMember={onSearchMember}
+      onUpdateProject={onUpdateProject}
       members={members}
+      project={project}
     />
   );
 };
 
-export default AdminProjectFormContainer;
+export default withRouter(AdminProjectFormContainer);

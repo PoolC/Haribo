@@ -99,7 +99,11 @@ const ProjectListRow = styled.tr`
   }
 `;
 
-const AdminProject = ({ projects }) => {
+const AdminProject = ({ projects, onDeleteProject }) => {
+  const handleDelete = (e, projectID) => {
+    e.preventDefault();
+    onDeleteProject(projectID);
+  };
   return (
     <AdminProjectsBlock>
       <TitleContainer>프로젝트 관리</TitleContainer>
@@ -123,8 +127,14 @@ const AdminProject = ({ projects }) => {
                 <td className="project-list-row">{project.name}</td>
                 <td className="project-list-row">{project.genre}</td>
                 <td className="project-list-row">
-                  <ActionButton>편집</ActionButton>
-                  <ActionButton>삭제</ActionButton>
+                  <ActionButton
+                    to={`/${MENU.ADMIN}/projects/edit/${project.id}`}
+                  >
+                    편집
+                  </ActionButton>
+                  <ActionButton onClick={(e) => handleDelete(e, project.id)}>
+                    삭제
+                  </ActionButton>
                 </td>
               </ProjectListRow>
             ))}
