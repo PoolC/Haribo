@@ -7,8 +7,6 @@ const AdminProjectContainer = () => {
   useEffect(() => {
     (async () => {
       const response = await projectAPI.getProjects();
-      console.log(response);
-
       setProjects(response.data.data);
     })();
   }, []);
@@ -17,7 +15,16 @@ const AdminProjectContainer = () => {
     return null;
   }
 
-  return <AdminProject projects={projects} />;
+  const onDeleteProject = (projectID) => {
+    console.log(projectID);
+    projectAPI.deleteProject(projectID).then((res) => {
+      if (res.status === 200) {
+        setProjects(projects.filter((project) => project.id !== projectID));
+      }
+    });
+  };
+
+  return <AdminProject projects={projects} onDeleteProject={onDeleteProject} />;
 };
 
 export default AdminProjectContainer;
