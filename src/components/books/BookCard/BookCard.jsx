@@ -184,7 +184,7 @@ const BookDetailButton = styled(ActionButton)`
   }
 `;
 
-const BookCard = ({ book, onChangeBookStatus, isLogin }) => {
+const BookCard = ({ book, isLogin, onBorrowBook, onReturnBook }) => {
   const {
     id,
     title,
@@ -220,7 +220,11 @@ const BookCard = ({ book, onChangeBookStatus, isLogin }) => {
   };
 
   const handleConfirm = () => {
-    onChangeBookStatus(id, status);
+    if (status === 'AVAILABLE') {
+      onBorrowBook(id, status);
+    } else {
+      onReturnBook(id, status);
+    }
     setModalVisible(false);
   };
 

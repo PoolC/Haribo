@@ -39,7 +39,7 @@ const List = styled.ul`
   max-width: 1200px;
 `;
 
-const BookList = ({ books, onChangeBookStatus, member }) => {
+const BookList = ({ books, member, onBorrowBook, onReturnBook }) => {
   const {
     status: { isLogin },
     user: { isAdmin },
@@ -55,7 +55,8 @@ const BookList = ({ books, onChangeBookStatus, member }) => {
               <BookCard
                 key={book.id}
                 book={book}
-                onChangeBookStatus={onChangeBookStatus}
+                onBorrowBook={onBorrowBook}
+                onReturnBook={onReturnBook}
                 isLogin={isLogin}
               />
             ))}
