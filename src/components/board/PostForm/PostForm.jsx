@@ -5,6 +5,9 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import ActionButton from '../../common/Buttons/ActionButton';
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
 
 const PostFormBlock = styled.div`
   flex: 4;
@@ -70,23 +73,26 @@ const BoardName = styled.h2`
   width: 90%;
 `;
 
-const mdParser = new MarkdownIt(/* Markdown-it options */);
-
-function handleEditorChange({ html, text }) {
-  console.log('handleEditorChange', html, text);
-}
-
 const PostForm = ({ title, body }) => {
+  const editorRef = useRef();
+  function onEditorChange(e) {
+    const editorInstance = editorRef.current.getInstance();
+    const markdownContent = editorInstance.getMarkdown();
+    console.log(markdownContent);
+    const HTMLContent = editorInstance.getHtml();
+    console.log(HTMLContent);
+    //setBody(markdownContent);
+  }
   return (
     <PostFormBlock>
       <BoardName>공지사항</BoardName>
       <TitleInput placeholder="제목을 입력하세요" value={title} />
       <EditorWrapper>
-        <MdEditor
-          style={{ height: '500px', width: '100%' }}
-          renderHTML={(text) => mdParser.render(text)}
-          onChange={handleEditorChange}
-          placeholder="마크다운 형식으로 작성해주세요"
+        <Editor
+          initialValue={body}
+          ref={editorRef}
+          onChange={(e) => onEditorChange(e)}
+          height="500px"
         />
       </EditorWrapper>
       <PostButtonContainer>
