@@ -4,6 +4,7 @@ import useInput from '../../../hooks/useInput';
 import colors from '../../../lib/styles/colors';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import ActionButton from '../../common/Buttons/ActionButton';
+import Input from '../../common/Input/Input';
 import MemberCard from '../../members/MemberCard/MemberCard';
 
 const AdminProjectFormBlock = styled.div`
@@ -37,21 +38,20 @@ const StyledForm = styled.form`
   }
 `;
 
-const StyledInput = styled.input`
-  height: 2rem;
-  width: 15rem;
-  outline: 0;
-`;
-
 const StyledActionButton = styled(ActionButton)`
   height: 2rem;
   width: 15rem;
   margin: 2rem 0;
 `;
 
+const StyledSearchActionButton = styled(ActionButton)`
+  height: 2rem;
+`;
+
 const MemberSearchForm = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
 
   & > input {
     width: 10rem;
@@ -119,33 +119,6 @@ const Member = ({ member }) => {
         </ActionButton>
       </ButtonContainer>
     </MemberBlock>
-  );
-};
-
-const Input = ({
-  valueText,
-  labelText,
-  typeText,
-  nameText,
-  error,
-  onChangeFunc,
-  placeholderText,
-  disabledCondition,
-}) => {
-  return (
-    <>
-      <label htmlFor={nameText}>{labelText}</label>
-      <StyledInput
-        value={valueText}
-        type={typeText}
-        name={nameText}
-        id={nameText}
-        disabled={disabledCondition}
-        error={error}
-        onChange={onChangeFunc}
-        placeholder={placeholderText}
-      />
-    </>
   );
 };
 
@@ -247,7 +220,9 @@ const AdminProjectForm = ({ onCreateProject, onSearchMember, members }) => {
             onChangeFunc={onChangeSearchMember}
             placeholderText="회원 이름으로 검색"
           />
-          <ActionButton onClick={onClickSearch}>검색</ActionButton>
+          <StyledSearchActionButton onClick={onClickSearch}>
+            검색
+          </StyledSearchActionButton>
         </MemberSearchForm>
         <MemberContainer>
           <h3>참여자 목록</h3>
