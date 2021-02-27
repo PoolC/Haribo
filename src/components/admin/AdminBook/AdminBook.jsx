@@ -103,7 +103,13 @@ const StyledImage = styled.img`
   width: 80px;
 `;
 
-const AdminBook = ({ books }) => {
+const StyledActionButton = styled(ActionButton)``;
+
+const AdminBook = ({ books, onDeleteBook }) => {
+  const handleDelete = (e, bookID) => {
+    e.preventDefault();
+    onDeleteBook(bookID);
+  };
   return (
     <AdminBooksBlock>
       <TitleContainer>도서 관리</TitleContainer>
@@ -125,7 +131,7 @@ const AdminBook = ({ books }) => {
             {books.map((book) => (
               <BookListRow key={book.id}>
                 <td className="book-list-row">
-                  <StyledImage src={book.imageUrl} />
+                  <StyledImage src={book.imageURL} />
                 </td>
                 <td className="book-list-row">{book.title}</td>
                 <td className="book-list-row">{book.author}</td>
@@ -133,8 +139,14 @@ const AdminBook = ({ books }) => {
                   {book.status === 'AVAILABLE' ? '이용 가능' : '대출중'}
                 </td>
                 <td className="book-list-row">
-                  <ActionButton>편집</ActionButton>
-                  <ActionButton>삭제</ActionButton>
+                  <StyledActionButton
+                    to={`/${MENU.ADMIN}/books/edit/${book.id}`}
+                  >
+                    편집
+                  </StyledActionButton>
+                  <StyledActionButton onClick={(e) => handleDelete(e, book.id)}>
+                    삭제
+                  </StyledActionButton>
                 </td>
               </BookListRow>
             ))}

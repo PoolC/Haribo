@@ -1,26 +1,32 @@
 import AdminBook from '../../../components/admin/AdminBook/AdminBook';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import * as bookAPI from '../../../lib/api/book';
 
 const AdminBookContainer = () => {
-  const books = [
-    {
-      id: 0,
-      title: '객체지향의 오해와 진실',
-      author: '박형철',
-      status: 'AVAILABLE',
-      imageUrl:
-        'http://image.yes24.com/momo/TopCate511/MidCate005/51040273.jpg',
-    },
-    {
-      id: 1,
-      title: '객체지향의 오해와 진실',
-      author: '박형철',
-      status: 'AVAILABLE',
-      imageUrl:
-        'http://image.yes24.com/momo/TopCate511/MidCate005/51040273.jpg',
-    },
-  ];
-  return <AdminBook books={books} />;
+  const [books, setBooks] = useState(null);
+  useEffect(() => {
+    (async () => {
+      const response = await bookAPI.getBooks();
+      console.log(response);
+      setBooks(response.data.data);
+    })();
+  }, []);
+
+  if (books === null) {
+    return null;
+  }
+
+  const onDeleteBook = (bookID) => {
+    console.log(bookID);
+    bookAPI.deleteBook(bookID).then((res) => {
+      if (res.status === 200) {
+        console.log('ok');
+        setBooks(books.filter((book) => book.id !== bookID));
+      }
+    });
+  };
+
+  return <AdminBook books={books} onDeleteBook={onDeleteBook} />;
 };
 
 export default AdminBookContainer;
