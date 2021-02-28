@@ -62,7 +62,10 @@ const AdminPage = () => {
         />
         <Route
           component={AdminBoardFormContainer}
-          path={`/${MENU.ADMIN}/boards/new`}
+          path={[
+            `/${MENU.ADMIN}/boards/new`,
+            `/${MENU.ADMIN}/boards/edit/:boardID`,
+          ]}
           exact
         />
         <Route
