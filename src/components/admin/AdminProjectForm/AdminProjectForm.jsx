@@ -2,12 +2,12 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import useInput from '../../../hooks/useInput';
 import colors from '../../../lib/styles/colors';
-import { notEmptyValidation } from '../../../lib/utils/validation';
 import ActionButton from '../../common/Buttons/ActionButton';
 import Input from '../../common/Input/Input';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
+import { notEmptyValidation } from '../../../lib/utils/validation';
 
 const AdminProjectFormBlock = styled.div`
   display: flex;
@@ -131,7 +131,6 @@ const AdminProjectForm = ({
   members,
   project,
 }) => {
-  console.log(project);
   const editorRef = useRef();
 
   const [searchMember, onChangeSearchMember] = useInput(
