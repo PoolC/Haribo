@@ -40,7 +40,7 @@ function App() {
         <Route component={PostPage} path={`/${MENU.POST}/:postId`} />
         <Route
           component={BoardPage}
-          path={[`/${MENU.BOARDS}`, `/${MENU.BOARDS}/notice`]}
+          path={[`/${MENU.BOARDS}/:urlPath`, `/${MENU.BOARDS}`]}
         />
         <Route component={ProjectListPage} path={`/${MENU.PROJECTS}`} />
         <Route

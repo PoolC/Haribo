@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import BoardMenu from '../../components/board/BoardMenu/BoardMenu';
 import BoardContent from '../../components/board/BoardContent/BoardContent';
+import * as boardAPI from '../../lib/api/board';
 
 const BoardContainerBlock = styled.div`
   position: relative;
@@ -18,107 +19,40 @@ const BoardContainerBlock = styled.div`
   }
 `;
 
-const BoardContainer = ({ location, history }) => {
-  const currentLocation = location.pathname.replace('/boards', '');
-  if (location.pathname === '/boards') {
+const BoardContainer = ({ location, history, match }) => {
+  const initialSelectedMenu = match.params.urlPath;
+
+  const [selectedMenu, setSelectedMenu] = useState(initialSelectedMenu);
+  const [boards, setBoards] = useState(null);
+  const [posts, setPosts] = useState([]);
+
+  if (!initialSelectedMenu) {
     history.push('/boards/notice');
   }
-  const menus = [
-    { name: '공지사항', url: '/notice' },
-    { name: '학술부', url: '/study' },
-    { name: '구인/홍보', url: '/recruit' },
-    { name: '게임제작부', url: '/gamedev' },
-  ];
-  const posts = [
-    {
-      id: 0,
-      title: '게시물 제목 테스트',
-      author: 'TESTER',
-      date: '2021-01-28',
-      commentsCount: 15,
-    },
-    {
-      id: 2,
-      title: '게시물 제목 테스트',
-      author: 'TESTER',
-      date: '2021-01-28',
-      commentsCount: 100,
-    },
-    {
-      id: 3,
-      title: '게시물 제목 테스트',
-      author: 'TESTER',
-      date: '2021-01-28',
-      commentsCount: 0,
-    },
-    {
-      id: 0,
-      title: '게시물 제목 테스트',
-      author: 'TESTER',
-      date: '2021-01-28',
-      commentsCount: 5,
-    },
-    {
-      id: 2,
-      title: '게시물 제목 테스트',
-      author: 'TESTER',
-      date: '2021-01-28',
-      commentsCount: 1,
-    },
-    {
-      id: 3,
-      title: '게시물 제목 테스트',
-      author: 'TESTER',
-      date: '2021-01-28',
-      commentsCount: 0,
-    },
-    {
-      id: 0,
-      title: '게시물 제목 테스트',
-      author: 'TESTER',
-      date: '2021-01-28',
-      commentsCount: 5,
-    },
-    {
-      id: 2,
-      title: '게시물 제목 테스트',
-      author: 'TESTER',
-      date: '2021-01-28',
-      commentsCount: 1,
-    },
-    {
-      id: 3,
-      title: '게시물 제목 테스트',
-      author: 'TESTER',
-      date: '2021-01-28',
-      commentsCount: 0,
-    },
-    {
-      id: 0,
-      title: '게시물 제목 테스트',
-      author: 'TESTER',
-      date: '2021-01-28',
-      commentsCount: 5,
-    },
-    {
-      id: 2,
-      title: '게시물 제목 테스트',
-      author: 'TESTER',
-      date: '2021-01-28',
-      commentsCount: 1,
-    },
-    {
-      id: 3,
-      title: '게시물 제목 테스트',
-      author: 'TESTER',
-      date: '2021-01-28',
-      commentsCount: 0,
-    },
-  ];
-  const selectedMenu = menus[0];
+
+  useEffect(() => {
+    (async () => {
+      const response = await boardAPI.getBoards();
+      setBoards(response.data.data);
+    })();
+  }, []);
+
+  if (boards === null) {
+    return null;
+  }
+
+  const onSelectMenu = (menu) => {
+    console.log(menu);
+    setSelectedMenu(menu);
+  };
+
   return (
     <BoardContainerBlock>
-      <BoardMenu menus={menus} currentLocation={currentLocation} />
+      <BoardMenu
+        menus={boards}
+        currentLocation={selectedMenu}
+        onSelectMenu={onSelectMenu}
+      />
       <BoardContent selectedMenu={selectedMenu} posts={posts} />
     </BoardContainerBlock>
   );

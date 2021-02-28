@@ -36,20 +36,32 @@ const SelectedLinkButton = styled(LinkButton)`
   color: ${colors.brown[1]};
 `;
 
-const BoardMenu = ({ menus, currentLocation }) => {
+const BoardMenu = ({ menus, currentLocation, onSelectMenu }) => {
+  const handleSelectMenu = (menu) => {
+    onSelectMenu(menu);
+  };
+
   return (
     <BoardMenuBlock>
       <BoardMenuList>
         {menus.map((menu) =>
-          currentLocation === menu.url ? (
-            <BoardMenuItem key={menu.url}>
-              <SelectedLinkButton to={`/boards${menu.url}`}>
+          currentLocation.urlPath === menu.urlPath ? (
+            <BoardMenuItem key={menu.urlPath}>
+              <SelectedLinkButton
+                onClick={handleSelectMenu(menu)}
+                to={`/boards/${menu}`}
+              >
                 {menu.name}
               </SelectedLinkButton>
             </BoardMenuItem>
           ) : (
-            <BoardMenuItem key={menu.url}>
-              <LinkButton to={`/boards${menu.url}`}>{menu.name}</LinkButton>
+            <BoardMenuItem key={menu.urlPath}>
+              <LinkButton
+                onClick={() => handleSelectMenu(menu)}
+                to={`/boards/${menu.urlPath}`}
+              >
+                {menu.name}
+              </LinkButton>
             </BoardMenuItem>
           ),
         )}
