@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
+import useInput from '../../../hooks/useInput';
+import Input from '../../common/Input/Input';
+import { notEmptyValidation } from '../../../lib/utils/validation';
 
 const AdminBoardFormBlock = styled.div`
   display: flex;
@@ -45,20 +48,76 @@ const StyledActionButton = styled(ActionButton)`
   margin: 2rem 0;
 `;
 
-const AdminBoardForm = () => {
+const AdminBoardForm = ({ board, onCreateBoard, onUpdateBoard }) => {
+  const [name, onChangeName] = useInput(
+    board ? board.name : '',
+    notEmptyValidation,
+  );
+  const [urlPath, onChangeUrlPath] = useInput(
+    board ? board.urlPath : '',
+    notEmptyValidation,
+  );
+  const [readPermission, onChangeReadPermission] = useInput(
+    board ? board.readPermission : '',
+    notEmptyValidation,
+  );
+  const [writePermission, onChangeWritePermission] = useInput(
+    board ? board.writePermission : '',
+    notEmptyValidation,
+  );
+
+  const handleCreate = (e) => {
+    e.preventDefault();
+    onCreateBoard({ name, urlPath, readPermission, writePermission });
+    console.log('submit');
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    onUpdateBoard({ name, urlPath, readPermission, writePermission });
+  };
+
   return (
     <AdminBoardFormBlock>
       <TitleContainer>게시판 생성</TitleContainer>
       <StyledForm>
-        <label>게시판 이름</label>
-        <input type="text" placeholder="ex) 공지사항" />
-        <label>URL</label>
-        <input type="text" placeholder="ex) notice" />
-        <label>읽기 권한</label>
-        <input type="text" placeholder="ex) notice" />
-        <label>쓰기 권한</label>
-        <input type="text" placeholder="ex) notice" />
-        <StyledActionButton>제출</StyledActionButton>
+        <Input
+          valueText={name}
+          labelText="게시판 이름"
+          typeText="text"
+          nameText="name"
+          onChangeFunc={onChangeName}
+          placeholderText="ex) 공지사항"
+        />
+        <Input
+          valueText={urlPath}
+          labelText="url"
+          typeText="text"
+          nameText="urlPath"
+          onChangeFunc={onChangeUrlPath}
+          placeholderText="ex) notice"
+        />
+        <Input
+          valueText={readPermission}
+          labelText="읽기 권한"
+          typeText="text"
+          nameText="readPermission"
+          onChangeFunc={onChangeReadPermission}
+          placeholderText=""
+        />
+        <Input
+          valueText={writePermission}
+          labelText="쓰기 권한"
+          typeText="text"
+          nameText="writePermission"
+          onChangeFunc={onChangeWritePermission}
+          placeholderText=""
+        />
+        {board ? (
+          <StyledActionButton onClick={handleUpdate}>수정</StyledActionButton>
+        ) : (
+          <StyledActionButton onClick={handleCreate}>제출</StyledActionButton>
+        )}
       </StyledForm>
     </AdminBoardFormBlock>
   );

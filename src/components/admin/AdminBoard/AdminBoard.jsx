@@ -99,7 +99,12 @@ const BoardListRow = styled.tr`
   }
 `;
 
-const AdminBoard = ({ boards }) => {
+const AdminBoard = ({ boards, onDeleteBoard }) => {
+  const handleDelete = (e, boardID) => {
+    e.preventDefault();
+    onDeleteBoard(boardID);
+  };
+
   return (
     <AdminBoardsBlock>
       <TitleContainer>게시판 관리</TitleContainer>
@@ -127,8 +132,12 @@ const AdminBoard = ({ boards }) => {
                 <td className="board-list-row">{board.readPermission}</td>
                 <td className="board-list-row">{board.writePermission}</td>
                 <td className="board-list-row">
-                  <ActionButton>편집</ActionButton>
-                  <ActionButton>삭제</ActionButton>
+                  <ActionButton to={`/${MENU.ADMIN}/boards/edit/${board.id}`}>
+                    편집
+                  </ActionButton>
+                  <ActionButton onClick={(e) => handleDelete(e, board.id)}>
+                    삭제
+                  </ActionButton>
                 </td>
               </BoardListRow>
             ))}

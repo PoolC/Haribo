@@ -1,24 +1,31 @@
 import AdminBoard from '../../../components/admin/AdminBoard/AdminBoard';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import * as boardAPI from '../../../lib/api/board';
 
 const AdminBoardContainer = () => {
-  const boards = [
-    {
-      id: 0,
-      name: '공지사항',
-      urlPath: '/notice',
-      readPermission: 'PUBLIC',
-      writePermission: 'ADMIN',
-    },
-    {
-      id: 1,
-      name: '자유게시판',
-      urlPath: '/free',
-      readPermission: 'PUBLIC',
-      writePermission: 'MEMBER',
-    },
-  ];
-  return <AdminBoard boards={boards} />;
+  const [boards, setBoards] = useState(null);
+  useEffect(() => {
+    (async () => {
+      const response = await boardAPI.getBoards();
+      console.log(response.data.data);
+      setBoards(response.data.data);
+    })();
+  }, []);
+
+  if (boards === null) {
+    return null;
+  }
+
+  const onDeleteBoard = (boardID) => {
+    console.log(boardID);
+    boardAPI.deleteBoard(boardID).then((res) => {
+      if (res.status === 200) {
+        setBoards(boards.filter((board) => board.id !== boardID));
+      }
+    });
+  };
+
+  return <AdminBoard boards={boards} onDeleteBoard={onDeleteBoard} />;
 };
 
 export default AdminBoardContainer;
