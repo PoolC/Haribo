@@ -2,31 +2,33 @@ import client from './client';
 
 export const getBoards = () => client.get('/board');
 
+export const getBoard = (boardID) => client.get(`/board/${boardID}`);
+
 export const createBoard = ({
   name,
-  URLPath,
+  urlPath,
   readPermission,
-  wrtiePermission,
+  writePermission,
 }) =>
   client.post(`/board`, {
     name,
-    URLPath,
+    urlPath,
     readPermission,
-    wrtiePermission,
+    writePermission,
   });
 
 export const updateBoard = ({
   boardID,
   name,
-  URLPath,
+  urlPath,
   readPermission,
   writePermission,
 }) =>
   client.put(`/board/${boardID}`, {
     name,
-    URLPath,
+    urlPath,
     readPermission,
     writePermission,
   });
 
-export const deleteBoard = (boardID) => client.delete(`board/${boardID}`);
+export const deleteBoard = (boardID) => client.delete(`/board/${boardID}`);
