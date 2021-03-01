@@ -184,7 +184,7 @@ const BookDetailButton = styled(ActionButton)`
   }
 `;
 
-const BookCard = ({ book, isLogin, onBorrowBook, onReturnBook }) => {
+const BookCard = ({ book, isLogin, user, onBorrowBook, onReturnBook }) => {
   const {
     id,
     title,
@@ -280,9 +280,11 @@ const BookCard = ({ book, isLogin, onBorrowBook, onReturnBook }) => {
                   대출
                 </BookDetailButton>
               ) : (
-                <BookDetailButton onClick={handleModalOpen}>
-                  반납
-                </BookDetailButton>
+                user.memberID === borrower?.loginID && (
+                  <BookDetailButton onClick={handleModalOpen}>
+                    반납
+                  </BookDetailButton>
+                )
               ))}
           </BookDetailContainer>
         </BookContentsContainer>

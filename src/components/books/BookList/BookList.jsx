@@ -42,7 +42,7 @@ const List = styled.ul`
 const BookList = ({ books, member, onBorrowBook, onReturnBook }) => {
   const {
     status: { isLogin },
-    user: { isAdmin },
+    user,
   } = member;
 
   return (
@@ -58,6 +58,7 @@ const BookList = ({ books, member, onBorrowBook, onReturnBook }) => {
                 onBorrowBook={onBorrowBook}
                 onReturnBook={onReturnBook}
                 isLogin={isLogin}
+                user={user}
               />
             ))}
           </List>
