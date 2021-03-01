@@ -63,8 +63,9 @@ const MemberSearchForm = styled.div`
 const MemberContainer = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 30px 0 10px 0;
-  & > h3 {
+  & > h4 {
     display: flex;
     justify-content: center;
     font-weight: 600;
@@ -106,8 +107,8 @@ const StyledTextarea = styled.textarea`
   outline: 0;
 `;
 
-const Member = ({ member }) => {
-  const { id, name, department, studentId } = member;
+const SearchMember = ({ member, onAddMember }) => {
+  const { loginID, name, department, studentId } = member;
   return (
     <MemberBlock>
       <MemberInfo>
@@ -116,7 +117,25 @@ const Member = ({ member }) => {
         <p>{department}</p>
       </MemberInfo>
       <ButtonContainer>
-        <ActionButton>
+        <ActionButton onClick={(e) => onAddMember(e, member)}>
+          추가
+        </ActionButton>
+      </ButtonContainer>
+    </MemberBlock>
+  );
+};
+
+const Member = ({ member, onDeleteMember }) => {
+  const { loginID, name, department, studentId } = member;
+  return (
+    <MemberBlock>
+      <MemberInfo>
+        <p className="name">{name}</p>
+        <p>{studentId}</p>
+        <p>{department}</p>
+      </MemberInfo>
+      <ButtonContainer>
+        <ActionButton onClick={(e) => onDeleteMember(e, member)}>
           <i className="fas fa-times"></i>
         </ActionButton>
       </ButtonContainer>
@@ -129,6 +148,9 @@ const AdminProjectForm = ({
   onSearchMember,
   onUpdateProject,
   members,
+  searchMembers,
+  onAddMember,
+  onDeleteMember,
   project,
 }) => {
   const editorRef = useRef();
@@ -248,9 +270,23 @@ const AdminProjectForm = ({
           </StyledSearchActionButton>
         </MemberSearchForm>
         <MemberContainer>
-          <h3>참여자 목록</h3>
+          <h4>회원 검색 결과</h4>
+          {searchMembers.map((member) => (
+            <SearchMember
+              key={member.loginID}
+              member={member}
+              onAddMember={onAddMember}
+            />
+          ))}
+        </MemberContainer>
+        <MemberContainer>
+          <h4>참여자 목록</h4>
           {members.map((member) => (
-            <Member key={member.loginID} member={member} />
+            <Member
+              key={member.loginID}
+              member={member}
+              onDeleteMember={onDeleteMember}
+            />
           ))}
         </MemberContainer>
         {project ? (

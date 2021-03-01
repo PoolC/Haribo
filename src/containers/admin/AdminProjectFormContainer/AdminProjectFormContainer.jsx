@@ -10,14 +10,15 @@ const AdminProjectFormContainer = ({ match, history }) => {
   const hostID = useSelector((state) => state.auth.user.memberId);
 
   const [members, setMembers] = useState([]);
+  const [searchMembers, setSearchMembers] = useState([]);
   const [project, setProject] = useState(null);
 
   useEffect(() => {
     if (projectID) {
       (async () => {
         const response = await projectAPI.getProject(projectID);
-        console.log(response.data);
-        setProject(response.data);
+        setProject(response.data.data);
+        setMembers(response.data.data.members);
       })();
     }
   }, []);
@@ -42,7 +43,7 @@ const AdminProjectFormContainer = ({ match, history }) => {
         thumbnailURL,
         description,
         body,
-        members,
+        memberLoginIDs: members.map((member) => member.loginID),
       })
       .then((res) => {
         if (res.status === 200) {
@@ -58,10 +59,7 @@ const AdminProjectFormContainer = ({ match, history }) => {
     duration,
     thumbnailURL,
     body,
-    members,
   }) => {
-    console.log(projectID);
-    console.log(body);
     projectAPI
       .updateProject({
         projectID,
@@ -71,7 +69,7 @@ const AdminProjectFormContainer = ({ match, history }) => {
         duration,
         thumbnailURL,
         body,
-        members,
+        memberLoginIDs: members.map((member) => member.loginID),
       })
       .then((res) => {
         if (res.status === 200) {
@@ -81,18 +79,33 @@ const AdminProjectFormContainer = ({ match, history }) => {
   };
 
   const onSearchMember = (name) => {
-    console.log(name);
     const response = memberAPI.searchMember({ name });
     response.then((res) => {
-      console.log(res);
+      if (res.status === 200) {
+        setSearchMembers(res.data.data);
+      }
     });
   };
+
+  const onAddMember = (e, member) => {
+    e.preventDefault();
+    setMembers([...members, member]);
+  };
+
+  const onDeleteMember = (e, member) => {
+    e.preventDefault();
+    setMembers(members.filter((m) => m.loginID !== member.loginID));
+  };
+
   return (
     <AdminProjectForm
       onCreateProject={onCreateProject}
       onSearchMember={onSearchMember}
       onUpdateProject={onUpdateProject}
       members={members}
+      searchMembers={searchMembers}
+      onAddMember={onAddMember}
+      onDeleteMember={onDeleteMember}
       project={project}
     />
   );
