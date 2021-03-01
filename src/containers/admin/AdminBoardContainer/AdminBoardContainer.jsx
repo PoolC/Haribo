@@ -7,7 +7,6 @@ const AdminBoardContainer = () => {
   useEffect(() => {
     (async () => {
       const response = await boardAPI.getBoards();
-      console.log(response.data.data);
       setBoards(response.data.data);
     })();
   }, []);
@@ -17,7 +16,6 @@ const AdminBoardContainer = () => {
   }
 
   const onDeleteBoard = (boardID) => {
-    console.log(boardID);
     boardAPI.deleteBoard(boardID).then((res) => {
       if (res.status === 200) {
         setBoards(boards.filter((board) => board.id !== boardID));

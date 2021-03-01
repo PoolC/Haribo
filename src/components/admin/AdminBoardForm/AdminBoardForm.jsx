@@ -69,7 +69,6 @@ const AdminBoardForm = ({ board, onCreateBoard, onUpdateBoard }) => {
   const handleCreate = (e) => {
     e.preventDefault();
     onCreateBoard({ name, urlPath, readPermission, writePermission });
-    console.log('submit');
   };
 
   const handleUpdate = (e) => {

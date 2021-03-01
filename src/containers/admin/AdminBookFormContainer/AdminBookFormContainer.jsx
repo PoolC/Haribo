@@ -11,7 +11,6 @@ const AdminBookFormContainer = ({ match, history }) => {
     if (bookID) {
       (async () => {
         const response = await bookAPI.getBook(bookID);
-        console.log(response);
         setBook(response.data);
       })();
     }
@@ -23,7 +22,6 @@ const AdminBookFormContainer = ({ match, history }) => {
 
   const onCreateBook = ({ title, author, imageURL, info }) => {
     bookAPI.createBook({ title, author, imageURL, info }).then((res) => {
-      console.log(res);
       if (res.status === 200) {
         history.push('/admin/books');
       }
@@ -34,7 +32,6 @@ const AdminBookFormContainer = ({ match, history }) => {
     bookAPI
       .updateBook({ bookID, title, author, imageURL, info })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           history.push('/admin/books');
         }

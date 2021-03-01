@@ -181,9 +181,7 @@ const AuthForm = ({
   };
 
   const handleRegister = () => {
-    console.log('handleRegister');
     if (!registerValidation()) {
-      console.log('!registerValidation');
       setInputErrorMessage();
       handleModalOpen();
       return;

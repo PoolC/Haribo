@@ -16,7 +16,6 @@ const AdminProjectContainer = () => {
   }
 
   const onDeleteProject = (projectID) => {
-    console.log(projectID);
     projectAPI.deleteProject(projectID).then((res) => {
       if (res.status === 200) {
         setProjects(projects.filter((project) => project.id !== projectID));

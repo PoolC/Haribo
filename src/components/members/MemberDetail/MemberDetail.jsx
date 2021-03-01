@@ -147,7 +147,6 @@ const Activities = styled.ul`
 `;
 
 const MemberDetail = ({ member }) => {
-  console.log(member);
   const {
     loginID,
     name,

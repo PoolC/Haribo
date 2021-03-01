@@ -5,10 +5,8 @@ import * as memberAPI from '../../../lib/api/member';
 const AdminMemberContainer = ({ history }) => {
   const [members, setMembers] = useState(null);
   useEffect(() => {
-    console.log('effect');
     (async () => {
       const response = await memberAPI.getMembers();
-      console.log(response);
 
       setMembers(response.data.data);
     })();

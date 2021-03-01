@@ -7,8 +7,6 @@ const ProjectListContainer = () => {
   useEffect(() => {
     (async () => {
       const response = await projectAPI.getProjects();
-      console.log(response);
-
       setProjects(response.data.data);
     })();
   }, []);

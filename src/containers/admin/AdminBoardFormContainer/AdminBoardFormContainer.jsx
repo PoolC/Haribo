@@ -12,7 +12,6 @@ const AdminBoardFormContainer = ({ match, history, location }) => {
     if (boardID) {
       (async () => {
         const response = await boardAPI.getBoard(boardID);
-        console.log(response.data);
         setBoard(response.data);
       })();
     }
@@ -36,7 +35,6 @@ const AdminBoardFormContainer = ({ match, history, location }) => {
         writePermission,
       })
       .then((res) => {
-        console.log(res);
         if (res.status === 202) {
           history.push('/admin/boards');
         }
@@ -49,7 +47,6 @@ const AdminBoardFormContainer = ({ match, history, location }) => {
     readPermission,
     writePermission,
   }) => {
-    console.log(boardID);
     boardAPI
       .updateBoard({
         boardID,

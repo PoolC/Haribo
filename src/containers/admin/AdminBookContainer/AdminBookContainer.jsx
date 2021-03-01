@@ -7,7 +7,6 @@ const AdminBookContainer = () => {
   useEffect(() => {
     (async () => {
       const response = await bookAPI.getBooks();
-      console.log(response);
       setBooks(response.data.data);
     })();
   }, []);
@@ -17,10 +16,8 @@ const AdminBookContainer = () => {
   }
 
   const onDeleteBook = (bookID) => {
-    console.log(bookID);
     bookAPI.deleteBook(bookID).then((res) => {
       if (res.status === 200) {
-        console.log('ok');
         setBooks(books.filter((book) => book.id !== bookID));
       }
     });

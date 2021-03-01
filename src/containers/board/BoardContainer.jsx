@@ -42,7 +42,6 @@ const BoardContainer = ({ location, history, match }) => {
   }
 
   const onSelectMenu = (menu) => {
-    console.log(menu);
     setSelectedMenu(menu);
   };
 
