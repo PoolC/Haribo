@@ -144,9 +144,9 @@ const MemberContainer = styled.div`
 `;
 
 const Members = styled.ul`
-  width: 100%;
   display: flex;
   align-items: center;
+  max-width: 100%;
   overflow: scroll;
   scrollbar-color: none;
   margin: 0;
@@ -163,8 +163,8 @@ const BodyContainer = styled.div`
 `;
 
 const ProjectDetail = ({ project, member }) => {
-  const { id, thumbnailURL, name, genre, duration, body } = project;
-  const members = [];
+  const { id, thumbnailURL, name, genre, duration, body, members } = project;
+
   const {
     status: { isLogin },
     user: { isAdmin },
@@ -205,7 +205,7 @@ const ProjectDetail = ({ project, member }) => {
             <h2>참여 멤버</h2>
             <Members>
               {members.map((member) => (
-                <MemberCard key={member.id} member={member} />
+                <MemberCard key={member.loginID} member={member} />
               ))}
             </Members>
           </MemberContainer>
