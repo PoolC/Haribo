@@ -2,6 +2,7 @@ import BookList from '../../../components/books/BookList/BookList';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as bookAPI from '../../../lib/api/book';
+import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
 
 const BookListContainer = () => {
   const member = useSelector((state) => state.auth);
@@ -26,6 +27,7 @@ const BookListContainer = () => {
                 ...book,
                 status: 'UNAVAILABLE',
                 borrower: { name: member.user.name },
+                borrowDate: getFullCurrentDateString(),
               }
             : book,
         );
@@ -39,7 +41,7 @@ const BookListContainer = () => {
       if (res.status === 200) {
         const newBooks = books.map((book) =>
           book.id === id
-            ? { ...book, status: 'AVAILABLE', borrower: null }
+            ? { ...book, status: 'AVAILABLE', borrower: null, borrowDate: null }
             : book,
         );
         setBooks(newBooks);
