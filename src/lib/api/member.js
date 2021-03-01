@@ -1,7 +1,7 @@
 import client from './client';
 
 export const searchMember = ({ name }) =>
-  client.get(`/project/member?name=${name}`);
+  client.get(`/member/name?name=${name}`);
 
 export const getMembers = () => client.get('/member');
 

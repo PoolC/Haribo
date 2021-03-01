@@ -11,7 +11,7 @@ export const createProject = ({
   duration,
   thumbnailURL,
   body,
-  members,
+  memberLoginIDs,
 }) =>
   client.post('/project', {
     name,
@@ -20,7 +20,7 @@ export const createProject = ({
     duration,
     thumbnailURL,
     body,
-    members,
+    memberLoginIDs,
   });
 
 export const updateProject = ({
@@ -31,7 +31,7 @@ export const updateProject = ({
   duration,
   thumbnailURL,
   body,
-  members,
+  memberLoginIDs,
 }) =>
   client.put(`/project/${projectID}`, {
     name,
@@ -40,7 +40,7 @@ export const updateProject = ({
     duration,
     thumbnailURL,
     body,
-    members,
+    memberLoginIDs,
   });
 
 export const deleteProject = (projectID) =>
