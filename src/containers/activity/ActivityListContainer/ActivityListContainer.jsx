@@ -31,13 +31,21 @@ const ActivityListContainer = ({ location, history, match }) => {
     activityAPI.getActivityYears().then((res) => {
       if (res.status === 200) {
         setSemesters(res.data.data);
-        activityAPI
-          .getActivitiesByYears(
-            currentLocation ? currentLocation : res.data.data[0],
-          )
-          .then((activities) => {
+        console.log(res.data.data);
+        if (res.data.data.length === 0) {
+          activityAPI.getActivities().then((activities) => {
             setActivities(activities.data.data);
           });
+        } else {
+          activityAPI
+            .getActivitiesByYears(
+              currentLocation ? currentLocation : res.data.data[0],
+            )
+            .then((activities) => {
+              setActivities(activities.data.data);
+            });
+        }
+
         // if (!currentLocation) {
         //   history.push(`/activities?semester=${res.data.data[0]}`);
         // }
