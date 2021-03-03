@@ -1,9 +1,10 @@
-import { MENU } from '../../../constants/menus';
 import colors from '../../../lib/styles/colors';
-import ActionButton from '../../common/Buttons/ActionButton';
 import MemberCard from '../../members/MemberCard/MemberCard';
 import React from 'react';
 import styled from 'styled-components';
+import ReactMarkdown from 'react-markdown';
+import gfm from 'remark-gfm';
+import SessionContainer from '../../../containers/activity/SessionContainer/SessionContainer';
 
 const ActivityDetailBlock = styled.div`
   position: relative;
@@ -88,8 +89,6 @@ const PlanContainer = styled.div`
   }
 `;
 
-const Plan = styled.p``;
-
 const MemberContainer = styled.div`
   display: flex;
   width: 80%;
@@ -108,6 +107,7 @@ const Member = styled.ul`
   width: 80%;
   display: flex;
   align-items: center;
+  justify-content: center;
   overflow: scroll;
   scrollbar-color: none;
   margin: 0;
@@ -119,7 +119,7 @@ const Member = styled.ul`
   }
 `;
 
-const SessionContainer = styled.div`
+const SessionBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -146,6 +146,7 @@ const TagList = styled.ul`
 `;
 
 const TagCard = styled.li`
+  cursor: default;
   background-color: ${colors.gray[0]};
   border: 1px solid ${colors.mint[1]};
   border-radius: 2px;
@@ -156,98 +157,18 @@ const TagCard = styled.li`
   list-style: none;
 `;
 
-const SessionCard = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-  padding: 20px 0 10px 0;
-  list-style: none;
-`;
-
-const SessionDivider = styled.div`
-  margin-top: 30px;
-  width: 50px;
-  height: 1px;
-  background-color: ${colors.mint[1]};
-`;
-
-const SessionNumber = styled.p`
-  font-weight: 700;
-  margin-bottom: 10px;
-`;
-
-const Date = styled.p`
-  font-weight: 300;
-  font-size: 0.8rem;
-  margin-bottom: 10px;
-`;
-
-const Description = styled.p``;
-
-const AttendanceList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  h5 {
-    font-size: 0.9rem;
-    margin: 10px 0;
-    font-weight: 500;
-  }
-`;
-
-const Attendance = styled.li`
-  font-size: 0.8rem;
-  margin: 2px;
-  font-weight: 300;
-  list-style: none;
-`;
-
 const Tag = ({ tag }) => {
   return <TagCard>#{tag}</TagCard>;
 };
 
-const Session = ({ session, memberInfo }) => {
-  const { id, description, date, sessionNumber, attendances } = session;
-  const { members } = attendances;
+const ActivityDetail = ({
+  activity,
+  activityMembers,
+  activitySessions,
+  member,
+}) => {
   const {
     status: { isLogin },
-    user: { memberId, isAdmin },
-  } = memberInfo;
-
-  return (
-    <>
-      <SessionCard>
-        <SessionNumber>{sessionNumber}회차</SessionNumber>
-        <Date>{date}</Date>
-        <Description>{description}</Description>
-        {members && (
-          <AttendanceList>
-            <h5>[출석 인원]</h5>
-            {members.map((member) => (
-              <Attendance key={member.id}>{member.name}</Attendance>
-            ))}
-          </AttendanceList>
-        )}
-      </SessionCard>
-      {isLogin && (
-        <ActionButton
-          to={`/${MENU.ACTIVITY}/${id}/attendance/${sessionNumber}`}
-        >
-          수정
-        </ActionButton>
-      )}
-      <SessionDivider />
-    </>
-  );
-};
-
-const ActivityDetail = ({ activity, member }) => {
-  const {
-    status: { isLogin },
-    user: { memberId, isAdmin },
   } = member;
 
   const {
@@ -256,13 +177,10 @@ const ActivityDetail = ({ activity, member }) => {
     host,
     startDate,
     classHour,
-    isSeminar,
+    seminar,
     capacity,
     hour,
-    available,
     tags,
-    members,
-    sessions,
     description,
   } = activity;
   return (
@@ -272,8 +190,8 @@ const ActivityDetail = ({ activity, member }) => {
           <Title>{title}</Title>
         </TitleContainer>
         <ContentContainer>
-          <h2>{isSeminar ? '세미나장' : '스터디장'}</h2>
-          <Content>{host}</Content>
+          <h2>{seminar ? '세미나장' : '스터디장'}</h2>
+          <Content>{host.name}</Content>
         </ContentContainer>
         <ContentContainer>
           <h2>시작일</h2>
@@ -282,44 +200,49 @@ const ActivityDetail = ({ activity, member }) => {
         <ContentContainer>
           <h2>시간</h2>
           <Content>{classHour}</Content>
-          <Content>{hour}시간동안 진행</Content>
+          <Content>{hour}시간씩 진행</Content>
         </ContentContainer>
         <ContentContainer>
           <h2>정원</h2>
           <Content>
-            {members.length}명/{capacity}명
+            {activityMembers.length}명/{capacity}명
           </Content>
         </ContentContainer>
         <TagContainer>
           <h2>태그</h2>
           <TagList>
             {tags.map((tag) => (
-              <Tag key={tag.id} tag={tag.name} />
+              <Tag key={tag.name} tag={tag.name} />
             ))}
           </TagList>
         </TagContainer>
         <PlanContainer>
           <h2>계획서</h2>
-          <Plan>{description}</Plan>
+          <ReactMarkdown plugins={[gfm]} source={description} />
         </PlanContainer>
         {isLogin && (
           <MemberContainer>
             <h2>참여 멤버</h2>
             <Member>
-              {members.map((member) => (
-                <MemberCard key={member.id} member={member} />
+              {activityMembers.map((member) => (
+                <MemberCard key={member.loginID} member={member} />
               ))}
             </Member>
           </MemberContainer>
         )}
-        <SessionContainer>
+        <SessionBlock>
           <h2>회차 정보</h2>
           <Sessions>
-            {sessions.map((session) => (
-              <Session key={session.id} session={session} memberInfo={member} />
+            {activitySessions.map((session) => (
+              <SessionContainer
+                key={session.id}
+                session={session}
+                activityID={id}
+                host={host}
+              />
             ))}
           </Sessions>
-        </SessionContainer>
+        </SessionBlock>
       </ActivityDetailContainer>
     </ActivityDetailBlock>
   );

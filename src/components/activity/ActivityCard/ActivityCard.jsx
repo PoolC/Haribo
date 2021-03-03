@@ -1,7 +1,7 @@
 import { MENU } from '../../../constants/menus';
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ActivityModalContainer from '../../../containers/activity/ActivityModalContainer/ActivityModalContainer';
@@ -106,7 +106,12 @@ const StyledLink = styled(Link)`
   margin: 10px 0;
 `;
 
-const ActivityCard = ({ activity, onToggleRegisterActivity, isLogin }) => {
+const ActivityCard = ({
+  activity,
+  onToggleRegisterActivity,
+  isLogin,
+  memberId,
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleModalOpen = () => {
@@ -127,10 +132,8 @@ const ActivityCard = ({ activity, onToggleRegisterActivity, isLogin }) => {
     title,
     host,
     startDate,
-    endDate,
     classHour,
-    isSeminar,
-    capacity,
+    //capacity,
     available,
     tags,
   } = activity;
@@ -149,20 +152,24 @@ const ActivityCard = ({ activity, onToggleRegisterActivity, isLogin }) => {
           </StyledLink>
           <ActivityClassHour>{classHour}</ActivityClassHour>
           <ActivityDate>{`${startDate} ~ `}</ActivityDate>
-          <ActivityHost>{host}</ActivityHost>
+          <ActivityHost>{host.name}</ActivityHost>
           <ActivityTags>
             {tags.map((tag) => (
-              <ActivityTag key={tag.id}>#{tag.name}</ActivityTag>
+              <ActivityTag key={tag.name}>#{tag.name}</ActivityTag>
             ))}
           </ActivityTags>
           {isLogin && (
             <ActivityButtons>
-              <StyledActionButton to={`/${MENU.ACTIVITY}/create/${id}`}>
-                관리
-              </StyledActionButton>
-              <StyledActionButton to={`/${MENU.ACTIVITY}/${id}/attendance`}>
-                출석
-              </StyledActionButton>
+              {memberId === host.loginID && (
+                <StyledActionButton to={`/${MENU.ACTIVITY}/edit/${id}`}>
+                  관리
+                </StyledActionButton>
+              )}
+              {memberId === host.loginID && (
+                <StyledActionButton to={`/${MENU.ACTIVITY}/${id}/attendance`}>
+                  출석
+                </StyledActionButton>
+              )}
               {available && (
                 <StyledActionButton onClick={handleModalOpen}>
                   신청

@@ -1,48 +1,114 @@
 import ActivityAttendance from '../../../components/activity/ActivityForm/ActivityAttendance';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import * as activityAPI from '../../../lib/api/activity';
+import { withRouter } from 'react-router-dom';
+import { MENU } from '../../../constants/menus';
 
-const ActivityAttendanceContainer = () => {
-  const activity = {
-    id: 0,
-    title: 'C++ 기초 세미나',
-    count: 3,
-    members: [
+const ActivityAttendanceContainer = ({ match, history }) => {
+  const activityID = match.params.activityID;
+  const sessionID = match.params.sessionID;
+
+  const [activity, setActivity] = useState(null);
+  const [activityMembers, setActivityMembers] = useState(null);
+  const [activitySession, setActivitySession] = useState(null);
+  const [activitySessions, setActivitySessions] = useState(null);
+  const [sessionAttendance, setSessionAttendance] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const activityResponse = await activityAPI.getActivity(activityID);
+      const activityMemberResponse = await activityAPI.getActivityMembers(
+        activityID,
+      );
+      const activitySessionsResponse = await activityAPI.getActivitySessions(
+        activityID,
+      );
+      if (sessionID) {
+        const activitySessionResponse = await activityAPI.getActivitySession(
+          sessionID,
+        );
+        const sessionAttendance = await activityAPI.getActivitySessionAttendances(
+          sessionID,
+        );
+        setSessionAttendance(sessionAttendance.data.data);
+        console.log(sessionAttendance.data.data);
+        console.log(activitySessionResponse.data);
+        setActivitySession(activitySessionResponse.data);
+      }
+
+      console.log(activityResponse.data.data);
+      console.log(activityMemberResponse.data.data);
+
+      setActivity(activityResponse.data.data);
+      setActivityMembers(activityMemberResponse.data.data);
+      setActivitySessions(activitySessionsResponse.data.data);
+    })();
+  }, [activityID, sessionID]);
+
+  if (
+    activity === null ||
+    activityMembers == null ||
+    activitySessions == null
+  ) {
+    return null;
+  }
+
+  const onCreateSession = async ({
+    sessionNumber,
+    date,
+    description,
+    attendances,
+  }) => {
+    const sessionCreateResponse = await activityAPI.createActivitySession({
+      activityID,
+      sessionNumber,
+      date,
+      description,
+    });
+    console.log(sessionCreateResponse.data.id);
+    const sessionID = sessionCreateResponse.data.id;
+    const sessionAttendancesCreateResponse = await activityAPI.checkActivityAttendance(
       {
-        id: 0,
-        name: '김민지',
-        department: '국어국문학과',
-        profileImageURL:
-          'https://api.poolc.org/files/%EC%82%B0%EB%82%98%EB%B9%84%20%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7.PNG',
-        isAdmin: false,
+        sessionID,
+        memberLoginIDs: attendances.map((attendance) => attendance.loginID),
       },
-      {
-        id: 1,
-        name: '장현서',
-        department: '도시공학과',
-        profileImageURL:
-          'https://api.poolc.org/files/%EC%82%B0%EB%82%98%EB%B9%84%20%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7.PNG',
-        isAdmin: false,
-      },
-      {
-        id: 2,
-        name: '신석주',
-        department: '도시공학과',
-        profileImageURL:
-          'https://api.poolc.org/files/%EC%82%B0%EB%82%98%EB%B9%84%20%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7.PNG',
-        isAdmin: true,
-      },
-      {
-        id: 3,
-        name: '양정일',
-        department: '컴퓨터과학과',
-        profileImageURL:
-          'https://api.poolc.org/files/%EC%82%B0%EB%82%98%EB%B9%84%20%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7.PNG',
-        isAdmin: false,
-      },
-    ],
+    );
+    if (sessionAttendancesCreateResponse.status === 200) {
+      history.push(`/${MENU.ACTIVITY}/${activityID}`);
+    }
   };
 
-  return <ActivityAttendance activity={activity} />;
+  const onUpdateSession = async ({ date, description, attendances }) => {
+    console.log(attendances);
+    const sessionUpdateResponse = await activityAPI.updateActivitySession({
+      sessionID,
+      date,
+      description,
+    });
+    console.log(sessionUpdateResponse.status === 200);
+    const sessionAttendancesUpdateResponse = await activityAPI.checkActivityAttendance(
+      {
+        sessionID,
+        memberLoginIDs: attendances.map((attendance) => attendance.loginID),
+      },
+    );
+    console.log(sessionAttendancesUpdateResponse);
+    if (sessionUpdateResponse.status === 200) {
+      history.push(`/${MENU.ACTIVITY}/${activityID}`);
+    }
+  };
+
+  return (
+    <ActivityAttendance
+      activity={activity}
+      activityMembers={activityMembers}
+      activitySession={activitySession}
+      sessionNumber={activitySessions.length}
+      sessionAttendance={sessionAttendance}
+      onCreateSession={onCreateSession}
+      onUpdateSession={onUpdateSession}
+    />
+  );
 };
 
-export default ActivityAttendanceContainer;
+export default withRouter(ActivityAttendanceContainer);

@@ -2,6 +2,9 @@ import client from './client';
 
 export const getActivities = () => client.get('/activity');
 
+export const getActivitiesByYears = (semester) =>
+  client.get(`/activity?when=${semester}`);
+
 export const getActivityYears = () => client.get('/activity/years');
 
 export const getActivity = (activityID) =>
@@ -11,43 +14,69 @@ export const createActivity = ({
   title,
   description,
   startDate,
-  isSeminar,
+  seminar,
   classHour,
+  hour,
   capacity,
   tags,
-}) =>
-  client.post(`/activity`, {
+}) => {
+  console.log({
     title,
     description,
     startDate,
-    isSeminar,
+    seminar,
     classHour,
+    hour,
     capacity,
     tags,
   });
+  return client.post(`/activity`, {
+    title,
+    description,
+    startDate,
+    seminar,
+    classHour,
+    hour,
+    capacity,
+    tags,
+  });
+};
 
 export const updateActivity = ({
   activityID,
   title,
   description,
   startDate,
-  isSeminar,
-  classhour,
+  seminar,
+  classHour,
+  hour,
   capacity,
   tags,
-}) =>
-  client.put(`/activity/${activityID}`, {
+}) => {
+  console.log({
     title,
     description,
     startDate,
-    isSeminar,
-    classhour,
+    seminar,
+    classHour,
+    hour,
     capacity,
     tags,
   });
+  return client.put(`/activity/${activityID}`, {
+    title,
+    description,
+    startDate,
+    seminar,
+    classHour,
+    hour,
+    capacity,
+    tags,
+  });
+};
 
 export const deleteActivity = (activityID) =>
-  client.delete(`activity/${activityID}`);
+  client.delete(`/activity/${activityID}`);
 
 export const createActivitySession = ({
   activityID,
@@ -65,8 +94,11 @@ export const createActivitySession = ({
 export const getActivitySessions = (activityID) =>
   client.get(`/activity/session/${activityID}`);
 
+export const getActivitySession = (sessionID) =>
+  client.get(`/activity/onesession/${sessionID}`);
+
 export const updateActivitySession = ({ sessionID, date, description }) =>
-  client.post(`/activity/session/${sessionID}`, {
+  client.put(`/activity/session/${sessionID}`, {
     date,
     description,
   });
@@ -80,8 +112,10 @@ export const getActivityMembers = (activityID) =>
 export const getActivitySessionAttendances = (sessionID) =>
   client.get(`/activity/check/${sessionID}`);
 
-export const checkActivityAttendance = ({ sessionID, members }) =>
-  client.post('/activity/check', {
+export const checkActivityAttendance = ({ sessionID, memberLoginIDs }) => {
+  console.log({ sessionID, memberLoginIDs });
+  return client.post('/activity/check', {
     sessionID,
-    members,
+    memberLoginIDs,
   });
+};

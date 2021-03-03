@@ -1,8 +1,8 @@
 import React from 'react';
-import ActivityAdminContainer from '../../containers/activity/ActivityFormContainer/ActivityAdminContainer';
+import ActivityFormContainer from '../../containers/activity/ActivityFormContainer/ActivityFormContainer';
 
 const ActivityAdminPage = () => {
-  return <ActivityAdminContainer />;
+  return <ActivityFormContainer />;
 };
 
 export default ActivityAdminPage;

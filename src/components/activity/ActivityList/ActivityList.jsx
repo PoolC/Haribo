@@ -71,8 +71,9 @@ const Description = styled.div`
 const ActivityList = ({ activities, onToggleRegisterActivity, member }) => {
   const {
     status: { isLogin },
-    user: { isAdmin },
+    user: { memberId },
   } = member;
+
   return (
     <>
       <ActivityListBlock>
@@ -80,7 +81,7 @@ const ActivityList = ({ activities, onToggleRegisterActivity, member }) => {
           <ActivityListHeader>
             <ActivityListTitle>세미나&스터디</ActivityListTitle>
             {isLogin && (
-              <ActionButton to={`/${MENU.ACTIVITY}/create`}>개설</ActionButton>
+              <ActionButton to={`/${MENU.ACTIVITY}/new`}>개설</ActionButton>
             )}
           </ActivityListHeader>
           <Description>상세 내용을 보려면 각 제목을 클릭해주세요.</Description>
@@ -91,6 +92,7 @@ const ActivityList = ({ activities, onToggleRegisterActivity, member }) => {
                 key={activity.id}
                 activity={activity}
                 isLogin={isLogin}
+                memberId={memberId}
               />
             ))}
           </List>

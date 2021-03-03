@@ -1,7 +1,10 @@
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import useInput from '../../../hooks/useInput';
+import Input from '../../common/Input/Input';
+import { notEmptyValidation } from '../../../lib/utils/validation';
 
 const ActivityAttendanceBlock = styled.div`
   position: relative;
@@ -76,7 +79,7 @@ const DescriptionContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-const Description = styled.p`
+const Description = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -116,7 +119,7 @@ const Members = styled.ul`
   margin-bottom: 30px;
 `;
 
-const Member = styled.li`
+const MemberBlock = styled.li`
   display: flex;
   margin: 5px;
 `;
@@ -131,24 +134,115 @@ const StyledActionButton = styled(ActionButton)`
   width: 160px;
 `;
 
-const ActivityAttendance = ({ activity }) => {
-  const { id, title, count, members } = activity;
-  const newSessionCount = count + 1;
+const Member = ({ member, attended, handleCheckAttendance }) => {
+  const [isChecked, setIsChecked] = useState(attended ? attended : false);
+
+  const handleCheck = (e) => {
+    setIsChecked((isChecked) => !isChecked);
+    handleCheckAttendance(member, isChecked);
+  };
+
+  return (
+    <MemberBlock key={member.loginID}>
+      <input
+        type="checkbox"
+        value={member.loginID}
+        onChange={handleCheck}
+        checked={isChecked}
+      />
+      {member.name}
+    </MemberBlock>
+  );
+};
+
+const ActivityAttendance = ({
+  activity,
+  activityMembers,
+  activitySession,
+  sessionNumber,
+  sessionAttendance,
+  onCreateSession,
+  onUpdateSession,
+}) => {
+  console.log(sessionAttendance);
+  const { title } = activity;
+  const newSessionCount = sessionNumber;
+
+  const [date, onChangeDate] = useInput(
+    activitySession ? activitySession.date : '',
+    notEmptyValidation,
+  );
+
+  const [description, onChangeDescription] = useInput(
+    activitySession ? activitySession.description : '',
+    notEmptyValidation,
+  );
+
+  const [attendances, setAttendances] = useState(
+    sessionAttendance
+      ? sessionAttendance
+          .filter((attendance) => attendance.attended === true)
+          .map((attendance) => attendance.member)
+      : [],
+  );
+
+  const handleCheckAttendance = (member, isChecked) => {
+    console.log(attendances);
+    if (!isChecked) {
+      setAttendances([
+        ...attendances,
+        { name: member.name, loginID: member.loginID },
+      ]);
+      console.log(attendances);
+      return;
+    }
+    setAttendances(
+      attendances.filter((attendance) => attendance.loginID !== member.loginID),
+    );
+    console.log(attendances);
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    console.log(attendances);
+    onUpdateSession({
+      date,
+      description,
+      attendances,
+    });
+  };
+
+  const handleCreate = (e) => {
+    e.preventDefault();
+    console.log(attendances);
+    onCreateSession({
+      sessionNumber,
+      date,
+      description,
+      attendances,
+    });
+  };
+
   return (
     <ActivityAttendanceBlock>
       <ActivityDetailContainer>
         <TitleContainer>
           <Title>{title}</Title>
-          <Title>[{newSessionCount}회차 출석체크]</Title>
+          <Title>
+            [{newSessionCount}회차 출석체크{sessionAttendance && ' 수정'}]
+          </Title>
         </TitleContainer>
         <StyledForm>
           <DateContainer>
             <Date>
-              <label htmlFor="date">날짜</label>
-              <p>
-                2020년 10월 23일에 진행된 세미나의 경우, 2020-10-23 이라고 입력
-              </p>
-              <input type="date" name="date" placeholder="YYYY-MM-DD" />
+              <Input
+                valueText={date}
+                labelText="날짜"
+                typeText="date"
+                nameText="date"
+                onChangeFunc={onChangeDate}
+                placeholderText="YYYY-MM-DD"
+              />
             </Date>
           </DateContainer>
           <DescriptionContainer>
@@ -156,6 +250,8 @@ const ActivityAttendance = ({ activity }) => {
               <label htmlFor="description">내용</label>
               <p>예시: 파이썬의 변수에 대해 공부 / A 논문 스터디 등</p>
               <textarea
+                value={description}
+                onChange={onChangeDescription}
                 rows="5"
                 name="description"
                 placeholder="이번 회차에서 공부한 내용"
@@ -166,15 +262,29 @@ const ActivityAttendance = ({ activity }) => {
             <h2>참여 멤버 목록</h2>
             <p>출석한 인원만 체크해주세요.</p>
             <Members>
-              {members.map((member) => (
-                <Member>
-                  <input type="checkbox" value={member.id} />
-                  {member.name}
-                </Member>
-              ))}
+              {sessionAttendance
+                ? sessionAttendance.map((attendance) => (
+                    <Member
+                      key={attendance.member.loginID}
+                      member={attendance.member}
+                      attended={attendance.attended}
+                      handleCheckAttendance={handleCheckAttendance}
+                    />
+                  ))
+                : activityMembers.map((member) => (
+                    <Member
+                      key={member.loginID}
+                      member={member}
+                      handleCheckAttendance={handleCheckAttendance}
+                    />
+                  ))}
             </Members>
           </MemberContainer>
-          <StyledActionButton>제출</StyledActionButton>
+          {sessionAttendance ? (
+            <StyledActionButton onClick={handleUpdate}>수정</StyledActionButton>
+          ) : (
+            <StyledActionButton onClick={handleCreate}>제출</StyledActionButton>
+          )}
         </StyledForm>
       </ActivityDetailContainer>
     </ActivityAttendanceBlock>
