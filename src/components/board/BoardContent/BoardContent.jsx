@@ -162,7 +162,9 @@ const BoardContent = ({ selectedMenu, posts }) => {
     <BoardContentBlock>
       <header className="post_list_header">
         <h2 className="post_list_title">{selectedMenu.name}</h2>
-        <ActionButton to={`/${MENU.POST}/new`}>글쓰기</ActionButton>
+        <ActionButton to={`/${MENU.POST}/new/${selectedMenu.id}`}>
+          글쓰기
+        </ActionButton>
       </header>
       <PostListTable>
         <thead>

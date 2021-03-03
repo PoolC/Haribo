@@ -4,6 +4,11 @@ import { withRouter } from 'react-router-dom';
 import BoardMenu from '../../components/board/BoardMenu/BoardMenu';
 import BoardContent from '../../components/board/BoardContent/BoardContent';
 import * as boardAPI from '../../lib/api/board';
+import { useSelector } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import PostWritePage from '../../pages/post/PostWritePage';
+import PostPage from '../../pages/post/PostPage';
+import { MENU } from '../../constants/menus';
 
 const BoardContainerBlock = styled.div`
   position: relative;
@@ -20,39 +25,43 @@ const BoardContainerBlock = styled.div`
 `;
 
 const BoardContainer = ({ location, history, match }) => {
-  const initialSelectedMenu = match.params.urlPath;
+  const currentLocation = match.params.urlPath;
+  const member = useSelector((state) => state.auth);
 
-  const [selectedMenu, setSelectedMenu] = useState(initialSelectedMenu);
   const [boards, setBoards] = useState(null);
+  const [selectedMenu, setSelectedMenu] = useState(null);
   const [posts, setPosts] = useState([]);
 
-  if (!initialSelectedMenu) {
+  if (!currentLocation) {
     history.push('/boards/notice');
   }
 
   useEffect(() => {
-    (async () => {
-      const response = await boardAPI.getBoards();
-      setBoards(response.data.data);
-    })();
+    // (async () => {
+    //   const response = await boardAPI.getBoards();
+    //   setBoards(response.data.data);
+    // })();
+    boardAPI.getBoards().then((res) => {
+      if (res.status === 200) {
+        console.log(res.data.data);
+        setBoards(res.data.data);
+        setSelectedMenu(res.data.data[0]);
+      }
+    });
   }, []);
 
-  if (boards === null) {
+  if (boards === null || selectedMenu == null) {
     return null;
   }
-
-  const onSelectMenu = (menu) => {
-    setSelectedMenu(menu);
-  };
 
   return (
     <BoardContainerBlock>
       <BoardMenu
         menus={boards}
-        currentLocation={selectedMenu}
-        onSelectMenu={onSelectMenu}
+        currentLocation={currentLocation}
+        setSelectedMenu={setSelectedMenu}
       />
-      <BoardContent selectedMenu={selectedMenu} posts={posts} />
+      <BoardContent posts={posts} member={member} selectedMenu={selectedMenu} />
     </BoardContainerBlock>
   );
 };
