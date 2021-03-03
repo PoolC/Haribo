@@ -32,11 +32,11 @@ const AdminMemberContainer = ({ history }) => {
     memberAPI.toggleAdmin({ loginID, isAdmin }).then((res) => {
       if (res.status === 200) {
         setMembers(
-          members.map((member) => {
-            if (member.loginID === loginID) {
-              member.isAdmin = !member.isAdmin;
-            }
-          }),
+          members.map((member) =>
+            member.loginID === loginID
+              ? { ...member, isAdmin: !isAdmin }
+              : member,
+          ),
         );
       }
     });
