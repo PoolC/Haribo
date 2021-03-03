@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import BoardMenu from '../../../components/board/BoardMenu/BoardMenu';
 import PostForm from '../../../components/board/PostForm/PostForm';
+import * as boardAPI from '../../../lib/api/board';
 
 const ContainerBlock = styled.div`
   position: relative;
@@ -17,19 +19,50 @@ const ContainerBlock = styled.div`
   }
 `;
 
-const PostFormContainer = () => {
-  const menus = [
-    { name: '공지사항', url: '/notice' },
-    { name: '학술부', url: '/study' },
-    { name: '구인/홍보', url: '/recruit' },
-    { name: '게임제작부', url: '/gamedev' },
-  ];
+const PostFormContainer = ({ match, history }) => {
+  console.log(match.params.boardID);
+  const { boardID } = match.params;
+  const { postID } = match.params;
+  const [boards, setBoards] = useState(null);
+  const [selectedMenu, setSelectedMenu] = useState(null);
+
+  useEffect(() => {
+    boardAPI.getBoard(boardID).then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setSelectedMenu(res.data);
+      }
+    });
+    boardAPI.getBoards().then((res) => {
+      if (res.status === 200) {
+        console.log(res.data.data);
+        setBoards(res.data.data);
+      }
+    });
+  }, [boardID]);
+
+  if (boards === null || selectedMenu == null) {
+    return null;
+  }
+
+  const onCreatePost = ({ title, body }) => {
+    console.log({ title, body, boardID });
+  };
+
+  const onUpdatePost = ({ title, body }) => {
+    console.log({ title, body, postID });
+  };
+
   return (
     <ContainerBlock>
-      <BoardMenu menus={menus} />
-      <PostForm />
+      <BoardMenu menus={boards} setSelectedMenu={setSelectedMenu} />
+      <PostForm
+        selectedMenu={selectedMenu.name}
+        onCreatePost={onCreatePost}
+        onUpdatePost={onUpdatePost}
+      />
     </ContainerBlock>
   );
 };
 
-export default PostFormContainer;
+export default withRouter(PostFormContainer);
