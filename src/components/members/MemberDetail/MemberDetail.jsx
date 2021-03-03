@@ -148,7 +148,6 @@ const Activities = styled.ul`
 
 const MemberDetail = ({ member }) => {
   const {
-    loginID,
     name,
     department,
     profileImageURL,

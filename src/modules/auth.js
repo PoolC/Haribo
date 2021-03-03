@@ -12,8 +12,8 @@ const LOAD_USER_SUCCESS = 'auth/LOAD_USER_SUCCESS';
 const LOAD_USER_FAILURE = 'auth/LOAD_USER_FAILURE';
 
 const LOGOUT = 'auth/LOGOUT';
-const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
-const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
+// const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
+// const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
 
 export const login = createAction(LOGIN, ({ id, password }) => ({
   id,

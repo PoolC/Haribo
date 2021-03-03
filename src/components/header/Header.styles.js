@@ -1,7 +1,5 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled from 'styled-components';
 import colors from '../../lib/styles/colors';
-import LinkButton from '../common/Buttons/LinkButton';
-import ActionButton from '../common/Buttons/ActionButton';
 
 export const HeaderBlock = styled.div`
   display: flex;

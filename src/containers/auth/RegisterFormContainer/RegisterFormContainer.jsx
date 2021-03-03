@@ -2,10 +2,7 @@ import AuthForm from '../../../components/auth/AuthForm';
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as authAPI from '../../../lib/api/auth';
-import {
-  removeHeaderAccessToken,
-  setHeaderAccessToken,
-} from '../../../lib/utils/axiosUtil';
+import { removeHeaderAccessToken } from '../../../lib/utils/axiosUtil';
 
 const RegisterFormContainer = ({ location, history }) => {
   const [message, setMessage] = useState(null);

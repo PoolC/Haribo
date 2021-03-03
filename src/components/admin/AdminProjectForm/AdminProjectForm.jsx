@@ -101,14 +101,8 @@ const ButtonContainer = styled.div`
   margin-left: 1rem;
 `;
 
-const StyledTextarea = styled.textarea`
-  height: 6rem;
-  width: 15rem;
-  outline: 0;
-`;
-
 const SearchMember = ({ member, onAddMember }) => {
-  const { loginID, name, department, studentId } = member;
+  const { name, department, studentId } = member;
   return (
     <MemberBlock>
       <MemberInfo>
@@ -126,7 +120,7 @@ const SearchMember = ({ member, onAddMember }) => {
 };
 
 const Member = ({ member, onDeleteMember }) => {
-  const { loginID, name, department, studentId } = member;
+  const { name, department, studentId } = member;
   return (
     <MemberBlock>
       <MemberInfo>

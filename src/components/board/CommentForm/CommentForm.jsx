@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
 
 const CommentFormBlock = styled.div`

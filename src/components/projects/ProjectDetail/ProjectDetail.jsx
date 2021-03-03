@@ -163,11 +163,10 @@ const BodyContainer = styled.div`
 `;
 
 const ProjectDetail = ({ project, member }) => {
-  const { id, thumbnailURL, name, genre, duration, body, members } = project;
+  const { thumbnailURL, name, genre, duration, body, members } = project;
 
   const {
     status: { isLogin },
-    user: { isAdmin },
   } = member;
 
   return (

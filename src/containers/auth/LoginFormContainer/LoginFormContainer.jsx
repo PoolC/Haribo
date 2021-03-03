@@ -3,10 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { login } from '../../../modules/auth';
-import {
-  removeHeaderAccessToken,
-  setHeaderAccessToken,
-} from '../../../lib/utils/axiosUtil';
 
 const LoginFormContainer = ({ location, history }) => {
   const dispatch = useDispatch();
