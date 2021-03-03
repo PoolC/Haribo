@@ -24,16 +24,6 @@ const TitleContainer = styled.div`
   margin: 1rem;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  width: 90%;
-  justify-content: flex-end;
-  align-items: center;
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin: 1rem;
-`;
-
 const ContentsContainer = styled.div`
   display: flex;
   width: 90%;
@@ -87,6 +77,7 @@ const ActivityListRow = styled.tr`
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
     flex: 1;
     padding: 0 10px;
     line-height: 1.5rem;
@@ -98,7 +89,28 @@ const ActivityListRow = styled.tr`
   }
 `;
 
-const AdminActivity = ({ activities }) => {
+const AdminActivity = ({
+  activities,
+  onOpenActivity,
+  onCloseActivity,
+  onDeleteActivity,
+}) => {
+  console.log(activities);
+  const handleClose = (e, activityID) => {
+    e.preventDefault();
+    onCloseActivity(activityID);
+  };
+
+  const handleOpen = (e, activityID) => {
+    e.preventDefault();
+    onOpenActivity(activityID);
+  };
+
+  const handleDelete = (e, activityID) => {
+    e.preventDefault();
+    onDeleteActivity(activityID);
+  };
+
   return (
     <AdminActivitiesBlock>
       <TitleContainer>세미나/스터디 관리</TitleContainer>
@@ -118,19 +130,27 @@ const AdminActivity = ({ activities }) => {
             {activities.map((activity) => (
               <ActivityListRow key={activity.id}>
                 <td className="activity-list-row">{activity.title}</td>
-                <td className="activity-list-row">{activity.host}</td>
+                <td className="activity-list-row">{activity.host.name}</td>
                 <td className="activity-list-row">{activity.startDate}</td>
                 <td className="activity-list-row">
-                  {activity.isSeminar ? '세미나' : '스터디'}
+                  {activity.seminar ? '세미나' : '스터디'}
                 </td>
                 <td className="activity-list-row">
                   {activity.available ? 'o' : 'x'}
                 </td>
                 <td className="activity-list-row">
-                  <ActionButton>
-                    {activity.available ? '닫기' : '열기'}
+                  {activity.available ? (
+                    <ActionButton onClick={(e) => handleClose(e, activity.id)}>
+                      닫기
+                    </ActionButton>
+                  ) : (
+                    <ActionButton onClick={(e) => handleOpen(e, activity.id)}>
+                      열기
+                    </ActionButton>
+                  )}
+                  <ActionButton onClick={(e) => handleDelete(e, activity.id)}>
+                    삭제
                   </ActionButton>
-                  <ActionButton>삭제</ActionButton>
                 </td>
               </ActivityListRow>
             ))}
