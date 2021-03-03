@@ -1,8 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
-import MarkdownIt from 'markdown-it';
-import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import ActionButton from '../../common/Buttons/ActionButton';
 import 'codemirror/lib/codemirror.css';
@@ -73,20 +71,40 @@ const BoardName = styled.h2`
   width: 90%;
 `;
 
-const PostForm = ({ title, body }) => {
+const PostForm = ({ post, selectedMenu, onCreatePost, onUpdatePost }) => {
   const editorRef = useRef();
+
+  const [title, setTitle] = useState(post ? post.title : '');
+  const [body, setBody] = useState(post ? post.body : '');
+
+  const onChangeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
   function onEditorChange(e) {
     const editorInstance = editorRef.current.getInstance();
     const markdownContent = editorInstance.getMarkdown();
-    console.log(markdownContent);
-    const HTMLContent = editorInstance.getHtml();
-    console.log(HTMLContent);
-    //setBody(markdownContent);
+    setBody(markdownContent);
   }
+
+  const handleCreate = (e) => {
+    e.preventDefault();
+    onCreatePost({ title, body });
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    onUpdatePost({ title, body });
+  };
+
   return (
     <PostFormBlock>
-      <BoardName>공지사항</BoardName>
-      <TitleInput placeholder="제목을 입력하세요" value={title} />
+      <BoardName>{selectedMenu}</BoardName>
+      <TitleInput
+        placeholder="제목을 입력하세요"
+        value={title}
+        onChange={onChangeTitle}
+      />
       <EditorWrapper>
         <Editor
           initialValue={body}
@@ -97,7 +115,16 @@ const PostForm = ({ title, body }) => {
       </EditorWrapper>
       <PostButtonContainer>
         <StyledActionButton className="file">파일 첨부</StyledActionButton>
-        <StyledActionButton className="submit">작성</StyledActionButton>
+        {post ? (
+          <StyledActionButton className="submit" onClick={handleUpdate}>
+            수정
+          </StyledActionButton>
+        ) : (
+          <StyledActionButton className="submit" onClick={handleCreate}>
+            작성
+          </StyledActionButton>
+        )}
+
         <StyledActionButton className="cancel">취소</StyledActionButton>
       </PostButtonContainer>
     </PostFormBlock>
