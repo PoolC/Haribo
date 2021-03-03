@@ -7,15 +7,14 @@ import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 
 const PostBlock = styled.div`
-  flex: 4;
-  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
   box-shadow: 0px 0px 20px ${colors.gray[1]};
+  flex: 4;
   border-radius: 50px;
-  padding: 40px 40px 60px 40px;
+  padding: 30px 40px;
 `;
 
 const PostContainer = styled.div`

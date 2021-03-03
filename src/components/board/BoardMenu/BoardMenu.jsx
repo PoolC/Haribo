@@ -38,6 +38,7 @@ const SelectedLinkButton = styled(LinkButton)`
 
 const BoardMenu = ({ menus, currentLocation, setSelectedMenu }) => {
   const onSelectMenu = (menu) => {
+    console.log(menu);
     setSelectedMenu(menu);
   };
 

@@ -3,21 +3,7 @@ import styled from 'styled-components';
 import BoardMenu from '../../../components/board/BoardMenu/BoardMenu';
 import Post from '../../../components/board/Post/Post';
 
-const PostContainerBlock = styled.div`
-  position: relative;
-  top: 0px;
-  width: 90%;
-  left: 5%;
-  right: 5%;
-  display: flex;
-  margin: 0px 0 300px 0;
-  @media (max-width: 576px) {
-    margin-bottom: 600px;
-    flex-direction: column;
-  }
-`;
-
-const PostContainer = () => {
+const PostContainer = ({ selectedMenu }) => {
   const menus = [
     { name: '공지사항', url: '/notice' },
     { name: '학술부', url: '/study' },
@@ -54,12 +40,7 @@ const PostContainer = () => {
     ],
   };
 
-  return (
-    <PostContainerBlock>
-      <BoardMenu menus={menus} />
-      <Post post={post} />
-    </PostContainerBlock>
-  );
+  return <Post post={post} selectedMenu={selectedMenu} />;
 };
 
 export default PostContainer;

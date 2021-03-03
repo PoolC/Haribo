@@ -36,11 +36,15 @@ function App() {
           component={MemberDetailPage}
           path={`/${MENU.MEMBER}/:memberID`}
         />
-        <Route component={PostWritePage} path={`/${MENU.POST}/new/:boardID`} />
-        <Route component={PostPage} path={`/${MENU.POST}/:postID`} />
+        {/* <Route component={PostWritePage} path={`/${MENU.POST}/new/:boardID`} />
+        <Route component={PostPage} path={`/${MENU.POST}/:postID`} /> */}
         <Route
           component={BoardPage}
-          path={[`/${MENU.BOARDS}/:urlPath`, `/${MENU.BOARDS}`]}
+          path={[
+            `/${MENU.BOARDS}/:urlPath`,
+            `/${MENU.BOARDS}`,
+            `/${MENU.POST}`,
+          ]}
         />
         <Route component={ProjectListPage} path={`/${MENU.PROJECTS}`} />
         <Route

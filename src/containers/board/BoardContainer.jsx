@@ -6,8 +6,9 @@ import BoardContent from '../../components/board/BoardContent/BoardContent';
 import * as boardAPI from '../../lib/api/board';
 import { useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import PostWritePage from '../../pages/post/PostWritePage';
-import PostPage from '../../pages/post/PostPage';
+import PostListContainer from './PostListContainer/PostListContainer';
+import PostFormContainer from './PostFormContainer/PostFormContainer';
+import PostContainer from './PostContainer/PostContainer';
 import { MENU } from '../../constants/menus';
 
 const BoardContainerBlock = styled.div`
@@ -25,6 +26,7 @@ const BoardContainerBlock = styled.div`
 `;
 
 const BoardContainer = ({ location, history, match }) => {
+  console.log(match);
   const currentLocation = match.params.urlPath;
   const member = useSelector((state) => state.auth);
 
@@ -32,15 +34,11 @@ const BoardContainer = ({ location, history, match }) => {
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [posts, setPosts] = useState([]);
 
-  if (!currentLocation) {
-    history.push('/boards/notice');
-  }
+  // if (!currentLocation) {
+  //   history.push('/boards/notice');
+  // }
 
   useEffect(() => {
-    // (async () => {
-    //   const response = await boardAPI.getBoards();
-    //   setBoards(response.data.data);
-    // })();
     boardAPI.getBoards().then((res) => {
       if (res.status === 200) {
         console.log(res.data.data);
@@ -61,7 +59,23 @@ const BoardContainer = ({ location, history, match }) => {
         currentLocation={currentLocation}
         setSelectedMenu={setSelectedMenu}
       />
-      <BoardContent posts={posts} member={member} selectedMenu={selectedMenu} />
+      <Switch>
+        <Route
+          render={() => <PostListContainer selectedMenu={selectedMenu} />}
+          path={`/${MENU.BOARDS}/:urlPath`}
+          exact
+        />
+        <Route
+          render={() => <PostFormContainer selectedMenu={selectedMenu} />}
+          path={[`/${MENU.POST}/new/:boardID`, `/${MENU.POST}/edit/:postID`]}
+          exact
+        />
+        <Route
+          render={() => <PostContainer selectedMenu={selectedMenu} />}
+          path={`/${MENU.POST}/:postID`}
+          exact
+        />
+      </Switch>
     </BoardContainerBlock>
   );
 };
