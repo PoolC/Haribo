@@ -13,7 +13,7 @@ const ProjectDetailContainer = ({ location }) => {
       const response = await projectAPI.getProject(projectId);
       setProject(response.data.data);
     })();
-  }, []);
+  }, [projectId]);
 
   if (project === null) {
     return null;

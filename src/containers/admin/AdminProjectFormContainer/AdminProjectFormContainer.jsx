@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 import AdminProjectForm from '../../../components/admin/AdminProjectForm/AdminProjectForm';
 import * as projectAPI from '../../../lib/api/project';
 import * as memberAPI from '../../../lib/api/member';
-import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 const AdminProjectFormContainer = ({ match, history }) => {
   const projectID = match.params.projectID;
-  const hostID = useSelector((state) => state.auth.user.memberId);
 
   const [members, setMembers] = useState([]);
   const [searchMembers, setSearchMembers] = useState([]);
@@ -21,7 +19,7 @@ const AdminProjectFormContainer = ({ match, history }) => {
         setMembers(response.data.data.members);
       })();
     }
-  }, []);
+  }, [projectID]);
 
   if (projectID && project === null) {
     return null;

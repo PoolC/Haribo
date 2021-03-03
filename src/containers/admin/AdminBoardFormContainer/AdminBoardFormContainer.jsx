@@ -15,7 +15,7 @@ const AdminBoardFormContainer = ({ match, history, location }) => {
         setBoard(response.data);
       })();
     }
-  }, []);
+  }, [boardID]);
 
   if (boardID && board === null) {
     return null;

@@ -4,14 +4,15 @@ import { withRouter } from 'react-router-dom';
 import * as memberAPI from '../../../lib/api/member';
 
 const MemberDetailContainer = ({ match }) => {
-  const { memberId } = match.params;
+  const { memberID } = match.params;
   const [member, setMember] = useState(null);
+
   useEffect(() => {
     (async () => {
-      const response = await memberAPI.getMember(memberId);
+      const response = await memberAPI.getMember(memberID);
       setMember(response.data);
     })();
-  }, []);
+  }, [memberID]);
 
   if (member === null) {
     return null;

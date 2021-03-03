@@ -14,7 +14,7 @@ const AdminBookFormContainer = ({ match, history }) => {
         setBook(response.data);
       })();
     }
-  }, []);
+  }, [bookID]);
 
   if (bookID && book === null) {
     return null;
