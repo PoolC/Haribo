@@ -34,10 +34,10 @@ function App() {
         <Route component={MemberListPage} path={`/${MENU.MEMBERS}`} />
         <Route
           component={MemberDetailPage}
-          path={`/${MENU.MEMBER}/:memberId`}
+          path={`/${MENU.MEMBER}/:memberID`}
         />
-        <Route component={PostWritePage} path={`/${MENU.POST}/new`} exact />
-        <Route component={PostPage} path={`/${MENU.POST}/:postId`} />
+        <Route component={PostWritePage} path={`/${MENU.POST}/new/:boardID`} />
+        <Route component={PostPage} path={`/${MENU.POST}/:postID`} />
         <Route
           component={BoardPage}
           path={[`/${MENU.BOARDS}/:urlPath`, `/${MENU.BOARDS}`]}
@@ -45,26 +45,24 @@ function App() {
         <Route component={ProjectListPage} path={`/${MENU.PROJECTS}`} />
         <Route
           component={ProjectDetailPage}
-          path={`/${MENU.PROJECT}/:projectId`}
+          path={`/${MENU.PROJECT}/:projectID`}
+        />
+        <Route
+          component={ActivityAdminPage}
+          path={[`/${MENU.ACTIVITY}/new`, `/${MENU.ACTIVITY}/edit/:activityID`]}
+          exact
         />
         <Route component={ActivityListPage} path={`/${MENU.ACTIVITIES}`} />
         <Route
           component={ActivityAttendancePage}
           path={[
-            `/${MENU.ACTIVITY}/:activityId/attendance`,
-            `/${MENU.ACTIVITY}/:activityId/attendance/:session`,
-          ]}
-        />
-        <Route
-          component={ActivityAdminPage}
-          path={[
-            `/${MENU.ACTIVITY}/create/:activityId`,
-            `/${MENU.ACTIVITY}/create`,
+            `/${MENU.ACTIVITY}/:activityID/attendance/:sessionID`,
+            `/${MENU.ACTIVITY}/:activityID/attendance`,
           ]}
         />
         <Route
           component={ActivityDetailPage}
-          path={`/${MENU.ACTIVITY}/:activityId`}
+          path={`/${MENU.ACTIVITY}/:activityID`}
           exact
         />
         <Route component={BookListPage} path={`/${MENU.BOOKS}`} />
