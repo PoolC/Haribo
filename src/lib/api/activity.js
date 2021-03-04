@@ -92,10 +92,10 @@ export const createActivitySession = ({
   });
 
 export const getActivitySessions = (activityID) =>
-  client.get(`/activity/session/${activityID}`);
+  client.get(`/activity/session/activity/${activityID}`);
 
 export const getActivitySession = (sessionID) =>
-  client.get(`/activity/onesession/${sessionID}`);
+  client.get(`/activity/session/${sessionID}`);
 
 export const updateActivitySession = ({ sessionID, date, description }) =>
   client.put(`/activity/session/${sessionID}`, {
