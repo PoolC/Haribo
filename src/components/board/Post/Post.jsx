@@ -53,8 +53,10 @@ const InfoContainer = styled.div`
   padding: 5px 0 20px 0;
   border-bottom: 1px solid ${colors.mint[0]};
   & > div {
+    display: flex;
+    align-items: center;
     width: 1px;
-    height: 100%;
+    height: 0.9rem;
     background-color: ${colors.brown[0]};
     margin: 0 0.5rem;
   }

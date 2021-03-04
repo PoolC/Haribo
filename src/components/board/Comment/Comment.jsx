@@ -12,14 +12,18 @@ const CommentBlock = styled.div`
   &:hover {
     background-color: ${colors.gray[1]};
   }
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
 `;
 
 const Author = styled.div`
   display: flex;
   align-items: center;
   font-size: 0.9rem;
-  font-weight: 500;
-  min-width: 5rem;
+  font-weight: 600;
+  min-width: 4rem;
+  padding-left: 0.5rem;
 `;
 
 const Body = styled.div`
@@ -29,6 +33,10 @@ const Body = styled.div`
   align-items: center;
   word-break: keep-all;
   line-height: 1.2rem;
+  @media (max-width: 576px) {
+    margin: 0.5rem 0;
+    padding-left: 0.5rem;
+  }
 `;
 
 const Button = styled.div`
@@ -43,6 +51,9 @@ const Button = styled.div`
       background-color: ${colors.red[1]};
     }
   }
+  @media (max-width: 576px) {
+    flex: 1;
+  }
 `;
 
 const Date = styled.div`
@@ -53,6 +64,23 @@ const Date = styled.div`
   font-weight: 300;
   font-size: 0.8rem;
   padding-right: 0.5rem;
+  @media (max-width: 576px) {
+    justify-content: start;
+  }
+`;
+
+const DateButtonConatiner = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-weight: 300;
+  font-size: 0.8rem;
+  min-width: 3rem;
+  padding-right: 0.5rem;
+  @media (max-width: 576px) {
+    justify-content: space-between;
+    padding-left: 0.5rem;
+  }
 `;
 
 const Comment = ({ comment, onDeleteComment }) => {
@@ -67,10 +95,12 @@ const Comment = ({ comment, onDeleteComment }) => {
     <CommentBlock>
       <Author>{memberName}</Author>
       <Body>{body}</Body>
-      <Date>{getFullCurrentDateString(createdAt)}</Date>
-      <Button>
-        <ActionButton onClick={handleDelete}>삭제</ActionButton>
-      </Button>
+      <DateButtonConatiner>
+        <Date>{getFullCurrentDateString(createdAt)}</Date>
+        <Button>
+          <ActionButton onClick={handleDelete}>삭제</ActionButton>
+        </Button>
+      </DateButtonConatiner>
     </CommentBlock>
   );
 };
