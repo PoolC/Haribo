@@ -1,34 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import RecentNotice from '../../../components/home/RecentNotice/RecentNotice';
+import * as postAPI from '../../../lib/api/post';
 
 const RecentNoticeContainer = () => {
-  const notices = [
-    {
-      id: 0,
-      title: '2020-2 종강총회 회의록 (20201222)',
-      date: '2021-02-16',
-    },
-    {
-      id: 1,
-      title: 'Recent Notice',
-      date: '2021-02-16',
-    },
-    {
-      id: 2,
-      title: 'Recent Notice',
-      date: '2021-02-16',
-    },
-    {
-      id: 3,
-      title: 'Recent Notice',
-      date: '2021-02-16',
-    },
-    {
-      id: 4,
-      title: 'Recent Notice',
-      date: '2021-02-16',
-    },
-  ];
+  const [notices, setNotices] = useState(null);
+
+  useEffect(() => {
+    postAPI.getPostsByUrlPath(1).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        setNotices(res.data.data);
+      }
+    });
+  }, []);
+
   return <RecentNotice notices={notices} />;
 };
 

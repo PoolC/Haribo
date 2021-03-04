@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { MENU } from '../../../constants/menus';
 import colors from '../../../lib/styles/colors';
+import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
 
 const RecentNoticeBlock = styled.div`
   display: flex;
@@ -74,14 +76,20 @@ const RecentNotice = ({ notices }) => {
   return (
     <RecentNoticeBlock>
       <NoticeContainerTitle>
-        <StyledLink to="/boards/notice">Recent Notice</StyledLink>
+        <StyledLink to="/boards/notice">Recent Notices</StyledLink>
       </NoticeContainerTitle>
       <MainNoticeContents>
         <RecentNoticeList>
-          {notices.map((notice) => (
-            <RecentNoticeItem key={notice.id}>
-              <RecentNoticeCardTitle>{notice.title}</RecentNoticeCardTitle>
-              <RecentNoticeCardDate>{notice.date}</RecentNoticeCardDate>
+          {notices?.map((notice) => (
+            <RecentNoticeItem key={notice.postId}>
+              <RecentNoticeCardTitle>
+                <StyledLink to={`/${MENU.POST}/${notice.postId}`}>
+                  {notice.title}
+                </StyledLink>
+              </RecentNoticeCardTitle>
+              <RecentNoticeCardDate>
+                {getFullCurrentDateString(notice.createdAt)}
+              </RecentNoticeCardDate>
             </RecentNoticeItem>
           ))}
         </RecentNoticeList>
