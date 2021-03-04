@@ -10,13 +10,22 @@ const CommentListBlock = styled.div`
   width: 100%;
 `;
 
-const CommentList = ({ comments }) => {
+const CommentList = ({
+  comments,
+  postId,
+  onCreateComment,
+  onDeleteComment,
+}) => {
   return (
     <CommentListBlock>
       {comments.map((comment) => (
-        <Comment key={comment.id} comment={comment} />
+        <Comment
+          key={comment.id}
+          comment={comment}
+          onDeleteComment={onDeleteComment}
+        />
       ))}
-      <CommentForm />
+      <CommentForm onCreateComment={onCreateComment} />
     </CommentListBlock>
   );
 };

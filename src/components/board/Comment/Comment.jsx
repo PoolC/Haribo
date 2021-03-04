@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
+import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
 import ActionButton from '../../common/Buttons/ActionButton';
 
 const CommentBlock = styled.div`
@@ -43,14 +44,30 @@ const Button = styled.div`
   }
 `;
 
-const Comment = ({ comment }) => {
-  const { id, author, body, createdAt } = comment;
+const Date = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
+  font-weight: 300;
+  font-size: 0.8rem;
+`;
+
+const Comment = ({ comment, onDeleteComment }) => {
+  const { commentId, author, body, createdAt } = comment;
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    onDeleteComment(commentId);
+  };
+
   return (
     <CommentBlock>
       <Author>{author}</Author>
       <Body>{body}</Body>
+      <Date>{getFullCurrentDateString(createdAt)}</Date>
       <Button>
-        <ActionButton>삭제</ActionButton>
+        <ActionButton onClick={handleDelete}>삭제</ActionButton>
       </Button>
     </CommentBlock>
   );
