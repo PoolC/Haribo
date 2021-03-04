@@ -14,7 +14,7 @@ import AdminHome from '../../components/admin/AdminHome/AdminHome';
 import AdminBoardFormContainer from '../../containers/admin/AdminBoardFormContainer/AdminBoardFormContainer';
 import AdminProjectFormContainer from '../../containers/admin/AdminProjectFormContainer/AdminProjectFormContainer';
 import AdminBookFormContainer from '../../containers/admin/AdminBookFormContainer/AdminBookFormContainer';
-import { pageAuthCheck } from '../../lib/utils/authCheck';
+import { pageAuthCheckByPermission } from '../../lib/utils/authCheck';
 import { useSelector } from 'react-redux';
 
 const AdminContainerBlock = styled.div`
@@ -34,7 +34,7 @@ const AdminContainerBlock = styled.div`
 const AdminPage = ({ history }) => {
   const member = useSelector((state) => state.auth);
 
-  pageAuthCheck(history, member, 'ADMIN');
+  pageAuthCheckByPermission(history, member, 'ADMIN');
 
   const menus = [
     { name: '관리자 홈', url: '' },
