@@ -6,7 +6,7 @@ const RecentNoticeContainer = () => {
   const [notices, setNotices] = useState(null);
 
   useEffect(() => {
-    postAPI.getPostsByUrlPath(1).then((res) => {
+    postAPI.getPosts('notice').then((res) => {
       console.log(res);
       if (res.status === 200) {
         setNotices(res.data.data);

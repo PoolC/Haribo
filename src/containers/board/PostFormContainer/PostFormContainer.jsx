@@ -35,10 +35,11 @@ const PostFormContainer = ({ match, history }) => {
 
   const onCreatePost = ({ title, body }) => {
     console.log({ title, body, boardID });
+    console.log(selectedMenu);
     postAPI.createPost({ title, body, boardID }).then((res) => {
       if (res.status === 202) {
-        console.log(res.data);
-        history.push(`/${MENU.BOARDS}/${selectedMenu.name}`);
+        console.log(res);
+        history.push(`/${MENU.BOARDS}/${selectedMenu.urlPath}`);
       }
     });
   };

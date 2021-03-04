@@ -5,7 +5,7 @@ import * as postAPI from '../../../lib/api/post';
 
 const PostListContainer = ({ selectedMenu }) => {
   const member = useSelector((state) => state.auth);
-  const boardID = selectedMenu.id;
+  const urlPath = selectedMenu.urlPath;
 
   const [posts, setPosts] = useState([]);
 
@@ -14,13 +14,13 @@ const PostListContainer = ({ selectedMenu }) => {
   // }
 
   useEffect(() => {
-    postAPI.getPosts(boardID).then((res) => {
+    postAPI.getPosts(urlPath).then((res) => {
       if (res.status === 200) {
         console.log(res.data.data);
         setPosts(res.data.data);
       }
     });
-  }, [boardID]);
+  }, [urlPath]);
 
   if (posts === null) {
     return null;
