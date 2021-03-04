@@ -52,7 +52,6 @@ const TableHead = styled.tr`
   cursor: default;
   display: flex;
   width: 100%;
-  background-color: ${colors.mint[0]};
   margin: 0;
   padding: 0.8rem 0px;
   font-size: 0.9rem;

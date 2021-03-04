@@ -1,57 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 import { MENU } from '../../../constants/menus';
-import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
-
-const SessionCard = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-  padding: 20px 0 10px 0;
-  list-style: none;
-`;
-
-const SessionDivider = styled.div`
-  margin-top: 30px;
-  width: 50px;
-  height: 1px;
-  background-color: ${colors.mint[1]};
-`;
-
-const SessionNumber = styled.p`
-  font-weight: 700;
-  margin-bottom: 10px;
-`;
-
-const Date = styled.p`
-  font-weight: 300;
-  font-size: 0.8rem;
-  margin-bottom: 10px;
-`;
-
-const Description = styled.p``;
-
-const AttendanceList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  h5 {
-    font-size: 0.9rem;
-    margin: 10px 0;
-    font-weight: 500;
-  }
-`;
-
-const Attendance = styled.li`
-  font-size: 0.8rem;
-  margin: 2px;
-  font-weight: 300;
-  list-style: none;
-`;
+import {
+  Attendance,
+  AttendanceList,
+  Date,
+  Description,
+  SessionCard,
+  SessionDivider,
+  SessionNumber,
+} from './Session.styles';
 
 const Session = ({ session, memberInfo, activityID, attendance, host }) => {
   const { id, description, date, sessionNumber } = session;

@@ -75,7 +75,7 @@ const DateButtonConatiner = styled.div`
   align-items: center;
   font-weight: 300;
   font-size: 0.8rem;
-  min-width: 3rem;
+  min-width: 8rem;
   padding-right: 0.5rem;
   @media (max-width: 576px) {
     justify-content: space-between;
