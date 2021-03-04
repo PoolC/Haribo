@@ -8,6 +8,7 @@ const CommentBlock = styled.div`
   display: flex;
   width: 100%;
   padding: 8px 0;
+  cursor: default;
   &:hover {
     background-color: ${colors.gray[1]};
   }
@@ -51,10 +52,11 @@ const Date = styled.div`
   align-items: center;
   font-weight: 300;
   font-size: 0.8rem;
+  padding-right: 0.5rem;
 `;
 
 const Comment = ({ comment, onDeleteComment }) => {
-  const { commentId, author, body, createdAt } = comment;
+  const { commentId, memberName, body, createdAt } = comment;
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -63,7 +65,7 @@ const Comment = ({ comment, onDeleteComment }) => {
 
   return (
     <CommentBlock>
-      <Author>{author}</Author>
+      <Author>{memberName}</Author>
       <Body>{body}</Body>
       <Date>{getFullCurrentDateString(createdAt)}</Date>
       <Button>

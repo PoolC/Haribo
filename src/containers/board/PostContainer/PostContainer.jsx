@@ -36,7 +36,8 @@ const PostContainer = ({ selectedMenu, history, match }) => {
   const onCreateComment = (body) => {
     commentAPI.createComment({ postID, body }).then((res) => {
       console.log(res);
-      if (res.status === 200) {
+      if (res.status === 202) {
+        setComments([...comments, res.data]);
       }
     });
   };
@@ -45,6 +46,9 @@ const PostContainer = ({ selectedMenu, history, match }) => {
     commentAPI.deleteComment(commentID).then((res) => {
       console.log(res);
       if (res.status === 200) {
+        setComments(
+          comments.filter((comment) => comment.commentId !== commentID),
+        );
       }
     });
   };
