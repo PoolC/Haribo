@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import * as authAPI from '../lib/api/auth';
 import { call, put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga/effects';
+import client from '../lib/api/client';
 
 const LOGIN = 'auth/LOGIN';
 const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
@@ -10,6 +11,10 @@ const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
 const LOAD_USER = 'auth/LOAD_USER';
 const LOAD_USER_SUCCESS = 'auth/LOAD_USER_SUCCESS';
 const LOAD_USER_FAILURE = 'auth/LOAD_USER_FAILURE';
+
+const SET_TOKEN = 'auth/SET_TOKEN';
+const SET_TOKEN_SUCCESS = 'auth/SET_TOKEN';
+const SET_TOKEN_FAILURE = 'auth/SET_TOKEN';
 
 const LOGOUT = 'auth/LOGOUT';
 // const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
@@ -20,11 +25,15 @@ export const login = createAction(LOGIN, ({ id, password }) => ({
   password,
 }));
 
+export const setToken = createAction(SET_TOKEN);
+
 export const loadUser = createAction(LOAD_USER);
 
 export const logout = createAction(LOGOUT);
 
 function* loadUserSaga(action) {
+  console.log(localStorage.getItem('accessToken'));
+  console.log(action);
   try {
     const result = yield call(authAPI.loadUser);
     yield put({
@@ -40,13 +49,32 @@ function* loadUserSaga(action) {
   }
 }
 
+function* setTokenSaga(action) {
+  try {
+    yield console.log(action);
+    yield (client.defaults.headers.common[
+      'Authorization'
+    ] = `Bearer ${action.data}`);
+    yield put({
+      type: SET_TOKEN_SUCCESS,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: SET_TOKEN_FAILURE,
+      error: err,
+    });
+  }
+}
+
 function* loginSaga(action) {
   try {
     const result = yield call(authAPI.login, action.payload);
     yield localStorage.setItem('accessToken', result.data.accessToken);
+    yield console.log(localStorage.getItem('accessToken'));
     yield put({
       type: LOGIN_SUCCESS,
-      data: result.data,
+      data: result.data.accessToken,
     });
   } catch (err) {
     console.error('*****');
@@ -60,11 +88,13 @@ function* loginSaga(action) {
 
 function logoutRequest() {
   localStorage.removeItem('accessToken');
+  client.defaults.headers.common['Authorization'] = '';
 }
 
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
-  yield takeLatest(LOGIN_SUCCESS, loadUserSaga);
+  yield takeLatest(LOGIN_SUCCESS, setTokenSaga);
+  yield takeLatest(SET_TOKEN_SUCCESS, loadUserSaga);
   yield takeLatest(LOAD_USER, loadUserSaga);
   yield takeLatest(LOGOUT, logoutRequest);
 }
