@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import BoardMenu from '../../components/board/BoardMenu/BoardMenu';
-import BoardContent from '../../components/board/BoardContent/BoardContent';
 import * as boardAPI from '../../lib/api/board';
 import { useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
@@ -28,11 +27,9 @@ const BoardContainerBlock = styled.div`
 const BoardContainer = ({ location, history, match }) => {
   console.log(match);
   const currentLocation = match.params.urlPath;
-  const member = useSelector((state) => state.auth);
 
   const [boards, setBoards] = useState(null);
   const [selectedMenu, setSelectedMenu] = useState(null);
-  const [posts, setPosts] = useState([]);
 
   // if (!currentLocation) {
   //   history.push('/boards/notice');
@@ -67,7 +64,10 @@ const BoardContainer = ({ location, history, match }) => {
         />
         <Route
           render={() => <PostFormContainer selectedMenu={selectedMenu} />}
-          path={[`/${MENU.POST}/new/:boardID`, `/${MENU.POST}/edit/:postID`]}
+          path={[
+            `/${MENU.POST}/new/:boardID`,
+            `/${MENU.POST}/:boardID/edit/:postID`,
+          ]}
           exact
         />
         <Route

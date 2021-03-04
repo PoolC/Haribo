@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { MENU } from '../../../constants/menus';
 import colors from '../../../lib/styles/colors';
+import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
 import ActionButton from '../../common/Buttons/ActionButton';
 
 const PostListBlock = styled.div`
@@ -101,14 +102,21 @@ const PostListRow = styled.tr`
     font-size: 0.8rem;
   }
   & > .post-list-row-title {
+    display: flex;
+    align-items: center;
     cursor: pointer;
     flex: 12;
+    font-weight: 500;
     padding: 0 10px;
     line-height: 1.5rem;
     & > .post_list_row_comment_count {
-      margin: 0 0 0 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0 0 5px;
       color: ${colors.mint[2]};
       font-size: 0.8rem;
+      font-weight: 300;
     }
   }
   & > .post-list-row-author {
@@ -121,6 +129,7 @@ const PostListRow = styled.tr`
   }
   & > .post-list-row-date {
     display: flex;
+    align-items: center;
     justify-content: center;
     flex: 3;
     padding: 0 10px;
@@ -176,17 +185,19 @@ const PostList = ({ selectedMenu, posts }) => {
         </thead>
         <tbody>
           {posts.map((post) => (
-            <PostListRow key={post.id}>
+            <PostListRow key={post.postId}>
               <td className="post-list-row-title">
-                <StyledLink to={`/${MENU.POST}/${post.id}`}>
+                <StyledLink to={`/${MENU.POST}/${post.postId}`}>
                   {post.title}
                 </StyledLink>
                 <span className="post_list_row_comment_count">
-                  {post.commentsCount}
+                  [{post.comments.length}]
                 </span>
               </td>
-              <td className="post-list-row-author">{post.author}</td>
-              <td className="post-list-row-date">{post.date}</td>
+              <td className="post-list-row-author">{post.memberName}</td>
+              <td className="post-list-row-date">
+                {getFullCurrentDateString(post.createdAt)}
+              </td>
             </PostListRow>
           ))}
         </tbody>

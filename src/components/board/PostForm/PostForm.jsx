@@ -6,6 +6,7 @@ import ActionButton from '../../common/Buttons/ActionButton';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
+import { withRouter } from 'react-router-dom';
 
 const PostFormBlock = styled.div`
   flex: 4;
@@ -71,7 +72,13 @@ const BoardName = styled.h2`
   width: 90%;
 `;
 
-const PostForm = ({ post, selectedMenu, onCreatePost, onUpdatePost }) => {
+const PostForm = ({
+  history,
+  post,
+  selectedMenu,
+  onCreatePost,
+  onUpdatePost,
+}) => {
   const editorRef = useRef();
 
   const [title, setTitle] = useState(post ? post.title : '');
@@ -84,6 +91,9 @@ const PostForm = ({ post, selectedMenu, onCreatePost, onUpdatePost }) => {
   function onEditorChange(e) {
     const editorInstance = editorRef.current.getInstance();
     const markdownContent = editorInstance.getMarkdown();
+    console.log(markdownContent);
+    const HTMLContent = editorInstance.getHtml();
+    console.log(HTMLContent);
     setBody(markdownContent);
   }
 
@@ -99,7 +109,7 @@ const PostForm = ({ post, selectedMenu, onCreatePost, onUpdatePost }) => {
 
   return (
     <PostFormBlock>
-      <BoardName>{selectedMenu}</BoardName>
+      <BoardName>{selectedMenu.name}</BoardName>
       <TitleInput
         placeholder="제목을 입력하세요"
         value={title}
@@ -125,10 +135,15 @@ const PostForm = ({ post, selectedMenu, onCreatePost, onUpdatePost }) => {
           </StyledActionButton>
         )}
 
-        <StyledActionButton className="cancel">취소</StyledActionButton>
+        <StyledActionButton
+          className="cancel"
+          onClick={() => history.goBack(1)}
+        >
+          취소
+        </StyledActionButton>
       </PostButtonContainer>
     </PostFormBlock>
   );
 };
 
-export default PostForm;
+export default withRouter(PostForm);

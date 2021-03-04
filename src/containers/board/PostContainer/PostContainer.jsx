@@ -1,46 +1,64 @@
-import React from 'react';
-import styled from 'styled-components';
-import BoardMenu from '../../../components/board/BoardMenu/BoardMenu';
+import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import Post from '../../../components/board/Post/Post';
+import * as postAPI from '../../../lib/api/post';
+import * as commentAPI from '../../../lib/api/comment';
+import { set } from '../../../../node_modules/stylis/stylis';
 
-const PostContainer = ({ selectedMenu }) => {
-  const menus = [
-    { name: '공지사항', url: '/notice' },
-    { name: '학술부', url: '/study' },
-    { name: '구인/홍보', url: '/recruit' },
-    { name: '게임제작부', url: '/gamedev' },
-  ];
+const PostContainer = ({ selectedMenu, history, match }) => {
+  const { postID } = match.params;
+  const [post, setPost] = useState(null);
+  const [comments, setComments] = useState(null);
 
-  const post = {
-    id: 0,
-    title: '제목 테스트',
-    body: '~~paragraph~~ with *emphasis* and **strong importance**',
-    author: '김민지',
-    createdAt: '2021-02-02 10:00:00',
-    comments: [
-      {
-        id: 0,
-        author: '김풀씨0',
-        body: '댓글 테스트',
-        createdAt: '2021-02-03 11:11:11',
-      },
-      {
-        id: 1,
-        author: '김풀씨1',
-        body:
-          '댓글 테스트댓글 테스트댓글 테스트댓글 테스트댓글 테스트댓글 테스트댓글 테스트댓글 테스트댓글 테스트댓글 테스트댓글 테스트댓글 테스트댓글 테스트댓글 테스트',
-        createdAt: '2021-02-03 11:11:11',
-      },
-      {
-        id: 2,
-        author: '김풀씨2',
-        body: '댓글 테스트',
-        createdAt: '2021-02-03 11:11:11',
-      },
-    ],
+  useEffect(() => {
+    postAPI.getPost(postID).then((res) => {
+      if (res.status === 200) {
+        console.log(res.data);
+        setPost(res.data);
+        setComments(res.data.comments);
+      }
+    });
+  }, [postID]);
+
+  if (post === null || comments === null) {
+    return null;
+  }
+
+  const onDeletePost = () => {
+    postAPI.deletePost(postID).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        history.goBack(1);
+      }
+    });
   };
 
-  return <Post post={post} selectedMenu={selectedMenu} />;
+  const onCreateComment = (body) => {
+    commentAPI.createComment({ postID, body }).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+      }
+    });
+  };
+
+  const onDeleteComment = (commentID) => {
+    commentAPI.deleteComment(commentID).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+      }
+    });
+  };
+
+  return (
+    <Post
+      post={post}
+      comments={comments}
+      selectedMenu={selectedMenu}
+      onDeletePost={onDeletePost}
+      onCreateComment={onCreateComment}
+      onDeleteComment={onDeleteComment}
+    />
+  );
 };
 
-export default PostContainer;
+export default withRouter(PostContainer);
