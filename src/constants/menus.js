@@ -16,6 +16,7 @@ const MENU = {
   MYINFO: 'my-info',
   SIGNIN: 'login',
   SIGNUP: 'register',
+  FORBIDDEN: 'forbidden',
 };
 
 export { MENU };
