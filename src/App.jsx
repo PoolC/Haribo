@@ -23,6 +23,7 @@ import AdminHomePage from './pages/admin/AdminHomePage';
 import PostWritePage from './pages/post/PostWritePage';
 import PostPage from './pages/post/PostPage';
 import NotFoundPage from './pages/error/NotFoundPage';
+import AccessDeniedPage from './pages/error/AccessDeniedPage';
 
 function App() {
   return (
@@ -75,6 +76,7 @@ function App() {
         <Route component={ApplyPage} path={`/${MENU.APPLY}`} />
         <Route component={AdminHomePage} path={`/${MENU.ADMIN}`} />
         <Route component={MyInfoPage} path={`/${MENU.MYINFO}`} />
+        <Route component={AccessDeniedPage} path={`/${MENU.FORBIDDEN}`} />
         <Route component={NotFoundPage} path="/" />
       </Switch>
       <FooterContainer />
