@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import AdminMenu from '../../components/admin/AdminMenu/AdminMenu';
 import AdminInfoContainer from '../../containers/admin/AdminInfoContainer/AdminInfoContainer';
 import { MENU } from '../../constants/menus';
@@ -14,6 +14,8 @@ import AdminHome from '../../components/admin/AdminHome/AdminHome';
 import AdminBoardFormContainer from '../../containers/admin/AdminBoardFormContainer/AdminBoardFormContainer';
 import AdminProjectFormContainer from '../../containers/admin/AdminProjectFormContainer/AdminProjectFormContainer';
 import AdminBookFormContainer from '../../containers/admin/AdminBookFormContainer/AdminBookFormContainer';
+import { pageAuthCheck } from '../../lib/utils/authCheck';
+import { useSelector } from 'react-redux';
 
 const AdminContainerBlock = styled.div`
   position: relative;
@@ -29,7 +31,11 @@ const AdminContainerBlock = styled.div`
   }
 `;
 
-const AdminPage = () => {
+const AdminPage = ({ history }) => {
+  const member = useSelector((state) => state.auth);
+
+  pageAuthCheck(history, member, 'ADMIN');
+
   const menus = [
     { name: '관리자 홈', url: '' },
     { name: '동아리 정보 관리', url: '/info' },
@@ -40,6 +46,7 @@ const AdminPage = () => {
     { name: '활동 관리', url: '/activities' },
     { name: '도서 관리', url: '/books' },
   ];
+
   return (
     <AdminContainerBlock>
       <AdminMenu menus={menus} />
@@ -110,4 +117,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default withRouter(AdminPage);
