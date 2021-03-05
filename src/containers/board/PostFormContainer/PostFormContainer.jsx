@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import styled from 'styled-components';
-import BoardMenu from '../../../components/board/BoardMenu/BoardMenu';
 import PostForm from '../../../components/board/PostForm/PostForm';
 import { MENU } from '../../../constants/menus';
 import * as boardAPI from '../../../lib/api/board';
@@ -38,8 +36,8 @@ const PostFormContainer = ({ match, history }) => {
     console.log(selectedMenu);
     postAPI.createPost({ title, body, boardID }).then((res) => {
       if (res.status === 202) {
-        console.log(res);
-        history.push(`/${MENU.BOARDS}/${selectedMenu.urlPath}`);
+        const { postId } = res.data;
+        history.push(`/${MENU.POST}/${postId}`);
       }
     });
   };
