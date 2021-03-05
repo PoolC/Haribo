@@ -1,68 +1,17 @@
-import colors from '../../../lib/styles/colors';
-import ActionButton from '../../common/Buttons/ActionButton';
 import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import useInput from '../../../hooks/useInput';
 import { notEmptyValidation } from '../../../lib/utils/validation';
-
-const AdminInfoBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  box-shadow: 0px 0px 20px ${colors.gray[1]};
-  flex: 4;
-  border-radius: 50px;
-  padding: 30px 0px;
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  width: 90%;
-  justify-content: center;
-  align-items: center;
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin: 1rem;
-`;
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  & > label {
-    margin: 2rem 0 1rem 0;
-    font-weight: 600;
-  }
-  & > input {
-    height: 2rem;
-    width: 15rem;
-    outline: 0;
-  }
-`;
-
-const StyledActionButton = styled(ActionButton)`
-  height: 2rem;
-  width: 15rem;
-  margin: 2rem 0;
-`;
-
-const ImageContainer = styled.div`
-  margin: 2rem 0;
-`;
-
-const ImageContainerHeader = styled.header`
-  font-weight: 600;
-`;
-
-const Description = styled.p`
-  color: ${colors.brown[0]};
-  font-size: 0.8rem;
-  margin-bottom: 1rem;
-`;
+import {
+  AdminInfoBlock,
+  Description,
+  ImageContainer,
+  ImageContainerHeader, StyledActionButton,
+  StyledForm,
+  TitleContainer,
+} from './AdminInfo.styles';
 
 const AdminInfo = ({ info, onUpdate }) => {
   const editorRef = useRef();

@@ -1,9 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
 
-const AdminMembersBlock = styled.div`
+export const AdminMembersBlock = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,7 +13,7 @@ const AdminMembersBlock = styled.div`
   padding: 30px 0px;
 `;
 
-const TitleContainer = styled.div`
+export const TitleContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,14 +22,14 @@ const TitleContainer = styled.div`
   margin: 1rem;
 `;
 
-const ContentsContainer = styled.div`
+export const ContentsContainer = styled.div`
   display: flex;
   width: 90%;
   justify-content: center;
   align-items: center;
 `;
 
-const Table = styled.table`
+export const Table = styled.table`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -47,7 +46,7 @@ const Table = styled.table`
   }
 `;
 
-const TableHead = styled.tr`
+export const TableHead = styled.tr`
   cursor: default;
   display: flex;
   width: 100%;
@@ -88,7 +87,7 @@ const TableHead = styled.tr`
   }
 `;
 
-const MemberListRow = styled.tr`
+export const MemberListRow = styled.tr`
   cursor: default;
   display: flex;
   padding: 0.5rem 0;
@@ -141,70 +140,10 @@ const MemberListRow = styled.tr`
   }
 `;
 
-const StyledActionButton = styled(ActionButton)`
+export const StyledActionButton = styled(ActionButton)`
   margin: 0;
   @media (max-width: 576px) {
     padding: 5px;
     font-size: 0.7rem;
   }
 `;
-
-const AdminMembers = ({ members }) => {
-  return (
-    <AdminMembersBlock>
-      <TitleContainer>회원 관리</TitleContainer>
-      <ContentsContainer>
-        <Table>
-          <thead>
-            <TableHead>
-              <th className="member_list_head name">이름</th>
-              <th className="member_list_head stuendtId">학번</th>
-              <th className="member_list_head loginId hide">아이디</th>
-              <th className="member_list_head email hide">이메일</th>
-              <th className="member_list_head phone hide">연락처</th>
-              <th className="member_list_head etc">승인</th>
-              <th className="member_list_head">동작</th>
-              <th className="member_list_head etc">관리자</th>
-              <th className="member_list_head">동작</th>
-            </TableHead>
-          </thead>
-          <tbody>
-            {members.map((member) => (
-              <MemberListRow key={member.id}>
-                <td className="member-list-row">{member.name}</td>
-                <td className="member-list-row stuendtId">
-                  {member.studentId}
-                </td>
-                <td className="member-list-row loginId hide">
-                  {member.loginId}
-                </td>
-                <td className="member-list-row email hide">{member.email}</td>
-                <td className="member-list-row phone hide">
-                  {member.phoneNumber}
-                </td>
-                <td className="member-list-row etc">
-                  {member.isActivated ? 'o' : 'x'}
-                </td>
-                <td className="member-list-row">
-                  <StyledActionButton>
-                    {member.isActivated ? '탈퇴' : '승인'}
-                  </StyledActionButton>
-                </td>
-                <td className="member-list-row etc">
-                  {member.isAdmin ? 'o' : 'x'}
-                </td>
-                <td className="member-list-row">
-                  <StyledActionButton>
-                    {member.isAdmin ? '해제' : '임명'}
-                  </StyledActionButton>
-                </td>
-              </MemberListRow>
-            ))}
-          </tbody>
-        </Table>
-      </ContentsContainer>
-    </AdminMembersBlock>
-  );
-};
-
-export default AdminMembers;

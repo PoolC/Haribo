@@ -1,18 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import Comment from '../Comment/Comment';
 import CommentForm from '../CommentForm/CommentForm';
-
-const CommentListBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 15px 0;
-  width: 100%;
-`;
+import { CommentListBlock } from './CommentList.styles';
 
 const CommentList = ({
   comments,
-  postId,
   onCreateComment,
   onDeleteComment,
 }) => {

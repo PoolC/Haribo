@@ -1,105 +1,18 @@
 import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
 import useInput from '../../../hooks/useInput';
-import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
 import Input from '../../common/Input/Input';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { notEmptyValidation } from '../../../lib/utils/validation';
-
-const AdminProjectFormBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  box-shadow: 0px 0px 20px ${colors.gray[1]};
-  flex: 4;
-  border-radius: 50px;
-  padding: 30px 0px;
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  width: 90%;
-  justify-content: center;
-  align-items: center;
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin: 1rem;
-`;
-
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  & > label {
-    margin: 2rem 0 1rem 0;
-    font-weight: 600;
-  }
-`;
-
-const StyledActionButton = styled(ActionButton)`
-  height: 2rem;
-  width: 15rem;
-  margin: 2rem 0;
-`;
-
-const StyledSearchActionButton = styled(ActionButton)`
-  height: 2rem;
-`;
-
-const MemberSearchForm = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  & > input {
-    width: 10rem;
-  }
-`;
-
-const MemberContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 30px 0 10px 0;
-  & > h4 {
-    display: flex;
-    justify-content: center;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-`;
-
-const MemberBlock = styled.div`
-  display: flex;
-  margin: 5px 0;
-  padding: 5px 2px 5px 10px;
-  border: 1px solid ${colors.mint[1]};
-  border-radius: 3px;
-`;
-
-const MemberInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  & > p {
-    font-size: 0.8rem;
-    margin: 0.25rem;
-  }
-  & > .name {
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 1rem;
-`;
+import {
+  AdminProjectFormBlock,
+  ButtonContainer,
+  MemberBlock, MemberContainer,
+  MemberInfo, MemberSearchForm, StyledActionButton, StyledForm, StyledSearchActionButton,
+  TitleContainer,
+} from './AdminProjectForm.styles';
 
 const SearchMember = ({ member, onAddMember }) => {
   const { name, department, studentId } = member;
