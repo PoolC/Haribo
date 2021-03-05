@@ -13,4 +13,4 @@ export const acceptMember = (loginID) =>
 export const withdrawMember = (loginID) => client.delete(`/member/${loginID}`);
 
 export const toggleAdmin = ({ loginID, isAdmin }) =>
-  client.put(`/member/admin/${loginID}`, isAdmin);
+  client.put(`/member/admin/${loginID}`, { toAdmin: !isAdmin });
