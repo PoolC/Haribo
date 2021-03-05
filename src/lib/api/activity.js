@@ -10,6 +10,12 @@ export const getActivityYears = () => client.get('/activity/years');
 export const getActivity = (activityID) =>
   client.get(`/activity/${activityID}`);
 
+export const openActivity = (activityID) =>
+  client.put(`/activity/open/${activityID}`);
+
+export const closeActivity = (activityID) =>
+  client.put(`/activity/close/${activityID}`);
+
 export const createActivity = ({
   title,
   description,

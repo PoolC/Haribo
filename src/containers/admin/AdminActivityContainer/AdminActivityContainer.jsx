@@ -16,9 +16,33 @@ const AdminActivityContainer = () => {
     return null;
   }
 
-  const onOpenActivity = (activityID) => {};
+  const onOpenActivity = (activityID) => {
+    activityAPI.openActivity(activityID).then((res) => {
+      if (res.status === 200) {
+        setActivities(
+          activities.map((activity) =>
+            activity.id === activityID
+              ? { ...activity, available: true }
+              : activity,
+          ),
+        );
+      }
+    });
+  };
 
-  const onCloseActivity = (activityID) => {};
+  const onCloseActivity = (activityID) => {
+    activityAPI.closeActivity(activityID).then((res) => {
+      if (res.status === 200) {
+        setActivities(
+          activities.map((activity) =>
+            activity.id === activityID
+              ? { ...activity, available: false }
+              : activity,
+          ),
+        );
+      }
+    });
+  };
 
   const onDeleteActivity = (activityID) => {
     console.log(activityID);
