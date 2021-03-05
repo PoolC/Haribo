@@ -10,12 +10,11 @@ import AdminBoardContainer from '../../containers/admin/AdminBoardContainer/Admi
 import AdminProjectContainer from '../../containers/admin/AdminProjectContainer/AdminProjectContainer';
 import AdminActivityContainer from '../../containers/admin/AdminActivityContainer/AdminActivityContainer';
 import AdminBookContainer from '../../containers/admin/AdminBookContainer/AdminBookContainer';
-import AdminHome from '../../components/admin/AdminHome/AdminHome';
 import AdminBoardFormContainer from '../../containers/admin/AdminBoardFormContainer/AdminBoardFormContainer';
 import AdminProjectFormContainer from '../../containers/admin/AdminProjectFormContainer/AdminProjectFormContainer';
 import AdminBookFormContainer from '../../containers/admin/AdminBookFormContainer/AdminBookFormContainer';
-import { pageAuthCheckByPermission } from '../../lib/utils/authCheck';
-import { useSelector } from 'react-redux';
+import AdminHomeContainer from '../../containers/admin/AdminHomeContainer/AdminHomeContainer';
+import useAdminCheck from '../../hooks/useAdminCheck';
 
 const AdminContainerBlock = styled.div`
   position: relative;
@@ -25,17 +24,13 @@ const AdminContainerBlock = styled.div`
   right: 5%;
   display: flex;
   margin: 0px 0 300px 0;
-  @media (max-width: 1000px) {
+  @media (max-width: 768px) {
     margin-bottom: 600px;
     flex-direction: column;
   }
 `;
 
 const AdminPage = ({ history }) => {
-  const member = useSelector((state) => state.auth);
-
-  pageAuthCheckByPermission(history, member, 'ADMIN');
-
   const menus = [
     { name: '관리자 홈', url: '' },
     { name: '동아리 정보 관리', url: '/info' },
@@ -46,6 +41,8 @@ const AdminPage = ({ history }) => {
     { name: '활동 관리', url: '/activities' },
     { name: '도서 관리', url: '/books' },
   ];
+
+  useAdminCheck(history);
 
   return (
     <AdminContainerBlock>
@@ -111,7 +108,7 @@ const AdminPage = ({ history }) => {
           path={`/${MENU.ADMIN}/books`}
           exact
         />
-        <Route component={AdminHome} path={`/${MENU.ADMIN}`} exact />
+        <Route component={AdminHomeContainer} path={`/${MENU.ADMIN}`} exact />
       </Switch>
     </AdminContainerBlock>
   );
