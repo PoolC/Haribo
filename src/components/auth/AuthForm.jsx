@@ -73,7 +73,7 @@ const AuthForm = ({
     idValidation,
   );
   const [password, onChangePassword, passwordError] = useInput(
-    userInfo ? userInfo.password : '',
+    '',
     passwordValidation,
   );
   const [name, onChangeName, nameError] = useInput(
@@ -101,9 +101,7 @@ const AuthForm = ({
     notEmptyValidation,
   );
 
-  const [passwordCheck, setPasswordCheck] = useState(
-    userInfo ? userInfo?.passwordCheck : '',
-  );
+  const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordCheckError, setPasswordError] = useState(false);
 
   const handlePasswordCheckError = (input) => {
@@ -322,6 +320,7 @@ const AuthForm = ({
                 />
                 <label htmlFor="introduction">자기소개</label>
                 <StyledTextarea
+                  value={introduction}
                   name="introduction"
                   id="introduction"
                   cols="30"
