@@ -72,6 +72,10 @@ export const IntroductionContainer = styled.div`
     color: ${colors.brown[0]};
     margin: 5px;
   }
+  @media (max-width: 576px) {
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const Introduction = styled.p`

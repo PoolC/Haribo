@@ -4,7 +4,7 @@ export const MenuBlock = styled.div`
   width: 15rem;
   margin: 0 20px 20px 0;
   padding: 0;
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
 `;
@@ -17,7 +17,7 @@ export const MenuList = styled.ul`
   border-radius: 50px;
   padding: 30px 30px;
   margin: 0;
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     align-items: center;
   }
 `;
