@@ -1,9 +1,11 @@
 import AdminActivity from '../../../components/admin/AdminActivity/AdminActivity';
 import React, { useEffect, useState } from 'react';
 import * as activityAPI from '../../../lib/api/activity';
+import { withRouter } from 'react-router-dom';
 
-const AdminActivityContainer = () => {
+const AdminActivityContainer = ({ history }) => {
   const [activities, setActivities] = useState(null);
+
   useEffect(() => {
     (async () => {
       const response = await activityAPI.getActivities();
@@ -65,4 +67,4 @@ const AdminActivityContainer = () => {
   );
 };
 
-export default AdminActivityContainer;
+export default withRouter(AdminActivityContainer);

@@ -4,6 +4,7 @@ import * as boardAPI from '../../../lib/api/board';
 
 const AdminBoardContainer = () => {
   const [boards, setBoards] = useState(null);
+
   useEffect(() => {
     (async () => {
       const response = await boardAPI.getBoards();
