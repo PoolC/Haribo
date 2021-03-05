@@ -20,8 +20,6 @@ import MemberListPage from './pages/member/MemberListPage';
 import ProjectDetailPage from './pages/project/ProjectDetailPage';
 import ProjectListPage from './pages/project/ProjectListPage';
 import AdminHomePage from './pages/admin/AdminHomePage';
-import PostWritePage from './pages/post/PostWritePage';
-import PostPage from './pages/post/PostPage';
 import NotFoundPage from './pages/error/NotFoundPage';
 import AccessDeniedPage from './pages/error/AccessDeniedPage';
 

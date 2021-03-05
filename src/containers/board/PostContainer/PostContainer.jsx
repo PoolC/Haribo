@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import Post from '../../../components/board/Post/Post';
 import * as postAPI from '../../../lib/api/post';
 import * as commentAPI from '../../../lib/api/comment';
-import { set } from '../../../../node_modules/stylis/stylis';
 
 const PostContainer = ({ selectedMenu, history, match }) => {
   const { postID } = match.params;
