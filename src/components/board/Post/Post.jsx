@@ -25,7 +25,6 @@ const Post = ({
   onCreateComment,
   onDeleteComment,
 }) => {
-  console.log(post);
   const { postId, title, body, memberName, createdAt } = post;
 
   const handleDelete = (e) => {

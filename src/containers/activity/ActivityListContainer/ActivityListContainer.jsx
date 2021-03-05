@@ -17,7 +17,6 @@ const ActivityListContainer = ({ location, history, match }) => {
     activityAPI.getActivityYears().then((res) => {
       if (res.status === 200) {
         setSemesters(res.data.data);
-        console.log(res.data.data);
         if (res.data.data.length === 0) {
           activityAPI.getActivities().then((activities) => {
             setActivities(activities.data.data);
@@ -44,7 +43,6 @@ const ActivityListContainer = ({ location, history, match }) => {
   }
 
   const onToggleRegisterActivity = (activityID) => {
-    console.log(activityID);
     activityAPI.applyActivity(activityID).then((res) => {
       if (res.status === 200) {
       }

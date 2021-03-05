@@ -31,13 +31,8 @@ const ActivityAttendanceContainer = ({ match, history }) => {
           sessionID,
         );
         setSessionAttendance(sessionAttendance.data.data);
-        console.log(sessionAttendance.data.data);
-        console.log(activitySessionResponse.data);
         setActivitySession(activitySessionResponse.data);
       }
-
-      console.log(activityResponse.data.data);
-      console.log(activityMemberResponse.data.data);
 
       setActivity(activityResponse.data.data);
       setActivityMembers(activityMemberResponse.data.data);
@@ -65,7 +60,6 @@ const ActivityAttendanceContainer = ({ match, history }) => {
       date,
       description,
     });
-    console.log(sessionCreateResponse.data.id);
     const sessionID = sessionCreateResponse.data.id;
     const sessionAttendancesCreateResponse = await activityAPI.checkActivityAttendance(
       {
@@ -79,13 +73,11 @@ const ActivityAttendanceContainer = ({ match, history }) => {
   };
 
   const onUpdateSession = async ({ date, description, attendances }) => {
-    console.log(attendances);
     const sessionUpdateResponse = await activityAPI.updateActivitySession({
       sessionID,
       date,
       description,
     });
-    console.log(sessionUpdateResponse.status === 200);
     const sessionAttendancesUpdateResponse = await activityAPI.checkActivityAttendance(
       {
         sessionID,

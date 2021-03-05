@@ -25,8 +25,8 @@ export const createActivity = ({
   hour,
   capacity,
   tags,
-}) => {
-  console.log({
+}) =>
+  client.post(`/activity`, {
     title,
     description,
     startDate,
@@ -36,17 +36,6 @@ export const createActivity = ({
     capacity,
     tags,
   });
-  return client.post(`/activity`, {
-    title,
-    description,
-    startDate,
-    seminar,
-    classHour,
-    hour,
-    capacity,
-    tags,
-  });
-};
 
 export const updateActivity = ({
   activityID,
@@ -58,8 +47,8 @@ export const updateActivity = ({
   hour,
   capacity,
   tags,
-}) => {
-  console.log({
+}) =>
+  client.put(`/activity/${activityID}`, {
     title,
     description,
     startDate,
@@ -69,17 +58,6 @@ export const updateActivity = ({
     capacity,
     tags,
   });
-  return client.put(`/activity/${activityID}`, {
-    title,
-    description,
-    startDate,
-    seminar,
-    classHour,
-    hour,
-    capacity,
-    tags,
-  });
-};
 
 export const deleteActivity = (activityID) =>
   client.delete(`/activity/${activityID}`);
@@ -118,10 +96,8 @@ export const getActivityMembers = (activityID) =>
 export const getActivitySessionAttendances = (sessionID) =>
   client.get(`/activity/check/${sessionID}`);
 
-export const checkActivityAttendance = ({ sessionID, memberLoginIDs }) => {
-  console.log({ sessionID, memberLoginIDs });
-  return client.post('/activity/check', {
+export const checkActivityAttendance = ({ sessionID, memberLoginIDs }) =>
+  client.post('/activity/check', {
     sessionID,
     memberLoginIDs,
   });
-};

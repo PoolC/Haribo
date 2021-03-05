@@ -4,10 +4,8 @@ export const getPosts = (urlPath) => client.get(`/post/board/${urlPath}`);
 
 export const getPost = (postID) => client.get(`/post/${postID}`);
 
-export const createPost = ({ title, body, boardID: boardId }) => {
-  console.log({ title, body, boardId });
-  return client.post('/post', { title, body, boardId });
-};
+export const createPost = ({ title, body, boardID: boardId }) =>
+  client.post('/post', { title, body, boardId });
 
 export const updatePost = ({ title, body, postID }) =>
   client.put(`/post/${postID}`, { title, body });

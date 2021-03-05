@@ -15,7 +15,6 @@ const AdminActivity = ({
   onCloseActivity,
   onDeleteActivity,
 }) => {
-  console.log(activities);
   const handleClose = (e, activityID) => {
     e.preventDefault();
     onCloseActivity(activityID);

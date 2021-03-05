@@ -21,13 +21,6 @@ const ActivityDetailContainer = ({ match }) => {
       const activitySessionResponse = await activityAPI.getActivitySessions(
         activityID,
       );
-      // const activitySessionAttendances = await activityAPI.getActivitySessionAttendances(
-      //   activityID,
-      // );
-      console.log(activityResponse.data.data);
-      console.log(activityMemberResponse.data.data);
-      console.log(activitySessionResponse.data.data);
-      //console.log(activitySessionAttendances);
       setActivity(activityResponse.data.data);
       setActivityMembers(activityMemberResponse.data.data);
       setActivitySessions(activitySessionResponse.data.data);

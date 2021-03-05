@@ -47,7 +47,6 @@ const ActivityAttendance = ({
   onCreateSession,
   onUpdateSession,
 }) => {
-  console.log(sessionAttendance);
   const { title } = activity;
   const newSessionCount = sessionNumber;
 
@@ -70,24 +69,20 @@ const ActivityAttendance = ({
   );
 
   const handleCheckAttendance = (member, isChecked) => {
-    console.log(attendances);
     if (!isChecked) {
       setAttendances([
         ...attendances,
         { name: member.name, loginID: member.loginID },
       ]);
-      console.log(attendances);
       return;
     }
     setAttendances(
       attendances.filter((attendance) => attendance.loginID !== member.loginID),
     );
-    console.log(attendances);
   };
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    console.log(attendances);
     onUpdateSession({
       date,
       description,
@@ -97,7 +92,6 @@ const ActivityAttendance = ({
 
   const handleCreate = (e) => {
     e.preventDefault();
-    console.log(attendances);
     onCreateSession({
       sessionNumber,
       date,

@@ -16,7 +16,6 @@ const PostListContainer = ({ selectedMenu }) => {
   useEffect(() => {
     postAPI.getPosts(urlPath).then((res) => {
       if (res.status === 200) {
-        console.log(res.data.data);
         setPosts(res.data.data);
       }
     });

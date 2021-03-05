@@ -32,8 +32,6 @@ export const loadUser = createAction(LOAD_USER);
 export const logout = createAction(LOGOUT);
 
 function* loadUserSaga(action) {
-  console.log(localStorage.getItem('accessToken'));
-  console.log(action);
   try {
     const result = yield call(authAPI.loadUser);
     yield put({
@@ -51,7 +49,6 @@ function* loadUserSaga(action) {
 
 function* setTokenSaga(action) {
   try {
-    yield console.log(action);
     yield (client.defaults.headers.common[
       'Authorization'
     ] = `Bearer ${action.data}`);
@@ -71,7 +68,6 @@ function* loginSaga(action) {
   try {
     const result = yield call(authAPI.login, action.payload);
     yield localStorage.setItem('accessToken', result.data.accessToken);
-    yield console.log(localStorage.getItem('accessToken'));
     yield put({
       type: LOGIN_SUCCESS,
       data: result.data.accessToken,

@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import * as activityAPI from '../../../lib/api/activity';
 
 const SessionContainer = ({ activityID, session, host }) => {
-  console.log('session.id:', session.id);
   const sessionID = session.id;
   const member = useSelector((state) => state.auth);
   const [attendance, setAttendance] = useState(null);

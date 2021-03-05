@@ -47,7 +47,7 @@ const RegisterFormContainer = ({ location, history }) => {
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.error(e);
           if (e.response.status === 409) {
             setMessage('이미 가입된 아이디/이메일/학번입니다.');
             handleModalOpen();
@@ -65,7 +65,7 @@ const RegisterFormContainer = ({ location, history }) => {
           return;
         });
     } catch (e) {
-      //console.log(e);
+      console.error(e);
     }
   };
 

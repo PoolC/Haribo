@@ -59,7 +59,6 @@ const MyInfoFormContainer = ({ location, history }) => {
           }
         })
         .catch((e) => {
-          console.log(e);
           if (e.response.status === 409) {
             setMessage('이미 가입된 정보입니다.');
             handleModalOpen();
@@ -77,7 +76,7 @@ const MyInfoFormContainer = ({ location, history }) => {
           return;
         });
     } catch (e) {
-      //console.log(e);
+      console.error(e);
     }
   };
 

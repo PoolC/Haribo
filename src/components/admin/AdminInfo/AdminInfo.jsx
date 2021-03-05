@@ -43,9 +43,7 @@ const AdminInfo = ({ info, onUpdate }) => {
   const onEditorChange = (e) => {
     const editorInstance = editorRef.current.getInstance();
     const markdownContent = editorInstance.getMarkdown();
-    console.log(markdownContent);
-    const HTMLContent = editorInstance.getHtml();
-    console.log(HTMLContent);
+    //const HTMLContent = editorInstance.getHtml();
     setIntro(markdownContent);
   };
 

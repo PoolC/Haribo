@@ -96,7 +96,6 @@ const AdminProjectForm = ({
   const handleCreate = (e) => {
     e.preventDefault();
     onCreateProject({ name, genre, duration, thumbnailURL, description, body });
-    console.log('submit');
   };
 
   const handleUpdate = (e) => {
@@ -112,9 +111,7 @@ const AdminProjectForm = ({
   function onEditorChange(e) {
     const editorInstance = editorRef.current.getInstance();
     const markdownContent = editorInstance.getMarkdown();
-    console.log(markdownContent);
-    const HTMLContent = editorInstance.getHtml();
-    console.log(HTMLContent);
+    //const HTMLContent = editorInstance.getHtml();
     setBody(markdownContent);
   }
 

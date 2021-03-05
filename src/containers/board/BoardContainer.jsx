@@ -25,7 +25,6 @@ const BoardContainerBlock = styled.div`
 `;
 
 const BoardContainer = ({ location, history, match }) => {
-  console.log(match);
   const currentLocation = match.params.urlPath;
 
   const [boards, setBoards] = useState(null);
@@ -38,7 +37,6 @@ const BoardContainer = ({ location, history, match }) => {
   useEffect(() => {
     boardAPI.getBoards().then((res) => {
       if (res.status === 200) {
-        console.log(res.data.data);
         setBoards(res.data.data);
         setSelectedMenu(res.data.data[0]);
       }

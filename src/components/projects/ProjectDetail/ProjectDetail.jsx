@@ -21,7 +21,6 @@ import {
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 
 const ProjectDetail = ({ project, member }) => {
-  console.log(project);
   const { thumbnailURL, name, genre, duration, body, members } = project;
 
   const {

@@ -9,7 +9,6 @@ const AdminActivityContainer = ({ history }) => {
   useEffect(() => {
     (async () => {
       const response = await activityAPI.getActivities();
-      console.log(response.data.data);
       setActivities(response.data.data);
     })();
   }, []);
@@ -47,7 +46,6 @@ const AdminActivityContainer = ({ history }) => {
   };
 
   const onDeleteActivity = (activityID) => {
-    console.log(activityID);
     activityAPI.deleteActivity(activityID).then((res) => {
       if (res.status === 200) {
         setActivities(

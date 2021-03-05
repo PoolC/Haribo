@@ -12,7 +12,6 @@ const PostContainer = ({ selectedMenu, history, match }) => {
   useEffect(() => {
     postAPI.getPost(postID).then((res) => {
       if (res.status === 200) {
-        console.log(res.data);
         setPost(res.data);
         setComments(res.data.comments);
       }
@@ -25,7 +24,6 @@ const PostContainer = ({ selectedMenu, history, match }) => {
 
   const onDeletePost = () => {
     postAPI.deletePost(postID).then((res) => {
-      console.log(res);
       if (res.status === 200) {
         history.goBack(1);
       }
@@ -34,7 +32,6 @@ const PostContainer = ({ selectedMenu, history, match }) => {
 
   const onCreateComment = (body) => {
     commentAPI.createComment({ postID, body }).then((res) => {
-      console.log(res);
       if (res.status === 202) {
         setComments([...comments, res.data]);
       }
@@ -43,7 +40,6 @@ const PostContainer = ({ selectedMenu, history, match }) => {
 
   const onDeleteComment = (commentID) => {
     commentAPI.deleteComment(commentID).then((res) => {
-      console.log(res);
       if (res.status === 200) {
         setComments(
           comments.filter((comment) => comment.commentId !== commentID),

@@ -5,14 +5,12 @@ import { withRouter } from 'react-router-dom';
 
 const ActivityFormContainer = ({ match, history }) => {
   const activityID = match.params.activityID;
-  console.log(activityID);
   const [activity, setActivity] = useState(null);
 
   useEffect(() => {
     if (activityID) {
       (async () => {
         const response = await activityAPI.getActivity(activityID);
-        console.log(response.data.data);
         setActivity(response.data.data);
       })();
     }

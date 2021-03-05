@@ -9,7 +9,6 @@ import LinkButton from '../../common/Buttons/LinkButton';
 
 const BoardMenu = ({ menus, currentLocation, setSelectedMenu }) => {
   const onSelectMenu = (menu) => {
-    console.log(menu);
     setSelectedMenu(menu);
   };
 

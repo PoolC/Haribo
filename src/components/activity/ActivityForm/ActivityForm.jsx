@@ -76,9 +76,7 @@ const ActivityForm = ({ activity, onCreateActivity, onUpdateActivity }) => {
   const onEditorChange = (e) => {
     const editorInstance = editorRef.current.getInstance();
     const markdownContent = editorInstance.getMarkdown();
-    console.log(markdownContent);
-    const HTMLContent = editorInstance.getHtml();
-    console.log(HTMLContent);
+    //const HTMLContent = editorInstance.getHtml();
     onChangeDescription(markdownContent);
   };
 
@@ -104,7 +102,6 @@ const ActivityForm = ({ activity, onCreateActivity, onUpdateActivity }) => {
       capacity,
       tags,
     });
-    console.log('submit');
   };
 
   const handleUpdate = (e) => {
