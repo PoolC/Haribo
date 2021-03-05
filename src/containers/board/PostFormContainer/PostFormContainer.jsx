@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PostForm from '../../../components/board/PostForm/PostForm';
 import { MENU } from '../../../constants/menus';
@@ -8,6 +9,9 @@ import * as postAPI from '../../../lib/api/post';
 const PostFormContainer = ({ match, history }) => {
   const { boardID } = match.params;
   const { postID } = match.params;
+
+  const member = useSelector((state) => state.auth);
+
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [post, setPost] = useState(null);
 
@@ -47,6 +51,7 @@ const PostFormContainer = ({ match, history }) => {
 
   return (
     <PostForm
+      member={member}
       post={post}
       selectedMenu={selectedMenu}
       onCreatePost={onCreatePost}

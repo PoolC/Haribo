@@ -18,6 +18,7 @@ import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const Post = ({
   history,
+  member,
   post,
   comments,
   selectedMenu,
@@ -25,7 +26,11 @@ const Post = ({
   onCreateComment,
   onDeleteComment,
 }) => {
-  const { postId, title, body, memberName, createdAt } = post;
+  const {
+    user: { memberId, isAdmin },
+  } = member;
+
+  const { body, createdAt, postId, title, writerLoginId, writerName } = post;
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -37,7 +42,7 @@ const Post = ({
       <PostContainer>
         <TitleContainer>{title}</TitleContainer>
         <InfoContainer>
-          <p>{memberName}</p>
+          <p>{writerName}</p>
           <div />
           <p>{getFullCurrentDateTimeString(createdAt)}</p>
         </InfoContainer>
@@ -45,15 +50,19 @@ const Post = ({
           <ReactMarkdown plugins={[gfm]} source={body} />
         </BodyContainer>
         <ButtonContainer>
-          <StyledButton
-            className="modify"
-            to={`/${MENU.POST}/${selectedMenu.id}/edit/${postId}`}
-          >
-            수정
-          </StyledButton>
-          <StyledButton className="delete" onClick={handleDelete}>
-            삭제
-          </StyledButton>
+          {memberId === writerLoginId && (
+            <StyledButton
+              className="modify"
+              to={`/${MENU.POST}/${selectedMenu.id}/edit/${postId}`}
+            >
+              수정
+            </StyledButton>
+          )}
+          {(memberId === writerLoginId || isAdmin) && (
+            <StyledButton className="delete" onClick={handleDelete}>
+              삭제
+            </StyledButton>
+          )}
           <StyledButton className="list" onClick={() => history.goBack(1)}>
             목록
           </StyledButton>
@@ -61,6 +70,7 @@ const Post = ({
       </PostContainer>
       <CommentsContainer>
         <CommentList
+          member={member}
           postId={postId}
           comments={comments}
           onCreateComment={onCreateComment}

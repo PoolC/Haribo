@@ -3,9 +3,13 @@ import { withRouter } from 'react-router-dom';
 import Post from '../../../components/board/Post/Post';
 import * as postAPI from '../../../lib/api/post';
 import * as commentAPI from '../../../lib/api/comment';
+import { useSelector } from 'react-redux';
 
 const PostContainer = ({ selectedMenu, history, match }) => {
   const { postID } = match.params;
+
+  const member = useSelector((state) => state.auth);
+
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState(null);
 
@@ -50,6 +54,7 @@ const PostContainer = ({ selectedMenu, history, match }) => {
 
   return (
     <Post
+      member={member}
       post={post}
       comments={comments}
       selectedMenu={selectedMenu}
