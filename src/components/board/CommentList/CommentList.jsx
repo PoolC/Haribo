@@ -4,6 +4,7 @@ import CommentForm from '../CommentForm/CommentForm';
 import { CommentListBlock } from './CommentList.styles';
 
 const CommentList = ({
+  member,
   comments,
   onCreateComment,
   onDeleteComment,
@@ -14,6 +15,7 @@ const CommentList = ({
         <Comment
           key={comment.id}
           comment={comment}
+          member={member}
           onDeleteComment={onDeleteComment}
         />
       ))}

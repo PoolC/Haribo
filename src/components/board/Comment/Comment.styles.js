@@ -6,8 +6,10 @@ export const CommentBlock = styled.div`
   width: 100%;
   padding: 8px 0;
   cursor: default;
+  transition: 0.25s ease-in;
   &:hover {
     background-color: ${colors.gray[1]};
+    transition: 0.25s ease-in;
   }
   @media (max-width: 576px) {
     flex-direction: column;
