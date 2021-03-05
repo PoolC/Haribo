@@ -1,12 +1,8 @@
 import React from 'react';
 import MemberDetailContainer from '../../containers/member/MemberDetailContainer/MemberDetailContainer';
-import { useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
-const MemberDetailPage = ({ history }) => {
-  const member = useSelector((state) => state.auth);
-
+const MemberDetailPage = () => {
   return <MemberDetailContainer />;
 };
 
-export default withRouter(MemberDetailPage);
+export default MemberDetailPage;
