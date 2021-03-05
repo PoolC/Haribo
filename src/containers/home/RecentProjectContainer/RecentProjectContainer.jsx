@@ -7,7 +7,7 @@ const RecentProjectContainer = () => {
   useEffect(() => {
     (async () => {
       const response = await projectAPI.getProjects();
-      setProjects(response.data.data);
+      setProjects(response.data.data.slice(0, 7));
     })();
   }, []);
 

@@ -8,7 +8,7 @@ const RecentNoticeContainer = () => {
   useEffect(() => {
     postAPI.getPosts('notice').then((res) => {
       if (res.status === 200) {
-        setNotices(res.data.data);
+        setNotices(res.data.data.slice(0, 5));
       }
     });
   }, []);
