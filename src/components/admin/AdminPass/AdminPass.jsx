@@ -1,13 +1,16 @@
 import ActionButton from '../../common/Buttons/ActionButton';
 import React from 'react';
 import {
-  AdminPassBlock,
   ContentsContainer,
-  CurrentLimit, MemberListRow,
+  CurrentLimit,
+  MemberListRow,
   StyledForm,
-  StyledInput, Table, TableHead,
+  StyledInput,
+  Table,
+  TableHead,
   TitleContainer,
 } from './AdminPass.styles';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const AdminPass = ({
   members,
@@ -16,7 +19,7 @@ const AdminPass = ({
   onChangeExcepted,
 }) => {
   return (
-    <AdminPassBlock>
+    <WhiteNarrowBlock>
       <TitleContainer>최소활동기준 관리</TitleContainer>
       <ContentsContainer>
         <CurrentLimit>현재 최소 활동 기준: {minimumLimit} 시간</CurrentLimit>
@@ -58,7 +61,7 @@ const AdminPass = ({
           </tbody>
         </Table>
       </ContentsContainer>
-    </AdminPassBlock>
+    </WhiteNarrowBlock>
   );
 };
 

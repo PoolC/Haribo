@@ -2,13 +2,14 @@ import ActionButton from '../../common/Buttons/ActionButton';
 import React from 'react';
 import { MENU } from '../../../constants/menus';
 import {
-  AdminProjectsBlock,
   ButtonContainer,
-  ContentsContainer, ProjectListRow,
+  ContentsContainer,
+  ProjectListRow,
   Table,
   TableHead,
   TitleContainer,
 } from './AdminProject.styles';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const AdminProject = ({ projects, onDeleteProject }) => {
   const handleDelete = (e, projectID) => {
@@ -16,7 +17,7 @@ const AdminProject = ({ projects, onDeleteProject }) => {
     onDeleteProject(projectID);
   };
   return (
-    <AdminProjectsBlock>
+    <WhiteNarrowBlock>
       <TitleContainer>프로젝트 관리</TitleContainer>
       <ButtonContainer>
         <ActionButton to={`/${MENU.ADMIN}/projects/new`}>
@@ -52,7 +53,7 @@ const AdminProject = ({ projects, onDeleteProject }) => {
           </tbody>
         </Table>
       </ContentsContainer>
-    </AdminProjectsBlock>
+    </WhiteNarrowBlock>
   );
 };
 

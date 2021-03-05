@@ -1,29 +1,34 @@
 import React from 'react';
 import { MENU } from '../../../constants/menus';
+import { SelectedLinkButton } from '../../../styles/common/Button.styles';
+import {
+  MenuBlock,
+  MenuItem,
+  MenuList,
+} from '../../../styles/common/Menu.styles';
 import LinkButton from '../../common/Buttons/LinkButton';
-import { AdminMenuBlock, AdminMenuItem, AdminMenuList, SelectedLinkButton } from './AdminMenu.styles';
 
 const AdminMenu = ({ menus, currentLocation }) => {
   return (
-    <AdminMenuBlock>
-      <AdminMenuList>
+    <MenuBlock>
+      <MenuList>
         {menus.map((menu) =>
           currentLocation === menu.url ? (
-            <AdminMenuItem key={menu.url}>
+            <MenuItem key={menu.url}>
               <SelectedLinkButton to={`/${MENU.ADMIN}${menu.url}`}>
                 {menu.name}
               </SelectedLinkButton>
-            </AdminMenuItem>
+            </MenuItem>
           ) : (
-            <AdminMenuItem key={menu.url}>
+            <MenuItem key={menu.url}>
               <LinkButton to={`/${MENU.ADMIN}${menu.url}`}>
                 {menu.name}
               </LinkButton>
-            </AdminMenuItem>
+            </MenuItem>
           ),
         )}
-      </AdminMenuList>
-    </AdminMenuBlock>
+      </MenuList>
+    </MenuBlock>
   );
 };
 

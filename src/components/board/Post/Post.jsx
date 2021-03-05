@@ -4,18 +4,17 @@ import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import { MENU } from '../../../constants/menus';
 import { withRouter } from 'react-router-dom';
-import {
-  getFullCurrentDateTimeString,
-} from '../../../lib/utils/getDateString';
+import { getFullCurrentDateTimeString } from '../../../lib/utils/getDateString';
 import {
   BodyContainer,
-  ButtonContainer, CommentsContainer,
+  ButtonContainer,
+  CommentsContainer,
   InfoContainer,
-  PostBlock,
   PostContainer,
   StyledButton,
   TitleContainer,
 } from './Post.styles';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const Post = ({
   history,
@@ -35,7 +34,7 @@ const Post = ({
   };
 
   return (
-    <PostBlock>
+    <WhiteNarrowBlock>
       <PostContainer>
         <TitleContainer>{title}</TitleContainer>
         <InfoContainer>
@@ -69,7 +68,7 @@ const Post = ({
           onDeleteComment={onDeleteComment}
         />
       </CommentsContainer>
-    </PostBlock>
+    </WhiteNarrowBlock>
   );
 };
 

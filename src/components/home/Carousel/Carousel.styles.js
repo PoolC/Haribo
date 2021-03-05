@@ -15,7 +15,7 @@ export const MainCarousel = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 95%;
   border-radius: 50px;
   box-shadow: ${colors.gray[1]};
   height: 50vh;
@@ -25,6 +25,7 @@ export const MainCarousel = styled.div`
 
 export const MainCarouselImage = styled.img`
   height: 50vh;
+  max-width: 1366px;
   max-height: 400px;
   border-radius: 50px;
 `;

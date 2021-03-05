@@ -8,12 +8,17 @@ import {
   DurationContainer,
   Genre,
   GenreContainer,
-  ImageContainer, Introduction, IntroductionContainer, MemberContainer, Members, Name, NameContainer,
-  ProjectDetailBlock,
-  ProjectDetailContainer,
+  ImageContainer,
+  Introduction,
+  IntroductionContainer,
+  MemberContainer,
+  Members,
+  Name,
+  NameContainer,
   StyledImage,
   TextContainer,
 } from './ProjectDetail.styles';
+import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 
 const ProjectDetail = ({ project, member }) => {
   console.log(project);
@@ -24,8 +29,8 @@ const ProjectDetail = ({ project, member }) => {
   } = member;
 
   return (
-    <ProjectDetailBlock>
-      <ProjectDetailContainer>
+    <Block>
+      <WhiteBlock>
         <ImageContainer>
           <StyledImage src={thumbnailURL} />
         </ImageContainer>
@@ -63,8 +68,8 @@ const ProjectDetail = ({ project, member }) => {
             </Members>
           </MemberContainer>
         )}
-      </ProjectDetailContainer>
-    </ProjectDetailBlock>
+      </WhiteBlock>
+    </Block>
   );
 };
 

@@ -8,9 +8,8 @@ import {
   passwordValidation,
   phoneNumberValidation,
 } from '../../lib/utils/validation';
+import { Block, WhiteBlock } from '../../styles/common/Block.styles';
 import {
-  AuthFormBlock,
-  FormContainer,
   FormList,
   FormListHeader,
   SubmitButton,
@@ -234,8 +233,8 @@ const AuthForm = ({
         onCancel={handleModalClose}
         message={message}
       />
-      <AuthFormBlock>
-        <FormContainer>
+      <Block>
+        <WhiteBlock>
           <FormListHeader>
             <h2 className="form_list_title">{headerText}</h2>
           </FormListHeader>
@@ -334,8 +333,8 @@ const AuthForm = ({
             )}
             <SubmitButton>{headerText}</SubmitButton>
           </FormList>
-        </FormContainer>
-      </AuthFormBlock>
+        </WhiteBlock>
+      </Block>
     </>
   );
 };

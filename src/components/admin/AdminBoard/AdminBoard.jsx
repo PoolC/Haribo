@@ -2,13 +2,14 @@ import ActionButton from '../../common/Buttons/ActionButton';
 import React from 'react';
 import { MENU } from '../../../constants/menus';
 import {
-  AdminBoardsBlock, BoardListRow,
+  BoardListRow,
   ButtonContainer,
   ContentsContainer,
   Table,
   TableHead,
   TitleContainer,
 } from './AdminBoard.styles';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const AdminBoard = ({ boards, onDeleteBoard }) => {
   const handleDelete = (e, boardID) => {
@@ -17,7 +18,7 @@ const AdminBoard = ({ boards, onDeleteBoard }) => {
   };
 
   return (
-    <AdminBoardsBlock>
+    <WhiteNarrowBlock>
       <TitleContainer>게시판 관리</TitleContainer>
       <ButtonContainer>
         <ActionButton to={`/${MENU.ADMIN}/boards/new`}>
@@ -55,7 +56,7 @@ const AdminBoard = ({ boards, onDeleteBoard }) => {
           </tbody>
         </Table>
       </ContentsContainer>
-    </AdminBoardsBlock>
+    </WhiteNarrowBlock>
   );
 };
 

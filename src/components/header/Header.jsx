@@ -16,11 +16,15 @@ const Header = ({ member, applyURL, selected, onLogout }) => {
     setMenuVisible((menuVisible) => !menuVisible);
   };
 
+  const onCloseMenu = () => {
+    setMenuVisible(false);
+  };
+
   return (
     <HeaderBlock>
       <HeaderIcons>
         <Link to="/">
-          <LogoImage src={logoImage} alt="logo" />
+          <LogoImage src={logoImage} alt="logo" onClick={onCloseMenu} />
         </Link>
         <BarsIcon onClick={onToggleMenu} className="fas fa-bars"></BarsIcon>
       </HeaderIcons>

@@ -1,37 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 
-export const ProjectDetailBlock = styled.div`
-  position: relative;
-  top: 0px;
-  width: 100%;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  margin: 0px 0 300px 0;
-  @media (max-width: 576px) {
-    margin-bottom: 500px;
-  }
-`;
-
-export const ProjectDetailContainer = styled.div`
-  width: 90%;
-  margin: 0 5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  box-shadow: 0px 0px 20px ${colors.gray[1]};
-  border-radius: 50px;
-  padding: 60px 0;
-  & > .project_container_title {
-    font-weight: 700;
-    margin-bottom: 30px;
-    max-width: 1200px;
-  }
-`;
-
 export const ImageContainer = styled.div`
   width: 90%;
   max-width: 1200px;
@@ -90,7 +59,7 @@ export const DurationContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 90%;
-  margin: 20px 0;
+  margin: 0px 0;
 `;
 
 export const Duration = styled.p`
@@ -103,7 +72,7 @@ export const IntroductionContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 90%;
-  margin: 40px 0 20px 0;
+  margin: 20px 0;
   span {
     font-size: 0.8rem;
     color: ${colors.brown[0]};
@@ -129,7 +98,7 @@ export const MemberContainer = styled.div`
   justify-content: center;
   padding: 0px 20px;
   width: 90%;
-  margin-top: 20px;
+  margin-top: 0px;
   max-width: 1200px;
   h2 {
     padding: 0px 20px;

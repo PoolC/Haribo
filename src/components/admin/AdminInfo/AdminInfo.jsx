@@ -5,13 +5,14 @@ import { Editor } from '@toast-ui/react-editor';
 import useInput from '../../../hooks/useInput';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import {
-  AdminInfoBlock,
   Description,
   ImageContainer,
-  ImageContainerHeader, StyledActionButton,
+  ImageContainerHeader,
+  StyledActionButton,
   StyledForm,
   TitleContainer,
 } from './AdminInfo.styles';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const AdminInfo = ({ info, onUpdate }) => {
   const editorRef = useRef();
@@ -54,7 +55,7 @@ const AdminInfo = ({ info, onUpdate }) => {
   };
 
   return (
-    <AdminInfoBlock>
+    <WhiteNarrowBlock>
       <TitleContainer>동아리 정보 관리</TitleContainer>
       <StyledForm>
         <label>회장 이름</label>
@@ -124,7 +125,7 @@ const AdminInfo = ({ info, onUpdate }) => {
         />
         <StyledActionButton onClick={handleUpdate}>수정</StyledActionButton>
       </StyledForm>
-    </AdminInfoBlock>
+    </WhiteNarrowBlock>
   );
 };
 

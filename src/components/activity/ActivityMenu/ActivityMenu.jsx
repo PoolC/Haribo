@@ -1,28 +1,33 @@
 import LinkButton from '../../common/Buttons/LinkButton';
 import React from 'react';
-import { ActivityMenuBlock, ActivityMenuItem, ActivityMenuList, SelectedLinkButton } from './ActivityMenu.styles';
+import { SelectedLinkButton } from './ActivityMenu.styles';
+import {
+  MenuBlock,
+  MenuItem,
+  MenuList,
+} from '../../../styles/common/Menu.styles';
 
 const ActivityMenu = ({ semesters, currentLocation }) => {
   return (
-    <ActivityMenuBlock>
-      <ActivityMenuList>
+    <MenuBlock>
+      <MenuList>
         {semesters.map((semester) =>
           currentLocation === semester ? (
-            <ActivityMenuItem key={semester}>
+            <MenuItem key={semester}>
               <SelectedLinkButton to={`/activities?semester=${semester}`}>
                 {semester}
               </SelectedLinkButton>
-            </ActivityMenuItem>
+            </MenuItem>
           ) : (
-            <ActivityMenuItem key={semester}>
+            <MenuItem key={semester}>
               <LinkButton to={`/activities?semester=${semester}`}>
                 {semester}
               </LinkButton>
-            </ActivityMenuItem>
+            </MenuItem>
           ),
         )}
-      </ActivityMenuList>
-    </ActivityMenuBlock>
+      </MenuList>
+    </MenuBlock>
   );
 };
 

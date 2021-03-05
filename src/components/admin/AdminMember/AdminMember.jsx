@@ -1,8 +1,9 @@
 import React from 'react';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import {
-  AdminMembersBlock,
   ContentsContainer,
-  MemberListRow, StyledActionButton,
+  MemberListRow,
+  StyledActionButton,
   Table,
   TableHead,
   TitleContainer,
@@ -28,7 +29,7 @@ const AdminMember = ({
   };
 
   return (
-    <AdminMembersBlock>
+    <WhiteNarrowBlock>
       <TitleContainer>회원 관리</TitleContainer>
       <ContentsContainer>
         <Table>
@@ -104,7 +105,7 @@ const AdminMember = ({
           </tbody>
         </Table>
       </ContentsContainer>
-    </AdminMembersBlock>
+    </WhiteNarrowBlock>
   );
 };
 

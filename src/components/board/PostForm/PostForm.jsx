@@ -8,10 +8,10 @@ import {
   BoardName,
   EditorWrapper,
   PostButtonContainer,
-  PostFormBlock,
   StyledActionButton,
   TitleInput,
 } from './PostForm.styles';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const PostForm = ({
   history,
@@ -49,7 +49,7 @@ const PostForm = ({
   };
 
   return (
-    <PostFormBlock>
+    <WhiteNarrowBlock>
       <BoardName>{selectedMenu.name}</BoardName>
       <TitleInput
         placeholder="제목을 입력하세요"
@@ -83,7 +83,7 @@ const PostForm = ({
           취소
         </StyledActionButton>
       </PostButtonContainer>
-    </PostFormBlock>
+    </WhiteNarrowBlock>
   );
 };
 

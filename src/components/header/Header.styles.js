@@ -4,7 +4,7 @@ import colors from '../../lib/styles/colors';
 export const HeaderBlock = styled.div`
   display: flex;
   align-items: center;
-  padding: 20px 5% 20px 5%;
+  padding: 20px 5%;
   position: relative;
   top: 0;
   left: 0;

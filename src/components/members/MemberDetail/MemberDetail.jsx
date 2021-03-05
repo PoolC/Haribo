@@ -1,14 +1,21 @@
 import React from 'react';
+import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import ActivityCard from '../../activity/ActivityCard/ActivityCard';
 import ProjectCard from '../../projects/ProjectCard/ProjectCard';
 import {
   Activities,
   ActivityContainer,
-  ContentContainer, Department, DepartmentContainer,
-  ImageContainer, Introduction, IntroductionContainer,
-  MemberDetailBlock,
-  MemberDetailContainer, Name, NameContainer, Status,
-  StyledImage, TextContainer,
+  ContentContainer,
+  Department,
+  DepartmentContainer,
+  ImageContainer,
+  Introduction,
+  IntroductionContainer,
+  Name,
+  NameContainer,
+  Status,
+  StyledImage,
+  TextContainer,
 } from './MemberDetail.styles';
 
 const MemberDetail = ({ member }) => {
@@ -19,11 +26,12 @@ const MemberDetail = ({ member }) => {
     isAdmin,
     introduction,
     projects,
-    activities,
+    hostActivities,
+    participantActivities,
   } = member;
   return (
-    <MemberDetailBlock>
-      <MemberDetailContainer>
+    <Block>
+      <WhiteBlock>
         <ContentContainer>
           <ImageContainer>
             <StyledImage src={profileImageURL} />
@@ -56,13 +64,16 @@ const MemberDetail = ({ member }) => {
             {projects?.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
-            {activities?.map((activity) => (
-              <ActivityCard activity={activity} />
+            {hostActivities?.map((activity) => (
+              <ActivityCard key={activity.id} activity={activity} />
+            ))}
+            {participantActivities?.map((activity) => (
+              <ActivityCard key={activity.id} activity={activity} />
             ))}
           </Activities>
         </ActivityContainer>
-      </MemberDetailContainer>
-    </MemberDetailBlock>
+      </WhiteBlock>
+    </Block>
   );
 };
 

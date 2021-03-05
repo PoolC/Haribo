@@ -1,18 +1,26 @@
 import React from 'react';
 import { MENU } from '../../../constants/menus';
 import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import ActionButton from '../../common/Buttons/ActionButton';
-import { PageList, PostListBlock, PostListHead, PostListRow, PostListTable, StyledLink } from './PostList.styles';
+import {
+  PageList,
+  PostListHead,
+  PostListHeader,
+  PostListRow,
+  PostListTable,
+  StyledLink,
+} from './PostList.styles';
 
 const PostList = ({ selectedMenu, posts }) => {
   return (
-    <PostListBlock>
-      <header className="post_list_header">
+    <WhiteNarrowBlock>
+      <PostListHeader>
         <h2 className="post_list_title">{selectedMenu?.name}</h2>
         <ActionButton to={`/${MENU.POST}/new/${selectedMenu?.id}`}>
           글쓰기
         </ActionButton>
-      </header>
+      </PostListHeader>
       <PostListTable>
         <thead>
           <PostListHead>
@@ -45,7 +53,7 @@ const PostList = ({ selectedMenu, posts }) => {
         <li className="page_item">2</li>
         <li className="page_item">3</li>
       </PageList>
-    </PostListBlock>
+    </WhiteNarrowBlock>
   );
 };
 

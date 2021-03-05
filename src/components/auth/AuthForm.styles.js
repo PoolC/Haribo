@@ -1,34 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../lib/styles/colors';
 
-export const AuthFormBlock = styled.div`
-  position: relative;
-  top: 0px;
-  left: 0;
-  right: 0;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  margin: 0px 0 300px 0;
-  @media (max-width: 576px) {
-    margin-bottom: 500px;
-  }
-`;
-
-export const FormContainer = styled.div`
-  width: 100%;
-  margin: 0 5%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  box-shadow: 0px 0px 20px ${colors.gray[1]};
-  border-radius: 50px;
-  padding: 40px 40px 60px 40px;
-  min-height: 60vh;
-`;
-
 export const FormListHeader = styled.header`
   display: flex;
   align-items: center;
@@ -42,7 +14,7 @@ export const FormListHeader = styled.header`
 export const FormList = styled.form`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
   max-width: 320px;
   & > label {
     display: flex;

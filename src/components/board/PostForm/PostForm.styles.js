@@ -2,18 +2,6 @@ import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
 
-export const PostFormBlock = styled.div`
-  flex: 4;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  box-shadow: 0px 0px 20px ${colors.gray[1]};
-  border-radius: 50px;
-  padding: 40px 40px 60px 40px;
-`;
-
 export const TitleInput = styled.input`
   font-size: 2rem;
   outline: none;

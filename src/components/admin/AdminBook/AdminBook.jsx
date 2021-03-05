@@ -2,13 +2,16 @@ import ActionButton from '../../common/Buttons/ActionButton';
 import React from 'react';
 import { MENU } from '../../../constants/menus';
 import {
-  AdminBooksBlock, BookListRow,
+  BookListRow,
   ButtonContainer,
-  ContentsContainer, StyledActionButton, StyledImage,
+  ContentsContainer,
+  StyledActionButton,
+  StyledImage,
   Table,
   TableHead,
   TitleContainer,
 } from './AdminBook.styles';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const AdminBook = ({ books, onDeleteBook }) => {
   const handleDelete = (e, bookID) => {
@@ -16,7 +19,7 @@ const AdminBook = ({ books, onDeleteBook }) => {
     onDeleteBook(bookID);
   };
   return (
-    <AdminBooksBlock>
+    <WhiteNarrowBlock>
       <TitleContainer>도서 관리</TitleContainer>
       <ButtonContainer>
         <ActionButton to={`/${MENU.ADMIN}/books/new`}>도서 생성</ActionButton>
@@ -58,7 +61,7 @@ const AdminBook = ({ books, onDeleteBook }) => {
           </tbody>
         </Table>
       </ContentsContainer>
-    </AdminBooksBlock>
+    </WhiteNarrowBlock>
   );
 };
 

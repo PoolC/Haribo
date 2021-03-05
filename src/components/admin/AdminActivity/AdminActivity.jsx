@@ -1,15 +1,13 @@
-import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
 import React from 'react';
-import styled from 'styled-components';
 import {
   ActivityListRow,
-  AdminActivitiesBlock,
   ContentsContainer,
   Table,
   TableHead,
   TitleContainer,
 } from './AdminActivity.styles';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const AdminActivity = ({
   activities,
@@ -34,7 +32,7 @@ const AdminActivity = ({
   };
 
   return (
-    <AdminActivitiesBlock>
+    <WhiteNarrowBlock>
       <TitleContainer>세미나/스터디 관리</TitleContainer>
       <ContentsContainer>
         <Table>
@@ -79,7 +77,7 @@ const AdminActivity = ({
           </tbody>
         </Table>
       </ContentsContainer>
-    </AdminActivitiesBlock>
+    </WhiteNarrowBlock>
   );
 };
 

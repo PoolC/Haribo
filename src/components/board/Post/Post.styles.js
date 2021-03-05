@@ -2,20 +2,9 @@ import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
 
-export const PostBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  box-shadow: 0px 0px 20px ${colors.gray[1]};
-  flex: 4;
-  border-radius: 50px;
-  padding: 30px 40px;
-`;
-
 export const PostContainer = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -67,7 +56,7 @@ export const ButtonContainer = styled.div`
 
 export const CommentsContainer = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
   flex-direction: column;
   justify-content: center;
   align-items: center;

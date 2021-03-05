@@ -1,8 +1,8 @@
 import React from 'react';
-import { IntroBlock } from './Intro.styles';
+import { WhiteNarrowBlock } from '../../styles/common/Block.styles';
 
 const Intro = () => {
-  return <IntroBlock></IntroBlock>;
+  return <WhiteNarrowBlock></WhiteNarrowBlock>;
 };
 
 export default Intro;

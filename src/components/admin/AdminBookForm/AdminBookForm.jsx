@@ -1,8 +1,13 @@
 import React from 'react';
 import useInput from '../../../hooks/useInput';
 import { notEmptyValidation } from '../../../lib/utils/validation';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import Input from '../../common/Input/Input';
-import { AdminBookFormBlock, StyledActionButton, StyledForm, TitleContainer } from './AdminBookForm.styles';
+import {
+  StyledActionButton,
+  StyledForm,
+  TitleContainer,
+} from './AdminBookForm.styles';
 
 const AdminBookForm = ({ onCreateBook, onUpdateBook, book }) => {
   const [title, onChangeTitle] = useInput(
@@ -30,7 +35,7 @@ const AdminBookForm = ({ onCreateBook, onUpdateBook, book }) => {
     onUpdateBook({ title, author, imageURL, info });
   };
   return (
-    <AdminBookFormBlock>
+    <WhiteNarrowBlock>
       <TitleContainer>도서 생성</TitleContainer>
       <StyledForm>
         <Input
@@ -70,7 +75,7 @@ const AdminBookForm = ({ onCreateBook, onUpdateBook, book }) => {
           <StyledActionButton onClick={handleCreate}>제출</StyledActionButton>
         )}
       </StyledForm>
-    </AdminBookFormBlock>
+    </WhiteNarrowBlock>
   );
 };
 

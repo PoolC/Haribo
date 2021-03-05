@@ -7,13 +7,12 @@ import { notEmptyValidation } from '../../../lib/utils/validation';
 import useInput from '../../../hooks/useInput';
 import Input from '../../common/Input/Input';
 import {
-  ActivityFormBlock,
-  ActivityFormContainer,
   ButtonContainer,
   CapacityContainer,
   HourContainer,
   Item,
-  ItemContainer, StyledActionButton,
+  ItemContainer,
+  StyledActionButton,
   StyledForm,
   StyledInput,
   Tag,
@@ -23,6 +22,7 @@ import {
   Title,
   TitleContainer,
 } from './ActivityForm.styles';
+import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 
 const TagItem = React.memo(({ tag, onDeleteTag }) => {
   const handleDeleteTag = () => {
@@ -126,8 +126,8 @@ const ActivityForm = ({ activity, onCreateActivity, onUpdateActivity }) => {
   };
 
   return (
-    <ActivityFormBlock>
-      <ActivityFormContainer>
+    <Block>
+      <WhiteBlock>
         <TitleContainer>
           <Title>세미나/스터디 {activity ? '수정' : '개설'}</Title>
         </TitleContainer>
@@ -265,8 +265,8 @@ const ActivityForm = ({ activity, onCreateActivity, onUpdateActivity }) => {
             <StyledActionButton onClick={handleCreate}>제출</StyledActionButton>
           )}
         </StyledForm>
-      </ActivityFormContainer>
-    </ActivityFormBlock>
+      </WhiteBlock>
+    </Block>
   );
 };
 

@@ -1,6 +1,11 @@
 import React from 'react';
+import { SelectedLinkButton } from '../../../styles/common/Button.styles';
+import {
+  MenuBlock,
+  MenuItem,
+  MenuList,
+} from '../../../styles/common/Menu.styles';
 import LinkButton from '../../common/Buttons/LinkButton';
-import { BoardMenuBlock, BoardMenuItem, BoardMenuList, SelectedLinkButton } from './BoardMenu.styles';
 
 const BoardMenu = ({ menus, currentLocation, setSelectedMenu }) => {
   const onSelectMenu = (menu) => {
@@ -9,17 +14,17 @@ const BoardMenu = ({ menus, currentLocation, setSelectedMenu }) => {
   };
 
   return (
-    <BoardMenuBlock>
-      <BoardMenuList>
+    <MenuBlock>
+      <MenuList>
         {menus.map((menu) =>
           currentLocation === menu.urlPath ? (
-            <BoardMenuItem key={menu.urlPath}>
+            <MenuItem key={menu.urlPath}>
               <SelectedLinkButton to={`/boards/${menu.urlPath}`}>
                 {menu.name}
               </SelectedLinkButton>
-            </BoardMenuItem>
+            </MenuItem>
           ) : (
-            <BoardMenuItem key={menu.urlPath}>
+            <MenuItem key={menu.urlPath}>
               <LinkButton
                 onClick={() => {
                   onSelectMenu(menu);
@@ -28,11 +33,11 @@ const BoardMenu = ({ menus, currentLocation, setSelectedMenu }) => {
               >
                 {menu.name}
               </LinkButton>
-            </BoardMenuItem>
+            </MenuItem>
           ),
         )}
-      </BoardMenuList>
-    </BoardMenuBlock>
+      </MenuList>
+    </MenuBlock>
   );
 };
 

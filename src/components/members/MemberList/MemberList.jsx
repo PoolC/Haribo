@@ -1,11 +1,12 @@
 import React from 'react';
+import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import MemberCard from '../MemberCard/MemberCard';
-import { MemberListBlock, MemberListContainer, MemberListHeader, StyledMemberList } from './MemberList.styles';
+import { MemberListHeader, StyledMemberList } from './MemberList.styles';
 
 const MemberList = ({ members }) => {
   return (
-    <MemberListBlock>
-      <MemberListContainer>
+    <Block>
+      <WhiteBlock>
         <MemberListHeader>
           <h2 className="member_list_title">회원 목록</h2>
         </MemberListHeader>
@@ -14,8 +15,8 @@ const MemberList = ({ members }) => {
             <MemberCard key={member.loginID} member={member} />
           ))}
         </StyledMemberList>
-      </MemberListContainer>
-    </MemberListBlock>
+      </WhiteBlock>
+    </Block>
   );
 };
 

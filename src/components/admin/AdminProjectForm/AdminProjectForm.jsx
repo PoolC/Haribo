@@ -7,12 +7,17 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import {
-  AdminProjectFormBlock,
   ButtonContainer,
-  MemberBlock, MemberContainer,
-  MemberInfo, MemberSearchForm, StyledActionButton, StyledForm, StyledSearchActionButton,
+  MemberBlock,
+  MemberContainer,
+  MemberInfo,
+  MemberSearchForm,
+  StyledActionButton,
+  StyledForm,
+  StyledSearchActionButton,
   TitleContainer,
 } from './AdminProjectForm.styles';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const SearchMember = ({ member, onAddMember }) => {
   const { name, department, studentId } = member;
@@ -114,7 +119,7 @@ const AdminProjectForm = ({
   }
 
   return (
-    <AdminProjectFormBlock>
+    <WhiteNarrowBlock>
       <TitleContainer>프로젝트 생성</TitleContainer>
       <StyledForm>
         <Input
@@ -202,7 +207,7 @@ const AdminProjectForm = ({
           <StyledActionButton onClick={handleCreate}>제출</StyledActionButton>
         )}
       </StyledForm>
-    </AdminProjectFormBlock>
+    </WhiteNarrowBlock>
   );
 };
 

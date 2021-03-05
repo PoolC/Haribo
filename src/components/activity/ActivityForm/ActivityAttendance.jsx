@@ -3,11 +3,19 @@ import useInput from '../../../hooks/useInput';
 import Input from '../../common/Input/Input';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import {
-  ActivityAttendanceBlock,
-  ActivityDetailContainer, Date, DateContainer, Description, DescriptionContainer,
-  MemberBlock, MemberContainer, Members, StyledActionButton, StyledForm, Title,
+  Date,
+  DateContainer,
+  Description,
+  DescriptionContainer,
+  MemberBlock,
+  MemberContainer,
+  Members,
+  StyledActionButton,
+  StyledForm,
+  Title,
   TitleContainer,
 } from './ActivityAttendance.styles';
+import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 
 const Member = ({ member, attended, handleCheckAttendance }) => {
   const [isChecked, setIsChecked] = useState(attended ? attended : false);
@@ -31,14 +39,14 @@ const Member = ({ member, attended, handleCheckAttendance }) => {
 };
 
 const ActivityAttendance = ({
-                              activity,
-                              activityMembers,
-                              activitySession,
-                              sessionNumber,
-                              sessionAttendance,
-                              onCreateSession,
-                              onUpdateSession,
-                            }) => {
+  activity,
+  activityMembers,
+  activitySession,
+  sessionNumber,
+  sessionAttendance,
+  onCreateSession,
+  onUpdateSession,
+}) => {
   console.log(sessionAttendance);
   const { title } = activity;
   const newSessionCount = sessionNumber;
@@ -56,8 +64,8 @@ const ActivityAttendance = ({
   const [attendances, setAttendances] = useState(
     sessionAttendance
       ? sessionAttendance
-        .filter((attendance) => attendance.attended === true)
-        .map((attendance) => attendance.member)
+          .filter((attendance) => attendance.attended === true)
+          .map((attendance) => attendance.member)
       : [],
   );
 
@@ -99,8 +107,8 @@ const ActivityAttendance = ({
   };
 
   return (
-    <ActivityAttendanceBlock>
-      <ActivityDetailContainer>
+    <Block>
+      <WhiteBlock>
         <TitleContainer>
           <Title>{title}</Title>
           <Title>
@@ -139,20 +147,20 @@ const ActivityAttendance = ({
             <Members>
               {sessionAttendance
                 ? sessionAttendance.map((attendance) => (
-                  <Member
-                    key={attendance.member.loginID}
-                    member={attendance.member}
-                    attended={attendance.attended}
-                    handleCheckAttendance={handleCheckAttendance}
-                  />
-                ))
+                    <Member
+                      key={attendance.member.loginID}
+                      member={attendance.member}
+                      attended={attendance.attended}
+                      handleCheckAttendance={handleCheckAttendance}
+                    />
+                  ))
                 : activityMembers.map((member) => (
-                  <Member
-                    key={member.loginID}
-                    member={member}
-                    handleCheckAttendance={handleCheckAttendance}
-                  />
-                ))}
+                    <Member
+                      key={member.loginID}
+                      member={member}
+                      handleCheckAttendance={handleCheckAttendance}
+                    />
+                  ))}
             </Members>
           </MemberContainer>
           {sessionAttendance ? (
@@ -161,8 +169,8 @@ const ActivityAttendance = ({
             <StyledActionButton onClick={handleCreate}>제출</StyledActionButton>
           )}
         </StyledForm>
-      </ActivityDetailContainer>
-    </ActivityAttendanceBlock>
+      </WhiteBlock>
+    </Block>
   );
 };
 

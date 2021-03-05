@@ -119,14 +119,6 @@ p {
   margin-block-end: 0;
 }
 
-#root {
-  width: 100vw;
-  min-height: 100vh;
-  position: relative;
-  margin: 0;
-  padding: 0;
-}
-
 body {
   position: relative;
   width: 100vw;
@@ -142,6 +134,14 @@ body {
   justify-content: center;
   align-items: center;
   color: #4c3722;
+}
+
+#root {
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+  margin: 0;
+  padding: 0;
 }
 
 button {

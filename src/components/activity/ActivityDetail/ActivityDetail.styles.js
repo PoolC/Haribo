@@ -1,20 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 
-export const ActivityDetailBlock = styled.div`
-  position: relative;
-  top: 0px;
-  width: 100%;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  margin: 0px 0 300px 0;
-  @media (max-width: 576px) {
-    margin-bottom: 500px;
-  }
-`;
-
 export const ActivityDetailContainer = styled.div`
   width: 90%;
   margin: 0 5%;
@@ -24,7 +10,7 @@ export const ActivityDetailContainer = styled.div`
   background-color: white;
   box-shadow: 0px 0px 20px ${colors.gray[1]};
   border-radius: 50px;
-  padding: 80px 10px 80px 10px;
+  padding: 80px 0px;
   & > .project_container_title {
     font-weight: 700;
     margin-bottom: 30px;
@@ -99,19 +85,13 @@ export const MemberContainer = styled.div`
 `;
 
 export const Member = styled.ul`
-  width: 80%;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: scroll;
-  scrollbar-color: none;
+  flex-wrap: wrap;
   margin: 0;
   list-style: none;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
-  }
 `;
 
 export const SessionBlock = styled.div`

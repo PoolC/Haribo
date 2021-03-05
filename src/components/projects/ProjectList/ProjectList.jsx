@@ -1,19 +1,20 @@
 import React from 'react';
+import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import ProjectCard from '../ProjectCard/ProjectCard';
-import { Project, ProjectListBlock, ProjectListContainer } from './ProjectList.styles';
+import { Project } from './ProjectList.styles';
 
 const ProjectList = ({ projects }) => {
   return (
-    <ProjectListBlock>
-      <ProjectListContainer>
-        <h3 className="project_container_title">프로젝트</h3>
+    <Block>
+      <WhiteBlock>
+        <h2 className="block_title">프로젝트</h2>
         <Project>
           {projects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </Project>
-      </ProjectListContainer>
-    </ProjectListBlock>
+      </WhiteBlock>
+    </Block>
   );
 };
 

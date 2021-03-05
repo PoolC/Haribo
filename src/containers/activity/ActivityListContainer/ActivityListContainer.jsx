@@ -1,24 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import ActivityMenu from '../../../components/activity/ActivityMenu/ActivityMenu';
 import ActivityList from '../../../components/activity/ActivityList/ActivityList';
 import { useSelector } from 'react-redux';
 import * as activityAPI from '../../../lib/api/activity';
-
-const ActivityListContainerBlock = styled.div`
-  position: relative;
-  top: 0px;
-  width: 90%;
-  left: 5%;
-  right: 5%;
-  display: flex;
-  margin: 0px 0 300px 0;
-  @media (max-width: 576px) {
-    margin-bottom: 500px;
-    flex-direction: column;
-  }
-`;
+import { TwoColumnsContainerBlock } from '../../../styles/common/Block.styles.js';
 
 const ActivityListContainer = ({ location, history, match }) => {
   const currentLocation = location.search.replace('?semester=', '');
@@ -66,14 +52,14 @@ const ActivityListContainer = ({ location, history, match }) => {
   };
 
   return (
-    <ActivityListContainerBlock>
+    <TwoColumnsContainerBlock>
       <ActivityMenu semesters={semesters} currentLocation={currentLocation} />
       <ActivityList
         activities={activities}
         onToggleRegisterActivity={onToggleRegisterActivity}
         member={member}
       />
-    </ActivityListContainerBlock>
+    </TwoColumnsContainerBlock>
   );
 };
 

@@ -1,16 +1,14 @@
 import { MENU } from '../../../constants/menus';
-import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
 import ActivityCard from '../ActivityCard/ActivityCard';
 import React from 'react';
-import styled from 'styled-components';
 import {
-  ActivityListBlock,
-  ActivityListContainer,
   ActivityListHeader,
   ActivityListTitle,
-  Description, List,
+  Description,
+  List,
 } from './ActivityList.styles';
+import { Block, WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const ActivityList = ({ activities, onToggleRegisterActivity, member }) => {
   const {
@@ -20,8 +18,8 @@ const ActivityList = ({ activities, onToggleRegisterActivity, member }) => {
 
   return (
     <>
-      <ActivityListBlock>
-        <ActivityListContainer className="hi">
+      <Block>
+        <WhiteNarrowBlock>
           <ActivityListHeader>
             <ActivityListTitle>세미나&스터디</ActivityListTitle>
             {isLogin && (
@@ -40,8 +38,8 @@ const ActivityList = ({ activities, onToggleRegisterActivity, member }) => {
               />
             ))}
           </List>
-        </ActivityListContainer>
-      </ActivityListBlock>
+        </WhiteNarrowBlock>
+      </Block>
     </>
   );
 };

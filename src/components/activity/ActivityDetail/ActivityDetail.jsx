@@ -5,8 +5,6 @@ import gfm from 'remark-gfm';
 import SessionContainer from '../../../containers/activity/SessionContainer/SessionContainer';
 import {
   TagCard,
-  ActivityDetailBlock,
-  ActivityDetailContainer,
   TitleContainer,
   Title,
   ContentContainer,
@@ -19,6 +17,7 @@ import {
   SessionBlock,
   Sessions,
 } from './ActivityDetail.styles.js';
+import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 
 const Tag = ({ tag }) => {
   return <TagCard>#{tag}</TagCard>;
@@ -47,8 +46,8 @@ const ActivityDetail = ({
     description,
   } = activity;
   return (
-    <ActivityDetailBlock>
-      <ActivityDetailContainer>
+    <Block>
+      <WhiteBlock>
         <TitleContainer>
           <Title>{title}</Title>
         </TitleContainer>
@@ -106,8 +105,8 @@ const ActivityDetail = ({
             ))}
           </Sessions>
         </SessionBlock>
-      </ActivityDetailContainer>
-    </ActivityDetailBlock>
+      </WhiteBlock>
+    </Block>
   );
 };
 

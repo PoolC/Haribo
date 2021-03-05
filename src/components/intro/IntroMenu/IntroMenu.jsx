@@ -1,29 +1,34 @@
 import React from 'react';
 import { MENU } from '../../../constants/menus';
+import { SelectedLinkButton } from '../../../styles/common/Button.styles';
+import {
+  MenuBlock,
+  MenuItem,
+  MenuList,
+} from '../../../styles/common/Menu.styles';
 import LinkButton from '../../common/Buttons/LinkButton';
-import { IntroMenuBlock, IntroMenuItem, IntroMenuList, SelectedLinkButton } from './IntroMenu.styles';
 
 const IntroMenu = ({ menus, currentLocation }) => {
   return (
-    <IntroMenuBlock>
-      <IntroMenuList>
+    <MenuBlock>
+      <MenuList>
         {menus.map((menu) =>
           currentLocation === menu.url ? (
-            <IntroMenuItem key={menu.url}>
+            <MenuItem key={menu.url}>
               <SelectedLinkButton to={`/${MENU.INTRO}${menu.url}`}>
                 {menu.name}
               </SelectedLinkButton>
-            </IntroMenuItem>
+            </MenuItem>
           ) : (
-            <IntroMenuItem key={menu.url}>
+            <MenuItem key={menu.url}>
               <LinkButton to={`/${MENU.INTRO}${menu.url}`}>
                 {menu.name}
               </LinkButton>
-            </IntroMenuItem>
+            </MenuItem>
           ),
         )}
-      </IntroMenuList>
-    </IntroMenuBlock>
+      </MenuList>
+    </MenuBlock>
   );
 };
 

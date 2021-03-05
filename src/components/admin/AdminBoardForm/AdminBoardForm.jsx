@@ -2,7 +2,12 @@ import React from 'react';
 import useInput from '../../../hooks/useInput';
 import Input from '../../common/Input/Input';
 import { notEmptyValidation } from '../../../lib/utils/validation';
-import { AdminBoardFormBlock, StyledActionButton, StyledForm, TitleContainer } from './AdminBoardForm.styles';
+import {
+  StyledActionButton,
+  StyledForm,
+  TitleContainer,
+} from './AdminBoardForm.styles';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const AdminBoardForm = ({ board, onCreateBoard, onUpdateBoard }) => {
   const [name, onChangeName] = useInput(
@@ -33,7 +38,7 @@ const AdminBoardForm = ({ board, onCreateBoard, onUpdateBoard }) => {
   };
 
   return (
-    <AdminBoardFormBlock>
+    <WhiteNarrowBlock>
       <TitleContainer>게시판 생성</TitleContainer>
       <StyledForm>
         <Input
@@ -74,7 +79,7 @@ const AdminBoardForm = ({ board, onCreateBoard, onUpdateBoard }) => {
           <StyledActionButton onClick={handleCreate}>제출</StyledActionButton>
         )}
       </StyledForm>
-    </AdminBoardFormBlock>
+    </WhiteNarrowBlock>
   );
 };
 

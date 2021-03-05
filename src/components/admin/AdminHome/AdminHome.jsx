@@ -1,9 +1,10 @@
 import React from 'react';
-import { AdminHomeBlock, ContentsContainer, TitleContainer } from './AdminHome.styles';
+import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
+import { ContentsContainer, TitleContainer } from './AdminHome.styles';
 
 const AdminHome = () => {
   return (
-    <AdminHomeBlock>
+    <WhiteNarrowBlock>
       <TitleContainer>관리자 페이지 이용법</TitleContainer>
       <ContentsContainer>
         <p>PoolC의 임원이 되신 것을 축하합니다.^^</p>
@@ -144,7 +145,7 @@ const AdminHome = () => {
         <p></p>
         <p></p>
       </ContentsContainer>
-    </AdminHomeBlock>
+    </WhiteNarrowBlock>
   );
 };
 
