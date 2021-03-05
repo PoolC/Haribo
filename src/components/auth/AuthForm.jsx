@@ -204,6 +204,7 @@ const AuthForm = ({
       return;
     }
     onSubmit({
+      name,
       password,
       passwordCheck,
       email,
@@ -321,14 +322,15 @@ const AuthForm = ({
                 />
                 <label htmlFor="introduction">자기소개</label>
                 <StyledTextarea
-                  valueText={introduction}
                   name="introduction"
                   id="introduction"
                   cols="30"
                   rows="5"
                   onChange={onChangeIntroduction}
                   placeholder="자기 소개를 적어주세요"
-                />
+                >
+                  {introduction}
+                </StyledTextarea>
               </>
             )}
             <SubmitButton>{headerText}</SubmitButton>

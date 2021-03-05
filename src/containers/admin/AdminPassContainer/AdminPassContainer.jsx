@@ -29,7 +29,18 @@ const AdminPassContainer = () => {
       fullfilled: false,
     },
   ];
-  return <AdminPass members={members} minimumLimit={minimumLimit} />;
+  const onUpdateMinPassStandard = () => {};
+
+  const onChangeExcepted = () => {};
+
+  return (
+    <AdminPass
+      members={members}
+      minimumLimit={minimumLimit}
+      onUpdateMinPassStandard={onUpdateMinPassStandard}
+      onChangeExcepted={onChangeExcepted}
+    />
+  );
 };
 
 export default AdminPassContainer;

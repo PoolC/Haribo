@@ -37,6 +37,7 @@ const MyInfoFormContainer = ({ location, history }) => {
   }
 
   const onSubmit = ({
+    name,
     password,
     passwordCheck,
     email,
@@ -44,7 +45,8 @@ const MyInfoFormContainer = ({ location, history }) => {
     introduction,
   }) => {
     try {
-      const response = authAPI.register({
+      const response = authAPI.updateUser({
+        name,
         password,
         passwordCheck,
         email,
@@ -53,9 +55,10 @@ const MyInfoFormContainer = ({ location, history }) => {
       });
       response
         .then((res) => {
-          if (res.status === 202) {
+          if (res.status === 200) {
             setMessage('성공적으로 회원정보를 수정했습니다.');
-            history.push('/');
+            handleModalOpen();
+            //history.push('/');
           }
         })
         .catch((e) => {

@@ -16,37 +16,23 @@ export const register = ({
   phoneNumber,
   introduction,
 }) =>
-  client.post(
-    '/member',
-    {
-      loginID: id,
-      password,
-      passwordCheck,
-      name,
-      email,
-      department,
-      studentID: studentId,
-      phoneNumber,
-      introduction,
-    },
-
-    // client.post('/member', {
-    //   loginID: 'test4',
-    //   password: '1111111',
-    //   passwordCheck: '1111111',
-    //   name: '김민지',
-    //   email: 'test4@gmail.com',
-    //   department: '국어국문학과',
-    //   studentID: '2015110024',
-    //   phoneNumber: '010-0000-0004',
-    //   introduction: 'hihi',
-    // }
-  );
+  client.post('/member', {
+    loginID: id,
+    password,
+    passwordCheck,
+    name,
+    email,
+    department,
+    studentID: studentId,
+    phoneNumber,
+    introduction,
+  });
 
 // 본인 정보 조회
 export const loadUser = () => client.get('/member/me');
 
 export const updateUser = ({
+  name,
   password,
   passwordCheck,
   email,
@@ -54,6 +40,7 @@ export const updateUser = ({
   introduction,
 }) =>
   client.put('/member/me', {
+    name,
     password,
     passwordCheck,
     email,
