@@ -46,15 +46,13 @@ const MemberDetail = ({ member }) => {
               <Department>{department}</Department>
             </DepartmentContainer>
             <IntroductionContainer>
-              <Introduction>
-                <span>
-                  <i className="fas fa-quote-left"></i>
-                </span>
-                {introduction}
-                <span>
-                  <i className="fas fa-quote-right"></i>
-                </span>
-              </Introduction>
+              <span>
+                <i className="fas fa-quote-left"></i>
+              </span>
+              <Introduction>{introduction}</Introduction>
+              <span>
+                <i className="fas fa-quote-right"></i>
+              </span>
             </IntroductionContainer>
           </TextContainer>
         </ContentContainer>

@@ -24,6 +24,12 @@ export const StyledImage = styled.img``;
 export const TextContainer = styled.div`
   flex: 1;
   padding: 30px 30px;
+  @media (max-width: 576px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const NameContainer = styled.div`
@@ -65,8 +71,8 @@ export const Department = styled.p``;
 export const IntroductionContainer = styled.div`
   display: flex;
   width: 90%;
-  margin: 40px 0 20px 0;
-  font-size: 1.5rem;
+  margin: 20px 0;
+  font-size: 1rem;
   span {
     font-size: 0.8rem;
     color: ${colors.brown[0]};
@@ -85,6 +91,8 @@ export const Introduction = styled.p`
   font-weight: 300;
   text-align: center;
   word-break: keep-all;
+  line-height: 1.2rem;
+  padding: 0 0.5rem;
 `;
 
 export const ActivityContainer = styled.div`
