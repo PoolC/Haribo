@@ -80,7 +80,7 @@ export const IntroductionContainer = styled.div`
   }
 `;
 
-export const Introduction = styled.p`
+export const Introduction = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
