@@ -13,7 +13,7 @@ const CommentList = ({
     <CommentListBlock>
       {comments.map((comment) => (
         <Comment
-          key={comment.id}
+          key={comment.commentId}
           comment={comment}
           member={member}
           onDeleteComment={onDeleteComment}
