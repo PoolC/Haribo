@@ -7,7 +7,6 @@ const AdminInfoContainer = () => {
 
   useEffect(() => {
     infoAPI.getPoolCInfo().then((res) => {
-      console.log(res);
       if (res.status === 200) {
         setInfo(res.data);
       }
@@ -49,7 +48,6 @@ const AdminInfoContainer = () => {
         applyUri,
       })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
         }
       });

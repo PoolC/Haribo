@@ -8,7 +8,6 @@ const ApplyContainer = () => {
 
   useEffect(() => {
     infoAPI.getPoolCInfo().then((res) => {
-      console.log(res.data.isSubscriptionPeriod);
       if (res.status === 200) {
         setIsSubscriptionPeriod(res.data.isSubscriptionPeriod);
         setApplyUri(res.data.applyUri);

@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from '../../../components/home/Carousel/Carousel';
+import * as infoAPI from '../../../lib/api/info';
 
 const CarouselContainer = () => {
-  const carouselImageURL =
-    'https://user-images.githubusercontent.com/48787170/108064727-6f574280-70a0-11eb-8d27-d667d85f58ee.png';
-  const imageURLs = [carouselImageURL, carouselImageURL, carouselImageURL];
+  const [mainImageUrl, setMainImageUrl] = useState(null);
+
+  useEffect(() => {
+    infoAPI.getPoolCInfo().then((res) => {
+      if (res.status === 200) {
+        setMainImageUrl(res.data.mainImageUrl);
+      }
+    });
+  });
+
+  if (mainImageUrl === null) return null;
+
+  const imageURLs = mainImageUrl;
   return <Carousel imageURLs={imageURLs} />;
 };
 

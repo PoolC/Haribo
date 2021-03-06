@@ -1,20 +1,23 @@
 import React from 'react';
-import { CarouselBlock, CarouselButton, MainCarousel, MainCarouselImage } from './Carousel.styles';
+import {
+  CarouselBlock,
+  CarouselButton,
+  MainCarousel,
+  MainCarouselImage,
+} from './Carousel.styles';
 
 const Carousel = ({ imageURLs }) => {
   return (
     <CarouselBlock>
-      <CarouselButton className="carousel_prev">
+      {/* <CarouselButton className="carousel_prev">
         <i className="fas fa-chevron-left"></i>
-      </CarouselButton>
+      </CarouselButton> */}
       <MainCarousel>
-        {imageURLs.map((url, idx) => (
-          <MainCarouselImage key={idx} src={url} alt="main_carousel_image" />
-        ))}
+        <MainCarouselImage src={imageURLs} alt="main_carousel_image" />
       </MainCarousel>
-      <CarouselButton className="carousel_next">
+      {/* <CarouselButton className="carousel_next">
         <i className="fas fa-chevron-right"></i>
-      </CarouselButton>
+      </CarouselButton> */}
     </CarouselBlock>
   );
 };
