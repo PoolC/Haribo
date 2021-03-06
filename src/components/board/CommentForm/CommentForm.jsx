@@ -2,14 +2,22 @@ import React from 'react';
 import useInput from '../../../hooks/useInput';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import ActionButton from '../../common/Buttons/ActionButton';
-import { ButtonContainer, CommentFormBlock, StyledInput } from './CommentForm.styles';
+import {
+  ButtonContainer,
+  CommentFormBlock,
+  StyledInput,
+} from './CommentForm.styles';
 
 const CommentForm = ({ onCreateComment }) => {
   const [body, onChangeBody] = useInput('', notEmptyValidation);
+
   const handleCreate = (e) => {
     e.preventDefault();
     onCreateComment(body);
+    e.target.value = '';
+    onChangeBody(e);
   };
+
   return (
     <CommentFormBlock>
       <StyledInput
