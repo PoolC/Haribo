@@ -9,6 +9,10 @@ const CommentList = ({
   onCreateComment,
   onDeleteComment,
 }) => {
+  const {
+    status: { isLogin },
+  } = member;
+
   return (
     <CommentListBlock>
       {comments.map((comment) => (
@@ -19,7 +23,7 @@ const CommentList = ({
           onDeleteComment={onDeleteComment}
         />
       ))}
-      <CommentForm onCreateComment={onCreateComment} />
+      {isLogin && <CommentForm onCreateComment={onCreateComment} />}
     </CommentListBlock>
   );
 };

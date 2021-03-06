@@ -4,6 +4,7 @@ import Post from '../../../components/board/Post/Post';
 import * as postAPI from '../../../lib/api/post';
 import * as commentAPI from '../../../lib/api/comment';
 import { useSelector } from 'react-redux';
+import { MENU } from '../../../constants/menus';
 
 const PostContainer = ({ selectedMenu, history, match }) => {
   const { postID } = match.params;
@@ -14,42 +15,66 @@ const PostContainer = ({ selectedMenu, history, match }) => {
   const [comments, setComments] = useState(null);
 
   useEffect(() => {
-    postAPI.getPost(postID).then((res) => {
-      if (res.status === 200) {
-        setPost(res.data);
-        setComments(res.data.comments);
-      }
-    });
-  }, [postID]);
+    postAPI
+      .getPost(postID)
+      .then((res) => {
+        if (res.status === 200) {
+          setPost(res.data);
+          setComments(res.data.comments);
+        }
+      })
+      .catch((e) => {
+        console.error(e.message);
+        history.push(`/${MENU.FORBIDDEN}`);
+      });
+  }, [postID, history]);
 
   if (post === null || comments === null) {
     return null;
   }
 
   const onDeletePost = () => {
-    postAPI.deletePost(postID).then((res) => {
-      if (res.status === 200) {
-        history.goBack(1);
-      }
-    });
+    postAPI
+      .deletePost(postID)
+      .then((res) => {
+        if (res.status === 200) {
+          history.goBack(1);
+        }
+      })
+      .catch((e) => {
+        console.error(e.message);
+        history.push(`/${MENU.FORBIDDEN}`);
+      });
   };
 
   const onCreateComment = (body) => {
-    commentAPI.createComment({ postID, body }).then((res) => {
-      if (res.status === 202) {
-        setComments([...comments, res.data]);
-      }
-    });
+    commentAPI
+      .createComment({ postID, body })
+      .then((res) => {
+        if (res.status === 202) {
+          setComments([...comments, res.data]);
+        }
+      })
+      .catch((e) => {
+        console.error(e.message);
+        history.push(`/${MENU.FORBIDDEN}`);
+      });
   };
 
   const onDeleteComment = (commentID) => {
-    commentAPI.deleteComment(commentID).then((res) => {
-      if (res.status === 200) {
-        setComments(
-          comments.filter((comment) => comment.commentId !== commentID),
-        );
-      }
-    });
+    commentAPI
+      .deleteComment(commentID)
+      .then((res) => {
+        if (res.status === 200) {
+          setComments(
+            comments.filter((comment) => comment.commentId !== commentID),
+          );
+        }
+      })
+      .catch((e) => {
+        console.error(e.message);
+        history.push(`/${MENU.FORBIDDEN}`);
+      });
   };
 
   return (

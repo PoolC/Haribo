@@ -2,19 +2,29 @@ import ActivityForm from '../../../components/activity/ActivityForm/ActivityForm
 import React, { useEffect, useState } from 'react';
 import * as activityAPI from '../../../lib/api/activity';
 import { withRouter } from 'react-router-dom';
+import useLoginCheck from '../../../hooks/useLoginCheck';
+import { MENU } from '../../../constants/menus';
+import { useSelector } from 'react-redux';
 
 const ActivityFormContainer = ({ match, history }) => {
   const activityID = match.params.activityID;
   const [activity, setActivity] = useState(null);
+  const member = useSelector((state) => state.auth);
+  const {
+    user: { memberId },
+  } = member;
+
+  useLoginCheck(history);
 
   useEffect(() => {
     if (activityID) {
-      (async () => {
-        const response = await activityAPI.getActivity(activityID);
-        setActivity(response.data.data);
-      })();
+      activityAPI.getActivity(activityID).then((res) => {
+        if (res.status === 200) {
+          setActivity(res.data.data);
+        }
+      });
     }
-  }, [activityID]);
+  }, [activityID, memberId, history]);
 
   if (activityID && activity === null) {
     return null;
@@ -45,6 +55,10 @@ const ActivityFormContainer = ({ match, history }) => {
         if (res.status === 200) {
           history.push('/activities');
         }
+      })
+      .catch((e) => {
+        console.error(e.message);
+        history.push(`/${MENU.FORBIDDEN}`);
       });
   };
 
@@ -74,6 +88,10 @@ const ActivityFormContainer = ({ match, history }) => {
         if (res.status === 200) {
           history.push('/activities');
         }
+      })
+      .catch((e) => {
+        console.error(e.message);
+        history.push(`/${MENU.FORBIDDEN}`);
       });
   };
 

@@ -6,6 +6,7 @@ import {
   removeHeaderAccessToken,
   setHeaderAccessToken,
 } from '../../../lib/utils/axiosUtil';
+import { MENU } from '../../../constants/menus';
 
 const MyInfoFormContainer = ({ location, history }) => {
   const [message, setMessage] = useState(null);
@@ -23,10 +24,19 @@ const MyInfoFormContainer = ({ location, history }) => {
     (async () => {
       removeHeaderAccessToken();
       setHeaderAccessToken();
-      const response = await authAPI.loadUser();
-      setUserInfo(response.data);
+      authAPI
+        .loadUser()
+        .then((res) => {
+          if (res.status === 200) {
+            setUserInfo(res.data);
+          }
+        })
+        .catch((e) => {
+          console.error(e.message);
+          history.push(`/${MENU.FORBIDDEN}`);
+        });
     })();
-  }, []);
+  }, [history]);
 
   if (userInfo === null) {
     return null;

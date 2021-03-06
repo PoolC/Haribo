@@ -12,14 +12,19 @@ import {
   StyledLink,
 } from './PostList.styles';
 
-const PostList = ({ selectedMenu, posts }) => {
+const PostList = ({ selectedMenu, posts, member }) => {
+  const {
+    status: { isLogin },
+  } = member;
   return (
     <WhiteNarrowBlock>
       <PostListHeader>
         <h2 className="post_list_title">{selectedMenu?.name}</h2>
-        <ActionButton to={`/${MENU.POST}/new/${selectedMenu?.id}`}>
-          글쓰기
-        </ActionButton>
+        {isLogin && (
+          <ActionButton to={`/${MENU.POST}/new/${selectedMenu?.id}`}>
+            글쓰기
+          </ActionButton>
+        )}
       </PostListHeader>
       <PostListTable>
         <thead>

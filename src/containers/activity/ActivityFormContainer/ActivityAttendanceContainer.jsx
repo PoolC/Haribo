@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import * as activityAPI from '../../../lib/api/activity';
 import { withRouter } from 'react-router-dom';
 import { MENU } from '../../../constants/menus';
+import useLoginCheck from '../../../hooks/useLoginCheck';
 
 const ActivityAttendanceContainer = ({ match, history }) => {
   const activityID = match.params.activityID;
@@ -13,6 +14,8 @@ const ActivityAttendanceContainer = ({ match, history }) => {
   const [activitySession, setActivitySession] = useState(null);
   const [activitySessions, setActivitySessions] = useState(null);
   const [sessionAttendance, setSessionAttendance] = useState(null);
+
+  useLoginCheck(history);
 
   useEffect(() => {
     (async () => {
