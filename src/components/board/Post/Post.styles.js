@@ -16,10 +16,12 @@ export const TitleContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 10px 0;
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 600;
   word-break: keep-all;
   line-height: 2.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const InfoContainer = styled.div`
@@ -44,6 +46,29 @@ export const InfoContainer = styled.div`
 export const BodyContainer = styled.div`
   width: 100%;
   padding: 40px 0 20px 0;
+  word-break: keep-all;
+  line-height: 1.5rem;
+  & > p,
+  ul,
+  ol {
+    font-weight: 300;
+  }
+  ul,
+  ol {
+    padding-left: 1rem;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 1rem 0;
+    line-height: 2.2rem;
+  }
+  hr {
+    margin: 1rem 0;
+  }
 `;
 
 export const ButtonContainer = styled.div`

@@ -30,6 +30,7 @@ const Body = styled.div`
   h5,
   h6 {
     margin: 1rem 0;
+    line-height: 2.2rem;
   }
   hr {
     margin: 1rem 0;

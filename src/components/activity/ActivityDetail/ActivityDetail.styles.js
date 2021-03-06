@@ -57,14 +57,46 @@ export const TagContainer = styled.div`
   }
 `;
 
+export const PlanContents = styled.div`
+  border: 1px solid ${colors.gray[2]};
+  border-radius: 20px;
+  padding: 2rem;
+  word-break: keep-all;
+  line-height: 1.5rem;
+  & > p,
+  ul,
+  ol {
+    font-weight: 300;
+    font-size: 0.9rem;
+  }
+  ul,
+  ol {
+    padding-left: 1rem;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 1rem 0;
+    line-height: normal;
+  }
+  hr {
+    margin: 1rem 0;
+  }
+`;
+
 export const PlanContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px 2rem;
   margin-bottom: 30px;
-  h2 {
+
+  & > .title {
     color: ${colors.brown[0]};
-    margin-bottom: 10px;
+    margin-bottom: 2rem;
     font-weight: 300;
     font-size: 0.8rem;
   }
