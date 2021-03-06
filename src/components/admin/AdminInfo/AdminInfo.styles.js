@@ -34,11 +34,19 @@ export const StyledActionButton = styled(ActionButton)`
 `;
 
 export const ImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 2rem 0;
 `;
 
 export const ImageContainerHeader = styled.header`
   font-weight: 600;
+  margin: 0 0 2rem 0;
+`;
+
+export const StyledImage = styled.img`
+  max-width: 400px;
 `;
 
 export const Description = styled.p`
