@@ -9,7 +9,7 @@ export const RecentNoticeBlock = styled.div`
   align-items: center;
   width: 100%;
   max-width: 1366px;
-  margin: 20px 0 100px 0;
+  margin: 20px 0 80px 0;
 `;
 
 export const StyledLink = styled(Link)`

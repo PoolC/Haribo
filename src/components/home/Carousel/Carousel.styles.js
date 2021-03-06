@@ -5,10 +5,10 @@ export const CarouselBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 95vw;
   max-width: 1366px;
   max-height: 400px;
-  margin: 0px 0 80px 0;
+  margin: 0px 0 40px 0;
 `;
 
 export const MainCarousel = styled.div`
