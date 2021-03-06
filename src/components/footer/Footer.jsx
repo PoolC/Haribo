@@ -1,8 +1,14 @@
 import React from 'react';
-import { FooterBlock, FooterContent, FooterContentText, FooterDivider, FooterIcon, FooterItem } from './Footer.styles';
+import {
+  FooterBlock,
+  FooterContent,
+  FooterContentText,
+  FooterDivider,
+  FooterIcon,
+  FooterItem,
+} from './Footer.styles';
 
-const Footer = ({ info }) => {
-  const { president, location, phoneNumber } = info;
+const Footer = ({ presidentName, location, phoneNumber }) => {
   const date = new Date();
   const thisYear = date.getFullYear();
   return (
@@ -21,7 +27,7 @@ const Footer = ({ info }) => {
         <FooterContent>
           <FooterIcon className="fas fa-phone-alt footer_icon"></FooterIcon>
           <FooterContentText>
-            회장 {president} {phoneNumber}
+            회장 {presidentName} {phoneNumber}
           </FooterContentText>
         </FooterContent>
       </FooterItem>

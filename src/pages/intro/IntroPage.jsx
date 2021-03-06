@@ -3,7 +3,9 @@ import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import IntroMenu from '../../components/intro/IntroMenu/IntroMenu';
 import { MENU } from '../../constants/menus';
+import FAQContainer from '../../containers/intro/FAQContainer/FAQContainer';
 import IntroContainer from '../../containers/intro/IntroContainer';
+import SNSContainer from '../../containers/intro/SNSContainer/SNSContainer';
 
 const IntroPageBlock = styled.div`
   position: relative;
@@ -13,7 +15,7 @@ const IntroPageBlock = styled.div`
   right: 5%;
   display: flex;
   margin: 0px 0 300px 0;
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     margin-bottom: 600px;
     flex-direction: column;
   }
@@ -29,6 +31,8 @@ const IntroPage = () => {
     <IntroPageBlock>
       <IntroMenu menus={menus} />
       <Switch>
+        <Route component={FAQContainer} path={`/${MENU.INTRO}/faq`} exact />
+        <Route component={SNSContainer} path={`/${MENU.INTRO}/sns`} exact />
         <Route component={IntroContainer} path={`/${MENU.INTRO}`} exact />
       </Switch>
     </IntroPageBlock>
