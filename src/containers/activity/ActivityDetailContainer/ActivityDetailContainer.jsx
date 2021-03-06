@@ -15,21 +15,25 @@ const ActivityDetailContainer = ({ match }) => {
   useEffect(() => {
     (async () => {
       const activityResponse = await activityAPI.getActivity(activityID);
-      const activityMemberResponse = await activityAPI.getActivityMembers(
-        activityID,
-      );
       const activitySessionResponse = await activityAPI.getActivitySessions(
         activityID,
       );
+
+      if (member.status.isLogin) {
+        const activityMemberResponse = await activityAPI.getActivityMembers(
+          activityID,
+        );
+        setActivityMembers(activityMemberResponse.data.data);
+      }
+
       setActivity(activityResponse.data.data);
-      setActivityMembers(activityMemberResponse.data.data);
       setActivitySessions(activitySessionResponse.data.data);
     })();
-  }, [activityID]);
+  }, [activityID, member.status.isLogin]);
 
   if (
     activity === null ||
-    activityMembers == null ||
+    (member.status.isLogin && activityMembers == null) ||
     activitySessions == null
   ) {
     return null;

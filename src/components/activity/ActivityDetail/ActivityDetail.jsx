@@ -16,6 +16,7 @@ import {
   Member,
   SessionBlock,
   Sessions,
+  PlanContents,
 } from './ActivityDetail.styles.js';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 
@@ -67,7 +68,8 @@ const ActivityDetail = ({
         <ContentContainer>
           <h2>정원</h2>
           <Content>
-            {activityMembers.length}명/{capacity}명
+            {isLogin && `${activityMembers?.length}명/`}
+            {capacity}명
           </Content>
         </ContentContainer>
         <TagContainer>
@@ -79,14 +81,16 @@ const ActivityDetail = ({
           </TagList>
         </TagContainer>
         <PlanContainer>
-          <h2>계획서</h2>
-          <ReactMarkdown plugins={[gfm]} source={description} />
+          <h2 className="title">계획서</h2>
+          <PlanContents>
+            <ReactMarkdown plugins={[gfm]} source={description} />
+          </PlanContents>
         </PlanContainer>
         {isLogin && (
           <MemberContainer>
             <h2>참여 멤버</h2>
             <Member>
-              {activityMembers.map((member) => (
+              {activityMembers?.map((member) => (
                 <MemberCard key={member.loginID} member={member} />
               ))}
             </Member>
