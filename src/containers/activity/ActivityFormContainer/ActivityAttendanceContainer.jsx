@@ -4,10 +4,13 @@ import * as activityAPI from '../../../lib/api/activity';
 import { withRouter } from 'react-router-dom';
 import { MENU } from '../../../constants/menus';
 import useLoginCheck from '../../../hooks/useLoginCheck';
+import Spinner from '../../../components/common/Spinner/Spinner';
 
 const ActivityAttendanceContainer = ({ match, history }) => {
   const activityID = match.params.activityID;
   const sessionID = match.params.sessionID;
+
+  const [loading, setLoading] = useState(true);
 
   const [activity, setActivity] = useState(null);
   const [activityMembers, setActivityMembers] = useState(null);
@@ -20,12 +23,18 @@ const ActivityAttendanceContainer = ({ match, history }) => {
   useEffect(() => {
     (async () => {
       const activityResponse = await activityAPI.getActivity(activityID);
+      setActivity(activityResponse.data.data);
+
       const activityMemberResponse = await activityAPI.getActivityMembers(
         activityID,
       );
+      setActivityMembers(activityMemberResponse.data.data);
+
       const activitySessionsResponse = await activityAPI.getActivitySessions(
         activityID,
       );
+      setActivitySessions(activitySessionsResponse.data.data);
+
       if (sessionID) {
         const activitySessionResponse = await activityAPI.getActivitySession(
           sessionID,
@@ -37,19 +46,17 @@ const ActivityAttendanceContainer = ({ match, history }) => {
         setActivitySession(activitySessionResponse.data);
       }
 
-      setActivity(activityResponse.data.data);
-      setActivityMembers(activityMemberResponse.data.data);
-      setActivitySessions(activitySessionsResponse.data.data);
+      setLoading(false);
     })();
   }, [activityID, sessionID]);
 
-  if (
-    activity === null ||
-    activityMembers == null ||
-    activitySessions == null
-  ) {
-    return null;
-  }
+  // if (
+  //   activity === null ||
+  //   activityMembers == null ||
+  //   activitySessions == null
+  // ) {
+  //   return null;
+  // }
 
   const onCreateSession = async ({
     sessionNumber,
@@ -94,15 +101,20 @@ const ActivityAttendanceContainer = ({ match, history }) => {
   };
 
   return (
-    <ActivityAttendance
-      activity={activity}
-      activityMembers={activityMembers}
-      activitySession={activitySession}
-      sessionNumber={activitySessions.length}
-      sessionAttendance={sessionAttendance}
-      onCreateSession={onCreateSession}
-      onUpdateSession={onUpdateSession}
-    />
+    <>
+      {loading && <Spinner />}
+      {!loading && (
+        <ActivityAttendance
+          activity={activity}
+          activityMembers={activityMembers}
+          activitySession={activitySession}
+          sessionNumber={activitySessions.length}
+          sessionAttendance={sessionAttendance}
+          onCreateSession={onCreateSession}
+          onUpdateSession={onUpdateSession}
+        />
+      )}
+    </>
   );
 };
 

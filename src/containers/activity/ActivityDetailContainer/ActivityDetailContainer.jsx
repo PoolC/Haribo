@@ -3,9 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as activityAPI from '../../../lib/api/activity';
 import { withRouter } from 'react-router-dom';
+import Spinner from '../../../components/common/Spinner/Spinner';
 
 const ActivityDetailContainer = ({ match }) => {
   const activityID = match.params.activityID;
+
+  const [loading, setLoading] = useState(true);
 
   const [activity, setActivity] = useState(null);
   const [activityMembers, setActivityMembers] = useState(null);
@@ -15,10 +18,11 @@ const ActivityDetailContainer = ({ match }) => {
   useEffect(() => {
     (async () => {
       const activityResponse = await activityAPI.getActivity(activityID);
+      setActivity(activityResponse.data.data);
       const activitySessionResponse = await activityAPI.getActivitySessions(
         activityID,
       );
-
+      setActivitySessions(activitySessionResponse.data.data);
       if (member.status.isLogin) {
         const activityMemberResponse = await activityAPI.getActivityMembers(
           activityID,
@@ -26,26 +30,30 @@ const ActivityDetailContainer = ({ match }) => {
         setActivityMembers(activityMemberResponse.data.data);
       }
 
-      setActivity(activityResponse.data.data);
-      setActivitySessions(activitySessionResponse.data.data);
+      setLoading(false);
     })();
   }, [activityID, member.status.isLogin]);
 
-  if (
-    activity === null ||
-    (member.status.isLogin && activityMembers == null) ||
-    activitySessions == null
-  ) {
-    return null;
-  }
+  // if (
+  //   activity === null ||
+  //   (member.status.isLogin && activityMembers == null) ||
+  //   activitySessions == null
+  // ) {
+  //   return null;
+  // }
 
   return (
-    <ActivityDetail
-      activity={activity}
-      activityMembers={activityMembers}
-      activitySessions={activitySessions}
-      member={member}
-    />
+    <>
+      {loading && <Spinner />}
+      {!loading && (
+        <ActivityDetail
+          activity={activity}
+          activityMembers={activityMembers}
+          activitySessions={activitySessions}
+          member={member}
+        />
+      )}
+    </>
   );
 };
 

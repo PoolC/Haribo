@@ -4,18 +4,17 @@ import * as projectAPI from '../../../lib/api/project';
 
 const ProjectListContainer = () => {
   const [projects, setProjects] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     (async () => {
       const response = await projectAPI.getProjects();
       setProjects(response.data.data);
+      setLoading(false);
     })();
   }, []);
 
-  if (projects === null) {
-    return null;
-  }
-
-  return <ProjectList projects={projects} />;
+  return <ProjectList projects={projects} loading={loading} />;
 };
 
 export default ProjectListContainer;

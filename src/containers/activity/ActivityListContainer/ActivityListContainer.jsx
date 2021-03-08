@@ -5,10 +5,13 @@ import ActivityList from '../../../components/activity/ActivityList/ActivityList
 import { useSelector } from 'react-redux';
 import * as activityAPI from '../../../lib/api/activity';
 import { TwoColumnsContainerBlock } from '../../../styles/common/Block.styles.js';
+import Spinner from '../../../components/common/Spinner/Spinner';
 
 const ActivityListContainer = ({ location, history, match }) => {
   const currentLocation = location.search.replace('?semester=', '');
   const member = useSelector((state) => state.auth);
+
+  const [loading, setLoading] = useState(true);
 
   const [activities, setActivities] = useState(null);
   const [semesters, setSemesters] = useState(null);
@@ -20,6 +23,7 @@ const ActivityListContainer = ({ location, history, match }) => {
         if (res.data.data.length === 0) {
           activityAPI.getActivities().then((activities) => {
             setActivities(activities.data.data);
+            setLoading(false);
           });
         } else {
           activityAPI
@@ -28,9 +32,9 @@ const ActivityListContainer = ({ location, history, match }) => {
             )
             .then((activities) => {
               setActivities(activities.data.data);
+              setLoading(false);
             });
         }
-
         // if (!currentLocation) {
         //   history.push(`/activities?semester=${res.data.data[0]}`);
         // }
@@ -38,9 +42,9 @@ const ActivityListContainer = ({ location, history, match }) => {
     });
   }, [history, currentLocation]);
 
-  if (activities === null) {
-    return null;
-  }
+  // if (activities === null) {
+  //   return null;
+  // }
 
   const onToggleRegisterActivity = (activityID) => {
     activityAPI.applyActivity(activityID).then((res) => {
@@ -50,14 +54,22 @@ const ActivityListContainer = ({ location, history, match }) => {
   };
 
   return (
-    <TwoColumnsContainerBlock>
-      <ActivityMenu semesters={semesters} currentLocation={currentLocation} />
-      <ActivityList
-        activities={activities}
-        onToggleRegisterActivity={onToggleRegisterActivity}
-        member={member}
-      />
-    </TwoColumnsContainerBlock>
+    <>
+      {loading && <Spinner />}
+      {!loading && (
+        <TwoColumnsContainerBlock>
+          <ActivityMenu
+            semesters={semesters}
+            currentLocation={currentLocation}
+          />
+          <ActivityList
+            activities={activities}
+            onToggleRegisterActivity={onToggleRegisterActivity}
+            member={member}
+          />
+        </TwoColumnsContainerBlock>
+      )}
+    </>
   );
 };
 

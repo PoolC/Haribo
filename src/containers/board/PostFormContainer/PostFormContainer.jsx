@@ -5,6 +5,7 @@ import PostForm from '../../../components/board/PostForm/PostForm';
 import { MENU } from '../../../constants/menus';
 import * as boardAPI from '../../../lib/api/board';
 import * as postAPI from '../../../lib/api/post';
+import Spinner from '../../../components/common/Spinner/Spinner';
 
 const PostFormContainer = ({ match, history }) => {
   const { boardID } = match.params;
@@ -15,6 +16,8 @@ const PostFormContainer = ({ match, history }) => {
     status: { isLogin },
     user: { isAdmin },
   } = member;
+
+  const [loading, setLoading] = useState(true);
 
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [post, setPost] = useState(null);
@@ -31,20 +34,24 @@ const PostFormContainer = ({ match, history }) => {
           history.push(`/${MENU.FORBIDDEN}`);
           return;
         }
+        if (!postID) {
+          setLoading(false);
+        }
       }
     });
     if (postID) {
       postAPI.getPost(postID).then((res) => {
         if (res.status === 200) {
           setPost(res.data);
+          setLoading(false);
         }
       });
     }
   }, [boardID, postID, history, isAdmin, isLogin]);
 
-  if (selectedMenu == null || (postID && post === null)) {
-    return null;
-  }
+  // if (selectedMenu == null) {
+  //   return null;
+  // }
 
   const onCreatePost = ({ title, body }) => {
     postAPI
@@ -76,13 +83,18 @@ const PostFormContainer = ({ match, history }) => {
   };
 
   return (
-    <PostForm
-      member={member}
-      post={post}
-      selectedMenu={selectedMenu}
-      onCreatePost={onCreatePost}
-      onUpdatePost={onUpdatePost}
-    />
+    <>
+      {loading && <Spinner />}
+      {!loading && (
+        <PostForm
+          member={member}
+          post={post}
+          selectedMenu={selectedMenu}
+          onCreatePost={onCreatePost}
+          onUpdatePost={onUpdatePost}
+        />
+      )}
+    </>
   );
 };
 

@@ -5,9 +5,13 @@ import { withRouter } from 'react-router-dom';
 import useLoginCheck from '../../../hooks/useLoginCheck';
 import { MENU } from '../../../constants/menus';
 import { useSelector } from 'react-redux';
+import Spinner from '../../../components/common/Spinner/Spinner';
 
 const ActivityFormContainer = ({ match, history }) => {
   const activityID = match.params.activityID;
+
+  const [loading, setLoading] = useState(true);
+
   const [activity, setActivity] = useState(null);
   const member = useSelector((state) => state.auth);
   const {
@@ -21,14 +25,15 @@ const ActivityFormContainer = ({ match, history }) => {
       activityAPI.getActivity(activityID).then((res) => {
         if (res.status === 200) {
           setActivity(res.data.data);
+          setLoading(false);
         }
       });
     }
   }, [activityID, memberId, history]);
 
-  if (activityID && activity === null) {
-    return null;
-  }
+  // if (activityID && activity === null) {
+  //   return null;
+  // }
 
   const onCreateActivity = ({
     title,
@@ -96,11 +101,16 @@ const ActivityFormContainer = ({ match, history }) => {
   };
 
   return (
-    <ActivityForm
-      activity={activity}
-      onCreateActivity={onCreateActivity}
-      onUpdateActivity={onUpdateActivity}
-    />
+    <>
+      {loading && <Spinner />}
+      {!loading && (
+        <ActivityForm
+          activity={activity}
+          onCreateActivity={onCreateActivity}
+          onUpdateActivity={onUpdateActivity}
+        />
+      )}
+    </>
   );
 };
 

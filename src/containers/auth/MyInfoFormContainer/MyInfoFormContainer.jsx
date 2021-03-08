@@ -7,8 +7,11 @@ import {
   setHeaderAccessToken,
 } from '../../../lib/utils/axiosUtil';
 import { MENU } from '../../../constants/menus';
+import Spinner from '../../../components/common/Spinner/Spinner';
 
 const MyInfoFormContainer = ({ location, history }) => {
+  const [loading, setLoading] = useState(true);
+
   const [message, setMessage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
@@ -29,6 +32,7 @@ const MyInfoFormContainer = ({ location, history }) => {
         .then((res) => {
           if (res.status === 200) {
             setUserInfo(res.data);
+            setLoading(false);
           }
         })
         .catch((e) => {
@@ -38,9 +42,9 @@ const MyInfoFormContainer = ({ location, history }) => {
     })();
   }, [history]);
 
-  if (userInfo === null) {
-    return null;
-  }
+  // if (userInfo === null) {
+  //   return null;
+  // }
 
   function onChangeMessage(msg) {
     setMessage(msg);
@@ -94,16 +98,21 @@ const MyInfoFormContainer = ({ location, history }) => {
   };
 
   return (
-    <AuthForm
-      type="update"
-      onSubmit={onSubmit}
-      message={message}
-      onChangeMessage={onChangeMessage}
-      modalVisible={modalVisible}
-      handleModalOpen={handleModalOpen}
-      handleModalClose={handleModalClose}
-      userInfo={userInfo}
-    />
+    <>
+      {loading && <Spinner />}
+      {!loading && (
+        <AuthForm
+          type="update"
+          onSubmit={onSubmit}
+          message={message}
+          onChangeMessage={onChangeMessage}
+          modalVisible={modalVisible}
+          handleModalOpen={handleModalOpen}
+          handleModalClose={handleModalClose}
+          userInfo={userInfo}
+        />
+      )}
+    </>
   );
 };
 

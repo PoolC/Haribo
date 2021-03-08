@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as memberAPI from '../../../lib/api/member';
 import { MENU } from '../../../constants/menus';
+import Spinner from '../../../components/common/Spinner/Spinner';
 
 const MemberDetailContainer = ({ match, history }) => {
   const { memberID } = match.params;
   const [member, setMember] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     memberAPI
@@ -14,6 +16,7 @@ const MemberDetailContainer = ({ match, history }) => {
       .then((res) => {
         if (res.status === 200) {
           setMember(res.data);
+          setLoading(false);
         }
       })
       .catch((e) => {
@@ -22,11 +25,12 @@ const MemberDetailContainer = ({ match, history }) => {
       });
   }, [memberID, history]);
 
-  if (member === null) {
-    return null;
-  }
-
-  return <MemberDetail member={member} />;
+  return (
+    <>
+      {loading && <Spinner />}
+      {!loading && <MemberDetail member={member} />}
+    </>
+  );
 };
 
 export default withRouter(MemberDetailContainer);

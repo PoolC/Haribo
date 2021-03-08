@@ -5,11 +5,14 @@ import * as postAPI from '../../../lib/api/post';
 import * as commentAPI from '../../../lib/api/comment';
 import { useSelector } from 'react-redux';
 import { MENU } from '../../../constants/menus';
+import Spinner from '../../../components/common/Spinner/Spinner';
 
 const PostContainer = ({ selectedMenu, history, match }) => {
   const { postID } = match.params;
 
   const member = useSelector((state) => state.auth);
+
+  const [loading, setLoading] = useState(true);
 
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState(null);
@@ -21,6 +24,7 @@ const PostContainer = ({ selectedMenu, history, match }) => {
         if (res.status === 200) {
           setPost(res.data);
           setComments(res.data.comments);
+          setLoading(false);
         }
       })
       .catch((e) => {
@@ -29,9 +33,9 @@ const PostContainer = ({ selectedMenu, history, match }) => {
       });
   }, [postID, history]);
 
-  if (post === null || comments === null) {
-    return null;
-  }
+  // if (post === null || comments === null) {
+  //   return null;
+  // }
 
   const onDeletePost = () => {
     postAPI
@@ -78,15 +82,20 @@ const PostContainer = ({ selectedMenu, history, match }) => {
   };
 
   return (
-    <Post
-      member={member}
-      post={post}
-      comments={comments}
-      selectedMenu={selectedMenu}
-      onDeletePost={onDeletePost}
-      onCreateComment={onCreateComment}
-      onDeleteComment={onDeleteComment}
-    />
+    <>
+      {loading && <Spinner />}
+      {!loading && (
+        <Post
+          member={member}
+          post={post}
+          comments={comments}
+          selectedMenu={selectedMenu}
+          onDeletePost={onDeletePost}
+          onCreateComment={onCreateComment}
+          onDeleteComment={onDeleteComment}
+        />
+      )}
+    </>
   );
 };
 

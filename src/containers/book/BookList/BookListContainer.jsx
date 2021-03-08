@@ -3,20 +3,21 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as bookAPI from '../../../lib/api/book';
 import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
+import Spinner from '../../../components/common/Spinner/Spinner';
 
 const BookListContainer = () => {
   const member = useSelector((state) => state.auth);
+
+  const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState(null);
+
   useEffect(() => {
     (async () => {
       const response = await bookAPI.getBooks();
       setBooks(response.data.data);
+      setLoading(false);
     })();
   }, []);
-
-  if (books === null) {
-    return null;
-  }
 
   const onBorrowBook = (id, status) => {
     bookAPI.borrowBook(id).then((res) => {
@@ -51,12 +52,15 @@ const BookListContainer = () => {
 
   return (
     <>
-      <BookList
-        member={member}
-        books={books}
-        onBorrowBook={onBorrowBook}
-        onReturnBook={onReturnBook}
-      />
+      {loading && <Spinner />}
+      {!loading && (
+        <BookList
+          member={member}
+          books={books}
+          onBorrowBook={onBorrowBook}
+          onReturnBook={onReturnBook}
+        />
+      )}
     </>
   );
 };
