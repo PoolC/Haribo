@@ -16,7 +16,7 @@ export const HeaderBlock = styled.div`
     position: sticky;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     background-color: ${colors.gray[0]};
     z-index: 100;
     top: 0;

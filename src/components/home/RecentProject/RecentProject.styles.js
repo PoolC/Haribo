@@ -11,7 +11,7 @@ export const RecentProjectBlock = styled.div`
   margin: 0px 0 300px 0;
   max-width: 1366px;
   @media (max-width: 576px) {
-    margin-bottom: 600px;
+    margin-bottom: 500px;
   }
 
   & > .project_container_title {
