@@ -9,7 +9,7 @@ export const TwoColumnsContainerBlock = styled.div`
   right: 5%;
   display: flex;
   margin: 0;
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     margin-bottom: 500px;
     flex-direction: column;
   }
@@ -24,7 +24,7 @@ export const Block = styled.div`
   right: 0;
   justify-content: center;
   margin: 0px 0 300px 0;
-  @media (max-width: 576px) {
+  @media (max-width: 768px) {
     margin-bottom: 500px;
   }
 `;

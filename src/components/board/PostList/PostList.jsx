@@ -4,12 +4,14 @@ import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import ActionButton from '../../common/Buttons/ActionButton';
 import {
+  CommentCount,
   PageList,
   PostListHead,
   PostListHeader,
   PostListRow,
   PostListTable,
   StyledLink,
+  Title,
 } from './PostList.styles';
 
 const PostList = ({ selectedMenu, posts, member }) => {
@@ -41,11 +43,9 @@ const PostList = ({ selectedMenu, posts, member }) => {
                 <StyledLink to={`/${MENU.POST}/${post.postId}`}>
                   {post.title}
                 </StyledLink>
-                <span className="post_list_row_comment_count">
-                  [{post.comments.length}]
-                </span>
+                <CommentCount>[{post.comments.length}]</CommentCount>
               </td>
-              <td className="post-list-row-author">{post.memberName}</td>
+              <td className="post-list-row-author">{post.writerName}</td>
               <td className="post-list-row-date">
                 {getFullCurrentDateString(post.createdAt)}
               </td>

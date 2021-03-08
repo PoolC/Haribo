@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const MenuBlock = styled.div`
-  width: 15rem;
+  min-width: 15rem;
   margin: 0 20px 20px 0;
   padding: 0;
   @media (max-width: 768px) {

@@ -69,7 +69,8 @@ export const PostListRow = styled.tr`
   padding: 1rem 0;
   transition: 0.3s;
   @media (max-width: 576px) {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    line-height: 0.7rem;
   }
   & > .post-list-row-title {
     display: flex;
@@ -79,14 +80,9 @@ export const PostListRow = styled.tr`
     font-weight: 500;
     padding: 0 10px;
     line-height: 1.5rem;
-    & > .post_list_row_comment_count {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 0 0 5px;
-      color: ${colors.mint[2]};
-      font-size: 0.8rem;
-      font-weight: 300;
+    @media (max-width: 576px) {
+      font-size: 0.7rem;
+      line-height: 0.7rem;
     }
   }
   & > .post-list-row-author {
@@ -96,6 +92,10 @@ export const PostListRow = styled.tr`
     flex: 1;
     padding: 0 10px;
     min-width: 3rem;
+    @media (max-width: 576px) {
+      font-size: 0.7rem;
+      line-height: 0.7rem;
+    }
   }
   & > .post-list-row-date {
     display: flex;
@@ -105,10 +105,33 @@ export const PostListRow = styled.tr`
     padding: 0 10px;
     text-align: center;
     min-width: 3rem;
+    @media (max-width: 576px) {
+      font-size: 0.7rem;
+      line-height: 0.7rem;
+    }
   }
   &:hover {
     background-color: ${colors.gray[0]};
     transition: 0.3s;
+  }
+`;
+
+export const Title = styled.div`
+  display: flex;
+`;
+
+export const CommentCount = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 0 5px;
+  color: ${colors.mint[2]};
+  font-size: 0.8rem;
+  font-weight: 300;
+  height: 100%;
+  @media (max-width: 576px) {
+    font-size: 0.7rem;
+    line-height: 0.7rem;
   }
 `;
 
