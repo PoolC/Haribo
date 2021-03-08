@@ -1,9 +1,12 @@
 import AdminPass from '../../../components/admin/AdminPass/AdminPass';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import * as memberAPI from '../../../lib/api/member';
 
 const AdminPassContainer = () => {
+  const [members, setMembers] = useState(null);
   const minimumLimit = 6;
-  const members = [
+
+  const member = [
     {
       id: 0,
       name: '김민지',
@@ -33,12 +36,22 @@ const AdminPassContainer = () => {
 
   const onChangeExcepted = () => {};
 
+  const onSubmitSemester = (semester) => {
+    memberAPI.getMemberActivityHours(semester).then((res) => {
+      if (res.status === 200) {
+        console.log(res.data.data);
+        setMembers(res.data.data);
+      }
+    });
+  };
+
   return (
     <AdminPass
       members={members}
       minimumLimit={minimumLimit}
       onUpdateMinPassStandard={onUpdateMinPassStandard}
       onChangeExcepted={onChangeExcepted}
+      onSubmitSemester={onSubmitSemester}
     />
   );
 };

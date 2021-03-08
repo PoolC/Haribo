@@ -7,6 +7,9 @@ export const getMembers = () => client.get('/member');
 
 export const getMember = (loginID) => client.get(`/member/${loginID}`);
 
+export const getMemberActivityHours = (semester) =>
+  client.get(`/member/hour?when=${semester}`);
+
 export const acceptMember = (loginID) =>
   client.put(`/member/activate/${loginID}`);
 

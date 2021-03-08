@@ -24,7 +24,7 @@ export const Table = styled.table`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 20px 0;
+  margin: 2rem 0 4rem 0;
   border-collapse: collapse;
   border-radius: 1em;
   overflow: hidden;
@@ -78,12 +78,28 @@ export const MemberListRow = styled.tr`
 `;
 
 export const StyledForm = styled.form`
-  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2rem;
   & > label {
     margin-right: 0.5rem;
+    font-size: 0.9rem;
   }
-  & > span {
-    margin-left: 0.5rem;
+  & > input {
+    margin-bottom: 1rem;
+  }
+  & > div {
+    & > input {
+      margin: 0 0.5rem 1rem 0;
+    }
+    & > span {
+      font-size: 0.8rem;
+    }
+  }
+  & > button {
+    width: 5rem;
   }
 `;
 
