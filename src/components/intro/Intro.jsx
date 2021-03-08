@@ -37,13 +37,20 @@ const Body = styled.div`
   }
 `;
 
-const Intro = ({ introduction }) => {
+const StyledImage = styled.img`
+  width: 70%;
+  max-width: 400px;
+`;
+
+const Intro = ({ introduction, locationUrl }) => {
   return (
     <WhiteNarrowBlock>
       <Title>PoolC 소개</Title>
       <Body>
         <ReactMarkdown plugins={[gfm]} source={introduction} />
       </Body>
+      <Title>동아리방 위치</Title>
+      <StyledImage src={locationUrl} />
     </WhiteNarrowBlock>
   );
 };
