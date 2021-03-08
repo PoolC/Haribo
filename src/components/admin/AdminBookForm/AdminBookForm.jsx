@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import useFileInput from '../../../hooks/useFileInput';
 import useInput from '../../../hooks/useInput';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
+import FileUploadButton from '../../common/Buttons/FileUploadButton';
 import Input from '../../common/Input/Input';
 import {
   StyledActionButton,
   StyledForm,
+  StyledInput,
   TitleContainer,
 } from './AdminBookForm.styles';
 
@@ -22,6 +25,7 @@ const AdminBookForm = ({ onCreateBook, onUpdateBook, book }) => {
     book ? book.imageURL : '',
     notEmptyValidation,
   );
+  const [bookImage, setBookImage] = useState('');
   const [info, onChangeInfo] = useInput(
     book ? book.info : '',
     notEmptyValidation,
@@ -38,7 +42,7 @@ const AdminBookForm = ({ onCreateBook, onUpdateBook, book }) => {
     <WhiteNarrowBlock>
       <TitleContainer>도서 생성</TitleContainer>
       <StyledForm>
-        <Input
+        <StyledInput
           valueText={title}
           labelText="책 제목"
           typeText="text"
@@ -46,7 +50,7 @@ const AdminBookForm = ({ onCreateBook, onUpdateBook, book }) => {
           onChangeFunc={onChangeTitle}
           placeholderText="ex) 클린 코드"
         />
-        <Input
+        <StyledInput
           valueText={author}
           labelText="저자"
           typeText="text"
@@ -54,14 +58,15 @@ const AdminBookForm = ({ onCreateBook, onUpdateBook, book }) => {
           onChangeFunc={onChangeAuthor}
           placeholderText="ex) 로버트 C. 마틴"
         />
-        <Input
+        <StyledInput
           valueText={imageURL}
           labelText="표지 이미지 첨부"
           typeText="text"
           nameText="imageURL"
           onChangeFunc={onChangeImageURL}
         />
-        <Input
+        <FileUploadButton file={bookImage} onChangeFunc={setBookImage} />
+        <StyledInput
           valueText={info}
           labelText="설명"
           typeText="text"

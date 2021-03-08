@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import RegisterModalContainer from '../../containers/auth/RegisterModalContainer/RegisterModalContainer';
+import useFileInput from '../../hooks/useFileInput';
 import useInput from '../../hooks/useInput';
 import {
   emailValidation,
@@ -9,6 +10,7 @@ import {
   phoneNumberValidation,
 } from '../../lib/utils/validation';
 import { Block, WhiteBlock } from '../../styles/common/Block.styles';
+import FileUploadButton from '../common/Buttons/FileUploadButton';
 import {
   FormList,
   FormListHeader,
@@ -16,6 +18,7 @@ import {
   StyledInput,
   Warning,
   StyledTextarea,
+  StyledLabel,
 } from './AuthForm.styles';
 
 const textMap = {
@@ -37,10 +40,10 @@ const Input = ({
   const message = '형식이 올바르지 않습니다.';
   return (
     <>
-      <label htmlFor={nameText}>
+      <StyledLabel htmlFor={nameText}>
         {labelText}
         <Warning error={error}>{message}</Warning>
-      </label>
+      </StyledLabel>
       <StyledInput
         value={valueText}
         type={typeText}
@@ -101,6 +104,10 @@ const AuthForm = ({
     notEmptyValidation,
   );
 
+  const [profileImageURL, onChangeProfileImageURL] = useFileInput(
+    '',
+    notEmptyValidation,
+  );
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordCheckError, setPasswordError] = useState(false);
 
@@ -318,6 +325,8 @@ const AuthForm = ({
                   disabledCondition={type === 'update'}
                   placeholderText="ex) 2021000000"
                 />
+                <label>프로필 이미지</label>
+                <FileUploadButton onChangeFunc={onChangeProfileImageURL} />
                 <label htmlFor="introduction">자기소개</label>
                 <StyledTextarea
                   value={introduction}

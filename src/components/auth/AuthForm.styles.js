@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../lib/styles/colors';
+import ActionButton from '../common/Buttons/ActionButton';
 
 export const FormListHeader = styled.header`
   display: flex;
@@ -14,12 +15,10 @@ export const FormListHeader = styled.header`
 export const FormList = styled.form`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  align-items: center;
+  width: 90%;
   max-width: 320px;
   & > label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin: 5px 0 8px 0;
     font-size: 0.8rem;
     width: 100%;
@@ -27,6 +26,14 @@ export const FormList = styled.form`
   & > input:disabled {
     background-color: ${colors.gray[1]};
   }
+`;
+
+export const StyledLabel = styled.label`
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0 8px 0;
+  font-size: 0.8rem;
+  width: 100%;
 `;
 
 export const Warning = styled.span`

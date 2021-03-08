@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ActionButton from '../../common/Buttons/ActionButton';
+import Input from '../../common/Input/Input';
 
 export const TitleContainer = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ export const TitleContainer = styled.div`
   margin: 1rem;
 `;
 
-export const StyledForm = styled.form`
+export const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,11 +20,12 @@ export const StyledForm = styled.form`
     margin: 2rem 0 1rem 0;
     font-weight: 600;
   }
-  & > input {
-    height: 2rem;
-    width: 15rem;
-    outline: 0;
-  }
+`;
+
+export const StyledInput = styled(Input)`
+  height: 2rem;
+  width: 15rem;
+  outline: 0;
 `;
 
 export const StyledActionButton = styled(ActionButton)`
