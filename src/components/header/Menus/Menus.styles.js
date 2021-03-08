@@ -1,45 +1,23 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import colors from '../../../lib/styles/colors';
 import LinkButton from '../../common/Buttons/LinkButton';
-
-const slideUp = keyframes`
-  from {
-    height: 360px;
-  }
-  to {
-    height: 0px;
-    }
-`;
-
-const slideDown = keyframes`
-  from {
-    height: 0px;
-  }
-  to {
-    height: 360px;
-    }
-`;
 
 export const MenuBlock = styled.div`
   display: flex;
   width: 100%;
+
   @media (max-width: 768px) {
+    background-color: ${colors.gray[0]};
     flex-direction: column;
     z-index: 10;
-    /* display: ${(props) => (props.disappear ? 'none' : 'flex')}; */
-    height: ${(props) => props.disappear && '0px'};
-    transition: 0.25s ease-out;
-
-    animation-duration: 0.25s;
-    animation-timing-function: ease-out;
-    animation-name: ${slideDown};
-    animation-fill-mode: forwards;
-
-    ${(props) =>
-      props.disappear &&
-      css`
-        animation-name: ${slideUp};
-      `}
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -360px;
+    padding-bottom: 1.2rem;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
   }
 `;
 
@@ -48,10 +26,17 @@ export const LeftHeaderMenu = styled.div`
   flex: 2;
   align-items: center;
   justify-content: flex-start;
+  & > .right-menu {
+    @media (min-width: 769px) {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      display: flex;
+    }
+  }
   @media (max-width: 768px) {
-    display: ${(props) => (props.disappear ? 'none' : 'flex')};
-    height: ${(props) => props.disappear && '0px'};
     flex-direction: column;
+    justify-content: space-between;
   }
 `;
 
@@ -61,9 +46,7 @@ export const RightHeaderMenu = styled.div`
   align-items: center;
   justify-content: flex-end;
   @media (max-width: 768px) {
-    display: ${(props) => (props.disappear ? 'none' : 'flex')};
-    height: ${(props) => props.disappear && '0px'};
-    flex-direction: column;
+    display: none;
   }
 `;
 

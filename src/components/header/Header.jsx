@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { BarsIcon, HeaderBlock, HeaderIcons, LogoImage } from './Header.styles';
 import Menus from './Menus/Menus';
 
-const Header = ({ member, applyURL, selected, onLogout }) => {
+const Header = ({ member, onLogout }) => {
   const {
     status: { isLogin },
     user: { isAdmin },
@@ -17,7 +17,7 @@ const Header = ({ member, applyURL, selected, onLogout }) => {
   };
 
   const onCloseMenu = () => {
-    setMenuVisible(false);
+    setMenuVisible((menuVisible) => false);
   };
 
   return (
@@ -29,9 +29,8 @@ const Header = ({ member, applyURL, selected, onLogout }) => {
         <BarsIcon onClick={onToggleMenu} className="fas fa-bars"></BarsIcon>
       </HeaderIcons>
       <Menus
-        onToggleMenu={onToggleMenu}
         menuVisible={menuVisible}
-        selected={selected}
+        onToggleMenu={onToggleMenu}
         isLogin={isLogin}
         isAdmin={isAdmin}
         onLogout={onLogout}

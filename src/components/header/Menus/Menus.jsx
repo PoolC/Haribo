@@ -1,138 +1,96 @@
 import React, { useEffect, useState } from 'react';
 import ActionButton from '../../common/Buttons/ActionButton';
 import LinkButton from '../../common/Buttons/LinkButton';
-import {
-  MenuBlock,
-  LeftHeaderMenu,
-  SelectedLinkButton,
-  RightHeaderMenu,
-} from './Menus.styles';
+import { MenuBlock, LeftHeaderMenu, RightHeaderMenu } from './Menus.styles';
 
-const Menus = ({
-  menuVisible,
-  selected,
-  isLogin,
-  isAdmin,
-  onLogout,
-  onToggleMenu,
-}) => {
-  const [animate, setAnimate] = useState(false);
-  const [localVisible, setLocalVisible] = useState(menuVisible);
-
-  useEffect(() => {
-    if (localVisible && !menuVisible) {
-      setAnimate(true);
-      setTimeout(() => setAnimate(false), 250);
-    }
-    setLocalVisible(menuVisible);
-  }, [localVisible, menuVisible]);
-
+const Menus = ({ menuVisible, isLogin, isAdmin, onLogout, onToggleMenu }) => {
   const handleLogout = () => {
     onToggleMenu();
     onLogout();
   };
 
   return (
-    <MenuBlock disappear={!menuVisible} animate={animate}>
-      <LeftHeaderMenu disappear={!menuVisible}>
-        {selected === 'intro' ? (
-          <SelectedLinkButton onClick={onToggleMenu} to="/intro">
-            PoolC
-          </SelectedLinkButton>
-        ) : (
-          <LinkButton onClick={onToggleMenu} to="/intro">
-            PoolC
+    <MenuBlock className={menuVisible ? 'menus open' : 'menus'}>
+      <LeftHeaderMenu>
+        <LinkButton onClick={onToggleMenu} to="/intro">
+          PoolC
+        </LinkButton>
+        {isLogin && (
+          <LinkButton onClick={onToggleMenu} to="/members">
+            Members
           </LinkButton>
         )}
-        {isLogin &&
-          (selected === 'members' ? (
-            <SelectedLinkButton onClick={onToggleMenu} to="/members">
-              Members
-            </SelectedLinkButton>
-          ) : (
-            <LinkButton onClick={onToggleMenu} to="/members">
-              Members
-            </LinkButton>
-          ))}
-        {selected === 'board' ? (
-          <SelectedLinkButton onClick={onToggleMenu} to="/boards/notice">
-            Boards
-          </SelectedLinkButton>
-        ) : (
-          <LinkButton onClick={onToggleMenu} to="/boards/notice">
-            Boards
+        <LinkButton onClick={onToggleMenu} to="/boards/notice">
+          Boards
+        </LinkButton>
+        <LinkButton onClick={onToggleMenu} to="/projects">
+          Projects
+        </LinkButton>
+        <LinkButton onClick={onToggleMenu} to="/activities">
+          Seminars
+        </LinkButton>
+        <LinkButton onClick={onToggleMenu} to="/books">
+          Books
+        </LinkButton>
+        {!isLogin && (
+          <LinkButton onClick={onToggleMenu} to="/apply">
+            Apply
           </LinkButton>
         )}
-        {selected === 'projects' ? (
-          <SelectedLinkButton onClick={onToggleMenu} to="/projects">
-            Projects
-          </SelectedLinkButton>
-        ) : (
-          <LinkButton onClick={onToggleMenu} to="/projects">
-            Projects
+        {isLogin && isAdmin && (
+          <LinkButton className="right-menu" onClick={onToggleMenu} to="/admin">
+            Admin
           </LinkButton>
         )}
-        {selected === 'activities' ? (
-          <SelectedLinkButton onClick={onToggleMenu} to="/activities">
-            Seminars
-          </SelectedLinkButton>
-        ) : (
-          <LinkButton onClick={onToggleMenu} to="/activities">
-            Seminars
+        {isLogin && (
+          <LinkButton
+            className="right-menu"
+            onClick={onToggleMenu}
+            to="/my-info"
+          >
+            My Info
           </LinkButton>
         )}
-        {selected === 'books' ? (
-          <SelectedLinkButton onClick={onToggleMenu} to="/books">
-            Books
-          </SelectedLinkButton>
-        ) : (
-          <LinkButton onClick={onToggleMenu} to="/books">
-            Books
+        {!isLogin && (
+          <LinkButton
+            className="right-menu"
+            onClick={onToggleMenu}
+            to="/register"
+          >
+            Sign Up
           </LinkButton>
         )}
-        {!isLogin &&
-          (selected === 'apply' ? (
-            <SelectedLinkButton onClick={onToggleMenu} to="/apply">
-              Apply
-            </SelectedLinkButton>
-          ) : (
-            <LinkButton onClick={onToggleMenu} to="/apply">
-              Apply
-            </LinkButton>
-          ))}
+        {!isLogin && (
+          <ActionButton
+            className="right-menu"
+            onClick={onToggleMenu}
+            to="/login"
+          >
+            Sign In
+          </ActionButton>
+        )}
+        {isLogin && (
+          <ActionButton className="right-menu" onClick={handleLogout}>
+            Sign Out
+          </ActionButton>
+        )}
       </LeftHeaderMenu>
-      <RightHeaderMenu disappear={!menuVisible}>
-        {isLogin &&
-          isAdmin &&
-          (selected === 'admin' ? (
-            <SelectedLinkButton onClick={onToggleMenu} to="/admin">
-              Admin
-            </SelectedLinkButton>
-          ) : (
-            <LinkButton onClick={onToggleMenu} to="/admin">
-              Admin
-            </LinkButton>
-          ))}
-        {isLogin &&
-          (selected === 'my-info' ? (
-            <SelectedLinkButton onClick={onToggleMenu} to="/my-info">
-              My Info
-            </SelectedLinkButton>
-          ) : (
-            <LinkButton onClick={onToggleMenu} to="/my-info">
-              My Info
-            </LinkButton>
-          ))}
-        {!isLogin &&
-          (selected === 'register' ? (
-            <SelectedLinkButton onClick={onToggleMenu} to="/register">
-              Sign Up
-            </SelectedLinkButton>
-          ) : (
-            <LinkButton onClick={onToggleMenu} to="/register">
-              Sign Up
-            </LinkButton>
-          ))}
+      <RightHeaderMenu>
+        {isLogin && isAdmin && (
+          <LinkButton onClick={onToggleMenu} to="/admin">
+            Admin
+          </LinkButton>
+        )}
+        {isLogin && (
+          <LinkButton onClick={onToggleMenu} to="/my-info">
+            My Info
+          </LinkButton>
+        )}
+        {!isLogin && (
+          <LinkButton onClick={onToggleMenu} to="/register">
+            Sign Up
+          </LinkButton>
+        )}
         {!isLogin && (
           <ActionButton onClick={onToggleMenu} to="/login">
             Sign In

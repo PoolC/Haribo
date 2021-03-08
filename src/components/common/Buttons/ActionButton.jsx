@@ -12,17 +12,22 @@ const StyledActionButton = styled.button`
   transition: 0.3s;
   font-weight: 700;
   font-size: 0.8rem;
+  min-height: 1.8rem;
   &:hover {
     background-color: ${colors.mint[2]};
     transition: 0.3s;
   }
 `;
 
+const StyledLink = styled(Link)`
+  color: ${colors.gray[0]};
+`;
+
 const ActionButton = (props) => {
   return props.to ? (
-    <Link to={props.to}>
-      <StyledActionButton {...props} />
-    </Link>
+    <StyledActionButton {...props}>
+      <StyledLink to={props.to}>{props.children}</StyledLink>
+    </StyledActionButton>
   ) : (
     <StyledActionButton {...props} />
   );
