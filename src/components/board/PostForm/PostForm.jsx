@@ -7,11 +7,14 @@ import { withRouter } from 'react-router-dom';
 import {
   BoardName,
   EditorWrapper,
+  FileContainer,
   PostButtonContainer,
   StyledActionButton,
   TitleInput,
+  FileContainerTitle,
 } from './PostForm.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
+import FileUploadButton from '../../common/Buttons/FileUploadButton';
 
 const PostForm = ({
   history,
@@ -24,6 +27,7 @@ const PostForm = ({
 
   const [title, setTitle] = useState(post ? post.title : '');
   const [body, setBody] = useState(post ? post.body : '');
+  const [files, setFiles] = useState(post ? post.files : '');
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -62,8 +66,10 @@ const PostForm = ({
           height="500px"
         />
       </EditorWrapper>
+      <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
+      <FileContainer>{files ? files : '첨부된 파일 없음'}</FileContainer>
       <PostButtonContainer>
-        <StyledActionButton className="file">파일 첨부</StyledActionButton>
+        <FileUploadButton onSubmit={setFiles} />
         {post ? (
           <StyledActionButton className="submit" onClick={handleUpdate}>
             수정

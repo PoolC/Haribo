@@ -20,18 +20,20 @@ export const PostButtonContainer = styled.div`
   display: flex;
   width: 90%;
   justify-content: flex-end;
-  margin-top: 2rem;
-`;
-
-export const StyledActionButton = styled(ActionButton)`
-  height: 2rem;
-  margin: 0 0 0 1rem;
-  &.file {
+  margin-top: 1rem;
+  & > .file {
+    height: 2rem;
+    margin: 0 0 0 1rem;
     background-color: ${colors.mint[2]};
     &:hover {
       background-color: ${colors.mint[3]};
     }
   }
+`;
+
+export const StyledActionButton = styled(ActionButton)`
+  height: 2rem;
+  margin: 0 0 0 1rem;
   &.submit {
     background-color: ${colors.mint[2]};
     &:hover {
@@ -52,4 +54,30 @@ export const BoardName = styled.h2`
   margin-bottom: 2rem;
   font-weight: 700;
   width: 90%;
+`;
+
+export const FileContainer = styled.div`
+  width: 90%;
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  min-height: 2rem;
+  border: 1px solid ${colors.gray[2]};
+  border-radius: 5px;
+  text-align: center;
+  word-break: break-all;
+  font-size: 0.7rem;
+  font-weight: 300;
+  box-sizing: border-box;
+  padding: 0.5rem;
+`;
+
+export const FileContainerTitle = styled.div`
+  width: 90%;
+  display: flex;
+  font-size: 0.7rem;
+  margin-top: 1rem;
 `;
