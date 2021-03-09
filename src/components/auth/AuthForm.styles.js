@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import colors from '../../lib/styles/colors';
-import ActionButton from '../common/Buttons/ActionButton';
 
 export const FormListHeader = styled.header`
   display: flex;
@@ -76,4 +75,5 @@ export const SubmitButton = styled.button`
 
 export const StyledTextarea = styled.textarea`
   outline: 0;
+  width: 100%;
 `;

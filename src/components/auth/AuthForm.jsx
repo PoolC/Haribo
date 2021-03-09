@@ -10,6 +10,11 @@ import {
   phoneNumberValidation,
 } from '../../lib/utils/validation';
 import { Block, WhiteBlock } from '../../styles/common/Block.styles';
+import {
+  ImageContainer,
+  ImageContainerHeader,
+  StyledImage,
+} from '../admin/AdminInfo/AdminInfo.styles';
 import FileUploadButton from '../common/Buttons/FileUploadButton';
 import {
   FormList,
@@ -104,9 +109,8 @@ const AuthForm = ({
     notEmptyValidation,
   );
 
-  const [profileImageURL, onChangeProfileImageURL] = useFileInput(
-    '',
-    notEmptyValidation,
+  const [profileImageURL, setProfileImageURL] = useState(
+    userInfo ? userInfo.profileImageURL : '',
   );
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordCheckError, setPasswordError] = useState(false);
@@ -227,6 +231,7 @@ const AuthForm = ({
       handleRegister();
     }
     if (type === 'update') {
+      console.log('upup');
       handleUpdate();
     }
   };
@@ -326,7 +331,15 @@ const AuthForm = ({
                   placeholderText="ex) 2021000000"
                 />
                 <label>프로필 이미지</label>
-                <FileUploadButton onChangeFunc={onChangeProfileImageURL} />
+                <FileUploadButton onSubmit={setProfileImageURL} />
+                <ImageContainer>
+                  <ImageContainerHeader>현재 이미지</ImageContainerHeader>
+                  {profileImageURL ? (
+                    <StyledImage src={profileImageURL} />
+                  ) : (
+                    <p style={{ fontWeight: 300 }}>이미지가 없습니다.</p>
+                  )}
+                </ImageContainer>
                 <label htmlFor="introduction">자기소개</label>
                 <StyledTextarea
                   value={introduction}
