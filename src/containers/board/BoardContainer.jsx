@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import BoardMenu from '../../components/board/BoardMenu/BoardMenu';
 import * as boardAPI from '../../lib/api/board';
-import { useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import PostListContainer from './PostListContainer/PostListContainer';
 import PostFormContainer from './PostFormContainer/PostFormContainer';
