@@ -48,12 +48,20 @@ const ActivityFormContainer = ({ match, history }) => {
     capacity,
     tags,
   }) => {
+    console.log({
+      title,
+      description,
+      startDate,
+      seminar,
+      classHour,
+      hour,
+      capacity,
+      tags,
+    });
     if (
-      !activityID ||
       !title ||
       !description ||
       !startDate ||
-      !seminar ||
       !classHour ||
       !hour ||
       !capacity ||
@@ -100,11 +108,9 @@ const ActivityFormContainer = ({ match, history }) => {
     tags,
   }) => {
     if (
-      !activityID ||
       !title ||
       !description ||
       !startDate ||
-      !seminar ||
       !classHour ||
       !hour ||
       !capacity ||

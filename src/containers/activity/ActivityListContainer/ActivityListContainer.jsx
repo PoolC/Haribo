@@ -47,10 +47,17 @@ const ActivityListContainer = ({ location, history, match }) => {
   // }
 
   const onToggleRegisterActivity = (activityID) => {
-    activityAPI.applyActivity(activityID).then((res) => {
-      if (res.status === 200) {
-      }
-    });
+    activityAPI
+      .applyActivity(activityID)
+      .then((res) => {
+        if (res.status === 200) {
+          alert('성공적으로 신청되었습니다.');
+        }
+      })
+      .catch((e) => {
+        console.error(e.response.data.message);
+        alert(e.response.data.message);
+      });
   };
 
   return (
