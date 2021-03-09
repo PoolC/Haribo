@@ -18,6 +18,13 @@ import {
   TitleContainer,
 } from './AdminProjectForm.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
+import FileUploadButton from '../../common/Buttons/FileUploadButton';
+import { FileName } from '../../common/FileUploadModal/FileUploadModal.styles';
+import {
+  ImageContainer,
+  ImageContainerHeader,
+  StyledImage,
+} from '../AdminInfo/AdminInfo.styles';
 
 const SearchMember = ({ member, onAddMember }) => {
   const { name, department, studentId } = member;
@@ -75,9 +82,8 @@ const AdminProjectForm = ({
     project ? project.name : '',
     notEmptyValidation,
   );
-  const [thumbnailURL, onChangeThumbnailURL] = useInput(
+  const [thumbnailURL, setThumbnailURL] = useState(
     project ? project.thumbnailURL : '',
-    notEmptyValidation,
   );
   const [genre, onChangeGenre] = useInput(
     project ? project.genre : '',
@@ -106,6 +112,7 @@ const AdminProjectForm = ({
   const onClickSearch = (e) => {
     e.preventDefault();
     onSearchMember(searchMember);
+    console.log(searchMember);
   };
 
   function onEditorChange(e) {
@@ -143,13 +150,19 @@ const AdminProjectForm = ({
           onChangeFunc={onChangeDuration}
           placeholderText="ex) 2019.10.23 ~ 2020.10.23"
         />
-        <Input
-          valueText={thumbnailURL}
-          labelText="썸네일 이미지 첨부"
-          typeText="text"
-          nameText="thumbnailURL"
-          onChangeFunc={onChangeThumbnailURL}
-        />
+        <label>썸네일 이미지 첨부</label>
+        <FileUploadButton onSubmit={setThumbnailURL} />
+        <FileName style={{ marginBottom: '0rem' }}>
+          {thumbnailURL ? thumbnailURL : '선택된 파일이 없습니다'}
+        </FileName>
+        <ImageContainer>
+          <ImageContainerHeader>현재 이미지</ImageContainerHeader>
+          {thumbnailURL ? (
+            <StyledImage src={thumbnailURL} />
+          ) : (
+            <p style={{ fontWeight: 300 }}>이미지가 없습니다.</p>
+          )}
+        </ImageContainer>
         <Input
           valueText={description}
           labelText="설명 요약"
