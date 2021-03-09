@@ -11,7 +11,6 @@ import {
   PostListRow,
   PostListTable,
   StyledLink,
-  Title,
 } from './PostList.styles';
 
 const PostList = ({ selectedMenu, posts, member }) => {

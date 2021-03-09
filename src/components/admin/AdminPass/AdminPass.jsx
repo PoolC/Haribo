@@ -1,8 +1,7 @@
 import ActionButton from '../../common/Buttons/ActionButton';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   ContentsContainer,
-  CurrentLimit,
   MemberListRow,
   StyledForm,
   StyledInput,

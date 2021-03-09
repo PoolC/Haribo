@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import RegisterModalContainer from '../../containers/auth/RegisterModalContainer/RegisterModalContainer';
-import useFileInput from '../../hooks/useFileInput';
 import useInput from '../../hooks/useInput';
 import {
   emailValidation,
