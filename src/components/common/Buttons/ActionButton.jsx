@@ -21,6 +21,10 @@ const StyledActionButton = styled.button`
 
 const StyledLink = styled(Link)`
   color: ${colors.gray[0]};
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
 `;
 
 const ActionButton = (props) => {

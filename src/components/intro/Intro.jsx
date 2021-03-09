@@ -10,6 +10,7 @@ const Title = styled.h2`
 
 const Body = styled.div`
   margin: auto;
+  margin-bottom: 3rem;
   word-break: keep-all;
   padding: 0 3rem;
   line-height: 1.5rem;
