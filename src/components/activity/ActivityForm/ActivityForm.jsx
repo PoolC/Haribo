@@ -12,6 +12,7 @@ import {
   HourContainer,
   Item,
   ItemContainer,
+  Plan,
   StyledActionButton,
   StyledForm,
   StyledInput,
@@ -23,6 +24,11 @@ import {
   TitleContainer,
 } from './ActivityForm.styles';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
+import {
+  FileContainer,
+  FileContainerTitle,
+} from '../../board/PostForm/PostForm.styles';
+import FileUploadButton from '../../common/Buttons/FileUploadButton';
 
 const TagItem = React.memo(({ tag, onDeleteTag }) => {
   const handleDeleteTag = () => {
@@ -68,6 +74,7 @@ const ActivityForm = ({ activity, onCreateActivity, onUpdateActivity }) => {
     activity ? activity.capacity : '',
     notEmptyValidation,
   );
+  const [files, setFiles] = useState(activity ? activity.files : '');
   const [tags, onChangeTags] = useState(
     activity ? activity.tags.map((tag) => tag.name) : [],
   );
@@ -244,16 +251,21 @@ const ActivityForm = ({ activity, onCreateActivity, onUpdateActivity }) => {
           <ItemContainer>
             <Item>
               <label htmlFor="activityTitle">계획서</label>
-              <div>
+              <Plan>
                 <Editor
                   initialValue={description}
                   ref={editorRef}
                   onChange={(e) => onEditorChange(e)}
+                  style={{ width: '100%' }}
                 />
+                <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
+                <FileContainer style={{ width: '100%', maxWidth: '100%' }}>
+                  {files ? files : '첨부된 파일 없음'}
+                </FileContainer>
                 <ButtonContainer>
-                  <ActionButton>파일 첨부</ActionButton>
+                  <FileUploadButton onSubmit={setFiles} />
                 </ButtonContainer>
-              </div>
+              </Plan>
             </Item>
           </ItemContainer>
           {activity ? (

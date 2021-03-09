@@ -50,6 +50,15 @@ export const Item = styled.div`
   }
 `;
 
+export const Plan = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 90%;
+`;
+
 export const StyledInput = styled.input`
   outline: 0;
   border: 1px solid ${colors.brown[0]};
