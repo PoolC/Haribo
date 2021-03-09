@@ -170,7 +170,6 @@ const AuthForm = ({
   };
 
   const setInputErrorMessage = () => {
-    console.log('setInputErrorMessage');
     onChangeMessage('모든 값을 올바르게 입력해주세요.');
   };
 
@@ -230,7 +229,6 @@ const AuthForm = ({
       handleRegister();
     }
     if (type === 'update') {
-      console.log('upup');
       handleUpdate();
     }
   };

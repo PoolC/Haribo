@@ -117,7 +117,6 @@ const AdminProjectForm = ({
   const onClickSearch = (e) => {
     e.preventDefault();
     onSearchMember(searchMember);
-    console.log(searchMember);
   };
 
   function onEditorChange(e) {
