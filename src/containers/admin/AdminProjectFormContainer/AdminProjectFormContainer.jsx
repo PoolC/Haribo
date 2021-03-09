@@ -3,6 +3,8 @@ import AdminProjectForm from '../../../components/admin/AdminProjectForm/AdminPr
 import * as projectAPI from '../../../lib/api/project';
 import * as memberAPI from '../../../lib/api/member';
 import { withRouter } from 'react-router-dom';
+import { MENU } from '../../../constants/menus';
+import ActionButton from '../../../components/common/Buttons/ActionButton';
 
 const AdminProjectFormContainer = ({ match, history }) => {
   const projectID = match.params.projectID;
@@ -10,6 +12,9 @@ const AdminProjectFormContainer = ({ match, history }) => {
   const [members, setMembers] = useState([]);
   const [searchMembers, setSearchMembers] = useState([]);
   const [project, setProject] = useState(null);
+
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     if (projectID) {
@@ -33,6 +38,11 @@ const AdminProjectFormContainer = ({ match, history }) => {
     description,
     body,
   }) => {
+    if (!name || !description || !duration || !thumbnailURL || !body) {
+      setErrorMessage('모든 항목을 입력하세요');
+      onShowErrorModal();
+      return;
+    }
     projectAPI
       .createProject({
         name,
@@ -47,6 +57,14 @@ const AdminProjectFormContainer = ({ match, history }) => {
         if (res.status === 200) {
           history.push('/admin/projects');
         }
+      })
+      .catch((e) => {
+        console.error(e.response.data);
+        if (e.response.data.status === 403) {
+          history.push(`/${MENU.FORBIDDEN}`);
+        }
+        setErrorMessage('오류가 발생했습니다');
+        onShowErrorModal();
       });
   };
 
@@ -58,6 +76,11 @@ const AdminProjectFormContainer = ({ match, history }) => {
     thumbnailURL,
     body,
   }) => {
+    if (!name || !description || !duration || !thumbnailURL || !body) {
+      setErrorMessage('모든 항목을 입력하세요');
+      onShowErrorModal();
+      return;
+    }
     projectAPI
       .updateProject({
         projectID,
@@ -73,6 +96,14 @@ const AdminProjectFormContainer = ({ match, history }) => {
         if (res.status === 200) {
           history.push('/admin/projects');
         }
+      })
+      .catch((e) => {
+        console.error(e.response.data);
+        if (e.response.data.status === 403) {
+          history.push(`/${MENU.FORBIDDEN}`);
+        }
+        setErrorMessage('오류가 발생했습니다');
+        onShowErrorModal();
       });
   };
 
@@ -95,6 +126,17 @@ const AdminProjectFormContainer = ({ match, history }) => {
     setMembers(members.filter((m) => m.loginID !== member.loginID));
   };
 
+  const onShowErrorModal = () => {
+    setErrorModalVisible(true);
+  };
+
+  const onCloseErrorModal = (e) => {
+    e.preventDefault();
+    setErrorModalVisible(false);
+  };
+
+  const buttons = <ActionButton onClick={onCloseErrorModal}>확인</ActionButton>;
+
   return (
     <AdminProjectForm
       onCreateProject={onCreateProject}
@@ -105,6 +147,10 @@ const AdminProjectFormContainer = ({ match, history }) => {
       onAddMember={onAddMember}
       onDeleteMember={onDeleteMember}
       project={project}
+      errorMessage={errorMessage}
+      buttons={buttons}
+      errorModalVisible={errorModalVisible}
+      onCloseErrorModal={onCloseErrorModal}
     />
   );
 };

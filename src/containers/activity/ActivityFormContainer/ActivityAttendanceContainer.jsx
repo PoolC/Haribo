@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { MENU } from '../../../constants/menus';
 import useLoginCheck from '../../../hooks/useLoginCheck';
 import Spinner from '../../../components/common/Spinner/Spinner';
+import ActionButton from '../../../components/common/Buttons/ActionButton';
 
 const ActivityAttendanceContainer = ({ match, history }) => {
   const activityID = match.params.activityID;
@@ -17,6 +18,9 @@ const ActivityAttendanceContainer = ({ match, history }) => {
   const [activitySession, setActivitySession] = useState(null);
   const [activitySessions, setActivitySessions] = useState(null);
   const [sessionAttendance, setSessionAttendance] = useState(null);
+
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useLoginCheck(history);
 
@@ -50,55 +54,78 @@ const ActivityAttendanceContainer = ({ match, history }) => {
     })();
   }, [activityID, sessionID]);
 
-  // if (
-  //   activity === null ||
-  //   activityMembers == null ||
-  //   activitySessions == null
-  // ) {
-  //   return null;
-  // }
-
   const onCreateSession = async ({
     sessionNumber,
     date,
     description,
     attendances,
   }) => {
-    const sessionCreateResponse = await activityAPI.createActivitySession({
-      activityID,
-      sessionNumber,
-      date,
-      description,
-    });
-    const sessionID = sessionCreateResponse.data.id;
-    const sessionAttendancesCreateResponse = await activityAPI.checkActivityAttendance(
-      {
-        sessionID,
-        memberLoginIDs: attendances.map((attendance) => attendance.loginID),
-      },
-    );
-    if (sessionAttendancesCreateResponse.status === 200) {
-      history.push(`/${MENU.ACTIVITY}/${activityID}`);
+    if (!date || !description) {
+      setErrorMessage('모든 항목을 입력하세요');
+      onShowErrorModal();
+      return;
+    }
+    try {
+      const sessionCreateResponse = await activityAPI.createActivitySession({
+        activityID,
+        sessionNumber,
+        date,
+        description,
+      });
+      const sessionID = sessionCreateResponse.data.id;
+      const sessionAttendancesCreateResponse = await activityAPI.checkActivityAttendance(
+        {
+          sessionID,
+          memberLoginIDs: attendances.map((attendance) => attendance.loginID),
+        },
+      );
+      if (sessionAttendancesCreateResponse.status === 200) {
+        history.push(`/${MENU.ACTIVITY}/${activityID}`);
+      }
+    } catch (e) {
+      console.error('***');
+      console.error(e.response);
+      setErrorMessage('오류가 발생했습니다');
+      onShowErrorModal();
     }
   };
 
   const onUpdateSession = async ({ date, description, attendances }) => {
-    const sessionUpdateResponse = await activityAPI.updateActivitySession({
-      sessionID,
-      date,
-      description,
-    });
-    const sessionAttendancesUpdateResponse = await activityAPI.checkActivityAttendance(
-      {
+    if (!date || !description) {
+      setErrorMessage('모든 항목을 입력하세요');
+      onShowErrorModal();
+      return;
+    }
+    try {
+      const sessionUpdateResponse = await activityAPI.updateActivitySession({
+        sessionID,
+        date,
+        description,
+      });
+      await activityAPI.checkActivityAttendance({
         sessionID,
         memberLoginIDs: attendances.map((attendance) => attendance.loginID),
-      },
-    );
-    console.log(sessionAttendancesUpdateResponse);
-    if (sessionUpdateResponse.status === 200) {
-      history.push(`/${MENU.ACTIVITY}/${activityID}`);
+      });
+      if (sessionUpdateResponse.status === 200) {
+        history.push(`/${MENU.ACTIVITY}/${activityID}`);
+      }
+    } catch (e) {
+      console.error(e);
+      setErrorMessage('오류가 발생했습니다');
+      onShowErrorModal();
     }
   };
+
+  const onShowErrorModal = () => {
+    setErrorModalVisible(true);
+  };
+
+  const onCloseErrorModal = (e) => {
+    e.preventDefault();
+    setErrorModalVisible(false);
+  };
+
+  const buttons = <ActionButton onClick={onCloseErrorModal}>확인</ActionButton>;
 
   return (
     <>
@@ -112,6 +139,10 @@ const ActivityAttendanceContainer = ({ match, history }) => {
           sessionAttendance={sessionAttendance}
           onCreateSession={onCreateSession}
           onUpdateSession={onUpdateSession}
+          errorMessage={errorMessage}
+          buttons={buttons}
+          errorModalVisible={errorModalVisible}
+          onCloseErrorModal={onCloseErrorModal}
         />
       )}
     </>

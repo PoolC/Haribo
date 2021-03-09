@@ -31,3 +31,10 @@ export const StyledActionButton = styled(ActionButton)`
   width: 15rem;
   margin: 2rem 0;
 `;
+
+export const StyledSelect = styled.select`
+  outline: 0;
+  height: 2rem;
+  width: 15rem;
+  box-sizing: content-box;
+`;

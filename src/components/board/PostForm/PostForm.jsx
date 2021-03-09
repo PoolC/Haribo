@@ -15,6 +15,8 @@ import {
 } from './PostForm.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
+import Modal from '../../common/Modal/Modal';
+import ActionButton from '../../common/Buttons/ActionButton';
 
 const PostForm = ({
   history,
@@ -28,6 +30,8 @@ const PostForm = ({
   const [title, setTitle] = useState(post ? post.title : '');
   const [body, setBody] = useState(post ? post.body : '');
   const [files, setFiles] = useState(post ? post.files : '');
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
@@ -36,23 +40,50 @@ const PostForm = ({
   function onEditorChange(e) {
     const editorInstance = editorRef.current.getInstance();
     const markdownContent = editorInstance.getMarkdown();
-    //const HTMLContent = editorInstance.getHtml();
     setBody(markdownContent);
   }
 
   const handleCreate = (e) => {
     e.preventDefault();
+    if (!title || !body) {
+      setErrorMessage('제목과 내용을 모두 입력하세요.');
+      onShowErrorModal();
+      return;
+    }
     onCreatePost({ title, body });
   };
 
   const handleUpdate = (e) => {
     e.preventDefault();
+    if (!title || !body) {
+      setErrorMessage('제목과 내용을 모두 입력하세요.');
+      onShowErrorModal();
+      return;
+    }
     onUpdatePost({ title, body });
   };
+
+  const onShowErrorModal = () => {
+    setErrorModalVisible(true);
+  };
+
+  const onCloseErrorModal = (e) => {
+    e.preventDefault();
+    setErrorModalVisible(false);
+  };
+
+  const buttons = <ActionButton onClick={onCloseErrorModal}>확인</ActionButton>;
 
   return (
     <WhiteNarrowBlock>
       <BoardName>{selectedMenu.name}</BoardName>
+      <Modal
+        contents={errorMessage}
+        buttons={buttons}
+        visible={errorModalVisible}
+        onConfirm={onCloseErrorModal}
+        onCancel={onCloseErrorModal}
+      />
       <TitleInput
         placeholder="제목을 입력하세요"
         value={title}

@@ -6,6 +6,7 @@ import useLoginCheck from '../../../hooks/useLoginCheck';
 import { MENU } from '../../../constants/menus';
 import { useSelector } from 'react-redux';
 import Spinner from '../../../components/common/Spinner/Spinner';
+import ActionButton from '../../../components/common/Buttons/ActionButton';
 
 const ActivityFormContainer = ({ match, history }) => {
   const activityID = match.params.activityID;
@@ -13,6 +14,10 @@ const ActivityFormContainer = ({ match, history }) => {
   const [loading, setLoading] = useState(true);
 
   const [activity, setActivity] = useState(null);
+
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const member = useSelector((state) => state.auth);
   const {
     user: { memberId },
@@ -33,10 +38,6 @@ const ActivityFormContainer = ({ match, history }) => {
     }
   }, [activityID, memberId, history]);
 
-  // if (activityID && activity === null) {
-  //   return null;
-  // }
-
   const onCreateActivity = ({
     title,
     description,
@@ -47,6 +48,21 @@ const ActivityFormContainer = ({ match, history }) => {
     capacity,
     tags,
   }) => {
+    if (
+      !activityID ||
+      !title ||
+      !description ||
+      !startDate ||
+      !seminar ||
+      !classHour ||
+      !hour ||
+      !capacity ||
+      !tags
+    ) {
+      setErrorMessage('모든 항목을 입력하세요');
+      onShowErrorModal();
+      return;
+    }
     activityAPI
       .createActivity({
         title,
@@ -64,8 +80,12 @@ const ActivityFormContainer = ({ match, history }) => {
         }
       })
       .catch((e) => {
-        console.error(e.message);
-        history.push(`/${MENU.FORBIDDEN}`);
+        console.error(e.response.data);
+        if (e.response.data.status === 403) {
+          history.push(`/${MENU.FORBIDDEN}`);
+        }
+        setErrorMessage('오류가 발생했습니다');
+        onShowErrorModal();
       });
   };
 
@@ -79,6 +99,21 @@ const ActivityFormContainer = ({ match, history }) => {
     capacity,
     tags,
   }) => {
+    if (
+      !activityID ||
+      !title ||
+      !description ||
+      !startDate ||
+      !seminar ||
+      !classHour ||
+      !hour ||
+      !capacity ||
+      !tags
+    ) {
+      setErrorMessage('모든 항목을 입력하세요');
+      onShowErrorModal();
+      return;
+    }
     activityAPI
       .updateActivity({
         activityID,
@@ -97,10 +132,25 @@ const ActivityFormContainer = ({ match, history }) => {
         }
       })
       .catch((e) => {
-        console.error(e.message);
-        history.push(`/${MENU.FORBIDDEN}`);
+        console.error(e.response.data);
+        if (e.response.data.status === 403) {
+          history.push(`/${MENU.FORBIDDEN}`);
+        }
+        setErrorMessage('오류가 발생했습니다');
+        onShowErrorModal();
       });
   };
+
+  const onShowErrorModal = () => {
+    setErrorModalVisible(true);
+  };
+
+  const onCloseErrorModal = (e) => {
+    e.preventDefault();
+    setErrorModalVisible(false);
+  };
+
+  const buttons = <ActionButton onClick={onCloseErrorModal}>확인</ActionButton>;
 
   return (
     <>
@@ -110,6 +160,10 @@ const ActivityFormContainer = ({ match, history }) => {
           activity={activity}
           onCreateActivity={onCreateActivity}
           onUpdateActivity={onUpdateActivity}
+          errorMessage={errorMessage}
+          buttons={buttons}
+          errorModalVisible={errorModalVisible}
+          onCloseErrorModal={onCloseErrorModal}
         />
       )}
     </>
