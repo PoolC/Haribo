@@ -1,9 +1,15 @@
 import AdminInfo from '../../../components/admin/AdminInfo/AdminInfo';
 import React, { useState, useEffect } from 'react';
 import * as infoAPI from '../../../lib/api/info';
+import { withRouter } from 'react-router';
+import ActionButton from '../../../components/common/Buttons/ActionButton';
+import { MENU } from '../../../constants/menus';
 
-const AdminInfoContainer = () => {
+const AdminInfoContainer = ({ history }) => {
   const [info, setInfo] = useState(null);
+
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     infoAPI.getPoolCInfo().then((res) => {
@@ -15,17 +21,6 @@ const AdminInfoContainer = () => {
 
   if (info === null) return null;
 
-  const onCreateInfo = ({
-    presidentName,
-    phoneNumber,
-    location,
-    locationUrl,
-    introduction,
-    mainImageUrl,
-    isSubscriptionPeriod,
-    applyUri,
-  }) => {};
-
   const onUpdateInfo = ({
     presidentName,
     phoneNumber,
@@ -36,6 +31,19 @@ const AdminInfoContainer = () => {
     isSubscriptionPeriod,
     applyUri,
   }) => {
+    if (
+      !presidentName ||
+      !phoneNumber ||
+      !location ||
+      !locationUrl ||
+      !introduction ||
+      !mainImageUrl ||
+      !applyUri
+    ) {
+      setErrorMessage('모든 항목을 입력하세요');
+      onShowErrorModal();
+      return;
+    }
     infoAPI
       .updatePoolCInfo({
         presidentName,
@@ -49,13 +57,41 @@ const AdminInfoContainer = () => {
       })
       .then((res) => {
         if (res.status === 200) {
+          setErrorMessage('정보가 성공적으로 수정되었습니다.');
+          onShowErrorModal();
         }
+      })
+      .catch((e) => {
+        console.error(e.response.data);
+        if (e.response.data.status === 403) {
+          history.push(`/${MENU.FORBIDDEN}`);
+        }
+        setErrorMessage('오류가 발생했습니다');
+        onShowErrorModal();
       });
   };
 
+  const onShowErrorModal = () => {
+    setErrorModalVisible(true);
+  };
+
+  const onCloseErrorModal = (e) => {
+    e.preventDefault();
+    setErrorModalVisible(false);
+  };
+
+  const buttons = <ActionButton onClick={onCloseErrorModal}>확인</ActionButton>;
+
   return (
-    <AdminInfo info={info} onUpdate={onUpdateInfo} onCreate={onCreateInfo} />
+    <AdminInfo
+      info={info}
+      onUpdate={onUpdateInfo}
+      errorMessage={errorMessage}
+      buttons={buttons}
+      errorModalVisible={errorModalVisible}
+      onCloseErrorModal={onCloseErrorModal}
+    />
   );
 };
 
-export default AdminInfoContainer;
+export default withRouter(AdminInfoContainer);
