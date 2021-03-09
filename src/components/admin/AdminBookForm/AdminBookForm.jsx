@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import useFileInput from '../../../hooks/useFileInput';
 import useInput from '../../../hooks/useInput';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
-import Input from '../../common/Input/Input';
+import { FileName } from '../../common/FileUploadModal/FileUploadModal.styles';
+import {
+  ImageContainer,
+  ImageContainerHeader,
+  StyledImage,
+} from '../AdminInfo/AdminInfo.styles';
 import {
   StyledActionButton,
   StyledForm,
@@ -21,11 +25,7 @@ const AdminBookForm = ({ onCreateBook, onUpdateBook, book }) => {
     book ? book.author : '',
     notEmptyValidation,
   );
-  const [imageURL, onChangeImageURL] = useInput(
-    book ? book.imageURL : '',
-    notEmptyValidation,
-  );
-  const [bookImage, setBookImage] = useState('');
+  const [imageURL, setImageURL] = useState(book ? book.imageURL : '');
   const [info, onChangeInfo] = useInput(
     book ? book.info : '',
     notEmptyValidation,
@@ -58,14 +58,19 @@ const AdminBookForm = ({ onCreateBook, onUpdateBook, book }) => {
           onChangeFunc={onChangeAuthor}
           placeholderText="ex) 로버트 C. 마틴"
         />
-        <StyledInput
-          valueText={imageURL}
-          labelText="표지 이미지 첨부"
-          typeText="text"
-          nameText="imageURL"
-          onChangeFunc={onChangeImageURL}
-        />
-        <FileUploadButton file={bookImage} onChangeFunc={setBookImage} />
+        <label>표지 이미지 첨부</label>
+        <FileUploadButton onSubmit={setImageURL} />
+        <FileName style={{ marginBottom: '0rem' }}>
+          {imageURL ? imageURL : '선택된 파일이 없습니다'}
+        </FileName>
+        <ImageContainer>
+          <ImageContainerHeader>현재 이미지</ImageContainerHeader>
+          {imageURL ? (
+            <StyledImage src={imageURL} />
+          ) : (
+            <p style={{ fontWeight: 300 }}>이미지가 없습니다.</p>
+          )}
+        </ImageContainer>
         <StyledInput
           valueText={info}
           labelText="설명"
