@@ -28,6 +28,8 @@ const ActivityFormContainer = ({ match, history }) => {
           setLoading(false);
         }
       });
+    } else {
+      setLoading(false);
     }
   }, [activityID, memberId, history]);
 
