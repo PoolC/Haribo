@@ -14,6 +14,8 @@ import {
   TitleContainer,
 } from './AdminInfo.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
+import { FileName } from '../../common/FileUploadModal/FileUploadModal.styles';
+import FileUploadButton from '../../common/Buttons/FileUploadButton';
 
 const AdminInfo = ({ info, onUpdate }) => {
   const editorRef = useRef();
@@ -26,10 +28,7 @@ const AdminInfo = ({ info, onUpdate }) => {
     info ? info.location : '',
     notEmptyValidation,
   );
-  const [locationUrl, onChangeLocationUrl] = useInput(
-    info ? info.locationUrl : '',
-    notEmptyValidation,
-  );
+  const [locationUrl, setLocationUrl] = useState(info ? info.locationUrl : '');
   const [phoneNumber, onChangePhoneNumber] = useInput(
     info ? info.phoneNumber : '',
     notEmptyValidation,
@@ -40,9 +39,8 @@ const AdminInfo = ({ info, onUpdate }) => {
   const [isSubscriptionPeriod, setIsSubscriptionPeriod] = useState(
     info ? info.isSubscriptionPeriod : false,
   );
-  const [mainImageUrl, onChangeMainImageUrl] = useInput(
+  const [mainImageUrl, setMainImageUrl] = useInput(
     info ? info.mainImageUrl : '',
-    notEmptyValidation,
   );
   const [applyUri, onChangeApplyUri] = useInput(
     info ? info.applyUri : '',
@@ -106,7 +104,10 @@ const AdminInfo = ({ info, onUpdate }) => {
         <Description>
           홈페이지 PoolC 메뉴-'동아리 소개'에 반영됩니다
         </Description>
-        <input type="text" value={locationUrl} onChange={onChangeLocationUrl} />
+        <FileUploadButton onSubmit={setLocationUrl} />
+        <FileName style={{ marginBottom: '0rem' }}>
+          {locationUrl ? locationUrl : '선택된 파일이 없습니다'}
+        </FileName>
         <ImageContainer>
           <ImageContainerHeader>현재 이미지</ImageContainerHeader>
           <StyledImage src={locationUrl} />
@@ -122,14 +123,12 @@ const AdminInfo = ({ info, onUpdate }) => {
         />
         <label>메인 이미지 관리</label>
         <Description>이미지 사이즈는 1000px * 200px으로 맞춰주세요</Description>
-        <input
-          type="text"
-          placeholder="http://example.com"
-          value={mainImageUrl}
-          onChange={onChangeMainImageUrl}
-        />
+        <FileUploadButton onSubmit={setMainImageUrl} />
+        <FileName style={{ marginBottom: '0rem' }}>
+          {mainImageUrl ? mainImageUrl : '선택된 파일이 없습니다'}
+        </FileName>
         <ImageContainer>
-          <ImageContainerHeader>현재 이미지 목록</ImageContainerHeader>
+          <ImageContainerHeader>현재 이미지</ImageContainerHeader>
           <StyledImage src={mainImageUrl} />
         </ImageContainer>
         <label>가입 기간 설정</label>
