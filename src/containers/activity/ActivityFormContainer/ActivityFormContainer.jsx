@@ -1,8 +1,8 @@
 import ActivityForm from '../../../components/activity/ActivityForm/ActivityForm';
 import React, { useEffect, useState } from 'react';
 import * as activityAPI from '../../../lib/api/activity';
+import * as authAPI from '../../../lib/api/auth';
 import { withRouter } from 'react-router-dom';
-import useLoginCheck from '../../../hooks/useLoginCheck';
 import { MENU } from '../../../constants/menus';
 import { useSelector } from 'react-redux';
 import Spinner from '../../../components/common/Spinner/Spinner';
@@ -23,12 +23,29 @@ const ActivityFormContainer = ({ match, history }) => {
     user: { memberId },
   } = member;
 
-  useLoginCheck(history);
-
   useEffect(() => {
     if (activityID) {
       activityAPI.getActivity(activityID).then((res) => {
         if (res.status === 200) {
+          authAPI
+            .loadUser()
+            .then((user) => {
+              if (user.status === 200 && user.data.isActivated === false) {
+                history.push(`/${MENU.FORBIDDEN}`);
+                return;
+              }
+              if (
+                user.status === 200 &&
+                user.data.loginID !== res.data.data.host.loginID
+              ) {
+                history.push(`/${MENU.FORBIDDEN}`);
+                return;
+              }
+            })
+            .catch((e) => {
+              console.error(e.message);
+              history.push(`/${MENU.FORBIDDEN}`);
+            });
           setActivity(res.data.data);
           setLoading(false);
         }

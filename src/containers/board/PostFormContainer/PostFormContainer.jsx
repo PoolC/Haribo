@@ -5,6 +5,7 @@ import PostForm from '../../../components/board/PostForm/PostForm';
 import { MENU } from '../../../constants/menus';
 import * as boardAPI from '../../../lib/api/board';
 import * as postAPI from '../../../lib/api/post';
+import * as authAPI from '../../../lib/api/auth';
 import Spinner from '../../../components/common/Spinner/Spinner';
 
 const PostFormContainer = ({ match, history }) => {
@@ -43,15 +44,36 @@ const PostFormContainer = ({ match, history }) => {
       postAPI.getPost(postID).then((res) => {
         if (res.status === 200) {
           setPost(res.data);
+          console.log(res.data);
+          authAPI
+            .loadUser()
+            .then((user) => {
+              if (user.status === 200 && user.data.isActivated === false) {
+                history.push(`/${MENU.FORBIDDEN}`);
+                return;
+              }
+              if (
+                user.status === 200 &&
+                user.data.loginID !== res.data.writerLoginId &&
+                !user.data.isAdmin
+              ) {
+                history.push(`/${MENU.FORBIDDEN}`);
+                return;
+              }
+            })
+            .catch((e) => {
+              console.error(e.message);
+              history.push(`/${MENU.FORBIDDEN}`);
+            });
           setLoading(false);
         }
       });
     }
   }, [boardID, postID, history, isAdmin, isLogin]);
 
-  // if (selectedMenu == null) {
-  //   return null;
-  // }
+  if (selectedMenu == null) {
+    return null;
+  }
 
   const onCreatePost = ({ title, body }) => {
     postAPI

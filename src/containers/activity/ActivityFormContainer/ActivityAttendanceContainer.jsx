@@ -1,9 +1,9 @@
 import ActivityAttendance from '../../../components/activity/ActivityForm/ActivityAttendance';
 import React, { useEffect, useState } from 'react';
 import * as activityAPI from '../../../lib/api/activity';
+import * as authAPI from '../../../lib/api/auth';
 import { withRouter } from 'react-router-dom';
 import { MENU } from '../../../constants/menus';
-import useLoginCheck from '../../../hooks/useLoginCheck';
 import Spinner from '../../../components/common/Spinner/Spinner';
 import ActionButton from '../../../components/common/Buttons/ActionButton';
 
@@ -22,12 +22,29 @@ const ActivityAttendanceContainer = ({ match, history }) => {
   const [errorModalVisible, setErrorModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  useLoginCheck(history);
-
   useEffect(() => {
     (async () => {
       const activityResponse = await activityAPI.getActivity(activityID);
       setActivity(activityResponse.data.data);
+      authAPI
+        .loadUser()
+        .then((user) => {
+          if (user.status === 200 && user.data.isActivated === false) {
+            history.push(`/${MENU.FORBIDDEN}`);
+            return;
+          }
+          if (
+            user.status === 200 &&
+            user.data.loginID !== activityResponse.data.data.host.loginID
+          ) {
+            history.push(`/${MENU.FORBIDDEN}`);
+            return;
+          }
+        })
+        .catch((e) => {
+          console.error(e.message);
+          history.push(`/${MENU.FORBIDDEN}`);
+        });
 
       const activityMemberResponse = await activityAPI.getActivityMembers(
         activityID,
@@ -52,7 +69,7 @@ const ActivityAttendanceContainer = ({ match, history }) => {
 
       setLoading(false);
     })();
-  }, [activityID, sessionID]);
+  }, [activityID, sessionID, history]);
 
   const onCreateSession = async ({
     sessionNumber,
