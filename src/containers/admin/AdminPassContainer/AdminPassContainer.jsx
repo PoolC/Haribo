@@ -48,7 +48,6 @@ const AdminPassContainer = () => {
   return (
     <AdminPass
       members={members}
-      minimumLimit={minimumLimit}
       onUpdateMinPassStandard={onUpdateMinPassStandard}
       onChangeExcepted={onChangeExcepted}
       onSubmitSemester={onSubmitSemester}
