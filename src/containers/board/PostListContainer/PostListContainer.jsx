@@ -9,12 +9,7 @@ const PostListContainer = ({ selectedMenu }) => {
   const urlPath = selectedMenu.urlPath;
 
   const [loading, setLoading] = useState(true);
-
   const [posts, setPosts] = useState([]);
-
-  // if (!currentLocation) {
-  //   history.push('/boards/notice');
-  // }
 
   useEffect(() => {
     postAPI.getPosts(urlPath).then((res) => {
@@ -24,10 +19,6 @@ const PostListContainer = ({ selectedMenu }) => {
       }
     });
   }, [urlPath]);
-
-  // if (posts === null) {
-  //   return null;
-  // }
 
   return (
     <>

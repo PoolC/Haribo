@@ -35,16 +35,9 @@ const ActivityListContainer = ({ location, history, match }) => {
               setLoading(false);
             });
         }
-        // if (!currentLocation) {
-        //   history.push(`/activities?semester=${res.data.data[0]}`);
-        // }
       }
     });
   }, [history, currentLocation]);
-
-  // if (activities === null) {
-  //   return null;
-  // }
 
   const onToggleRegisterActivity = (activityID) => {
     activityAPI

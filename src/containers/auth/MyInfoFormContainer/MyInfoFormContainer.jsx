@@ -42,10 +42,6 @@ const MyInfoFormContainer = ({ location, history }) => {
     })();
   }, [history]);
 
-  // if (userInfo === null) {
-  //   return null;
-  // }
-
   function onChangeMessage(msg) {
     setMessage(msg);
   }

@@ -65,7 +65,6 @@ const ActivityForm = ({
   const [description, onChangeDescription] = useState(
     activity ? activity.description : '',
   );
-
   const [startDate, onChangeStartDate] = useInput(
     activity ? activity.startDate : '',
     notEmptyValidation,

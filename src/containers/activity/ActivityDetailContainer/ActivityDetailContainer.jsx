@@ -34,14 +34,6 @@ const ActivityDetailContainer = ({ match }) => {
     })();
   }, [activityID, member.status.isLogin]);
 
-  // if (
-  //   activity === null ||
-  //   (member.status.isLogin && activityMembers == null) ||
-  //   activitySessions == null
-  // ) {
-  //   return null;
-  // }
-
   return (
     <>
       {loading && <Spinner />}

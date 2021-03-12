@@ -15,14 +15,6 @@ const RegisterPage = () => {
             path={`/${MENU.SIGNUP}`}
             exact
           />
-          {/* <Route
-          exact
-          path="/register"
-          render={() => (
-            <Authentication mode={2} handleRegister={this.handleRegister} />
-          )}
-        />
-        <Route component={NotFound} /> */}
         </Switch>
       </>
     </>

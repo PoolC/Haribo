@@ -33,10 +33,6 @@ const BoardContainer = ({ location, history, match }) => {
   const [boards, setBoards] = useState(null);
   const [selectedMenu, setSelectedMenu] = useState(null);
 
-  // if (!currentLocation) {
-  //   history.push('/boards/notice');
-  // }
-
   useEffect(() => {
     boardAPI.getBoards().then((res) => {
       if (res.status === 200) {
