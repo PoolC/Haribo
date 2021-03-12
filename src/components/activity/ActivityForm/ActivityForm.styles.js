@@ -15,7 +15,7 @@ export const Title = styled.h2`
   margin-bottom: 10px;
 `;
 
-export const StyledForm = styled.form`
+export const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
