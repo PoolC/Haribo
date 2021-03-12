@@ -14,6 +14,11 @@ const FileUploadButton = ({ onSubmit }) => {
 
   const onBrowseFile = (e) => {
     e.preventDefault();
+    if (e.target.files[0].size > 52428800) {
+      setErrorMessage('첨부 가능한 최대 크기를 초과하였습니다.');
+      onShowErrorModal();
+      return;
+    }
     setFile(e.target.files[0]);
   };
 
@@ -30,7 +35,7 @@ const FileUploadButton = ({ onSubmit }) => {
       })
       .catch((e) => {
         setFile(null);
-        console.error(e.response.data);
+        console.error(e.response);
         setErrorMessage(e.response.data);
         onShowErrorModal();
       });
