@@ -246,7 +246,7 @@ const AuthForm = ({
           <FormListHeader>
             <h2 className="form_list_title">{headerText}</h2>
           </FormListHeader>
-          <FormList onSubmit={handleSubmit}>
+          <FormList>
             <Input
               valueText={id}
               labelText="아이디"
@@ -351,7 +351,7 @@ const AuthForm = ({
                 </StyledTextarea>
               </>
             )}
-            <SubmitButton>{headerText}</SubmitButton>
+            <SubmitButton onClick={handleSubmit}>{headerText}</SubmitButton>
           </FormList>
         </WhiteBlock>
       </Block>
