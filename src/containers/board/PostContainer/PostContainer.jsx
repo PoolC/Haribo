@@ -33,6 +33,10 @@ const PostContainer = ({ selectedMenu, history, match }) => {
       });
   }, [postID, history]);
 
+  if (post === undefined || comments === undefined) {
+    window.location.reload();
+  }
+
   const onDeletePost = () => {
     postAPI
       .deletePost(postID)

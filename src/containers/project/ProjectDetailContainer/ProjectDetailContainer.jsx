@@ -13,12 +13,22 @@ const ProjectDetailContainer = ({ location }) => {
   const [project, setProject] = useState(null);
 
   useEffect(() => {
-    (async () => {
-      const response = await projectAPI.getProject(projectId);
-      setProject(response.data.data);
-      setLoading(false);
-    })();
+    projectAPI
+      .getProject(projectId)
+      .then((res) => {
+        if (res.status === 200) {
+          setProject(res.data.data);
+          setLoading(false);
+        }
+      })
+      .catch((e) => {
+        console.error(e.response);
+      });
   }, [projectId]);
+
+  if (project === undefined) {
+    window.location.reload();
+  }
 
   return (
     <>
