@@ -22,8 +22,12 @@ const Modal = ({ contents, buttons, visible, onConfirm, onCancel }) => {
   if (!localVisible && !animate) return null;
 
   return (
-    <ModalBlock disappear={!visible}>
-      <ModalContainer disappear={!visible}>
+    <ModalBlock disappear={!visible} onClick={onCancel}>
+      <ModalContainer
+        disappear={!visible}
+        className="modal-container"
+        onClick={(e) => e.stopPropagation()}
+      >
         <HeaderBar>
           <i className="fas fa-times" onClick={onCancel}></i>
         </HeaderBar>
