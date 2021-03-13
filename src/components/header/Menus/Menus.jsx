@@ -62,7 +62,7 @@ const Menus = ({ menuVisible, isLogin, isAdmin, onLogout, onToggleMenu }) => {
         )}
         {!isLogin && (
           <ActionButton
-            className="right-menu"
+            className="right-menu sign-in"
             onClick={onToggleMenu}
             to="/login"
           >
@@ -70,7 +70,7 @@ const Menus = ({ menuVisible, isLogin, isAdmin, onLogout, onToggleMenu }) => {
           </ActionButton>
         )}
         {isLogin && (
-          <ActionButton className="right-menu" onClick={handleLogout}>
+          <ActionButton className="right-menu sign-out" onClick={handleLogout}>
             Sign Out
           </ActionButton>
         )}

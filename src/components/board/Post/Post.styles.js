@@ -5,6 +5,7 @@ import ActionButton from '../../common/Buttons/ActionButton';
 export const PostContainer = styled.div`
   display: flex;
   width: 90%;
+  max-width: 90%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -48,10 +49,13 @@ export const BodyContainer = styled.div`
   padding: 40px 0 20px 0;
   word-break: keep-all;
   line-height: 1.5rem;
+  max-width: 100%;
+  overflow: scroll;
   & > p,
   ul,
   ol {
     font-weight: 300;
+    font-size: 0.9rem;
   }
   ul,
   ol {
@@ -68,6 +72,17 @@ export const BodyContainer = styled.div`
   }
   hr {
     margin: 1rem 0;
+  }
+  img {
+    max-width: 100%;
+    margin: 1rem 0;
+  }
+  p {
+    margin: 0.5rem 0;
+  }
+  a {
+    max-width: 100%;
+    word-break: break-all;
   }
 `;
 

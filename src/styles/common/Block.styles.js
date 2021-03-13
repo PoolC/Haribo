@@ -52,7 +52,7 @@ export const WhiteNarrowBlock = styled.div`
   align-items: center;
   background-color: white;
   box-shadow: 0px 0px 20px ${colors.gray[1]};
-  flex: 4;
+  flex: 1;
   border-radius: 50px;
   padding: 40px 20px;
   min-height: 50vh;

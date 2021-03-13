@@ -26,6 +26,10 @@ export const LeftHeaderMenu = styled.div`
   flex: 2;
   align-items: center;
   justify-content: flex-start;
+  & > .sign-in,
+  & > .sign-out {
+    margin-top: 0.45rem;
+  }
   & > .right-menu {
     @media (min-width: 769px) {
       display: none;

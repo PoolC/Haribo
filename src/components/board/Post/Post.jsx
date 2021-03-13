@@ -38,7 +38,7 @@ const Post = ({
   };
 
   return (
-    <WhiteNarrowBlock>
+    <WhiteNarrowBlock className="block">
       <PostContainer>
         <TitleContainer>{title}</TitleContainer>
         <InfoContainer>

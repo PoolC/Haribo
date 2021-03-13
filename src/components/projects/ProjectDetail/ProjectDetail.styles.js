@@ -13,7 +13,7 @@ export const ImageContainer = styled.div`
 
 export const StyledImage = styled.img`
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 20px;
 `;
 
@@ -124,5 +124,8 @@ export const Members = styled.ul`
 
 export const BodyContainer = styled.div`
   width: 100%;
-  padding: 40px 0 20px 0;
+  padding: 20px 0 20px 0;
+  & > ul {
+    list-style: none;
+  }
 `;

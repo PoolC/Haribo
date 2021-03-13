@@ -81,8 +81,8 @@ export const PostListRow = styled.tr`
     padding: 0 10px;
     line-height: 1.5rem;
     @media (max-width: 576px) {
-      font-size: 0.7rem;
-      line-height: 0.7rem;
+      font-size: 0.8rem;
+      line-height: 1.2rem;
     }
   }
   & > .post-list-row-author {
