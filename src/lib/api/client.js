@@ -2,6 +2,8 @@ import axios from 'axios';
 
 const client = axios.create();
 
+client.defaults.baseURL = 'https://api.poolc.org:8080/';
+
 if (localStorage.getItem('accessToken')) {
   client.defaults.headers.common[
     'Authorization'
