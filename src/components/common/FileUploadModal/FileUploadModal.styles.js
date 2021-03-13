@@ -40,7 +40,7 @@ export const slideDown = keyframes`
 
 export const ModalBlock = styled.div`
   position: fixed;
-  z-index: 10;
+  z-index: 10000;
   background-color: rgba(0, 0, 0, 0.2);
   top: 0;
   right: 0;
