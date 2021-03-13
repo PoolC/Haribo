@@ -45,15 +45,15 @@ const ProjectDetail = ({ project, member }) => {
           </DurationContainer>
           <IntroductionContainer>
             <Introduction>
-              <span>
+              {/* <span>
                 <i className="fas fa-quote-left"></i>
-              </span>
-              <BodyContainer>
+              </span> */}
+              <BodyContainer className="here">
                 <ReactMarkdown plugins={[gfm]} source={body} />
               </BodyContainer>
-              <span>
+              {/* <span>
                 <i className="fas fa-quote-right"></i>
-              </span>
+              </span> */}
             </Introduction>
           </IntroductionContainer>
         </TextContainer>

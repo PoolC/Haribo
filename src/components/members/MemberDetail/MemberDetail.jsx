@@ -42,17 +42,25 @@ const MemberDetail = ({ member }) => {
               {isAdmin && <Status>PoolC임원</Status>}
             </NameContainer>
             <DepartmentContainer>
-              <h2>전공</h2>
-              <Department>{department}</Department>
+              {department && (
+                <>
+                  <h2>전공</h2>
+                  <Department>{department}</Department>
+                </>
+              )}
             </DepartmentContainer>
             <IntroductionContainer>
-              <span>
-                <i className="fas fa-quote-left"></i>
-              </span>
-              <Introduction>{introduction}</Introduction>
-              <span>
-                <i className="fas fa-quote-right"></i>
-              </span>
+              {introduction && (
+                <>
+                  <span>
+                    <i className="fas fa-quote-left"></i>
+                  </span>
+                  <Introduction>{introduction}</Introduction>
+                  <span>
+                    <i className="fas fa-quote-right"></i>
+                  </span>
+                </>
+              )}
             </IntroductionContainer>
           </TextContainer>
         </ContentContainer>
