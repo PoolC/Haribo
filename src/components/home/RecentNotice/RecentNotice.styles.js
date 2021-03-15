@@ -58,6 +58,10 @@ export const RecentNoticeCardTitle = styled.p`
   flex: 2;
   font-weight: 500;
   cursor: pointer;
+  word-break: keep-all;
+  @media (max-width: 576px) {
+    font-size: 0.8rem;
+  }
 `;
 
 export const RecentNoticeCardDate = styled.p`

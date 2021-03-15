@@ -80,7 +80,9 @@ export const PostListRow = styled.tr`
     font-weight: 500;
     padding: 0 10px;
     line-height: 1.5rem;
+    word-break: keep-all;
     @media (max-width: 576px) {
+      flex: 15;
       font-size: 0.8rem;
       line-height: 1.2rem;
     }
@@ -106,6 +108,7 @@ export const PostListRow = styled.tr`
     text-align: center;
     min-width: 3rem;
     @media (max-width: 576px) {
+      flex: 2;
       font-size: 0.7rem;
       line-height: 0.7rem;
     }

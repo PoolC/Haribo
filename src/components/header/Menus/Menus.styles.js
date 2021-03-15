@@ -13,11 +13,11 @@ export const MenuBlock = styled.div`
     position: absolute;
     left: 0;
     right: 0;
-    top: -360px;
+    top: -1000px;
     padding-bottom: 1.2rem;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    transition: all 0.3s ease;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
   }
 `;
 
