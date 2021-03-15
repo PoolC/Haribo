@@ -14,7 +14,6 @@ const AdminMemberContainer = ({ history }) => {
 
   const onAcceptMember = (loginID) => {
     memberAPI.acceptMember(loginID).then((res) => {
-      console.log(res);
       if (res.status === 200) {
         setMembers(
           members.map((member) =>

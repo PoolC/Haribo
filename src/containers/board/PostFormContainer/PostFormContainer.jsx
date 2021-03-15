@@ -44,7 +44,6 @@ const PostFormContainer = ({ match, history }) => {
       postAPI.getPost(postID).then((res) => {
         if (res.status === 200) {
           setPost(res.data);
-          console.log(res.data);
           authAPI
             .loadUser()
             .then((user) => {

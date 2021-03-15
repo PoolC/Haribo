@@ -32,7 +32,6 @@ const FileUploadButton = ({ onSubmit }) => {
     fileAPI
       .createFile(formData)
       .then((res) => {
-        console.log(res);
         setFile(res.data);
         onSubmit(res.data);
       })

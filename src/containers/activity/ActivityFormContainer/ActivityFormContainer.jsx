@@ -65,16 +65,6 @@ const ActivityFormContainer = ({ match, history }) => {
     capacity,
     tags,
   }) => {
-    console.log({
-      title,
-      description,
-      startDate,
-      seminar,
-      classHour,
-      hour,
-      capacity,
-      tags,
-    });
     if (
       !title ||
       !description ||
