@@ -18,6 +18,7 @@ import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import { FileName } from '../../common/FileUploadModal/FileUploadModal.styles';
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
 import Modal from '../../common/Modal/Modal';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 
 const AdminInfo = ({
   info,
@@ -48,7 +49,7 @@ const AdminInfo = ({
   const [isSubscriptionPeriod, setIsSubscriptionPeriod] = useState(
     info ? info.isSubscriptionPeriod : false,
   );
-  const [mainImageUrl, setMainImageUrl] = useInput(
+  const [mainImageUrl, setMainImageUrl] = useState(
     info ? info.mainImageUrl : '',
   );
   const [applyUri, onChangeApplyUri] = useInput(
@@ -122,11 +123,15 @@ const AdminInfo = ({
           </Description>
           <FileUploadButton onSubmit={setLocationUrl} />
           <FileName style={{ marginBottom: '0rem' }}>
-            {locationUrl ? locationUrl : '선택된 파일이 없습니다'}
+            {locationUrl ? getFileUrl(locationUrl) : '선택된 파일이 없습니다'}
           </FileName>
           <ImageContainer>
             <ImageContainerHeader>현재 이미지</ImageContainerHeader>
-            <StyledImage src={locationUrl} />
+            {locationUrl ? (
+              <StyledImage src={getFileUrl(locationUrl)} />
+            ) : (
+              '현재 이미지가 없습니다'
+            )}
           </ImageContainer>
           <label>동아리 소개</label>
           <Description>
@@ -143,11 +148,15 @@ const AdminInfo = ({
           </Description>
           <FileUploadButton onSubmit={setMainImageUrl} />
           <FileName style={{ marginBottom: '0rem' }}>
-            {mainImageUrl ? mainImageUrl : '선택된 파일이 없습니다'}
+            {mainImageUrl ? getFileUrl(mainImageUrl) : '선택된 파일이 없습니다'}
           </FileName>
           <ImageContainer>
             <ImageContainerHeader>현재 이미지</ImageContainerHeader>
-            <StyledImage src={mainImageUrl} />
+            {mainImageUrl ? (
+              <StyledImage src={getFileUrl(mainImageUrl)} />
+            ) : (
+              '현재 이미지가 없습니다'
+            )}
           </ImageContainer>
           <label>가입 기간 설정</label>
           <Description>설정에 따라 상단 apply 메뉴가 열립니다.</Description>
