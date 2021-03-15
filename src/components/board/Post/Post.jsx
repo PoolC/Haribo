@@ -15,6 +15,7 @@ import {
   TitleContainer,
 } from './Post.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
+import { FileContainer, FileContainerTitle } from '../PostForm/PostForm.styles';
 
 const Post = ({
   history,
@@ -30,7 +31,15 @@ const Post = ({
     user: { memberId, isAdmin },
   } = member;
 
-  const { body, createdAt, postId, title, writerLoginId, writerName } = post;
+  const {
+    body,
+    createdAt,
+    postId,
+    title,
+    writerLoginId,
+    writerName,
+    files,
+  } = post;
 
   const handleDelete = (e) => {
     e.preventDefault();
@@ -73,6 +82,8 @@ const Post = ({
           </StyledButton>
         </ButtonContainer>
       </PostContainer>
+      <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
+      <FileContainer>{files ? files : '첨부된 파일 없음'}</FileContainer>
       <CommentsContainer>
         <CommentList
           member={member}
