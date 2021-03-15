@@ -1,8 +1,11 @@
 import axios from 'axios';
+require('dotenv').config();
+
+const { API_BASE_URL } = process.env;
 
 const client = axios.create();
 
-client.defaults.baseURL = 'https://api.poolc.org:8080/';
+client.defaults.baseURL = API_BASE_URL;
 
 if (localStorage.getItem('accessToken')) {
   client.defaults.headers.common[

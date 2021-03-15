@@ -3,6 +3,10 @@ import ActionButton from './ActionButton';
 import * as fileAPI from '../../../lib/api/file';
 import FileUploadModal from '../FileUploadModal/FileUploadModal';
 import Modal from '../Modal/Modal';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const { REACT_APP_MAX_FILE_SIZE: MAX_FILE_SIZE } = process.env;
 
 const FileUploadButton = ({ onSubmit }) => {
   let formData = new FormData();
@@ -14,7 +18,7 @@ const FileUploadButton = ({ onSubmit }) => {
 
   const onBrowseFile = (e) => {
     e.preventDefault();
-    if (e.target.files[0].size > 52428800) {
+    if (e.target.files[0].size > MAX_FILE_SIZE) {
       setErrorMessage('첨부 가능한 최대 크기를 초과하였습니다.');
       onShowErrorModal();
       return;
@@ -30,6 +34,7 @@ const FileUploadButton = ({ onSubmit }) => {
     fileAPI
       .createFile(formData)
       .then((res) => {
+        console.log(res);
         setFile(res.data);
         onSubmit(res.data);
       })
