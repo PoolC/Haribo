@@ -32,13 +32,16 @@ const FileUploadButton = ({ onSubmit }) => {
     fileAPI
       .createFile(formData)
       .then((res) => {
-        setFile(res.data);
-        onSubmit(res.data);
+        console.log(res);
+        if (res.status === 200) {
+          setFile(res.data);
+          onSubmit(res.data);
+        }
       })
       .catch((e) => {
         setFile(null);
-        console.error(e.response);
-        setErrorMessage(e.response.data);
+        console.error(e.respoense);
+        setErrorMessage(e.response?.data);
         onShowErrorModal();
       });
   };
