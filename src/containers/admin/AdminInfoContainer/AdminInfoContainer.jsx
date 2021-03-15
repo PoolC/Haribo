@@ -35,9 +35,8 @@ const AdminInfoContainer = ({ history }) => {
       !presidentName ||
       !phoneNumber ||
       !location ||
-      !locationUrl ||
       !introduction ||
-      !mainImageUrl ||
+      //!mainImageUrl ||
       !applyUri
     ) {
       setErrorMessage('모든 항목을 입력하세요');
