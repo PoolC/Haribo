@@ -46,7 +46,7 @@ export const ImageContainerHeader = styled.header`
 `;
 
 export const StyledImage = styled.img`
-  max-width: 400px;
+  max-width: 90%;
 `;
 
 export const Description = styled.p`

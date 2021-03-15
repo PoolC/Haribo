@@ -16,6 +16,7 @@ export const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 100%;
   & > label {
     margin: 2rem 0 1rem 0;
     font-weight: 600;
@@ -61,6 +62,8 @@ export const MemberBlock = styled.div`
   padding: 5px 2px 5px 10px;
   border: 1px solid ${colors.mint[1]};
   border-radius: 3px;
+  width: 240px;
+  justify-content: space-between;
 `;
 
 export const MemberInfo = styled.div`

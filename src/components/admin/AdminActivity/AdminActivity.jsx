@@ -39,8 +39,8 @@ const AdminActivity = ({
             <TableHead>
               <th className="activity_list_head">이름</th>
               <th className="activity_list_head">주최자</th>
-              <th className="activity_list_head">시작일</th>
-              <th className="activity_list_head">종류</th>
+              <th className="activity_list_head hide">시작일</th>
+              <th className="activity_list_head hide">종류</th>
               <th className="activity_list_head">신청 가능 여부</th>
               <th className="activity_list_head">동작</th>
             </TableHead>
@@ -50,8 +50,8 @@ const AdminActivity = ({
               <ActivityListRow key={activity.id}>
                 <td className="activity-list-row">{activity.title}</td>
                 <td className="activity-list-row">{activity.host.name}</td>
-                <td className="activity-list-row">{activity.startDate}</td>
-                <td className="activity-list-row">
+                <td className="activity-list-row hide">{activity.startDate}</td>
+                <td className="activity-list-row hide">
                   {activity.seminar ? '세미나' : '스터디'}
                 </td>
                 <td className="activity-list-row">

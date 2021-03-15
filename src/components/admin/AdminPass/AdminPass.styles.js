@@ -52,6 +52,14 @@ export const TableHead = styled.tr`
     align-items: center;
     justify-content: center;
   }
+  @media (max-width: 576px) {
+    font-size: 0.5rem;
+  }
+  & > .hide {
+    @media (max-width: 1000px) {
+      display: none;
+    }
+  }
 `;
 
 export const MemberListRow = styled.tr`
@@ -70,10 +78,24 @@ export const MemberListRow = styled.tr`
     padding: 0 10px;
     line-height: 1.5rem;
     font-size: 0.8rem;
+    @media (max-width: 576px) {
+      font-size: 0.5rem;
+    }
+    & > button {
+      @media (max-width: 576px) {
+        font-size: 0.5rem;
+        margin: 0;
+      }
+    }
   }
   &:hover {
     background-color: ${colors.gray[0]};
     transition: 0.3s;
+  }
+  & > .hide {
+    @media (max-width: 1000px) {
+      display: none;
+    }
   }
 `;
 

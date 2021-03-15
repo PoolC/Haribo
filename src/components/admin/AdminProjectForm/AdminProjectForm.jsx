@@ -27,8 +27,13 @@ import {
 } from '../AdminInfo/AdminInfo.styles';
 import Modal from '../../common/Modal/Modal';
 
-const SearchMember = ({ member, onAddMember }) => {
+const SearchMember = ({ member, onAddMember, onChangeSearchMember }) => {
   const { name, department, studentId } = member;
+  const handleAddMember = (e, member) => {
+    onAddMember(e, member);
+    e.target.value = '';
+    onChangeSearchMember(e);
+  };
   return (
     <MemberBlock>
       <MemberInfo>
@@ -37,7 +42,7 @@ const SearchMember = ({ member, onAddMember }) => {
         <p>{department}</p>
       </MemberInfo>
       <ButtonContainer>
-        <ActionButton onClick={(e) => onAddMember(e, member)}>
+        <ActionButton onClick={(e) => handleAddMember(e, member)}>
           추가
         </ActionButton>
       </ButtonContainer>
@@ -211,6 +216,7 @@ const AdminProjectForm = ({
                 key={member.loginID}
                 member={member}
                 onAddMember={onAddMember}
+                onChangeSearchMember={onChangeSearchMember}
               />
             ))}
           </MemberContainer>

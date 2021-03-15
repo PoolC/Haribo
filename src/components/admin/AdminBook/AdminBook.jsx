@@ -28,22 +28,22 @@ const AdminBook = ({ books, onDeleteBook }) => {
         <Table>
           <thead>
             <TableHead>
-              <th className="book_list_head">표지</th>
+              <th className="book_list_head hide">표지</th>
               <th className="book_list_head">제목</th>
-              <th className="book_list_head">저자</th>
-              <th className="book_list_head">상태</th>
+              <th className="book_list_head hide">저자</th>
+              <th className="book_list_head hide">상태</th>
               <th className="book_list_head">동작</th>
             </TableHead>
           </thead>
           <tbody>
             {books.map((book) => (
               <BookListRow key={book.id}>
-                <td className="book-list-row">
+                <td className="book-list-row hide">
                   <StyledImage src={book.imageURL} />
                 </td>
                 <td className="book-list-row">{book.title}</td>
-                <td className="book-list-row">{book.author}</td>
-                <td className="book-list-row">
+                <td className="book-list-row hide">{book.author}</td>
+                <td className="book-list-row hide">
                   {book.status === 'AVAILABLE' ? '이용 가능' : '대출중'}
                 </td>
                 <td className="book-list-row">

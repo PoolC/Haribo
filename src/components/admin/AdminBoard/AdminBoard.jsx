@@ -30,7 +30,7 @@ const AdminBoard = ({ boards, onDeleteBoard }) => {
           <thead>
             <TableHead>
               <th className="board_list_head">이름</th>
-              <th className="board_list_head">URL</th>
+              <th className="board_list_head hide">URL</th>
               <th className="board_list_head">읽기 권한</th>
               <th className="board_list_head">쓰기 권한</th>
               <th className="board_list_head">동작</th>
@@ -40,7 +40,7 @@ const AdminBoard = ({ boards, onDeleteBoard }) => {
             {boards.map((board) => (
               <BoardListRow key={board.id}>
                 <td className="board-list-row">{board.name}</td>
-                <td className="board-list-row">{board.urlPath}</td>
+                <td className="board-list-row hide">{board.urlPath}</td>
                 <td className="board-list-row">{board.readPermission}</td>
                 <td className="board-list-row">{board.writePermission}</td>
                 <td className="board-list-row">

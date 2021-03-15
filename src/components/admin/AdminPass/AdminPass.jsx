@@ -57,8 +57,8 @@ const AdminPass = ({
           <thead>
             <TableHead>
               <th className="member_list_head">이름</th>
-              <th className="member_list_head">학번</th>
-              <th className="member_list_head">학과</th>
+              <th className="member_list_head hide">학번</th>
+              <th className="member_list_head hide">학과</th>
               <th className="member_list_head">면제</th>
               <th className="member_list_head">최소 활동 기준 만족</th>
               <th className="member_list_head">회원 자격 유지</th>
@@ -72,10 +72,10 @@ const AdminPass = ({
                 member.hour < minimumLimit && (
                   <MemberListRow key={member.member.loginID}>
                     <td className="member-list-row">{member.member.name}</td>
-                    <td className="member-list-row">
-                      {member.member.studentId}
+                    <td className="member-list-row hide">
+                      {member.member.studentID}
                     </td>
-                    <td className="member-list-row">
+                    <td className="member-list-row hide">
                       {member.member.department}
                     </td>
                     <td className="member-list-row">
@@ -104,8 +104,8 @@ const AdminPass = ({
           <thead>
             <TableHead>
               <th className="member_list_head">이름</th>
-              <th className="member_list_head">학번</th>
-              <th className="member_list_head">학과</th>
+              <th className="member_list_head hide">학번</th>
+              <th className="member_list_head hide">학과</th>
               <th className="member_list_head">면제</th>
               <th className="member_list_head">최소 활동 기준 만족</th>
               <th className="member_list_head">회원 자격 유지</th>
@@ -116,8 +116,12 @@ const AdminPass = ({
             {members?.map((member) => (
               <MemberListRow key={member.member.loginID}>
                 <td className="member-list-row">{member.member.name}</td>
-                <td className="member-list-row">{member.member.studentId}</td>
-                <td className="member-list-row">{member.member.department}</td>
+                <td className="member-list-row hide">
+                  {member.member.studentID}
+                </td>
+                <td className="member-list-row hide">
+                  {member.member.department}
+                </td>
                 <td className="member-list-row">{member.isExcepted && 'o'}</td>
                 <td className="member-list-row">
                   {member.hour >= minimumLimit && 'o'}
