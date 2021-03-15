@@ -3,6 +3,7 @@ import { WhiteNarrowBlock } from '../../styles/common/Block.styles';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import styled from 'styled-components';
+import getFileUrl from '../../lib/utils/getFileUrl';
 
 const Title = styled.h2`
   margin-bottom: 2rem;
@@ -51,7 +52,7 @@ const Intro = ({ introduction, locationUrl }) => {
         <ReactMarkdown plugins={[gfm]} source={introduction} />
       </Body>
       <Title>동아리방 위치</Title>
-      <StyledImage src={locationUrl} />
+      <StyledImage src={getFileUrl(locationUrl)} />
     </WhiteNarrowBlock>
   );
 };

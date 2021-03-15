@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useInput from '../../../hooks/useInput';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
@@ -78,12 +79,12 @@ const AdminBookForm = ({
           <label>표지 이미지 첨부</label>
           <FileUploadButton onSubmit={setImageURL} />
           <FileName style={{ marginBottom: '0rem' }}>
-            {imageURL ? imageURL : '선택된 파일이 없습니다'}
+            {imageURL ? getFileUrl(imageURL) : '선택된 파일이 없습니다'}
           </FileName>
           <ImageContainer>
             <ImageContainerHeader>현재 이미지</ImageContainerHeader>
             {imageURL ? (
-              <StyledImage src={imageURL} />
+              <StyledImage src={getFileUrl(imageURL)} />
             ) : (
               <p style={{ fontWeight: 300 }}>이미지가 없습니다.</p>
             )}

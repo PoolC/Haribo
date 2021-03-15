@@ -12,6 +12,7 @@ import {
   TitleContainer,
 } from './AdminBook.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 
 const AdminBook = ({ books, onDeleteBook }) => {
   const handleDelete = (e, bookID) => {
@@ -39,7 +40,7 @@ const AdminBook = ({ books, onDeleteBook }) => {
             {books.map((book) => (
               <BookListRow key={book.id}>
                 <td className="book-list-row hide">
-                  <StyledImage src={book.imageURL} />
+                  <StyledImage src={getFileUrl(book.imageURL)} />
                 </td>
                 <td className="book-list-row">{book.title}</td>
                 <td className="book-list-row hide">{book.author}</td>

@@ -3,6 +3,7 @@ import ActionButton from '../../common/Buttons/ActionButton';
 import React, { useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import BookModalContainer from '../../../containers/book/BookModal/BookModalContainer';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 
 const openCard = keyframes`
   from {
@@ -258,7 +259,7 @@ const BookCard = ({ book, isLogin, user, onBorrowBook, onReturnBook }) => {
         </BookCardContainer>
         <BookContentsContainer open={open}>
           <BookImageContainer>
-            <BookImage src={imageURL} alt="book_image" />
+            <BookImage src={getFileUrl(imageURL)} alt="book_image" />
           </BookImageContainer>
           <BookDetailContainer>
             <BookDetailInfoContainer>

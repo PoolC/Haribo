@@ -1,5 +1,6 @@
 import React from 'react';
 import { MENU } from '../../../constants/menus';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 import {
   Card,
   ProjectCardBlock,
@@ -16,7 +17,10 @@ const ProjectCard = ({ project }) => {
     <StyledLink to={`/${MENU.PROJECT}/${id}`}>
       <ProjectCardBlock>
         <Card>
-          <ProjectThumbnail src={thumbnailURL} alt="project_thumbnail" />
+          <ProjectThumbnail
+            src={getFileUrl(thumbnailURL)}
+            alt="project_thumbnail"
+          />
           <ProjectTitle>{name}</ProjectTitle>
           <ProjectGenre>{genre}</ProjectGenre>
           <ProjectDescription>{description}</ProjectDescription>

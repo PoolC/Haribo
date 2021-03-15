@@ -26,6 +26,7 @@ import {
   StyledImage,
 } from '../AdminInfo/AdminInfo.styles';
 import Modal from '../../common/Modal/Modal';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 
 const SearchMember = ({ member, onAddMember, onChangeSearchMember }) => {
   const { name, department, studentId } = member;
@@ -170,12 +171,12 @@ const AdminProjectForm = ({
           <label>썸네일 이미지 첨부</label>
           <FileUploadButton onSubmit={setThumbnailURL} />
           <FileName style={{ marginBottom: '0rem' }}>
-            {thumbnailURL ? thumbnailURL : '선택된 파일이 없습니다'}
+            {thumbnailURL ? getFileUrl(thumbnailURL) : '선택된 파일이 없습니다'}
           </FileName>
           <ImageContainer>
             <ImageContainerHeader>현재 이미지</ImageContainerHeader>
             {thumbnailURL ? (
-              <StyledImage src={thumbnailURL} />
+              <StyledImage src={getFileUrl(thumbnailURL)} />
             ) : (
               <p style={{ fontWeight: 300 }}>이미지가 없습니다.</p>
             )}

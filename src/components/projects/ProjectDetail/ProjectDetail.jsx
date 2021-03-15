@@ -19,6 +19,7 @@ import {
   TextContainer,
 } from './ProjectDetail.styles';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 
 const ProjectDetail = ({ project, member }) => {
   const { thumbnailURL, name, genre, duration, body, members } = project;
@@ -31,7 +32,7 @@ const ProjectDetail = ({ project, member }) => {
     <Block>
       <WhiteBlock>
         <ImageContainer>
-          <StyledImage src={thumbnailURL} />
+          <StyledImage src={getFileUrl(thumbnailURL)} />
         </ImageContainer>
         <TextContainer>
           <NameContainer>
