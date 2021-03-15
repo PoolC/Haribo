@@ -12,6 +12,7 @@ import {
   StyledForm,
   StyledImage,
   TitleContainer,
+  StyledInput,
 } from './AdminInfo.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import { FileName } from '../../common/FileUploadModal/FileUploadModal.styles';
@@ -93,7 +94,7 @@ const AdminInfo = ({
         <StyledForm>
           <label>회장 이름</label>
           <Description>홈페이지 Footer에 반영됩니다</Description>
-          <input
+          <StyledInput
             type="text"
             placeholder="ex) 김풀씨"
             value={presidentName}
@@ -101,7 +102,7 @@ const AdminInfo = ({
           />
           <label>전화번호</label>
           <Description>홈페이지 Footer에 반영됩니다</Description>
-          <input
+          <StyledInput
             type="text"
             placeholder="ex) 010-0000-0000"
             value={phoneNumber}
@@ -109,7 +110,7 @@ const AdminInfo = ({
           />
           <label>동아리방 위치</label>
           <Description>홈페이지 Footer에 반영됩니다</Description>
-          <input
+          <StyledInput
             type="text"
             placeholder="ex) 연세대학교 제1공학관 537호"
             value={location}
@@ -168,7 +169,7 @@ const AdminInfo = ({
           </div>
           <label>지원서 링크</label>
           <Description>apply 메뉴에서 이 링크로 이동됩니다.</Description>
-          <input
+          <StyledInput
             type="text"
             placeholder="http://example.com"
             value={applyUri}

@@ -51,7 +51,7 @@ export const BodyContainer = styled.div`
   line-height: 1.5rem;
   max-width: 100%;
   overflow: scroll;
-  & > p,
+  p,
   ul,
   ol {
     font-weight: 300;

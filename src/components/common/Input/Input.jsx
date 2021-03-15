@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import colors from '../../../lib/styles/colors';
 
 const StyledLabel = styled.label`
   margin: 2rem 0 1rem 0;
@@ -10,6 +11,11 @@ const StyledInput = styled.input`
   height: 2rem;
   width: 15rem;
   outline: 0;
+  border: 1px solid ${colors.brown[0]};
+  height: 2rem;
+  border-radius: 2px;
+  max-width: 320px;
+  outline: ${colors.gray[1]};
 `;
 
 const Input = ({

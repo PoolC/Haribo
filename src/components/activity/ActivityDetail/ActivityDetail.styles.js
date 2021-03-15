@@ -60,10 +60,12 @@ export const TagContainer = styled.div`
 export const PlanContents = styled.div`
   border: 1px solid ${colors.gray[2]};
   border-radius: 20px;
-  padding: 2rem;
+  padding: 2rem 1rem;
   word-break: keep-all;
   line-height: 1.5rem;
-  & > p,
+  width: 90%;
+  max-width: 600px;
+  p,
   ul,
   ol {
     font-weight: 300;
@@ -93,6 +95,8 @@ export const PlanContainer = styled.div`
   align-items: center;
   padding: 20px 2rem;
   margin-bottom: 30px;
+  width: 90%;
+  max-width: 600px;
 
   & > .title {
     color: ${colors.brown[0]};

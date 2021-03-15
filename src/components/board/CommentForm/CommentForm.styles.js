@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import colors from '../../../lib/styles/colors';
 
 export const CommentFormBlock = styled.div`
   display: flex;
@@ -11,6 +12,8 @@ export const StyledInput = styled.input`
   flex: 1;
   height: 2rem;
   outline: 0;
+  border: 1px solid ${colors.brown[0]};
+  border-radius: 2px;
 `;
 
 export const ButtonContainer = styled.div`

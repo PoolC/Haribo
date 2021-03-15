@@ -129,6 +129,11 @@ export const StyledInput = styled.input`
   outline: 0;
   height: 1.8rem;
   width: 3rem;
+
+  outline: 0;
+  border: 1px solid ${colors.brown[0]};
+  border-radius: 2px;
+  outline: ${colors.gray[1]};
 `;
 
 export const CurrentLimit = styled.div`
