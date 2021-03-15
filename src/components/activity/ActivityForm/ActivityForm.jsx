@@ -96,8 +96,12 @@ const ActivityForm = ({
 
   const onAddTag = (e) => {
     e.preventDefault();
+    if (!tag) {
+      return;
+    }
     onChangeTags([...tags.filter((t) => t !== tag), tag]);
     e.target.value = '';
+    onChangeTag(e);
   };
 
   const onDeleteTag = (tag) => {
