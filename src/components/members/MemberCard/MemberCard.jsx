@@ -3,8 +3,10 @@ import { MENU } from '../../../constants/menus';
 import colors from '../../../lib/styles/colors';
 import { randomNumber } from '../../../lib/utils/random';
 import {
-  MemberCardBlock, MemberCardMajor,
-  MemberCardName, MemberCardStatus,
+  MemberCardBlock,
+  MemberCardMajor,
+  MemberCardName,
+  MemberCardStatus,
   MemberCardText,
   MemberCardThumbnail,
   MemberItem,
@@ -21,7 +23,14 @@ const MemberCard = ({ member }) => {
             background: colors.mint[randomNumber(colors.mint.length)],
           }}
         >
-          <MemberCardThumbnail src={profileImageURL} alt="member_thumbnail" />
+          <MemberCardThumbnail
+            src={
+              profileImageURL
+                ? profileImageURL
+                : 'https://user-images.githubusercontent.com/48787170/111106105-c6fda680-8597-11eb-859a-5c695d5ef546.png'
+            }
+            alt="member_thumbnail"
+          />
           <MemberCardText>
             <MemberCardName>
               {name}

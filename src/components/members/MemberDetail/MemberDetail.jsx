@@ -34,7 +34,13 @@ const MemberDetail = ({ member }) => {
       <WhiteBlock>
         <ContentContainer>
           <ImageContainer>
-            <StyledImage src={profileImageURL} />
+            <StyledImage
+              src={
+                profileImageURL
+                  ? profileImageURL
+                  : 'https://user-images.githubusercontent.com/48787170/111106105-c6fda680-8597-11eb-859a-5c695d5ef546.png'
+              }
+            />
           </ImageContainer>
           <TextContainer>
             <NameContainer>
@@ -70,9 +76,9 @@ const MemberDetail = ({ member }) => {
             {projects?.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
-            {hostActivities?.map((activity) => (
+            {/* {hostActivities?.map((activity) => (
               <ActivityCard key={activity.id} activity={activity} />
-            ))}
+            ))} */}
             {participantActivities?.map((activity) => (
               <ActivityCard key={activity.id} activity={activity} />
             ))}
