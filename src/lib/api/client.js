@@ -1,7 +1,7 @@
 import axios from 'axios';
-require('dotenv').config();
 
-const { API_BASE_URL } = process.env;
+const { REACT_APP_API_BASE_URL: API_BASE_URL } = process.env;
+console.log(process.env);
 
 const client = axios.create();
 

@@ -3,8 +3,6 @@ import ActionButton from './ActionButton';
 import * as fileAPI from '../../../lib/api/file';
 import FileUploadModal from '../FileUploadModal/FileUploadModal';
 import Modal from '../Modal/Modal';
-import dotenv from 'dotenv';
-dotenv.config();
 
 const { REACT_APP_MAX_FILE_SIZE: MAX_FILE_SIZE } = process.env;
 
