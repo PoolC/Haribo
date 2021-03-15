@@ -44,7 +44,7 @@ const Apply = ({ isSubscriptionPeriod, applyUri, history }) => {
                 해당 링크에서 지원서를 작성해주세요.
               </div>
               <div>
-                <a href={applyUri}>
+                <a href={applyUri ? applyUri : ''}>
                   <ActionButton>가입 신청서로 이동</ActionButton>
                 </a>
               </div>
