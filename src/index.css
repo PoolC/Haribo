@@ -153,6 +153,6 @@ a:hover {
   text-decoration: underline;
 }
 
-input {
+input:not([type='checkbox']):not([type='radio']) {
   -webkit-appearance: none;
 }
