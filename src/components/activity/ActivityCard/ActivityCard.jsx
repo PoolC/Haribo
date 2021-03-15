@@ -67,7 +67,7 @@ const ActivityCard = ({
               <ActivityTag key={tag.name}>#{tag.name}</ActivityTag>
             ))}
           </ActivityTags>
-          {isLogin && (
+          {isLogin && (memberId === host.loginID || available) && (
             <ActivityButtons>
               {memberId === host.loginID && (
                 <StyledActionButton to={`/${MENU.ACTIVITY}/edit/${id}`}>
