@@ -26,7 +26,7 @@ const MemberDetail = ({ member }) => {
     isAdmin,
     introduction,
     projects,
-    hostActivities,
+    //hostActivities,
     participantActivities,
   } = member;
   return (
