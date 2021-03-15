@@ -11,7 +11,7 @@ export const FormListHeader = styled.header`
   margin-bottom: 3rem;
 `;
 
-export const FormList = styled.div`
+export const FormList = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
