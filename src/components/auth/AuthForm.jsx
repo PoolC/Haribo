@@ -301,7 +301,7 @@ const AuthForm = ({
                 <Input
                   valueText={phoneNumber}
                   labelText="전화번호"
-                  typeText="tel"
+                  typeText="text"
                   nameText="phoneNumber"
                   error={phoneNumberError}
                   onChangeFunc={onChangePhoneNumber}
