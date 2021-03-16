@@ -6,6 +6,7 @@ export const PostListHeader = styled.header`
   display: flex;
   align-items: center;
   width: 90%;
+  margin-bottom: 0.5rem;
   & > .post_list_title {
     display: flex;
     flex: 1;
@@ -17,7 +18,7 @@ export const PostListTable = styled.table`
   display: flex;
   flex-direction: column;
   width: 90%;
-  margin: 20px 0;
+  margin: 20px 0 30px 0;
   border-collapse: collapse;
   border-radius: 1em;
   overflow: hidden;
@@ -66,7 +67,7 @@ export const PostListHead = styled.tr`
 export const PostListRow = styled.tr`
   cursor: default;
   display: flex;
-  padding: 1rem 0;
+  padding: 0.8rem 0;
   transition: 0.3s;
   @media (max-width: 576px) {
     font-size: 0.7rem;
@@ -77,9 +78,9 @@ export const PostListRow = styled.tr`
     align-items: center;
     cursor: pointer;
     flex: 12;
-    font-weight: 500;
     padding: 0 10px;
     line-height: 1.5rem;
+    font-size: 0.9rem;
     word-break: keep-all;
     @media (max-width: 576px) {
       flex: 15;
@@ -94,6 +95,7 @@ export const PostListRow = styled.tr`
     flex: 1;
     padding: 0 10px;
     min-width: 3rem;
+    font-size: 0.9rem;
     @media (max-width: 576px) {
       font-size: 0.7rem;
       line-height: 0.7rem;
@@ -107,6 +109,7 @@ export const PostListRow = styled.tr`
     padding: 0 10px;
     text-align: center;
     min-width: 3rem;
+    font-size: 0.9rem;
     @media (max-width: 576px) {
       flex: 2;
       font-size: 0.7rem;
@@ -135,26 +138,6 @@ export const CommentCount = styled.span`
   @media (max-width: 576px) {
     font-size: 0.7rem;
     line-height: 0.7rem;
-  }
-`;
-
-export const PageList = styled.ul`
-  display: flex;
-  & > .page_item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 2px 5px;
-    color: ${colors.brown[0]};
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    &:hover {
-      color: ${colors.brown[1]};
-    }
-  }
-  & > .page_selected {
-    color: ${colors.brown[1]};
   }
 `;
 
