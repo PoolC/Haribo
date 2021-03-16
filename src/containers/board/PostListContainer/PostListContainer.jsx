@@ -13,11 +13,12 @@ const PostListContainer = ({ location, selectedMenu }) => {
   const member = useSelector((state) => state.auth);
   const urlPath = selectedMenu?.urlPath;
 
+  const postPerPage = 15;
+  const pagePerPage = 5;
+
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(initialCurrentPage);
-  const [postPerPage, setPostPerPage] = useState(15);
-  const [pagePerPage, setPagePerPage] = useState(5);
   const [currentPageSet, setCurrentPageSet] = useState(
     Math.ceil(currentPage / pagePerPage),
   );
