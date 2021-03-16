@@ -24,7 +24,7 @@ const BoardContainerBlock = styled.div`
   }
 `;
 
-const BoardContainer = ({ location, history, match }) => {
+const BoardContainer = ({ match, location }) => {
   const currentLocation = match.params.urlPath;
 
   const [boards, setBoards] = useState(null);
@@ -34,10 +34,12 @@ const BoardContainer = ({ location, history, match }) => {
     boardAPI.getBoards().then((res) => {
       if (res.status === 200) {
         setBoards(res.data.data);
-        setSelectedMenu(res.data.data[0]);
+        setSelectedMenu(
+          ...res.data.data.filter((board) => board.urlPath === currentLocation),
+        );
       }
     });
-  }, []);
+  }, [currentLocation]);
 
   if (boards === null || selectedMenu == null) {
     return null;
