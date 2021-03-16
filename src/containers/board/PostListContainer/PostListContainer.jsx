@@ -38,7 +38,7 @@ const PostListContainer = ({ location, selectedMenu }) => {
         }
       });
     }
-  }, [urlPath, location]);
+  }, [urlPath]);
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
