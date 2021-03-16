@@ -20,7 +20,7 @@ const Menus = ({ menuVisible, isLogin, isAdmin, onLogout, onToggleMenu }) => {
             Members
           </LinkButton>
         )}
-        <LinkButton onClick={onToggleMenu} to="/boards/notice">
+        <LinkButton onClick={onToggleMenu} to="/boards/notice?page=1">
           Boards
         </LinkButton>
         <LinkButton onClick={onToggleMenu} to="/projects">

@@ -3,9 +3,9 @@ import { MENU } from '../../../constants/menus';
 import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import ActionButton from '../../common/Buttons/ActionButton';
+import Pagination from '../Pagination/Pagination';
 import {
   CommentCount,
-  PageList,
   PostListHead,
   PostListHeader,
   PostListRow,
@@ -13,7 +13,18 @@ import {
   StyledLink,
 } from './PostList.styles';
 
-const PostList = ({ selectedMenu, posts, member }) => {
+const PostList = ({
+  selectedMenu,
+  posts,
+  member,
+  postPerPage,
+  totalPosts,
+  paginate,
+  setCurrentPageSet,
+  currentPageSet,
+  currentPage,
+  pagePerPage,
+}) => {
   const {
     status: { isLogin },
   } = member;
@@ -52,11 +63,15 @@ const PostList = ({ selectedMenu, posts, member }) => {
           ))}
         </tbody>
       </PostListTable>
-      <PageList>
-        <li className="page_item page_selected">1</li>
-        <li className="page_item">2</li>
-        <li className="page_item">3</li>
-      </PageList>
+      <Pagination
+        postPerPage={postPerPage}
+        totalPosts={totalPosts}
+        paginate={paginate}
+        setCurrentPageSet={setCurrentPageSet}
+        currentPage={currentPage}
+        pagePerPage={pagePerPage}
+        currentPageSet={currentPageSet}
+      />
     </WhiteNarrowBlock>
   );
 };

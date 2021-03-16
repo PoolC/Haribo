@@ -18,7 +18,7 @@ const BoardMenu = ({ menus, currentLocation, setSelectedMenu }) => {
         {menus.map((menu) =>
           currentLocation === menu.urlPath ? (
             <MenuItem key={menu.urlPath}>
-              <SelectedLinkButton to={`/boards/${menu.urlPath}`}>
+              <SelectedLinkButton to={`/boards/${menu.urlPath}?page=1`}>
                 {menu.name}
               </SelectedLinkButton>
             </MenuItem>
@@ -28,7 +28,7 @@ const BoardMenu = ({ menus, currentLocation, setSelectedMenu }) => {
                 onClick={() => {
                   onSelectMenu(menu);
                 }}
-                to={`/boards/${menu.urlPath}`}
+                to={`/boards/${menu.urlPath}?page=1`}
               >
                 {menu.name}
               </LinkButton>
