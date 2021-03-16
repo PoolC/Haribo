@@ -20,6 +20,8 @@ const LOGOUT = 'auth/LOGOUT';
 // const LOGOUT_SUCCESS = 'auth/LOGOUT_SUCCESS';
 // const LOGOUT_FAILURE = 'auth/LOGOUT_FAILURE';
 
+const HANDLE_EXPIRED_ACCESS_TOKEN = 'auth/HANDLE_EXPIRED_ACCESS_TOKEN';
+
 export const login = createAction(LOGIN, ({ id, password }) => ({
   id,
   password,
@@ -30,6 +32,10 @@ export const setToken = createAction(SET_TOKEN);
 export const loadUser = createAction(LOAD_USER);
 
 export const logout = createAction(LOGOUT);
+
+export const handleExpiredAccessToken = createAction(
+  HANDLE_EXPIRED_ACCESS_TOKEN,
+);
 
 function* loadUserSaga(action) {
   try {
@@ -87,11 +93,29 @@ function logoutRequest() {
   client.defaults.headers.common['Authorization'] = '';
 }
 
+function* handleExpiredAccessTokenRequest() {
+  try {
+    yield localStorage.removeItem('accessToken');
+    yield (client.defaults.headers.common['Authorization'] = '');
+    yield (window.location.href = '/login');
+  } catch (err) {
+    console.error('*****');
+    console.error(err);
+    // yield put({
+    //   type: LOAD_USER_FAILURE,
+    // });
+  }
+}
+
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
   yield takeLatest(LOGIN_SUCCESS, setTokenSaga);
   yield takeLatest(SET_TOKEN_SUCCESS, loadUserSaga);
   yield takeLatest(LOAD_USER, loadUserSaga);
+  yield takeLatest(
+    HANDLE_EXPIRED_ACCESS_TOKEN,
+    handleExpiredAccessTokenRequest,
+  );
   yield takeLatest(LOGOUT, logoutRequest);
 }
 

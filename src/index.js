@@ -12,7 +12,7 @@ import { Provider } from 'react-redux';
 import { loadUser } from './modules/auth';
 
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(
+export const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );

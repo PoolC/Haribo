@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { handleExpiredAccessToken } from '../../modules/auth';
+import { store } from '../../index.js';
 require('dotenv').config();
 
 const { REACT_APP_API_BASE_URL: API_BASE_URL } = process.env;
@@ -15,6 +17,38 @@ if (localStorage.getItem('accessToken')) {
 } else {
   client.defaults.headers.common['Authorization'] = ``;
 }
+
+// client.interceptors.request.use(
+//   async (config) => {
+//     const userInfo = window.sessionStorage.getItem('userInfo');
+//     const accessToken = userInfo ? JSON.parse(userInfo).accessToken : null;
+//     config.headers = {
+//       Authorization: `Bearer ${accessToken}`,
+//       Accept: 'application/json',
+//       'Content-Type': 'application/x-www-form-urlencoded',
+//     };
+//     return config;
+//   },
+//   (error) => {
+//     Promise.reject(error);
+//   },
+// );
+
+client.interceptors.response.use(
+  (response) => {
+    // 요청 성공 시 특정 작업 수행
+    return response;
+  },
+  (error) => {
+    // 요청 실패 시 특정 작업 수행
+    console.log(error.response.status);
+    if (error.response.status === 401) {
+      console.log('logout');
+      store.dispatch(handleExpiredAccessToken());
+    }
+    return Promise.reject(error);
+  },
+);
 
 /*
   글로벌 설정 예시:
