@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import IntroMenu from '../../components/intro/IntroMenu/IntroMenu';
 import { MENU } from '../../constants/menus';
@@ -21,7 +21,8 @@ const IntroPageBlock = styled.div`
   }
 `;
 
-const IntroPage = () => {
+const IntroPage = ({ location }) => {
+  console.log(location);
   const menus = [
     { name: 'PoolC 소개', url: '' },
     { name: '자주 묻는 질문', url: '/faq' },
@@ -39,4 +40,4 @@ const IntroPage = () => {
   );
 };
 
-export default IntroPage;
+export default withRouter(IntroPage);

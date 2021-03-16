@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { MENU } from '../../../constants/menus';
 import { SelectedLinkButton } from '../../../styles/common/Button.styles';
 import {
@@ -8,7 +9,8 @@ import {
 } from '../../../styles/common/Menu.styles';
 import LinkButton from '../../common/Buttons/LinkButton';
 
-const IntroMenu = ({ menus, currentLocation }) => {
+const IntroMenu = ({ menus, location }) => {
+  const currentLocation = location.pathname.replace('/intro', '');
   return (
     <MenuBlock>
       <MenuList>
@@ -32,4 +34,4 @@ const IntroMenu = ({ menus, currentLocation }) => {
   );
 };
 
-export default IntroMenu;
+export default withRouter(IntroMenu);
