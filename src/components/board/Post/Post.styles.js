@@ -74,7 +74,7 @@ export const BodyContainer = styled.div`
     margin: 1rem 0;
   }
   img {
-    max-width: 100%;
+    max-width: 600px;
     margin: 1rem 0;
   }
   p {

@@ -30,7 +30,7 @@ export const Body = styled.div`
   flex: 1;
   font-size: 0.9rem;
   align-items: center;
-  word-break: keep-all;
+  word-break: break-all;
   line-height: 1.2rem;
   @media (max-width: 576px) {
     margin: 0.5rem 0;
