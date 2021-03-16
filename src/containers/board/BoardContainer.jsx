@@ -34,14 +34,12 @@ const BoardContainer = ({ match, location }) => {
     boardAPI.getBoards().then((res) => {
       if (res.status === 200) {
         setBoards(res.data.data);
-        setSelectedMenu(
-          ...res.data.data.filter((board) => board.urlPath === currentLocation),
-        );
+        setSelectedMenu(res.data.data[0]);
       }
     });
-  }, [currentLocation]);
+  }, []);
 
-  if (boards === null || selectedMenu == null) {
+  if (boards === null) {
     return null;
   }
 
@@ -50,6 +48,7 @@ const BoardContainer = ({ match, location }) => {
       <BoardMenu
         menus={boards}
         currentLocation={currentLocation}
+        selectedMenu={selectedMenu}
         setSelectedMenu={setSelectedMenu}
       />
       <Switch>

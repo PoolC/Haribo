@@ -7,7 +7,7 @@ import {
 } from '../../../styles/common/Menu.styles';
 import LinkButton from '../../common/Buttons/LinkButton';
 
-const BoardMenu = ({ menus, currentLocation, setSelectedMenu }) => {
+const BoardMenu = ({ menus, selectedMenu, setSelectedMenu }) => {
   const onSelectMenu = (menu) => {
     setSelectedMenu(menu);
   };
@@ -16,7 +16,7 @@ const BoardMenu = ({ menus, currentLocation, setSelectedMenu }) => {
     <MenuBlock>
       <MenuList>
         {menus.map((menu) =>
-          currentLocation === menu.urlPath ? (
+          selectedMenu?.urlPath === menu.urlPath ? (
             <MenuItem key={menu.urlPath}>
               <SelectedLinkButton to={`/boards/${menu.urlPath}?page=1`}>
                 {menu.name}

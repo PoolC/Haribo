@@ -6,9 +6,12 @@ import Spinner from '../../../components/common/Spinner/Spinner';
 import * as postAPI from '../../../lib/api/post';
 
 const PostListContainer = ({ location, selectedMenu }) => {
-  const initialCurrentPage = Number(location.search.replace('?page=', ''));
+  const initialCurrentPage =
+    Number(location.search.replace('?page=', '')) < 1
+      ? 1
+      : Number(location.search.replace('?page=', ''));
   const member = useSelector((state) => state.auth);
-  const urlPath = selectedMenu.urlPath;
+  const urlPath = selectedMenu?.urlPath;
 
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
@@ -26,13 +29,15 @@ const PostListContainer = ({ location, selectedMenu }) => {
 
   useEffect(() => {
     setLoading(true);
-    postAPI.getPosts(urlPath).then((res) => {
-      if (res.status === 200) {
-        setPosts(res.data.data);
-        setLoading(false);
-      }
-    });
-  }, [location, urlPath]);
+    if (urlPath) {
+      postAPI.getPosts(urlPath).then((res) => {
+        if (res.status === 200) {
+          setPosts(res.data.data);
+          setLoading(false);
+        }
+      });
+    }
+  }, [urlPath, location]);
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;

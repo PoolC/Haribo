@@ -7,9 +7,8 @@ import { useSelector } from 'react-redux';
 import { MENU } from '../../../constants/menus';
 import Spinner from '../../../components/common/Spinner/Spinner';
 
-const PostContainer = ({ selectedMenu, history, match }) => {
+const PostContainer = ({ selectedMenu, history, match, location }) => {
   const { postID } = match.params;
-
   const member = useSelector((state) => state.auth);
 
   const [loading, setLoading] = useState(true);
@@ -31,9 +30,9 @@ const PostContainer = ({ selectedMenu, history, match }) => {
         console.error(e.message);
         history.push(`/${MENU.FORBIDDEN}`);
       });
-  }, [postID, history]);
+  }, [history, postID]);
 
-  if (post === undefined || comments === undefined) {
+  if (post === undefined) {
     window.location.reload();
   }
 
