@@ -38,7 +38,9 @@ const AdminInfo = ({
     info ? info.location : '',
     notEmptyValidation,
   );
-  const [locationUrl, setLocationUrl] = useState(info ? info.locationUrl : '');
+  const [locationUrl, setLocationUrl] = useState(
+    info ? info.locationUrl : '동방약도.png',
+  );
   const [phoneNumber, onChangePhoneNumber] = useInput(
     info ? info.phoneNumber : '',
     notEmptyValidation,
@@ -50,7 +52,7 @@ const AdminInfo = ({
     info ? info.isSubscriptionPeriod : false,
   );
   const [mainImageUrl, setMainImageUrl] = useState(
-    info ? info.mainImageUrl : '',
+    info ? info.mainImageUrl : 'poolcMainImage.png',
   );
   const [applyUri, onChangeApplyUri] = useInput(
     info ? info.applyUri : '',
