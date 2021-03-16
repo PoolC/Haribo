@@ -11,6 +11,11 @@ import {
   PostListRow,
   PostListTable,
   StyledLink,
+  SubInfoContainer,
+  WriterIcon,
+  DateIcon,
+  PostListRowAuthor,
+  PostListRowDate,
 } from './PostList.styles';
 
 const PostList = ({
@@ -41,9 +46,10 @@ const PostList = ({
       <PostListTable>
         <thead>
           <PostListHead>
-            <th className="post_list_head_title">제목</th>
-            <th className="post_list_head_author">작성자</th>
-            <th className="post_list_head_date">작성일</th>
+            <th className="post_list_head_title hide">제목</th>
+            <th className="post_list_head_author hide">작성자</th>
+            <th className="post_list_head_date hide">작성일</th>
+            <th className="post_list_head">게시물 목록</th>
           </PostListHead>
         </thead>
         <tbody>
@@ -55,10 +61,22 @@ const PostList = ({
                 </StyledLink>
                 <CommentCount>[{post.comments.length}]</CommentCount>
               </td>
-              <td className="post-list-row-author">{post.writerName}</td>
-              <td className="post-list-row-date">
-                {getFullCurrentDateString(post.createdAt)}
-              </td>
+              <SubInfoContainer>
+                <PostListRowAuthor>
+                  <WriterIcon
+                    className="fas fa-user"
+                    style={{ marginRight: '0.2rem' }}
+                  ></WriterIcon>
+                  {post.writerName}
+                </PostListRowAuthor>
+                <PostListRowDate>
+                  <DateIcon
+                    className="far fa-calendar"
+                    style={{ marginRight: '0.2rem' }}
+                  ></DateIcon>
+                  {getFullCurrentDateString(post.createdAt)}
+                </PostListRowDate>
+              </SubInfoContainer>
             </PostListRow>
           ))}
         </tbody>
