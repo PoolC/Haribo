@@ -72,12 +72,12 @@ export const FileContainer = styled.div`
   font-size: 0.7rem;
   font-weight: 300;
   box-sizing: border-box;
-  padding: 0.5rem;
+  padding: 5px 0.5rem;
 `;
 
 export const File = styled.p`
   display: flex;
-  margin-bottom: 10px;
+  margin: 5px;
   align-items: center;
   word-break: break-all;
   font-size: 0.7rem;

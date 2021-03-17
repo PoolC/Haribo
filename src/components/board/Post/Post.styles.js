@@ -87,6 +87,9 @@ export const BodyContainer = styled.div`
     max-width: 100%;
     word-break: break-all;
   }
+  th {
+    background-color: ${colors.brown[0]};
+  }
 `;
 
 export const ButtonContainer = styled.div`
