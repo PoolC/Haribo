@@ -13,6 +13,7 @@ export const TitleContainer = styled.div`
 
 export const ContentsContainer = styled.div`
   display: flex;
+  flex-direction: column;
   width: 90%;
   justify-content: center;
   align-items: center;
@@ -42,32 +43,49 @@ export const TableHead = styled.tr`
   background-color: ${colors.mint[0]};
   margin: 0;
   padding: 0.8rem 0px;
-  font-size: 0.9rem;
+  font-size: 0.6rem;
   text-align: center;
   @media (max-width: 576px) {
     font-size: 0.5rem;
   }
   & > .member_list_head {
-    flex: 1;
-    padding: 0 10px;
+    /* flex: 1; */
+    padding: 0 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 10rem;
     word-break: break-all;
   }
-  & > .email {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 2;
-    max-width: 10rem;
+  & > .name {
+    width: 3rem;
   }
-  & > .etc {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0.7;
+  & > .department {
+    width: 5rem;
+  }
+  & > .studentId {
+    width: 4rem;
+  }
+  & > .loginId {
+    width: 4rem;
+  }
+  & > .email {
+    width: 9rem;
+  }
+  & > .phone {
+    width: 5rem;
+  }
+  & > .isActivated {
+    width: 1.5rem;
+  }
+  & > .small-button {
+    width: 3rem;
+  }
+  & > .isAdmin {
+    width: 2rem;
+  }
+  & > .status {
+    flex: 1;
+    min-width: 7.5rem;
   }
   & > .hide {
     @media (max-width: 1000px) {
@@ -83,40 +101,49 @@ export const MemberListRow = styled.tr`
   transition: 0.3s;
   text-align: center;
   & > .member-list-row {
+    padding: 0 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1;
-    padding: 0 5px;
-    line-height: 0.8rem;
-    font-size: 0.8rem;
-    max-width: 10rem;
     word-break: break-all;
+    line-height: 0.8rem;
+    font-size: 0.6rem;
+    font-weight: 300;
     @media (max-width: 576px) {
       font-size: 0.5rem;
     }
   }
+  & > .name {
+    width: 3rem;
+    font-weight: 500;
+  }
+  & > .department {
+    width: 5rem;
+  }
+  & > .studentId {
+    width: 4rem;
+  }
+  & > .loginId {
+    width: 4rem;
+  }
   & > .email {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 2;
-    max-width: 10rem;
-    word-break: break-all;
+    width: 9rem;
   }
-  & > .etc {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0.7;
+  & > .phone {
+    width: 5rem;
   }
-  & > .member-list-row-author {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  & > .isActivated {
+    width: 1.5rem;
+  }
+  & > .small-button {
+    width: 3rem;
+  }
+  & > .isAdmin {
+    width: 2rem;
+  }
+  & > .status {
+    min-width: 7.5rem;
     flex: 1;
-    padding: 0 10px;
-    min-width: 3rem;
   }
   & > .hide {
     @media (max-width: 1000px) {
@@ -131,8 +158,36 @@ export const MemberListRow = styled.tr`
 
 export const StyledActionButton = styled(ActionButton)`
   margin: 0;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+  &.delete {
+    background-color: ${colors.red[0]};
+    transition: 0.3s;
+    &:hover {
+      background-color: ${colors.red[1]};
+      transition: 0.3s;
+    }
+  }
   @media (max-width: 576px) {
     padding: 5px;
     font-size: 0.7rem;
   }
+`;
+
+export const StyledSelect = styled.select`
+  outline: 0;
+  height: 1.5rem;
+  width: 4.5rem;
+  font-size: 0.4rem;
+  box-sizing: content-box;
+`;
+
+export const SearchHeader = styled.h4`
+  margin: 2rem 0 1rem 0;
+`;
+
+export const SearchResult = styled.p`
+  margin: 1rem 0 2rem 0;
+  font-size: 0.8rem;
+  font-weight: 300;
 `;
