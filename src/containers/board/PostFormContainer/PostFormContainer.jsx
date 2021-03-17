@@ -74,9 +74,9 @@ const PostFormContainer = ({ match, history }) => {
     return null;
   }
 
-  const onCreatePost = ({ title, body }) => {
+  const onCreatePost = ({ title, body, fileList }) => {
     postAPI
-      .createPost({ title, body, boardID })
+      .createPost({ title, body, boardID, fileList })
       .then((res) => {
         if (res.status === 202) {
           const { postId } = res.data;
@@ -89,9 +89,9 @@ const PostFormContainer = ({ match, history }) => {
       });
   };
 
-  const onUpdatePost = ({ title, body }) => {
+  const onUpdatePost = ({ title, body, fileList }) => {
     postAPI
-      .updatePost({ title, body, postID })
+      .updatePost({ title, body, postID, fileList })
       .then((res) => {
         if (res.status === 200) {
           history.push(`/${MENU.POST}/${postID}`);
