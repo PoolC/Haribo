@@ -5,9 +5,19 @@ import * as memberAPI from '../../../lib/api/member';
 const AdminPassContainer = () => {
   const [members, setMembers] = useState(null);
 
-  const onUpdateMinPassStandard = () => {};
-
-  const onChangeExcepted = () => {};
+  const onChangeExcepted = (loginID, isExcepted) => {
+    memberAPI.updateMemberIsExcepted(loginID).then((res) => {
+      if (res.status === 200) {
+        setMembers(
+          members.map((member) =>
+            member.loginID === loginID
+              ? { ...member, isExcepted: !isExcepted }
+              : member,
+          ),
+        );
+      }
+    });
+  };
 
   const onSubmitSemester = (semester) => {
     memberAPI.getMemberActivityHours(semester).then((res) => {
@@ -20,7 +30,6 @@ const AdminPassContainer = () => {
   return (
     <AdminPass
       members={members}
-      onUpdateMinPassStandard={onUpdateMinPassStandard}
       onChangeExcepted={onChangeExcepted}
       onSubmitSemester={onSubmitSemester}
     />
