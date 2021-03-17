@@ -1,9 +1,9 @@
 export const getFullCurrentDateString = (time) => {
   const currentDate = time ? new Date(time) : new Date();
   const month =
-    currentDate.getMonth() < 10
-      ? `0${currentDate.getMonth()}`
-      : currentDate.getMonth();
+    currentDate.getMonth() + 1 < 10
+      ? `0${currentDate.getMonth() + 1}`
+      : currentDate.getMonth() + 1;
   const date =
     currentDate.getDate() < 10
       ? `0${currentDate.getDate()}`
@@ -14,9 +14,9 @@ export const getFullCurrentDateString = (time) => {
 export const getFullCurrentDateTimeString = (time) => {
   const currentDate = time ? new Date(time) : new Date();
   const month =
-    currentDate.getMonth() < 10
-      ? `0${currentDate.getMonth()}`
-      : currentDate.getMonth();
+    currentDate.getMonth() + 1 < 10
+      ? `0${currentDate.getMonth() + 1}`
+      : currentDate.getMonth() + 1;
   const date =
     currentDate.getDate() < 10
       ? `0${currentDate.getDate()}`
