@@ -1,5 +1,7 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import styled from 'styled-components';
+import ActionButton from '../../components/common/Buttons/ActionButton';
 import colors from '../../lib/styles/colors';
 
 export const PageBlock = styled.div`
@@ -42,17 +44,25 @@ const ErrorMessage = styled.p`
   text-align: center;
   word-break: keep-all;
   font-weight: 600;
+  margin-bottom: 1rem;
 `;
 
-const AccessDeniedPage = () => {
+const AccessDeniedPage = ({ history }) => {
   return (
     <PageBlock>
       <PageContainer>
         <ErrorIcon className="fas fa-exclamation-circle"></ErrorIcon>
         <ErrorMessage>권한이 없습니다.</ErrorMessage>
+        <ActionButton
+          onClick={() => {
+            history.push('/');
+          }}
+        >
+          메인으로
+        </ActionButton>
       </PageContainer>
     </PageBlock>
   );
 };
 
-export default AccessDeniedPage;
+export default withRouter(AccessDeniedPage);
