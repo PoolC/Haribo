@@ -123,6 +123,8 @@ const AdminProjectForm = ({
   const onClickSearch = (e) => {
     e.preventDefault();
     onSearchMember(searchMember);
+    e.target.value = '';
+    onChangeSearchMember(e);
   };
 
   function onEditorChange(e) {
