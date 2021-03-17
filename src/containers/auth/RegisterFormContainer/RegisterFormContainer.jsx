@@ -26,6 +26,7 @@ const RegisterFormContainer = ({ location, history }) => {
     studentId,
     phoneNumber,
     introduction,
+    profileImageURL,
   }) => {
     try {
       const response = authAPI.register({
@@ -38,6 +39,7 @@ const RegisterFormContainer = ({ location, history }) => {
         studentId,
         phoneNumber,
         introduction,
+        profileImageURL,
       });
       response
         .then((res) => {

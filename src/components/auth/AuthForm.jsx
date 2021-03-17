@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import RegisterModalContainer from '../../containers/auth/RegisterModalContainer/RegisterModalContainer';
 import useInput from '../../hooks/useInput';
+import getFileUrl from '../../lib/utils/getFileUrl';
 import {
   emailValidation,
   idValidation,
@@ -10,12 +11,6 @@ import {
 } from '../../lib/utils/validation';
 import { Block, WhiteBlock } from '../../styles/common/Block.styles';
 import {
-  ImageContainer,
-  ImageContainerHeader,
-  StyledImage,
-} from '../admin/AdminInfo/AdminInfo.styles';
-import FileUploadButton from '../common/Buttons/FileUploadButton';
-import {
   FormList,
   FormListHeader,
   SubmitButton,
@@ -23,6 +18,9 @@ import {
   Warning,
   StyledTextarea,
   StyledLabel,
+  ProfileImageSelectContainer,
+  ProfileImageSelect,
+  ProfileImage,
 } from './AuthForm.styles';
 
 const textMap = {
@@ -30,6 +28,14 @@ const textMap = {
   register: '회원가입',
   update: '회원 정보 수정',
 };
+
+const profileImagePlaceholders = [
+  '/files/profile_placeholder_00.png',
+  '/files/profile_placeholder_01.png',
+  '/files/profile_placeholder_02.png',
+  '/files/profile_placeholder_03.png',
+  '/files/profile_placeholder_04.png',
+];
 
 const Input = ({
   valueText,
@@ -109,8 +115,13 @@ const AuthForm = ({
   );
 
   const [profileImageURL, setProfileImageURL] = useState(
-    userInfo ? userInfo.profileImageURL : '',
+    userInfo
+      ? userInfo.profileImageURL
+        ? userInfo.profileImageURL
+        : profileImagePlaceholders[0]
+      : profileImagePlaceholders[0],
   );
+
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordCheckError, setPasswordError] = useState(false);
 
@@ -201,6 +212,7 @@ const AuthForm = ({
       studentId,
       phoneNumber,
       introduction,
+      profileImageURL,
     });
   };
 
@@ -217,6 +229,7 @@ const AuthForm = ({
       email,
       phoneNumber,
       introduction,
+      profileImageURL,
     });
   };
 
@@ -231,6 +244,10 @@ const AuthForm = ({
     if (type === 'update') {
       handleUpdate();
     }
+  };
+
+  const onChangeProfileImageURL = (e) => {
+    setProfileImageURL(profileImagePlaceholders[e.target.value]);
   };
 
   return (
@@ -328,15 +345,83 @@ const AuthForm = ({
                   placeholderText="ex) 2021000000"
                 />
                 <label>프로필 이미지</label>
-                <FileUploadButton onSubmit={setProfileImageURL} />
-                <ImageContainer>
-                  <ImageContainerHeader>현재 이미지</ImageContainerHeader>
-                  {profileImageURL ? (
-                    <StyledImage src={profileImageURL} />
-                  ) : (
-                    <p style={{ fontWeight: 300 }}>이미지가 없습니다.</p>
-                  )}
-                </ImageContainer>
+                <ProfileImageSelectContainer>
+                  <ProfileImageSelect>
+                    <input
+                      type="radio"
+                      value="0"
+                      onChange={onChangeProfileImageURL}
+                      checked={
+                        profileImageURL === profileImagePlaceholders[0]
+                          ? true
+                          : false
+                      }
+                    />
+                    <ProfileImage
+                      src={getFileUrl(profileImagePlaceholders[0])}
+                    />
+                  </ProfileImageSelect>
+                  <ProfileImageSelect>
+                    <input
+                      type="radio"
+                      value="1"
+                      onChange={onChangeProfileImageURL}
+                      checked={
+                        profileImageURL === profileImagePlaceholders[1]
+                          ? true
+                          : false
+                      }
+                    />
+                    <ProfileImage
+                      src={getFileUrl(profileImagePlaceholders[1])}
+                    />
+                  </ProfileImageSelect>
+                  <ProfileImageSelect>
+                    <input
+                      type="radio"
+                      value="2"
+                      onChange={onChangeProfileImageURL}
+                      checked={
+                        profileImageURL === profileImagePlaceholders[2]
+                          ? true
+                          : false
+                      }
+                    />
+                    <ProfileImage
+                      src={getFileUrl(profileImagePlaceholders[2])}
+                    />
+                  </ProfileImageSelect>
+                  <ProfileImageSelect>
+                    <input
+                      type="radio"
+                      value="3"
+                      onChange={onChangeProfileImageURL}
+                      checked={
+                        profileImageURL === profileImagePlaceholders[3]
+                          ? true
+                          : false
+                      }
+                    />
+                    <ProfileImage
+                      src={getFileUrl(profileImagePlaceholders[3])}
+                    />
+                  </ProfileImageSelect>
+                  <ProfileImageSelect>
+                    <input
+                      type="radio"
+                      value="4"
+                      onChange={onChangeProfileImageURL}
+                      checked={
+                        profileImageURL === profileImagePlaceholders[4]
+                          ? true
+                          : false
+                      }
+                    />
+                    <ProfileImage
+                      src={getFileUrl(profileImagePlaceholders[4])}
+                    />
+                  </ProfileImageSelect>
+                </ProfileImageSelectContainer>
                 <label htmlFor="introduction">자기소개</label>
                 <StyledTextarea
                   value={introduction}

@@ -53,6 +53,7 @@ const MyInfoFormContainer = ({ location, history }) => {
     email,
     phoneNumber,
     introduction,
+    profileImageURL,
   }) => {
     try {
       const response = authAPI.updateUser({
@@ -62,6 +63,7 @@ const MyInfoFormContainer = ({ location, history }) => {
         email,
         phoneNumber,
         introduction,
+        profileImageURL,
       });
       response
         .then((res) => {

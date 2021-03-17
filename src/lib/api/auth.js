@@ -15,6 +15,7 @@ export const register = ({
   studentId,
   phoneNumber,
   introduction,
+  profileImageURL,
 }) =>
   client.post('/member', {
     loginID: id,
@@ -26,6 +27,7 @@ export const register = ({
     studentID: studentId,
     phoneNumber,
     introduction,
+    profileImageURL,
   });
 
 // 본인 정보 조회
@@ -38,6 +40,7 @@ export const updateUser = ({
   email,
   phoneNumber,
   introduction,
+  profileImageURL,
 }) =>
   client.put('/member/me', {
     name,
@@ -46,4 +49,5 @@ export const updateUser = ({
     email,
     phoneNumber,
     introduction,
+    profileImageURL,
   });
