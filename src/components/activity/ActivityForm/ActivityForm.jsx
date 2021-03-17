@@ -86,7 +86,7 @@ const ActivityForm = ({
     activity ? activity.capacity : '',
     notEmptyValidation,
   );
-  const [files, setFiles] = useState(activity ? activity.fileList : '');
+  const [files, setFiles] = useState(activity ? activity.fileList : []);
   const [tags, onChangeTags] = useState(
     activity ? activity.tags.map((tag) => tag.name) : [],
   );
