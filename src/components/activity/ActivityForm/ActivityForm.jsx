@@ -272,6 +272,7 @@ const ActivityForm = ({
                 <label htmlFor="activityTitle">계획서</label>
                 <Plan>
                   <Editor
+                    initialEditType="wysiwyg"
                     initialValue={description}
                     ref={editorRef}
                     onChange={(e) => onEditorChange(e)}

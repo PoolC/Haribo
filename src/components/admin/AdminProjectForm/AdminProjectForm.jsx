@@ -193,6 +193,7 @@ const AdminProjectForm = ({
           />
           <label>프로젝트 내용</label>
           <Editor
+            initialEditType="wysiwyg"
             initialValue={body}
             ref={editorRef}
             onChange={(e) => onEditorChange(e)}

@@ -140,6 +140,7 @@ const AdminInfo = ({
             홈페이지 PoolC 메뉴-'동아리 소개'에 반영됩니다
           </Description>
           <Editor
+            initialEditType="wysiwyg"
             initialValue={introduction}
             ref={editorRef}
             onChange={(e) => onEditorChange(e)}

@@ -91,6 +91,7 @@ const PostForm = ({
       />
       <EditorWrapper>
         <Editor
+          initialEditType="wysiwyg"
           initialValue={body}
           ref={editorRef}
           onChange={(e) => onEditorChange(e)}
