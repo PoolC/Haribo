@@ -102,9 +102,10 @@ const Member = ({
         {member.isActivated && (
           <>
             <StyledSelect value={status} onChange={onChangeStatus}>
+              <option value="UNACCEPTED">승인 전</option>
               <option value="EXPELLED">자격상실</option>
               <option value="MEMBER">일반회원</option>
-              <option value="GRADUATION">졸업회원</option>
+              <option value="GRADUATED">졸업회원</option>
             </StyledSelect>
             <StyledActionButton
               onClick={(e) =>
