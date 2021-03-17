@@ -30,18 +30,22 @@ const PostList = ({
   currentPage,
   pagePerPage,
 }) => {
+  const { writePermission } = selectedMenu;
   const {
     status: { isLogin },
+    user: { isAdmin },
   } = member;
   return (
     <WhiteNarrowBlock>
       <PostListHeader>
         <h2 className="post_list_title">{selectedMenu?.name}</h2>
-        {isLogin && (
-          <ActionButton to={`/${MENU.POST}/new/${selectedMenu?.id}`}>
-            글쓰기
-          </ActionButton>
-        )}
+        {isLogin &&
+          ((writePermission === 'ADMIN' && isAdmin) ||
+            (writePermission === 'MEMBER' && isLogin)) && (
+            <ActionButton to={`/${MENU.POST}/new/${selectedMenu?.id}`}>
+              글쓰기
+            </ActionButton>
+          )}
       </PostListHeader>
       <PostListTable>
         <thead>
