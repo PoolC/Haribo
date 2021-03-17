@@ -76,7 +76,12 @@ const Post = ({
               삭제
             </StyledButton>
           )}
-          <StyledButton className="list" onClick={() => history.goBack(1)}>
+          <StyledButton
+            className="list"
+            onClick={() =>
+              history.push(`/${MENU.BOARDS}/${selectedMenu.urlPath}?page=1`)
+            }
+          >
             목록
           </StyledButton>
         </ButtonContainer>
