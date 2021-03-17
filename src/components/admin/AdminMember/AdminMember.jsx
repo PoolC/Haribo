@@ -79,23 +79,24 @@ const Member = ({
       </td>
       <td className="member-list-row isAdmin">{member.isAdmin ? 'o' : 'x'}</td>
       <td className="member-list-row small-button">
-        {member.isAdmin ? (
-          <StyledActionButton
-            onClick={(e) =>
-              handleToggleAdmin(e, member.loginID, member.isAdmin)
-            }
-          >
-            해제
-          </StyledActionButton>
-        ) : (
-          <StyledActionButton
-            onClick={(e) =>
-              handleToggleAdmin(e, member.loginID, member.isAdmin)
-            }
-          >
-            임명
-          </StyledActionButton>
-        )}
+        {member.isActivated &&
+          (member.isAdmin ? (
+            <StyledActionButton
+              onClick={(e) =>
+                handleToggleAdmin(e, member.loginID, member.isAdmin)
+              }
+            >
+              해제
+            </StyledActionButton>
+          ) : (
+            <StyledActionButton
+              onClick={(e) =>
+                handleToggleAdmin(e, member.loginID, member.isAdmin)
+              }
+            >
+              임명
+            </StyledActionButton>
+          ))}
       </td>
       <td className="member-list-row status">
         {member.isActivated && (
