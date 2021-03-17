@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
+import { Block } from '../../../styles/common/Block.styles';
+
+export const ActivityBlock = styled(Block)`
+  @media (max-width: 768px) {
+    margin-bottom: 0px;
+  }
+`;
 
 export const List = styled.ul`
   width: 95%;
@@ -8,6 +15,17 @@ export const List = styled.ul`
   align-items: center;
   justify-content: center;
   max-width: 1200px;
+`;
+
+export const NoResult = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+  font-size: 0.8rem;
+  font-weight: 300;
+  text-align: center;
 `;
 
 export const ActivityListTitle = styled.h2`
