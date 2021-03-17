@@ -46,7 +46,7 @@ export const InfoContainer = styled.div`
 
 export const BodyContainer = styled.div`
   width: 100%;
-  padding: 40px 0 20px 0;
+  padding: 20px 0 20px 0;
   word-break: break-all;
   line-height: 1.5rem;
   max-width: 100%;
@@ -55,7 +55,7 @@ export const BodyContainer = styled.div`
   p,
   ul,
   ol {
-    font-weight: 300;
+    font-weight: 400;
     font-size: 0.9rem;
     color: ${colors.brown[1]};
   }
