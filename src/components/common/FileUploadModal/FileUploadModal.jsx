@@ -46,7 +46,11 @@ const FileUploadModal = ({
           <StyledForm encType="multipart/form-data" onSubmit={onUploadFile}>
             <FileNameContainer>
               <FileLabel>선택된 파일</FileLabel>
-              <FileName>{file?.name}</FileName>
+              {file ? (
+                <FileName>{file?.name}</FileName>
+              ) : (
+                <FileName>선택된 파일이 없습니다</FileName>
+              )}
             </FileNameContainer>
             <ButtonContainer>
               <StyledFileButton
