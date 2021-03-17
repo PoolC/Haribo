@@ -25,6 +25,7 @@ export const createActivity = ({
   hour,
   capacity,
   tags,
+  fileList,
 }) =>
   client.post(`/activity`, {
     title,
@@ -35,6 +36,7 @@ export const createActivity = ({
     hour,
     capacity,
     tags,
+    fileList,
   });
 
 export const updateActivity = ({
@@ -47,6 +49,7 @@ export const updateActivity = ({
   hour,
   capacity,
   tags,
+  fileList,
 }) =>
   client.put(`/activity/${activityID}`, {
     title,
@@ -57,6 +60,7 @@ export const updateActivity = ({
     hour,
     capacity,
     tags,
+    fileList,
   });
 
 export const deleteActivity = (activityID) =>
