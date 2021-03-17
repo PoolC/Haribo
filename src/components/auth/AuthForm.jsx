@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import profileImagePlaceholders from '../../constants/profileImagePlaceholders';
 import RegisterModalContainer from '../../containers/auth/RegisterModalContainer/RegisterModalContainer';
 import useInput from '../../hooks/useInput';
 import getFileUrl from '../../lib/utils/getFileUrl';
@@ -28,14 +29,6 @@ const textMap = {
   register: '회원가입',
   update: '회원 정보 수정',
 };
-
-const profileImagePlaceholders = [
-  '/files/profile_placeholder_00.png',
-  '/files/profile_placeholder_01.png',
-  '/files/profile_placeholder_02.png',
-  '/files/profile_placeholder_03.png',
-  '/files/profile_placeholder_04.png',
-];
 
 const Input = ({
   valueText,

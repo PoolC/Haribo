@@ -1,4 +1,7 @@
 import React from 'react';
+import profileImagePlaceholders from '../../../constants/profileImagePlaceholders';
+import getFileUrl from '../../../lib/utils/getFileUrl';
+import { randomNumber } from '../../../lib/utils/random';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import ActivityCard from '../../activity/ActivityCard/ActivityCard';
 import ProjectCard from '../../projects/ProjectCard/ProjectCard';
@@ -37,8 +40,8 @@ const MemberDetail = ({ member }) => {
             <StyledImage
               src={
                 profileImageURL
-                  ? profileImageURL
-                  : 'https://user-images.githubusercontent.com/48787170/111106105-c6fda680-8597-11eb-859a-5c695d5ef546.png'
+                  ? getFileUrl(profileImageURL)
+                  : getFileUrl(profileImagePlaceholders[randomNumber(5)])
               }
             />
           </ImageContainer>

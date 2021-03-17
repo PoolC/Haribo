@@ -1,6 +1,8 @@
 import React from 'react';
 import { MENU } from '../../../constants/menus';
+import profileImagePlaceholders from '../../../constants/profileImagePlaceholders';
 import colors from '../../../lib/styles/colors';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 import { randomNumber } from '../../../lib/utils/random';
 import {
   MemberCardBlock,
@@ -26,8 +28,8 @@ const MemberCard = ({ member }) => {
           <MemberCardThumbnail
             src={
               profileImageURL
-                ? profileImageURL
-                : 'https://user-images.githubusercontent.com/48787170/111106105-c6fda680-8597-11eb-859a-5c695d5ef546.png'
+                ? getFileUrl(profileImageURL)
+                : getFileUrl(profileImagePlaceholders[randomNumber(5)])
             }
             alt="member_thumbnail"
           />
