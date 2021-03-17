@@ -11,12 +11,16 @@ import {
   PostButtonContainer,
   StyledActionButton,
   TitleInput,
+  File,
+  FileDeleteButton,
   FileContainerTitle,
+  StyledDeleteIcon,
 } from './PostForm.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
 import Modal from '../../common/Modal/Modal';
 import ActionButton from '../../common/Buttons/ActionButton';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 
 const PostForm = ({
   history,
@@ -29,7 +33,7 @@ const PostForm = ({
 
   const [title, setTitle] = useState(post ? post.title : '');
   const [body, setBody] = useState(post ? post.body : '');
-  const [files, setFiles] = useState(post ? post.files : '');
+  const [files, setFiles] = useState(post ? post.fileList : []);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -50,7 +54,7 @@ const PostForm = ({
       onShowErrorModal();
       return;
     }
-    onCreatePost({ title, body });
+    onCreatePost({ title, body, fileList: files });
   };
 
   const handleUpdate = (e) => {
@@ -60,7 +64,7 @@ const PostForm = ({
       onShowErrorModal();
       return;
     }
-    onUpdatePost({ title, body });
+    onUpdatePost({ title, body, fileList: files });
   };
 
   const onShowErrorModal = () => {
@@ -73,6 +77,16 @@ const PostForm = ({
   };
 
   const buttons = <ActionButton onClick={onCloseErrorModal}>확인</ActionButton>;
+
+  const handleSubmit = (fileList) => {
+    console.log(fileList);
+    setFiles(fileList);
+  };
+
+  const handleDeleteFile = (e, file) => {
+    e.preventDefault();
+    setFiles(files.filter((f) => f !== file));
+  };
 
   return (
     <WhiteNarrowBlock>
@@ -99,9 +113,24 @@ const PostForm = ({
         />
       </EditorWrapper>
       <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
-      <FileContainer>{files ? files : '첨부된 파일 없음'}</FileContainer>
+      <FileContainer>
+        {files.length !== 0
+          ? files.map((file) => (
+              <File>
+                <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
+                <FileDeleteButton onClick={(e) => handleDeleteFile(e, file)}>
+                  <StyledDeleteIcon className="far fa-trash-alt"></StyledDeleteIcon>
+                </FileDeleteButton>
+              </File>
+            ))
+          : '첨부된 파일 없음'}
+      </FileContainer>
       <PostButtonContainer>
-        <FileUploadButton onSubmit={setFiles} />
+        <FileUploadButton
+          files={files}
+          onSubmit={handleSubmit}
+          multiple={true}
+        />
         {post ? (
           <StyledActionButton className="submit" onClick={handleUpdate}>
             수정
