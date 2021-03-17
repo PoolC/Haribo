@@ -3,6 +3,7 @@ import ActionButton from './ActionButton';
 import * as fileAPI from '../../../lib/api/file';
 import FileUploadModal from '../FileUploadModal/FileUploadModal';
 import Modal from '../Modal/Modal';
+import uploadableTypes from '../../../constants/uploadableTypes';
 
 const { REACT_APP_MAX_FILE_SIZE: MAX_FILE_SIZE } = process.env;
 
@@ -18,6 +19,11 @@ const FileUploadButton = ({ files, onSubmit, multiple }) => {
     e.preventDefault();
     if (e.target.files[0].size > MAX_FILE_SIZE) {
       setErrorMessage('첨부 가능한 최대 크기를 초과하였습니다.');
+      onShowErrorModal();
+      return;
+    }
+    if (!uploadableTypes.includes(e.target.files[0].type)) {
+      setErrorMessage('png, jpg, jpeg, pdf 형식만 첨부 가능합니다.');
       onShowErrorModal();
       return;
     }
