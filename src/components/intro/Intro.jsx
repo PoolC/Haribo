@@ -1,9 +1,9 @@
 import React from 'react';
 import { WhiteNarrowBlock } from '../../styles/common/Block.styles';
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
 import styled from 'styled-components';
 import getFileUrl from '../../lib/utils/getFileUrl';
+import { Viewer } from '@toast-ui/react-editor';
+import colors from '../../lib/styles/colors';
 
 const Title = styled.h2`
   margin-bottom: 2rem;
@@ -15,15 +15,19 @@ const Body = styled.div`
   word-break: keep-all;
   padding: 0 3rem;
   line-height: 1.5rem;
-  & > p,
+  max-width: 100%;
+  overflow: scroll;
+  color: ${colors.brown[1]};
+  p,
   ul,
   ol {
-    font-size: 0.8rem;
-    font-weight: 300;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: ${colors.brown[1]};
   }
   ul,
   ol {
-    padding-left: 1rem;
+    padding-left: 1.5rem;
   }
   h1,
   h2,
@@ -33,9 +37,24 @@ const Body = styled.div`
   h6 {
     margin: 1rem 0;
     line-height: 2.2rem;
+    color: ${colors.brown[1]};
   }
   hr {
     margin: 1rem 0;
+  }
+  img {
+    max-width: 600px;
+    margin: 1rem 0;
+  }
+  p {
+    margin: 0.5rem 0;
+  }
+  a {
+    max-width: 100%;
+    word-break: break-all;
+  }
+  th {
+    background-color: ${colors.brown[0]};
   }
 `;
 
@@ -49,7 +68,7 @@ const Intro = ({ introduction, locationUrl }) => {
     <WhiteNarrowBlock>
       <Title>PoolC 소개</Title>
       <Body>
-        <ReactMarkdown plugins={[gfm]} source={introduction} />
+        <Viewer initialValue={introduction} />
       </Body>
       <Title>동아리방 위치</Title>
       <StyledImage src={getFileUrl(locationUrl)} />
