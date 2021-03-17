@@ -12,10 +12,13 @@ import { Provider } from 'react-redux';
 import { loadUser } from './modules/auth';
 
 const sagaMiddleware = createSagaMiddleware();
-export const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware)),
-);
+export const store =
+  process.env.NODE_ENV === 'production'
+    ? createStore(rootReducer, applyMiddleware(sagaMiddleware))
+    : createStore(
+        rootReducer,
+        composeWithDevTools(applyMiddleware(sagaMiddleware)),
+      );
 
 export function setUser() {
   try {
@@ -42,4 +45,4 @@ ReactDOM.render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals(console.log);
