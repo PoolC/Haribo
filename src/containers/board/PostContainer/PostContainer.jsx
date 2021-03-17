@@ -41,7 +41,7 @@ const PostContainer = ({ selectedMenu, history, match, location }) => {
       .deletePost(postID)
       .then((res) => {
         if (res.status === 200) {
-          history.goBack(1);
+          history.push(`/${MENU.BOARDS}/${selectedMenu.urlPath}?page=1`);
         }
       })
       .catch((e) => {
