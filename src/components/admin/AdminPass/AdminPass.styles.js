@@ -53,6 +53,15 @@ export const TableHead = styled.tr`
     justify-content: center;
     font-size: 0.7rem;
   }
+  & > .name {
+    width: 3rem;
+  }
+  & > .department {
+    width: 5rem;
+  }
+  & > .studentId {
+    width: 4rem;
+  }
   @media (max-width: 576px) {
     font-size: 0.5rem;
   }
@@ -78,7 +87,7 @@ export const MemberListRow = styled.tr`
     flex: 1;
     padding: 0 10px;
     line-height: 1.5rem;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     @media (max-width: 576px) {
       font-size: 0.5rem;
     }
@@ -88,6 +97,15 @@ export const MemberListRow = styled.tr`
         margin: 0;
       }
     }
+  }
+  & > .name {
+    width: 3rem;
+  }
+  & > .department {
+    width: 5rem;
+  }
+  & > .studentId {
+    width: 4rem;
   }
   &:hover {
     background-color: ${colors.gray[0]};

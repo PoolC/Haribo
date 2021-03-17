@@ -60,7 +60,7 @@ export const TableHead = styled.tr`
     width: 3rem;
   }
   & > .department {
-    width: 5rem;
+    width: 6rem;
   }
   & > .studentId {
     width: 4rem;
@@ -118,7 +118,7 @@ export const MemberListRow = styled.tr`
     font-weight: 500;
   }
   & > .department {
-    width: 5rem;
+    width: 6rem;
   }
   & > .studentId {
     width: 4rem;
