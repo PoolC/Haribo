@@ -13,8 +13,13 @@ import {
   TitleContainer,
 } from './Post.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
-import { FileContainer, FileContainerTitle } from '../PostForm/PostForm.styles';
+import {
+  File,
+  FileContainer,
+  FileContainerTitle,
+} from '../PostForm/PostForm.styles';
 import { Viewer } from '@toast-ui/react-editor';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 
 const Post = ({
   history,
@@ -37,7 +42,7 @@ const Post = ({
     title,
     writerLoginId,
     writerName,
-    files,
+    fileList,
   } = post;
 
   const handleDelete = (e) => {
@@ -77,7 +82,15 @@ const Post = ({
         </ButtonContainer>
       </PostContainer>
       <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
-      <FileContainer>{files ? files : '첨부된 파일 없음'}</FileContainer>
+      <FileContainer>
+        {fileList?.length !== 0
+          ? fileList?.map((file) => (
+              <File>
+                <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
+              </File>
+            ))
+          : '첨부된 파일 없음'}
+      </FileContainer>
       <CommentsContainer>
         <CommentList
           member={member}
