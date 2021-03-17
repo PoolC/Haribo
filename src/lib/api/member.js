@@ -20,3 +20,6 @@ export const toggleAdmin = ({ loginID, isAdmin }) =>
 
 export const updateMemberStatus = ({ loginID: loginId, status }) =>
   client.put(`/member/status`, { loginId, status });
+
+export const updateMemberIsExcepted = (loginId) =>
+  client.put(`/member/excepted/${loginId}`);
