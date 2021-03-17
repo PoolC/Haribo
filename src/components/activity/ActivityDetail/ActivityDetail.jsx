@@ -20,9 +20,11 @@ import {
 } from './ActivityDetail.styles.js';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import {
+  File,
   FileContainer,
   FileContainerTitle,
 } from '../../board/PostForm/PostForm.styles';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 
 const Tag = ({ tag }) => {
   return <TagCard>#{tag}</TagCard>;
@@ -49,7 +51,7 @@ const ActivityDetail = ({
     hour,
     tags,
     description,
-    files,
+    fileList,
   } = activity;
   return (
     <Block>
@@ -91,7 +93,15 @@ const ActivityDetail = ({
             <Viewer initialValue={description} />
           </PlanContents>
           <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
-          <FileContainer>{files ? files : '첨부된 파일 없음'}</FileContainer>
+          <FileContainer>
+            {fileList?.length !== 0
+              ? fileList?.map((file) => (
+                  <File>
+                    <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
+                  </File>
+                ))
+              : '첨부된 파일 없음'}
+          </FileContainer>
         </PlanContainer>
         {isLogin && (
           <MemberContainer>
