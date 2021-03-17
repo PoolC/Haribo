@@ -39,17 +39,16 @@ export const PageButton = styled.li`
   justify-content: center;
   margin: 2px 5px;
   color: ${colors.brown[0]};
-  width: 36px;
+  width: 20px;
   height: 20px;
   cursor: pointer;
   font-size: 0.7rem;
-  background-color: ${colors.mint[0]};
   border-radius: 5px;
   transition: 0.25s ease-in;
 
   &:hover {
     color: ${colors.brown[1]};
-    background-color: ${colors.mint[6]};
+    background-color: ${colors.mint[0]};
     transition: 0.25s ease-in;
   }
 `;

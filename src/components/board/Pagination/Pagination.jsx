@@ -58,7 +58,9 @@ const Pagination = ({
   return (
     <PageList>
       {currentPageSet > 1 && (
-        <PageButton onClick={onClickPrev}>PREV</PageButton>
+        <PageButton onClick={onClickPrev}>
+          <i className="fas fa-chevron-left"></i>
+        </PageButton>
       )}
       {pageNumbers.map((number) => (
         <PageItem
@@ -71,7 +73,9 @@ const Pagination = ({
         </PageItem>
       ))}
       {currentPageSet < totalPageSet && (
-        <PageButton onClick={onClickNext}>NEXT</PageButton>
+        <PageButton onClick={onClickNext}>
+          <i className="fas fa-chevron-right"></i>
+        </PageButton>
       )}
     </PageList>
   );
