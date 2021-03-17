@@ -6,7 +6,7 @@ import Modal from '../Modal/Modal';
 
 const { REACT_APP_MAX_FILE_SIZE: MAX_FILE_SIZE } = process.env;
 
-const FileUploadButton = ({ onSubmit }) => {
+const FileUploadButton = ({ files, onSubmit, multiple }) => {
   let formData = new FormData();
 
   const [file, setFile] = useState(null);
@@ -16,6 +16,7 @@ const FileUploadButton = ({ onSubmit }) => {
 
   const onBrowseFile = (e) => {
     e.preventDefault();
+    console.log(e.target.files);
     if (e.target.files[0].size > MAX_FILE_SIZE) {
       setErrorMessage('첨부 가능한 최대 크기를 초과하였습니다.');
       onShowErrorModal();
@@ -27,6 +28,11 @@ const FileUploadButton = ({ onSubmit }) => {
   const onUploadFile = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    if (file === null) {
+      setErrorMessage('파일을 선택해주세요');
+      onShowErrorModal();
+      return;
+    }
     setModalVisible(false);
     formData.append('file', file);
     fileAPI
@@ -35,7 +41,12 @@ const FileUploadButton = ({ onSubmit }) => {
         console.log(res);
         if (res.status === 200) {
           setFile(res.data);
-          onSubmit(res.data);
+          if (multiple) {
+            onSubmit([...files, res.data]);
+          }
+          if (!multiple) {
+            onSubmit(res.data);
+          }
         }
       })
       .catch((e) => {
