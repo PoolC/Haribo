@@ -29,6 +29,7 @@ export const PageItem = styled(Link)`
     background-color: ${(props) =>
       props.selected ? `${colors.mint[6]}` : `${colors.mint[0]}`};
     transition: 0.25s ease-in;
+    text-decoration: none;
   }
 `;
 
