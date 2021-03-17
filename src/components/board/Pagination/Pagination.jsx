@@ -57,7 +57,7 @@ const Pagination = ({
 
   return (
     <PageList>
-      {currentPageSet !== 1 && (
+      {currentPageSet > 1 && (
         <PageButton onClick={onClickPrev}>PREV</PageButton>
       )}
       {pageNumbers.map((number) => (
@@ -70,7 +70,7 @@ const Pagination = ({
           {number}
         </PageItem>
       ))}
-      {currentPageSet !== totalPageSet && (
+      {currentPageSet < totalPageSet && (
         <PageButton onClick={onClickNext}>NEXT</PageButton>
       )}
     </PageList>
