@@ -9,10 +9,10 @@ const AdminPassContainer = () => {
     memberAPI.updateMemberIsExcepted(loginID).then((res) => {
       if (res.status === 200) {
         setMembers(
-          members.map((member) =>
-            member.loginID === loginID
-              ? { ...member, isExcepted: !isExcepted }
-              : member,
+          members.map((m) =>
+            m.member.loginID === loginID
+              ? { ...m, isExcepted: !isExcepted }
+              : m,
           ),
         );
       }
