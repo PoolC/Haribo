@@ -25,11 +25,15 @@ import {
 } from './ActivityForm.styles';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import {
+  File,
   FileContainer,
   FileContainerTitle,
+  FileDeleteButton,
+  StyledDeleteIcon,
 } from '../../board/PostForm/PostForm.styles';
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
 import Modal from '../../common/Modal/Modal';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 
 const TagItem = React.memo(({ tag, onDeleteTag }) => {
   const handleDeleteTag = () => {
@@ -119,6 +123,7 @@ const ActivityForm = ({
       hour,
       capacity,
       tags,
+      fileList: files,
     });
   };
 
@@ -133,11 +138,17 @@ const ActivityForm = ({
       hour,
       capacity,
       tags,
+      fileList: files,
     });
   };
 
   const onChangeSeminar = (e) => {
     setSeminar(e.target.value === 'seminar');
+  };
+
+  const handleDeleteFile = (e, file) => {
+    e.preventDefault();
+    setFiles(files.filter((f) => f !== file));
   };
 
   return (
@@ -282,10 +293,25 @@ const ActivityForm = ({
                     첨부된 파일 목록
                   </FileContainerTitle>
                   <FileContainer style={{ width: '100%', maxWidth: '100%' }}>
-                    {files ? files : '첨부된 파일 없음'}
+                    {files.length !== 0
+                      ? files.map((file) => (
+                          <File>
+                            <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
+                            <FileDeleteButton
+                              onClick={(e) => handleDeleteFile(e, file)}
+                            >
+                              <StyledDeleteIcon className="far fa-trash-alt"></StyledDeleteIcon>
+                            </FileDeleteButton>
+                          </File>
+                        ))
+                      : '첨부된 파일 없음'}
                   </FileContainer>
                   <ButtonContainer>
-                    <FileUploadButton onSubmit={setFiles} />
+                    <FileUploadButton
+                      onSubmit={setFiles}
+                      files={files}
+                      multiple={true}
+                    />
                   </ButtonContainer>
                 </Plan>
               </Item>

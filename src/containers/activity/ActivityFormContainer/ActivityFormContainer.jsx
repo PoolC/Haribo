@@ -64,6 +64,7 @@ const ActivityFormContainer = ({ match, history }) => {
     hour,
     capacity,
     tags,
+    fileList,
   }) => {
     if (
       !title ||
@@ -88,6 +89,7 @@ const ActivityFormContainer = ({ match, history }) => {
         hour,
         capacity,
         tags,
+        fileList,
       })
       .then((res) => {
         if (res.status === 200) {
@@ -113,6 +115,7 @@ const ActivityFormContainer = ({ match, history }) => {
     hour,
     capacity,
     tags,
+    fileList,
   }) => {
     if (
       !title ||
@@ -138,6 +141,7 @@ const ActivityFormContainer = ({ match, history }) => {
         hour,
         capacity,
         tags,
+        fileList,
       })
       .then((res) => {
         if (res.status === 200) {
