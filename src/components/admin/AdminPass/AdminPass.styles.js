@@ -51,6 +51,7 @@ export const TableHead = styled.tr`
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 0.7rem;
   }
   @media (max-width: 576px) {
     font-size: 0.5rem;
