@@ -8,6 +8,7 @@ import {
   ProjectGenre,
   ProjectThumbnail,
   ProjectTitle,
+  ThumbnailContainer,
   StyledLink,
 } from './ProjectCard.styles';
 
@@ -17,10 +18,12 @@ const ProjectCard = ({ project }) => {
     <StyledLink to={`/${MENU.PROJECT}/${id}`}>
       <ProjectCardBlock>
         <Card>
-          <ProjectThumbnail
-            src={getFileUrl(thumbnailURL)}
-            alt="project_thumbnail"
-          />
+          <ThumbnailContainer>
+            <ProjectThumbnail
+              src={getFileUrl(thumbnailURL)}
+              alt="project_thumbnail"
+            />
+          </ThumbnailContainer>
           <ProjectTitle>{name}</ProjectTitle>
           <ProjectGenre>{genre}</ProjectGenre>
           <ProjectDescription>{description}</ProjectDescription>

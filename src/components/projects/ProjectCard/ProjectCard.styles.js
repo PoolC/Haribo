@@ -37,12 +37,19 @@ export const Card = styled.div`
   }
 `;
 
+export const ThumbnailContainer = styled.div`
+  position: relative;
+  width: 240px;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 10px;
+`;
+
 export const ProjectThumbnail = styled.img`
   width: 240px;
-  height: auto;
-  overflow: hidden;
+  height: 120px;
   flex: 5;
-  border-radius: 10px;
+  object-fit: cover;
   /* border-top-left-radius: 10px;
   border-top-right-radius: 10px; */
 `;
