@@ -10,7 +10,6 @@ import {
 import LinkButton from '../../common/Buttons/LinkButton';
 
 const AdminMenu = ({ menus, location }) => {
-  console.log(location);
   const currentLocation = location.pathname.replace('/admin', '');
   return (
     <MenuBlock>

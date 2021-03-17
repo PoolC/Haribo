@@ -79,7 +79,6 @@ const PostForm = ({
   const buttons = <ActionButton onClick={onCloseErrorModal}>확인</ActionButton>;
 
   const handleSubmit = (fileList) => {
-    console.log(fileList);
     setFiles(fileList);
   };
 

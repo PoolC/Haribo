@@ -16,7 +16,6 @@ const FileUploadButton = ({ files, onSubmit, multiple }) => {
 
   const onBrowseFile = (e) => {
     e.preventDefault();
-    console.log(e.target.files);
     if (e.target.files[0].size > MAX_FILE_SIZE) {
       setErrorMessage('첨부 가능한 최대 크기를 초과하였습니다.');
       onShowErrorModal();
@@ -38,7 +37,6 @@ const FileUploadButton = ({ files, onSubmit, multiple }) => {
     fileAPI
       .createFile(formData)
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           setFile(res.data);
           if (multiple) {

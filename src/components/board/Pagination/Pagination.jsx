@@ -24,17 +24,6 @@ const Pagination = ({
     pageNumbers.push(i);
   }
 
-  // console.log(match);
-
-  // console.log({
-  //   postPerPage,
-  //   totalPosts,
-  //   currentPage,
-  //   pagePerPage,
-  //   currentPageSet,
-  //   totalPageSet,
-  // });
-
   const onClickPrev = () => {
     paginate(pagePerPage * (currentPageSet - 1));
     setCurrentPageSet(currentPageSet - 1);

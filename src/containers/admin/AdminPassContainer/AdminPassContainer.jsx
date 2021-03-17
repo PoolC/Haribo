@@ -11,7 +11,6 @@ const AdminPassContainer = () => {
 
   const onSubmitSemester = (semester) => {
     memberAPI.getMemberActivityHours(semester).then((res) => {
-      console.log(res);
       if (res.status === 200) {
         setMembers(res.data.data);
       }

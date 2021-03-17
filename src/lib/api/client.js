@@ -4,7 +4,6 @@ import { store } from '../../index.js';
 require('dotenv').config();
 
 const { REACT_APP_API_BASE_URL: API_BASE_URL } = process.env;
-console.log(process.env);
 
 const client = axios.create();
 
@@ -41,9 +40,7 @@ client.interceptors.response.use(
   },
   (error) => {
     // 요청 실패 시 특정 작업 수행
-    console.log(error.response.status);
     if (error.response.status === 401) {
-      console.log('logout');
       store.dispatch(handleExpiredAccessToken());
     }
     return Promise.reject(error);

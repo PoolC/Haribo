@@ -22,7 +22,6 @@ const IntroPageBlock = styled.div`
 `;
 
 const IntroPage = ({ location }) => {
-  console.log(location);
   const menus = [
     { name: 'PoolC 소개', url: '' },
     { name: '자주 묻는 질문', url: '/faq' },
