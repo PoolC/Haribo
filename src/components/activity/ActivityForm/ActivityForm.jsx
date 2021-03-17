@@ -86,7 +86,7 @@ const ActivityForm = ({
     activity ? activity.capacity : '',
     notEmptyValidation,
   );
-  const [files, setFiles] = useState(activity ? activity.files : '');
+  const [files, setFiles] = useState(activity ? activity.fileList : '');
   const [tags, onChangeTags] = useState(
     activity ? activity.tags.map((tag) => tag.name) : [],
   );
@@ -293,9 +293,9 @@ const ActivityForm = ({
                     첨부된 파일 목록
                   </FileContainerTitle>
                   <FileContainer style={{ width: '100%', maxWidth: '100%' }}>
-                    {files.length !== 0
+                    {files?.length !== 0
                       ? files.map((file) => (
-                          <File>
+                          <File key={file}>
                             <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
                             <FileDeleteButton
                               onClick={(e) => handleDeleteFile(e, file)}

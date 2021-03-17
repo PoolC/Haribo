@@ -90,7 +90,7 @@ const Post = ({
       <FileContainer>
         {fileList?.length !== 0
           ? fileList?.map((file) => (
-              <File>
+              <File key={file}>
                 <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
               </File>
             ))

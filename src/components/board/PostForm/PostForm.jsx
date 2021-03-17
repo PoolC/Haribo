@@ -113,9 +113,9 @@ const PostForm = ({
       </EditorWrapper>
       <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
       <FileContainer>
-        {files.length !== 0
+        {files?.length !== 0
           ? files.map((file) => (
-              <File>
+              <File key={file}>
                 <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
                 <FileDeleteButton onClick={(e) => handleDeleteFile(e, file)}>
                   <StyledDeleteIcon className="far fa-trash-alt"></StyledDeleteIcon>
