@@ -1,7 +1,5 @@
 import React from 'react';
 import CommentList from '../CommentList/CommentList';
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
 import { MENU } from '../../../constants/menus';
 import { withRouter } from 'react-router-dom';
 import { getFullCurrentDateTimeString } from '../../../lib/utils/getDateString';
@@ -16,6 +14,7 @@ import {
 } from './Post.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import { FileContainer, FileContainerTitle } from '../PostForm/PostForm.styles';
+import { Viewer } from '@toast-ui/react-editor';
 
 const Post = ({
   history,
@@ -56,7 +55,7 @@ const Post = ({
           <p>{getFullCurrentDateTimeString(createdAt)}</p>
         </InfoContainer>
         <BodyContainer>
-          <ReactMarkdown plugins={[gfm]} source={body} />
+          <Viewer initialValue={body} />
         </BodyContainer>
         <ButtonContainer>
           {memberId === writerLoginId && (

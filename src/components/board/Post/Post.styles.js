@@ -47,19 +47,21 @@ export const InfoContainer = styled.div`
 export const BodyContainer = styled.div`
   width: 100%;
   padding: 40px 0 20px 0;
-  word-break: keep-all;
+  word-break: break-all;
   line-height: 1.5rem;
   max-width: 100%;
   overflow: scroll;
+  color: ${colors.brown[1]};
   p,
   ul,
   ol {
     font-weight: 300;
     font-size: 0.9rem;
+    color: ${colors.brown[1]};
   }
   ul,
   ol {
-    padding-left: 1rem;
+    padding-left: 1.5rem;
   }
   h1,
   h2,

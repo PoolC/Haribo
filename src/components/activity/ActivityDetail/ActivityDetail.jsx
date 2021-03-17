@@ -1,7 +1,7 @@
 import MemberCard from '../../members/MemberCard/MemberCard';
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
+import { Viewer } from '@toast-ui/react-editor';
+
 import SessionContainer from '../../../containers/activity/SessionContainer/SessionContainer';
 import {
   TagCard,
@@ -88,11 +88,7 @@ const ActivityDetail = ({
         <PlanContainer>
           <h2 className="title">계획서</h2>
           <PlanContents>
-            <ReactMarkdown
-              className="markdown"
-              plugins={[gfm]}
-              source={description}
-            />
+            <Viewer initialValue={description} />
           </PlanContents>
           <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
           <FileContainer>{files ? files : '첨부된 파일 없음'}</FileContainer>

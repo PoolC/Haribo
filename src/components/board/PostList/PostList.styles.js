@@ -186,6 +186,7 @@ export const CommentCount = styled.span`
   font-size: 0.8rem;
   font-weight: 300;
   height: 100%;
+  word-break: keep-all;
   @media (max-width: 576px) {
     font-size: 0.7rem;
     line-height: 0.7rem;
