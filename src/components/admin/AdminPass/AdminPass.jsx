@@ -33,9 +33,9 @@ const Member = ({ member, minimumLimit, handleChangeExcepted }) => {
       </td>
       <td className="member-list-row pass-button">
         <ActionButton
-          onClick={(e) =>
-            handleChangeExcepted(e, member.member.loginID, member.isExcepted)
-          }
+          onClick={() => {
+            handleChangeExcepted(member.member.loginID, member.isExcepted);
+          }}
         >
           {member.isExcepted ? '해제' : '면제'}
         </ActionButton>
@@ -51,11 +51,6 @@ const AdminPass = ({ members, onSubmitSemester, onChangeExcepted }) => {
   const handleSubmitSemester = (e) => {
     e.preventDefault();
     onSubmitSemester(semester);
-  };
-
-  const handleChangeExcepted = (e, loginID, isExcepted) => {
-    e.preventDefault(loginID);
-    onChangeExcepted(loginID, isExcepted);
   };
 
   return (
@@ -106,7 +101,7 @@ const AdminPass = ({ members, onSubmitSemester, onChangeExcepted }) => {
                     key={member.member.loginID}
                     member={member}
                     minimumLimit={minimumLimit}
-                    handleChangeExcepted={handleChangeExcepted}
+                    handleChangeExcepted={onChangeExcepted}
                   />
                 ),
             )}
@@ -132,6 +127,7 @@ const AdminPass = ({ members, onSubmitSemester, onChangeExcepted }) => {
                 key={member.member.loginID}
                 member={member}
                 minimumLimit={minimumLimit}
+                handleChangeExcepted={onChangeExcepted}
               />
             ))}
           </tbody>
