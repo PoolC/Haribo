@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import * as activityAPI from '../../../lib/api/activity';
 import { TwoColumnsContainerBlock } from '../../../styles/common/Block.styles.js';
 import Spinner from '../../../components/common/Spinner/Spinner';
+import { MENU } from '../../../constants/menus';
 
 const ActivityListContainer = ({ location, history, match }) => {
   const currentLocation = location.search.replace('?semester=', '');
@@ -22,17 +23,19 @@ const ActivityListContainer = ({ location, history, match }) => {
         setSemesters(res.data.data);
         if (res.data.data.length === 0) {
           activityAPI.getActivities().then((activities) => {
-            console.log(activities.data.data);
             setActivities(activities.data.data);
             setLoading(false);
           });
         } else {
+          if (!currentLocation) {
+            history.push(`/${MENU.ACTIVITIES}?semester=${res.data.data[0]}`);
+            return;
+          }
           activityAPI
             .getActivitiesByYears(
               currentLocation ? currentLocation : res.data.data[0],
             )
             .then((activities) => {
-              console.log(activities.data.data);
               setActivities(activities.data.data);
               setLoading(false);
             });
