@@ -17,3 +17,6 @@ export const withdrawMember = (loginID) => client.delete(`/member/${loginID}`);
 
 export const toggleAdmin = ({ loginID, isAdmin }) =>
   client.put(`/member/admin/${loginID}`, { toAdmin: !isAdmin });
+
+export const updateMemberStatus = ({ loginID: loginId, status }) =>
+  client.put(`/member/status`, { loginId, status });
