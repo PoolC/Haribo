@@ -22,6 +22,7 @@ const ActivityListContainer = ({ location, history, match }) => {
         setSemesters(res.data.data);
         if (res.data.data.length === 0) {
           activityAPI.getActivities().then((activities) => {
+            console.log(activities.data.data);
             setActivities(activities.data.data);
             setLoading(false);
           });
@@ -31,6 +32,7 @@ const ActivityListContainer = ({ location, history, match }) => {
               currentLocation ? currentLocation : res.data.data[0],
             )
             .then((activities) => {
+              console.log(activities.data.data);
               setActivities(activities.data.data);
               setLoading(false);
             });
@@ -39,18 +41,38 @@ const ActivityListContainer = ({ location, history, match }) => {
     });
   }, [history, currentLocation]);
 
-  const onToggleRegisterActivity = (activityID) => {
+  const onToggleRegisterActivity = (activityID, members, setMembers) => {
     activityAPI
       .applyActivity(activityID)
       .then((res) => {
         if (res.status === 200) {
-          alert('성공적으로 신청되었습니다.');
+          if (!members.includes(member.user.memberId)) {
+            setMembers([...members, member.user.memberId]);
+            alert('성공적으로 신청되었습니다.');
+          }
+          if (members.includes(member.user.memberId)) {
+            setMembers(
+              members.filter((memberId) => memberId !== member.user.memberId),
+            );
+            alert('성공적으로 신청 취소되었습니다.');
+          }
         }
       })
       .catch((e) => {
+        console.log(e);
         console.error(e.response.data.message);
         alert(e.response.data.message);
       });
+  };
+
+  const onDeleteActivity = (activityID) => {
+    activityAPI.deleteActivity(activityID).then((res) => {
+      if (res.status === 200) {
+        setActivities(
+          activities.filter((activity) => activity.id !== activityID),
+        );
+      }
+    });
   };
 
   return (
@@ -65,6 +87,7 @@ const ActivityListContainer = ({ location, history, match }) => {
           <ActivityList
             activities={activities}
             onToggleRegisterActivity={onToggleRegisterActivity}
+            onDeleteActivity={onDeleteActivity}
             member={member}
           />
         </TwoColumnsContainerBlock>

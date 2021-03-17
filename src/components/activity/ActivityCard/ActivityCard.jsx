@@ -1,6 +1,5 @@
 import { MENU } from '../../../constants/menus';
 import React, { useState } from 'react';
-import ActivityModalContainer from '../../../containers/activity/ActivityModalContainer/ActivityModalContainer';
 import {
   ActivityCardBlock,
   ActivityCardContainer,
@@ -13,27 +12,46 @@ import {
   ActivityTag,
   ActivityButtons,
   StyledActionButton,
+  StyledDeleteButton,
 } from './ActivityCard.styles.js';
+import ActivityRegisterModalContainer from '../../../containers/activity/ActivityModalContainer/ActivityRegisterModalContainer';
+import ActivityDeleteModalContainer from '../../../containers/activity/ActivityModalContainer/ActivityDeleteModalContainer';
 
 const ActivityCard = ({
   activity,
   onToggleRegisterActivity,
+  onDeleteActivity,
   isLogin,
   memberId,
 }) => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [members, setMembers] = useState(activity.memberLoginIds);
+  const [registerModalVisible, setRegisterModalVisible] = useState(false);
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
-  const handleModalOpen = () => {
-    setModalVisible(true);
+  const handleRegisterModalOpen = () => {
+    setRegisterModalVisible(true);
   };
 
-  const handleConfirm = () => {
-    onToggleRegisterActivity(id);
-    setModalVisible(false);
+  const handleDeleteModalOpen = () => {
+    setDeleteModalVisible(true);
   };
 
-  const handleCancel = () => {
-    setModalVisible(false);
+  const handleConfirm = (e) => {
+    e.preventDefault();
+    onToggleRegisterActivity(id, members, setMembers);
+    setRegisterModalVisible(false);
+  };
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    onDeleteActivity(id);
+  };
+
+  const handleRegisterCancel = () => {
+    setRegisterModalVisible(false);
+  };
+  const handleDeleteCancel = () => {
+    setDeleteModalVisible(false);
   };
 
   const {
@@ -48,11 +66,18 @@ const ActivityCard = ({
   } = activity;
   return (
     <>
-      <ActivityModalContainer
-        visible={modalVisible}
+      <ActivityRegisterModalContainer
+        visible={registerModalVisible}
         activityTitle={title}
         onConfirm={handleConfirm}
-        onCancel={handleCancel}
+        onCancel={handleRegisterCancel}
+        isRegister={!members.includes(memberId)}
+      />
+      <ActivityDeleteModalContainer
+        visible={deleteModalVisible}
+        activityTitle={title}
+        onConfirm={handleDelete}
+        onCancel={handleDeleteCancel}
       />
       <ActivityCardBlock>
         <ActivityCardContainer>
@@ -79,11 +104,25 @@ const ActivityCard = ({
                   출석
                 </StyledActionButton>
               )}
-              {available && (
-                <StyledActionButton onClick={handleModalOpen}>
-                  신청
-                </StyledActionButton>
+              {memberId === host.loginID && (
+                <StyledDeleteButton onClick={handleDeleteModalOpen}>
+                  삭제
+                </StyledDeleteButton>
               )}
+              {available &&
+                memberId !== host.loginID &&
+                !members.includes(memberId) && (
+                  <StyledActionButton onClick={handleRegisterModalOpen}>
+                    신청
+                  </StyledActionButton>
+                )}
+              {available &&
+                memberId !== host.loginID &&
+                members.includes(memberId) && (
+                  <StyledActionButton onClick={handleRegisterModalOpen}>
+                    신청 취소
+                  </StyledActionButton>
+                )}
             </ActivityButtons>
           )}
         </ActivityCardContainer>

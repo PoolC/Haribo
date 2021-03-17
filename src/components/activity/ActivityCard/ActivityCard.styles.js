@@ -98,6 +98,16 @@ export const StyledActionButton = styled(ActionButton)`
   margin: 0 8px;
 `;
 
+export const StyledDeleteButton = styled(ActionButton)`
+  margin: 0 8px;
+  background-color: ${colors.red[0]};
+  transition: 0.3s;
+  &:hover {
+    background-color: ${colors.red[1]};
+    transition: 0.3s;
+  }
+`;
+
 export const StyledLink = styled(Link)`
   color: ${colors.brown[1]};
   margin: 10px 0;

@@ -10,7 +10,12 @@ import {
 } from './ActivityList.styles';
 import { Block, WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
-const ActivityList = ({ activities, onToggleRegisterActivity, member }) => {
+const ActivityList = ({
+  activities,
+  onToggleRegisterActivity,
+  onDeleteActivity,
+  member,
+}) => {
   const {
     status: { isLogin },
     user: { memberId },
@@ -31,6 +36,7 @@ const ActivityList = ({ activities, onToggleRegisterActivity, member }) => {
             {activities.map((activity) => (
               <ActivityCard
                 onToggleRegisterActivity={onToggleRegisterActivity}
+                onDeleteActivity={onDeleteActivity}
                 key={activity.id}
                 activity={activity}
                 isLogin={isLogin}
