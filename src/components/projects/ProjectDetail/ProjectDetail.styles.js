@@ -45,6 +45,7 @@ export const GenreContainer = styled.div`
   justify-content: center;
   width: 90%;
   margin: 20px 0;
+  font-weight: 300;
   h2 {
     font-weight: 600;
     font-size: 1.5rem;
@@ -61,6 +62,7 @@ export const DurationContainer = styled.div`
   justify-content: center;
   width: 90%;
   margin: 0px 0;
+  font-weight: 300;
 `;
 
 export const Duration = styled.p`
@@ -126,7 +128,45 @@ export const Members = styled.ul`
 export const BodyContainer = styled.div`
   width: 100%;
   padding: 20px 0 20px 0;
-  & > ul {
-    list-style: none;
+  color: ${colors.brown[1]};
+  word-break: break-all;
+  line-height: 1.5rem;
+  max-width: 100%;
+  overflow: scroll;
+  color: ${colors.brown[1]};
+  p,
+  ul,
+  ol {
+    font-weight: 300;
+    font-size: 0.9rem;
+    color: ${colors.brown[1]};
+  }
+  ul,
+  ol {
+    padding-left: 1.5rem;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 1rem 0;
+    line-height: 2.2rem;
+    color: ${colors.brown[1]};
+  }
+  hr {
+    margin: 1rem 0;
+  }
+  img {
+    max-width: 600px;
+    margin: 1rem 0;
+  }
+  p {
+    margin: 0.5rem 0;
+  }
+  a {
+    max-width: 100%;
+    word-break: break-all;
   }
 `;

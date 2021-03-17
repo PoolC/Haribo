@@ -1,7 +1,5 @@
 import React from 'react';
 import MemberCard from '../../members/MemberCard/MemberCard';
-import ReactMarkdown from 'react-markdown';
-import gfm from 'remark-gfm';
 import {
   BodyContainer,
   Duration,
@@ -20,6 +18,7 @@ import {
 } from './ProjectDetail.styles';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import getFileUrl from '../../../lib/utils/getFileUrl';
+import { Viewer } from '@toast-ui/react-editor';
 
 const ProjectDetail = ({ project, member }) => {
   const { thumbnailURL, name, genre, duration, body, members } = project;
@@ -50,7 +49,7 @@ const ProjectDetail = ({ project, member }) => {
                 <i className="fas fa-quote-left"></i>
               </span> */}
               <BodyContainer className="here">
-                <ReactMarkdown plugins={[gfm]} source={body} />
+                <Viewer initialValue={body} />
               </BodyContainer>
               {/* <span>
                 <i className="fas fa-quote-right"></i>

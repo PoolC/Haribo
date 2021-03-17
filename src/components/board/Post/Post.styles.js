@@ -71,6 +71,7 @@ export const BodyContainer = styled.div`
   h6 {
     margin: 1rem 0;
     line-height: 2.2rem;
+    color: ${colors.brown[1]};
   }
   hr {
     margin: 1rem 0;
