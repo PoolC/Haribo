@@ -9,7 +9,6 @@ const AdminMemberContainer = ({ history }) => {
   useEffect(() => {
     (async () => {
       const response = await memberAPI.getMembers();
-      console.log(response);
       setMembers(response.data.data);
     })();
   }, []);
