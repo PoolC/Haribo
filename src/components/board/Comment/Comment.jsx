@@ -1,5 +1,4 @@
 import React from 'react';
-import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
 import ActionButton from '../../common/Buttons/ActionButton';
 import {
   Author,
@@ -9,6 +8,7 @@ import {
   Date,
   DateButtonConatiner,
 } from './Comment.styles';
+import { getFullCurrentDateTimeString } from '../../../lib/utils/getDateString';
 
 const Comment = ({ member, comment, onDeleteComment }) => {
   const {
@@ -27,7 +27,7 @@ const Comment = ({ member, comment, onDeleteComment }) => {
       <Author>{writerName}</Author>
       <Body>{body}</Body>
       <DateButtonConatiner>
-        <Date>{getFullCurrentDateString(createdAt)}</Date>
+        <Date>{getFullCurrentDateTimeString(createdAt)}</Date>
         {(writerLoginId === memberId || isAdmin) && (
           <Button>
             <ActionButton onClick={handleDelete}>삭제</ActionButton>
