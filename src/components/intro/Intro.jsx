@@ -16,7 +16,7 @@ const Body = styled.div`
   padding: 0 3rem;
   line-height: 1.5rem;
   max-width: 100%;
-  overflow: scroll;
+  overflow: auto;
   color: ${colors.brown[1]};
   p,
   ul,
@@ -43,7 +43,7 @@ const Body = styled.div`
     margin: 1rem 0;
   }
   img {
-    max-width: 600px;
+    max-width: 90%;
     margin: 1rem 0;
   }
   p {

@@ -70,7 +70,7 @@ export const PlanContents = styled.div`
   border: 1px solid ${colors.gray[2]};
   border-radius: 20px;
   padding: 2rem 1rem;
-  word-break: keep-all;
+  word-break: break-all;
   line-height: 1.5rem;
   width: 90%;
   max-width: 600px;
@@ -95,6 +95,12 @@ export const PlanContents = styled.div`
   }
   hr {
     margin: 1rem 0;
+  }
+  a {
+    word-break: break-all;
+  }
+  img {
+    max-width: 90%;
   }
 `;
 

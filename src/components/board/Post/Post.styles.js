@@ -50,7 +50,7 @@ export const BodyContainer = styled.div`
   word-break: break-all;
   line-height: 1.5rem;
   max-width: 100%;
-  overflow: scroll;
+  overflow: auto;
   color: ${colors.brown[1]};
   p,
   ul,
@@ -89,6 +89,9 @@ export const BodyContainer = styled.div`
   }
   th {
     background-color: ${colors.brown[0]};
+  }
+  img {
+    max-width: 90%;
   }
 `;
 
