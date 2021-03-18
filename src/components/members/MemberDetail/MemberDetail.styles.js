@@ -20,7 +20,8 @@ export const ImageContainer = styled.div`
 `;
 
 export const StyledImage = styled.img`
-  object-fit: cover;
+  width: 200px;
+  height: 200px;
 `;
 
 export const TextContainer = styled.div`
