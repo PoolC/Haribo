@@ -16,6 +16,7 @@ import {
   DateIcon,
   PostListRowAuthor,
   PostListRowDate,
+  MemberLink,
 } from './PostList.styles';
 
 const PostList = ({
@@ -35,6 +36,7 @@ const PostList = ({
     status: { isLogin },
     user: { isAdmin },
   } = member;
+
   return (
     <WhiteNarrowBlock>
       <PostListHeader>
@@ -71,7 +73,9 @@ const PostList = ({
                     className="fas fa-user"
                     style={{ marginRight: '0.2rem' }}
                   ></WriterIcon>
-                  {post.writerName}
+                  <MemberLink to={`/${MENU.MEMBER}/${post.writerLoginId}`}>
+                    {post.writerName}
+                  </MemberLink>
                 </PostListRowAuthor>
                 <PostListRowDate>
                   <DateIcon

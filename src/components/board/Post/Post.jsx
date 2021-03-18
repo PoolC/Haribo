@@ -20,6 +20,7 @@ import {
 } from '../PostForm/PostForm.styles';
 import { Viewer } from '@toast-ui/react-editor';
 import getFileUrl from '../../../lib/utils/getFileUrl';
+import { MemberLink } from '../PostList/PostList.styles';
 
 const Post = ({
   history,
@@ -55,7 +56,9 @@ const Post = ({
       <PostContainer>
         <TitleContainer>{title}</TitleContainer>
         <InfoContainer>
-          <p>{writerName}</p>
+          <MemberLink to={`/${MENU.MEMBER}/${post.writerLoginId}`}>
+            {writerName}
+          </MemberLink>
           <div />
           <p>{getFullCurrentDateTimeString(createdAt)}</p>
         </InfoContainer>

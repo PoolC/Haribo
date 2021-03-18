@@ -196,3 +196,13 @@ export const CommentCount = styled.span`
 export const StyledLink = styled(Link)`
   color: ${colors.brown[1]};
 `;
+
+export const MemberLink = styled(Link)`
+  color: ${colors.brown[1]};
+  transition: 0.25s ease-in;
+  &:hover {
+    text-decoration: none;
+    color: ${colors.brown[0]};
+    transition: 0.25s ease-in;
+  }
+`;
