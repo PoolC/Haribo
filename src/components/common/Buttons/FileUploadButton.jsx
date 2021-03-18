@@ -23,7 +23,7 @@ const FileUploadButton = ({ files, onSubmit, multiple }) => {
       return;
     }
     if (!uploadableTypes.includes(e.target.files[0].type)) {
-      setErrorMessage('png, jpg, jpeg, pdf 형식만 첨부 가능합니다.');
+      setErrorMessage('png, jpg, jpeg, pdf, ppt, pptx 형식만 첨부 가능합니다.');
       onShowErrorModal();
       return;
     }
