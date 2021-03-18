@@ -19,10 +19,19 @@ export const ActivityDetailContainer = styled.div`
 `;
 
 export const TitleContainer = styled.div`
-  margin: 0px 0 40px 0;
+  margin: 0px 1rem 40px 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 2.5rem;
+  word-break: keep-all;
 `;
 
 export const Title = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   font-size: 2rem;
   font-weight: 700;
 `;
@@ -154,6 +163,10 @@ export const Sessions = styled.ul`
 
 export const TagList = styled.ul`
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 1rem;
 `;
 
 export const TagCard = styled.li`
@@ -166,4 +179,5 @@ export const TagCard = styled.li`
   padding: 2px;
   margin: 5px;
   list-style: none;
+  word-break: keep-all;
 `;
