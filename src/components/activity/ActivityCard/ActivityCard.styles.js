@@ -16,7 +16,7 @@ export const ActivityCardContainer = styled.div`
   background-color: ${colors.mint[0]};
   border-radius: 20px;
   width: 260px;
-  height: 200px;
+  height: 230px;
   box-shadow: 0px 0px 10px ${colors.gray[1]};
   cursor: pointer;
   transition: 0.3s;
@@ -40,11 +40,20 @@ export const ActivityTitle = styled.p`
   margin-top: 10px;
 `;
 
-export const ActivityClassHour = styled.span`
+export const ActivityClassHour = styled.p`
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1;
+  font-size: 0.8rem;
+`;
+
+export const ActivityCapacity = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1.5;
+  font-weight: 300;
   font-size: 0.8rem;
 `;
 
@@ -92,6 +101,7 @@ export const ActivityButtons = styled.div`
   align-items: center;
   justify-content: center;
   flex: 2;
+  margin: 0.2rem 0;
 `;
 
 export const StyledActionButton = styled(ActionButton)`

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import {
   ActivityCardBlock,
   ActivityCardContainer,
+  ActivityCapacity,
   StyledLink,
   ActivityTitle,
   ActivityClassHour,
@@ -60,7 +61,7 @@ const ActivityCard = ({
     host,
     startDate,
     classHour,
-    //capacity,
+    capacity,
     available,
     tags,
   } = activity;
@@ -87,6 +88,11 @@ const ActivityCard = ({
           <ActivityClassHour>{classHour}</ActivityClassHour>
           <ActivityDate>{`${startDate} ~ `}</ActivityDate>
           <ActivityHost>{host.name}</ActivityHost>
+          <ActivityCapacity>
+            {isLogin && `${members.length}명/`}
+            {!isLogin && '정원 '}
+            {capacity}명
+          </ActivityCapacity>
           <ActivityTags>
             {tags.map((tag) => (
               <ActivityTag key={tag.name}>#{tag.name}</ActivityTag>
