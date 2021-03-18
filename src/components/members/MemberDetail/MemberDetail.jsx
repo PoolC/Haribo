@@ -29,7 +29,7 @@ const MemberDetail = ({ member }) => {
     isAdmin,
     introduction,
     projects,
-    //hostActivities,
+    hostActivities,
     participantActivities,
   } = member;
   return (
@@ -79,9 +79,9 @@ const MemberDetail = ({ member }) => {
             {projects?.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
-            {/* {hostActivities?.map((activity) => (
+            {hostActivities?.map((activity) => (
               <ActivityCard key={activity.id} activity={activity} />
-            ))} */}
+            ))}
             {participantActivities?.map((activity) => (
               <ActivityCard key={activity.id} activity={activity} />
             ))}
