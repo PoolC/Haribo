@@ -27,7 +27,7 @@ const Session = ({ session, memberInfo, activityID, attendance, host }) => {
         <SessionNumber>{sessionNumber}회차</SessionNumber>
         <Date>{date}</Date>
         <Description>{description}</Description>
-        {members && (
+        {isLogin && members && (
           <AttendanceList>
             <h5>[출석 인원]</h5>
             {members.map((member) => (
