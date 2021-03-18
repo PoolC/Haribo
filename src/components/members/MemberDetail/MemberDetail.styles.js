@@ -19,7 +19,9 @@ export const ImageContainer = styled.div`
   margin: auto;
 `;
 
-export const StyledImage = styled.img``;
+export const StyledImage = styled.img`
+  object-fit: cover;
+`;
 
 export const TextContainer = styled.div`
   flex: 1;
