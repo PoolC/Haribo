@@ -1,5 +1,23 @@
 import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
+import ActionButton from '../../common/Buttons/ActionButton';
+
+export const StyledButton = styled(ActionButton)`
+  width: 5rem;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+  h2 {
+    color: ${colors.brown[0]};
+    margin-bottom: 10px;
+    font-weight: 300;
+    font-size: 0.8rem;
+  }
+`;
 
 export const ActivityDetailContainer = styled.div`
   width: 90%;

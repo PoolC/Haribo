@@ -34,6 +34,36 @@ const ActivityDetailContainer = ({ match }) => {
     })();
   }, [activityID, member.status.isLogin]);
 
+  const onToggleRegisterActivity = (activityID, members, setMembers) => {
+    activityAPI
+      .applyActivity(activityID)
+      .then((res) => {
+        if (res.status === 200) {
+          activityAPI.getActivityMembers(activityID).then((res) => {
+            if (res.status === 200) {
+              setActivityMembers(res.data.data);
+            }
+          });
+
+          if (!members.includes(member.user.memberId)) {
+            setMembers([...members, member.user.memberId]);
+            alert('성공적으로 신청되었습니다.');
+          }
+          if (members.includes(member.user.memberId)) {
+            setMembers(
+              members.filter((memberId) => memberId !== member.user.memberId),
+            );
+            alert('성공적으로 신청 취소되었습니다.');
+          }
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        console.error(e.response?.data?.message);
+        alert(e.response?.data?.message);
+      });
+  };
+
   return (
     <>
       {loading && <Spinner />}
@@ -43,6 +73,7 @@ const ActivityDetailContainer = ({ match }) => {
           activityMembers={activityMembers}
           activitySessions={activitySessions}
           member={member}
+          onToggleRegisterActivity={onToggleRegisterActivity}
         />
       )}
     </>
