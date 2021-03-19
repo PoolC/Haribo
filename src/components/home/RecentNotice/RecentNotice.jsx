@@ -4,7 +4,10 @@ import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
 import {
   MainNoticeContents,
   NoticeContainerTitle,
-  RecentNoticeBlock, RecentNoticeCardDate, RecentNoticeCardTitle, RecentNoticeItem,
+  RecentNoticeBlock,
+  RecentNoticeCardDate,
+  RecentNoticeCardTitle,
+  RecentNoticeItem,
   RecentNoticeList,
   StyledLink,
 } from './RecentNotice.styles';
@@ -20,7 +23,9 @@ const RecentNotice = ({ notices }) => {
           {notices?.map((notice) => (
             <RecentNoticeItem key={notice.postId}>
               <RecentNoticeCardTitle>
-                <StyledLink to={`/${MENU.POST}/${notice.postId}`}>
+                <StyledLink
+                  to={`/${MENU.BOARDS}/notice/${MENU.POST}/${notice.postId}`}
+                >
                   {notice.title}
                 </StyledLink>
               </RecentNoticeCardTitle>

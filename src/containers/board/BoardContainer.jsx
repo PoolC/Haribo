@@ -8,6 +8,7 @@ import PostListContainer from './PostListContainer/PostListContainer';
 import PostFormContainer from './PostFormContainer/PostFormContainer';
 import PostContainer from './PostContainer/PostContainer';
 import { MENU } from '../../constants/menus';
+import NotFoundPage from '../../pages/error/NotFoundPage';
 
 const BoardContainerBlock = styled.div`
   position: relative;
@@ -29,17 +30,28 @@ const BoardContainer = ({ match, location }) => {
 
   const [boards, setBoards] = useState(null);
   const [selectedMenu, setSelectedMenu] = useState(null);
+  const [boardLoading, setBoardLoading] = useState(true);
 
   useEffect(() => {
+    setBoardLoading(true);
+
     boardAPI.getBoards().then((res) => {
       if (res.status === 200) {
         setBoards(res.data.data);
-        setSelectedMenu(res.data.data[0]);
+        setBoardLoading(false);
       }
     });
-  }, []);
+  }, [currentLocation]);
 
-  if (boards === null) {
+  useEffect(() => {
+    if (!boardLoading && currentLocation) {
+      setSelectedMenu(
+        ...boards.filter((board) => board.urlPath === currentLocation),
+      );
+    }
+  }, [boards, currentLocation, boardLoading]);
+
+  if (boards === null || boardLoading || selectedMenu == null) {
     return null;
   }
 
@@ -60,16 +72,17 @@ const BoardContainer = ({ match, location }) => {
         <Route
           render={() => <PostFormContainer selectedMenu={selectedMenu} />}
           path={[
-            `/${MENU.POST}/new/:boardID`,
-            `/${MENU.POST}/:boardID/edit/:postID`,
+            `/${MENU.BOARDS}/:urlPath/${MENU.POST}/new/:boardID`,
+            `/${MENU.BOARDS}/:urlPath/${MENU.POST}/:boardID/edit/:postID`,
           ]}
           exact
         />
         <Route
           render={() => <PostContainer selectedMenu={selectedMenu} />}
-          path={`/${MENU.POST}/:postID`}
+          path={`/${MENU.BOARDS}/:urlPath/${MENU.POST}/:postID`}
           exact
         />
+        <Route component={NotFoundPage} path={`/${MENU.BOARDS}`} />
       </Switch>
     </BoardContainerBlock>
   );

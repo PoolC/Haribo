@@ -5,7 +5,7 @@ import PostList from '../../../components/board/PostList/PostList';
 import Spinner from '../../../components/common/Spinner/Spinner';
 import * as postAPI from '../../../lib/api/post';
 
-const PostListContainer = ({ location, selectedMenu }) => {
+const PostListContainer = ({ location, selectedMenu, match }) => {
   const initialCurrentPage =
     Number(location.search.replace('?page=', '')) < 1
       ? 1
@@ -38,7 +38,7 @@ const PostListContainer = ({ location, selectedMenu }) => {
         }
       });
     }
-  }, [urlPath]);
+  }, [urlPath, selectedMenu]);
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;

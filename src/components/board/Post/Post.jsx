@@ -69,7 +69,7 @@ const Post = ({
           {memberId === writerLoginId && (
             <StyledButton
               className="modify"
-              to={`/${MENU.POST}/${selectedMenu.id}/edit/${postId}`}
+              to={`/${MENU.BOARDS}/${selectedMenu?.urlPath}/${MENU.POST}/${selectedMenu?.id}/edit/${postId}`}
             >
               수정
             </StyledButton>

@@ -44,7 +44,9 @@ const PostList = ({
         {isLogin &&
           ((writePermission === 'ADMIN' && isAdmin) ||
             (writePermission === 'MEMBER' && isLogin)) && (
-            <ActionButton to={`/${MENU.POST}/new/${selectedMenu?.id}`}>
+            <ActionButton
+              to={`/${MENU.BOARDS}/${selectedMenu?.urlPath}/${MENU.POST}/new/${selectedMenu?.id}`}
+            >
               글쓰기
             </ActionButton>
           )}
@@ -62,7 +64,9 @@ const PostList = ({
           {posts.map((post) => (
             <PostListRow key={post.postId}>
               <td className="post-list-row-title">
-                <StyledLink to={`/${MENU.POST}/${post.postId}`}>
+                <StyledLink
+                  to={`/${MENU.BOARDS}/${selectedMenu?.urlPath}/${MENU.POST}/${post.postId}`}
+                >
                   {post.title}
                 </StyledLink>
                 <CommentCount>[{post.comments.length}]</CommentCount>
