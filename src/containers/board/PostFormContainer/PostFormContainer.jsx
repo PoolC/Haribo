@@ -80,7 +80,9 @@ const PostFormContainer = ({ match, history }) => {
       .then((res) => {
         if (res.status === 202) {
           const { postId } = res.data;
-          history.push(`/${MENU.POST}/${postId}`);
+          history.push(
+            `/${MENU.BOARDS}/${selectedMenu?.urlPath}/${MENU.POST}/${postId}`,
+          );
         }
       })
       .catch((e) => {
@@ -94,7 +96,9 @@ const PostFormContainer = ({ match, history }) => {
       .updatePost({ title, body, postID, fileList })
       .then((res) => {
         if (res.status === 200) {
-          history.push(`/${MENU.POST}/${postID}`);
+          history.push(
+            `/${MENU.BOARDS}/${selectedMenu?.urlPath}/${MENU.POST}/${postID}`,
+          );
         }
       })
       .catch((e) => {
