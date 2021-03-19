@@ -3,6 +3,7 @@ import colors from '../../../lib/styles/colors';
 import { Link } from 'react-router-dom';
 
 export const RecentProjectBlock = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,5 +40,61 @@ export const RecentProjectList = styled.ul`
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
+  }
+`;
+
+export const PrevButton = styled.a`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 52%;
+  left: 3.5%;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 2rem;
+  background-color: white;
+  z-index: 10;
+  text-decoration: none;
+  font-size: 1rem;
+  color: ${colors.brown[1]};
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%);
+  @media (max-width: 768px) {
+    left: 2.5%;
+  }
+  @media (max-width: 576px) {
+    left: 1.5%;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+`;
+
+export const NextButton = styled.a`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+  top: 52%;
+  right: 3.5%;
+  border-radius: 2rem;
+  background-color: white;
+  z-index: 10;
+  text-decoration: none;
+  font-size: 1rem;
+  color: ${colors.brown[1]};
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%);
+  @media (max-width: 768px) {
+    right: 2.5%;
+  }
+  @media (max-width: 576px) {
+    right: 1.5%;
+  }
+  &:hover {
+    text-decoration: none;
   }
 `;
