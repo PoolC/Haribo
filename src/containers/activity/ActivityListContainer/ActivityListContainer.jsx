@@ -50,13 +50,11 @@ const ActivityListContainer = ({ location, history, match }) => {
       .then((res) => {
         if (res.status === 200) {
           if (!members.includes(member.user.memberId)) {
-            setMembers([...members, member.user.memberId]);
+            setMembers(res.data.memberLoginIds);
             alert('성공적으로 신청되었습니다.');
           }
           if (members.includes(member.user.memberId)) {
-            setMembers(
-              members.filter((memberId) => memberId !== member.user.memberId),
-            );
+            setMembers(res.data.memberLoginIds);
             alert('성공적으로 신청 취소되었습니다.');
           }
         }

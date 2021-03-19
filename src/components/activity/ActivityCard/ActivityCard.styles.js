@@ -122,3 +122,13 @@ export const StyledLink = styled(Link)`
   color: ${colors.brown[1]};
   margin: 10px 0;
 `;
+
+export const FullText = styled.p`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  font-weight: 300;
+  font-size: 0.8rem;
+`;

@@ -14,6 +14,7 @@ import {
   ActivityButtons,
   StyledActionButton,
   StyledDeleteButton,
+  FullText,
 } from './ActivityCard.styles.js';
 import ActivityRegisterModalContainer from '../../../containers/activity/ActivityModalContainer/ActivityRegisterModalContainer';
 import ActivityDeleteModalContainer from '../../../containers/activity/ActivityModalContainer/ActivityDeleteModalContainer';
@@ -51,6 +52,7 @@ const ActivityCard = ({
   const handleRegisterCancel = () => {
     setRegisterModalVisible(false);
   };
+
   const handleDeleteCancel = () => {
     setDeleteModalVisible(false);
   };
@@ -117,11 +119,16 @@ const ActivityCard = ({
               )}
               {available &&
                 memberId !== host.loginID &&
-                !members.includes(memberId) && (
+                !members.includes(memberId) &&
+                members.length < capacity && (
                   <StyledActionButton onClick={handleRegisterModalOpen}>
                     신청
                   </StyledActionButton>
                 )}
+              {available &&
+                memberId !== host.loginID &&
+                !members.includes(memberId) &&
+                members.length >= capacity && <FullText>[정원 마감]</FullText>}
               {available &&
                 memberId !== host.loginID &&
                 members.includes(memberId) && (
