@@ -32,7 +32,7 @@ const Member = ({
       <td className="member-list-row hide department">
         {member.member.department}
       </td>
-      <td className="member-list-row hour">{member.hour}</td>
+      <td className="member-list-row hour">{member.hour} 시간</td>
       <td className="member-list-row isExcepted">{member.isExcepted && 'o'}</td>
       <td className="member-list-row fullfill">
         {member.hour >= minimumLimit && 'o'}
@@ -73,6 +73,7 @@ const AdminPass = ({
 }) => {
   const [semester, onChangeSemester] = useInput('', notEmptyValidation);
   const [minimumLimit, onChangeMinimumLimit] = useInput('', notEmptyValidation);
+  const [searchMember, onChangeSearchMember] = useInput('', notEmptyValidation);
 
   const handleSubmitSemester = (e) => {
     e.preventDefault();
@@ -120,19 +121,53 @@ const AdminPass = ({
             </TableHead>
           </thead>
           <tbody>
-            {members?.map(
-              (member) =>
-                !member.isExcepted &&
-                member.hour < minimumLimit && (
-                  <Member
-                    key={member.member.loginID}
-                    member={member}
-                    minimumLimit={minimumLimit}
-                    handleChangeExcepted={onChangeExcepted}
-                    handleWithdraw={onWithdraw}
-                  />
-                ),
-            )}
+            {members
+              ?.filter((m) => m.member.isActivated)
+              .map(
+                (member) =>
+                  !member.isExcepted &&
+                  member.hour < minimumLimit && (
+                    <Member
+                      key={member.member.loginID}
+                      member={member}
+                      minimumLimit={minimumLimit}
+                      handleChangeExcepted={onChangeExcepted}
+                      handleWithdraw={onWithdraw}
+                    />
+                  ),
+              )}
+          </tbody>
+        </Table>
+        <h3>회원 자격 유지 예정자 목록</h3>
+        <Table>
+          <thead>
+            <TableHead>
+              <th className="member_list_head name">이름</th>
+              <th className="member_list_head hide studentId">학번</th>
+              <th className="member_list_head hide department">학과</th>
+              <th className="member_list_head hour">총 활동 시간</th>
+              <th className="member_list_head isExcepted">면제</th>
+              <th className="member_list_head fullfill">기준 만족</th>
+              <th className="member_list_head pass">자격 유지</th>
+              <th className="member_list_head pass-button">동작</th>
+              <th className="member_list_head out">자격박탈</th>
+            </TableHead>
+          </thead>
+          <tbody>
+            {members
+              ?.filter((m) => m.member.isActivated)
+              .map(
+                (member) =>
+                  (member.isExcepted || member.hour >= minimumLimit) && (
+                    <Member
+                      key={member.member.loginID}
+                      member={member}
+                      minimumLimit={minimumLimit}
+                      handleChangeExcepted={onChangeExcepted}
+                      handleWithdraw={onWithdraw}
+                    />
+                  ),
+              )}
           </tbody>
         </Table>
         <h3>전체 회원 목록</h3>
@@ -151,15 +186,19 @@ const AdminPass = ({
             </TableHead>
           </thead>
           <tbody>
-            {members?.map((member) => (
-              <Member
-                key={member.member.loginID}
-                member={member}
-                minimumLimit={minimumLimit}
-                handleChangeExcepted={onChangeExcepted}
-                handleWithdraw={onWithdraw}
-              />
-            ))}
+            {members
+              ?.filter((m) => m.member.isActivated)
+              .map((member) => {
+                return (
+                  <Member
+                    key={member.member.loginID}
+                    member={member}
+                    minimumLimit={minimumLimit}
+                    handleChangeExcepted={onChangeExcepted}
+                    handleWithdraw={onWithdraw}
+                  />
+                );
+              })}
           </tbody>
         </Table>
       </ContentsContainer>

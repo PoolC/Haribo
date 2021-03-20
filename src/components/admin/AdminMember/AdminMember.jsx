@@ -196,6 +196,49 @@ const AdminMember = ({
             </tbody>
           </Table>
         )}
+        <SearchHeader>활동 회원 목록</SearchHeader>
+        <Table>
+          <MemberTableHead />
+          <tbody>
+            {members
+              .filter((m) => m.isActivated)
+              .map((member) => {
+                return (
+                  <Member
+                    key={member.loginID}
+                    member={member}
+                    handleAcceptMember={handleAcceptMember}
+                    handleWithdrawMember={handleWithdrawMember}
+                    handleToggleAdmin={handleToggleAdmin}
+                    handleUpdateMemberRole={handleUpdateMemberRole}
+                    roles={roles}
+                  />
+                );
+              })}
+          </tbody>
+        </Table>
+        <SearchHeader>비활동 회원 목록</SearchHeader>
+        <Table>
+          <MemberTableHead />
+          <tbody>
+            {members
+              .filter((m) => !m.isActivated)
+              .map((member) => {
+                return (
+                  <Member
+                    key={member.loginID}
+                    member={member}
+                    handleAcceptMember={handleAcceptMember}
+                    handleWithdrawMember={handleWithdrawMember}
+                    handleToggleAdmin={handleToggleAdmin}
+                    handleUpdateMemberRole={handleUpdateMemberRole}
+                    roles={roles}
+                  />
+                );
+              })}
+          </tbody>
+        </Table>
+        <SearchHeader>전체 회원 목록</SearchHeader>
         <Table>
           <MemberTableHead />
           <tbody>
