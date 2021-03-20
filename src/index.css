@@ -121,6 +121,7 @@ body {
   justify-content: center;
   align-items: center;
   color: #4c3722;
+  scroll-behavior: smooth;
 }
 
 #root {
