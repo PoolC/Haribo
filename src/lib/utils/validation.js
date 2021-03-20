@@ -22,3 +22,7 @@ export const phoneNumberValidation = (phoneNumber) => {
   const regex = new RegExp(/^\d{3}-\d{3,4}-\d{4}$/);
   return regex.test(phoneNumber);
 };
+
+export const withdrawCheckValidation = (inputText) => {
+  return inputText === '탈퇴를 확인합니다';
+};
