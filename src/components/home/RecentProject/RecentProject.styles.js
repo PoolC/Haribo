@@ -61,10 +61,7 @@ export const PrevButton = styled.a`
   color: ${colors.brown[1]};
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%);
   @media (max-width: 768px) {
-    left: 2.5%;
-  }
-  @media (max-width: 576px) {
-    left: 1.5%;
+    display: none;
   }
   &:hover {
     text-decoration: none;
@@ -89,10 +86,7 @@ export const NextButton = styled.a`
   color: ${colors.brown[1]};
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%);
   @media (max-width: 768px) {
-    right: 2.5%;
-  }
-  @media (max-width: 576px) {
-    right: 1.5%;
+    display: none;
   }
   &:hover {
     text-decoration: none;
