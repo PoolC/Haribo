@@ -73,7 +73,6 @@ const AdminPass = ({
 }) => {
   const [semester, onChangeSemester] = useInput('', notEmptyValidation);
   const [minimumLimit, onChangeMinimumLimit] = useInput('', notEmptyValidation);
-  const [searchMember, onChangeSearchMember] = useInput('', notEmptyValidation);
 
   const handleSubmitSemester = (e) => {
     e.preventDefault();
