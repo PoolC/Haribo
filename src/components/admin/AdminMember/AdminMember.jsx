@@ -44,10 +44,11 @@ const Member = ({
   handleAcceptMember,
   handleWithdrawMember,
   handleToggleAdmin,
-  handleUpdateMemberStatus,
+  handleUpdateMemberRole,
+  roles,
 }) => {
-  const [status, onChangeStatus] = useInput(
-    member.status ? member.status : 'MEMBER',
+  const [role, onChangeRole] = useInput(
+    member.role ? member.role : 'MEMBER',
     notEmptyValidation,
   );
   return (
@@ -101,16 +102,15 @@ const Member = ({
       <td className="member-list-row status">
         {member.isActivated && (
           <>
-            <StyledSelect value={status} onChange={onChangeStatus}>
-              <option value="UNACCEPTED">승인 전</option>
-              <option value="EXPELLED">자격상실</option>
-              <option value="MEMBER">일반회원</option>
-              <option value="GRADUATED">졸업회원</option>
+            <StyledSelect value={role} onChange={onChangeRole}>
+              {roles?.map((r) => (
+                <option key={r.name} value={r.name}>
+                  {r.description}
+                </option>
+              ))}
             </StyledSelect>
             <StyledActionButton
-              onClick={(e) =>
-                handleUpdateMemberStatus(e, member.loginID, status)
-              }
+              onClick={(e) => handleUpdateMemberRole(e, member.loginID, role)}
               style={{ marginLeft: '0.5rem' }}
             >
               수정
@@ -127,9 +127,10 @@ const AdminMember = ({
   onAcceptMember,
   onWithdrawMember,
   onToggleAdmin,
-  onUpdateMemberStatus,
+  onUpdateMemberRole,
   onSearchMember,
   searchMembers,
+  roles,
 }) => {
   const [searchMember, onChangeSearchMember] = useInput('', notEmptyValidation);
 
@@ -145,9 +146,9 @@ const AdminMember = ({
     e.preventDefault();
     onToggleAdmin({ loginID, isAdmin });
   };
-  const handleUpdateMemberStatus = (e, loginID, status) => {
+  const handleUpdateMemberRole = (e, loginID, role) => {
     e.preventDefault();
-    onUpdateMemberStatus({ loginID, status });
+    onUpdateMemberRole({ loginID, role });
   };
   const onClickSearch = (e) => {
     e.preventDefault();
@@ -188,7 +189,8 @@ const AdminMember = ({
                   handleAcceptMember={handleAcceptMember}
                   handleWithdrawMember={handleWithdrawMember}
                   handleToggleAdmin={handleToggleAdmin}
-                  handleUpdateMemberStatus={handleUpdateMemberStatus}
+                  handleUpdateMemberRole={handleUpdateMemberRole}
+                  roles={roles}
                 />
               ))}
             </tbody>
@@ -204,7 +206,8 @@ const AdminMember = ({
                 handleAcceptMember={handleAcceptMember}
                 handleWithdrawMember={handleWithdrawMember}
                 handleToggleAdmin={handleToggleAdmin}
-                handleUpdateMemberStatus={handleUpdateMemberStatus}
+                handleUpdateMemberRole={handleUpdateMemberRole}
+                roles={roles}
               />
             ))}
           </tbody>

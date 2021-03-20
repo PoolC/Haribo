@@ -1,16 +1,36 @@
 import AdminMember from '../../../components/admin/AdminMember/AdminMember';
 import React, { useEffect, useState } from 'react';
 import * as memberAPI from '../../../lib/api/member';
+import Spinner from '../../../components/common/Spinner/Spinner';
 
 const AdminMemberContainer = ({ history }) => {
+  const [memberLoading, setMemberLoading] = useState(true);
+  const [rolesLoading, setRolesLoading] = useState(true);
+
   const [members, setMembers] = useState(null);
   const [searchMembers, setSearchMembers] = useState([]);
+  const [roles, setRoles] = useState(null);
 
   useEffect(() => {
     (async () => {
       const response = await memberAPI.getMembers();
       setMembers(response.data.data);
+      setMemberLoading(false);
     })();
+  }, []);
+
+  useEffect(() => {
+    memberAPI
+      .getMemberRole()
+      .then((res) => {
+        if (res.status === 200) {
+          setRoles(res.data.data);
+          setRolesLoading(false);
+        }
+      })
+      .catch((e) => {
+        console.error(e.message);
+      });
   }, []);
 
   const onAcceptMember = (loginID) => {
@@ -66,17 +86,17 @@ const AdminMemberContainer = ({ history }) => {
     });
   };
 
-  const onUpdateMemberStatus = ({ loginID, status }) => {
-    memberAPI.updateMemberStatus({ loginID, status }).then((res) => {
+  const onUpdateMemberRole = ({ loginID, role }) => {
+    memberAPI.updateMemberRole({ loginID, role }).then((res) => {
       if (res.status === 200) {
         setMembers(
           members.map((member) =>
-            member.loginID === loginID ? { ...member, status: status } : member,
+            member.loginID === loginID ? { ...member, role: role } : member,
           ),
         );
         setSearchMembers(
           searchMembers.map((member) =>
-            member.loginID === loginID ? { ...member, status: status } : member,
+            member.loginID === loginID ? { ...member, role: role } : member,
           ),
         );
       }
@@ -92,20 +112,26 @@ const AdminMemberContainer = ({ history }) => {
     });
   };
 
-  if (members === null) {
+  if (members === null || roles === null) {
     return null;
   }
 
   return (
-    <AdminMember
-      members={members}
-      onAcceptMember={onAcceptMember}
-      onWithdrawMember={onWithdrawMember}
-      onToggleAdmin={onToggleAdmin}
-      onUpdateMemberStatus={onUpdateMemberStatus}
-      onSearchMember={onSearchMember}
-      searchMembers={searchMembers}
-    />
+    <>
+      {(memberLoading || rolesLoading) && <Spinner />}
+      {!(memberLoading || rolesLoading) && (
+        <AdminMember
+          members={members}
+          onAcceptMember={onAcceptMember}
+          onWithdrawMember={onWithdrawMember}
+          onToggleAdmin={onToggleAdmin}
+          onUpdateMemberRole={onUpdateMemberRole}
+          onSearchMember={onSearchMember}
+          searchMembers={searchMembers}
+          roles={roles}
+        />
+      )}
+    </>
   );
 };
 
