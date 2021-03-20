@@ -7,6 +7,11 @@ sudo: required
 services:
   - docker
 
+before_install:
+  - echo "REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL" > .env
+  - echo "REACT_APP_FILE_URL=$REACT_APP_FILE_URL" >> .env
+  - echo "REACT_APP_MAX_FILE_SIZE=$REACT_APP_MAX_FILE_SIZE" >> .env
+
 install:
   - yarn install
 
