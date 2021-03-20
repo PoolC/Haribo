@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
+import ActionButton from '../../common/Buttons/ActionButton';
 
 export const TitleContainer = styled.div`
   display: flex;
@@ -157,4 +158,11 @@ export const StyledInput = styled.input`
 
 export const CurrentLimit = styled.div`
   margin-bottom: 0.5rem;
+`;
+
+export const ExpellActionButton = styled(ActionButton)`
+  background-color: ${colors.red[0]};
+  &:hover {
+    background-color: ${colors.red[1]};
+  }
 `;

@@ -1,7 +1,8 @@
 import ActionButton from '../../common/Buttons/ActionButton';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ContentsContainer,
+  ExpellActionButton,
   MemberListRow,
   StyledForm,
   StyledInput,
@@ -13,7 +14,15 @@ import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import useInput from '../../../hooks/useInput';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 
-const Member = ({ member, minimumLimit, handleChangeExcepted }) => {
+const Member = ({
+  member,
+  minimumLimit,
+  handleChangeExcepted,
+  handleWithdraw,
+}) => {
+  const [isExpelled, setIsExpelled] = useState(
+    member.member.role === 'EXPELLED',
+  );
   return (
     <MemberListRow key={member.member.loginID}>
       <td className="member-list-row name">{member.member.name}</td>
@@ -40,11 +49,28 @@ const Member = ({ member, minimumLimit, handleChangeExcepted }) => {
           {member.isExcepted ? '해제' : '면제'}
         </ActionButton>
       </td>
+      <td className="member-list-row out">
+        {!isExpelled && (
+          <ExpellActionButton
+            onClick={() => {
+              handleWithdraw(member.member.loginID, setIsExpelled);
+            }}
+          >
+            박탈
+          </ExpellActionButton>
+        )}
+        {isExpelled && <p>자격 박탈됨</p>}
+      </td>
     </MemberListRow>
   );
 };
 
-const AdminPass = ({ members, onSubmitSemester, onChangeExcepted }) => {
+const AdminPass = ({
+  members,
+  onSubmitSemester,
+  onChangeExcepted,
+  onWithdraw,
+}) => {
   const [semester, onChangeSemester] = useInput('', notEmptyValidation);
   const [minimumLimit, onChangeMinimumLimit] = useInput('', notEmptyValidation);
 
@@ -90,6 +116,7 @@ const AdminPass = ({ members, onSubmitSemester, onChangeExcepted }) => {
               <th className="member_list_head fullfill">기준 만족</th>
               <th className="member_list_head pass">자격 유지</th>
               <th className="member_list_head pass-button">동작</th>
+              <th className="member_list_head out">자격박탈</th>
             </TableHead>
           </thead>
           <tbody>
@@ -102,6 +129,7 @@ const AdminPass = ({ members, onSubmitSemester, onChangeExcepted }) => {
                     member={member}
                     minimumLimit={minimumLimit}
                     handleChangeExcepted={onChangeExcepted}
+                    handleWithdraw={onWithdraw}
                   />
                 ),
             )}
@@ -119,6 +147,7 @@ const AdminPass = ({ members, onSubmitSemester, onChangeExcepted }) => {
               <th className="member_list_head">기준 만족</th>
               <th className="member_list_head">자격 유지</th>
               <th className="member_list_head">동작</th>
+              <th className="member_list_head out">자격박탈</th>
             </TableHead>
           </thead>
           <tbody>
@@ -128,6 +157,7 @@ const AdminPass = ({ members, onSubmitSemester, onChangeExcepted }) => {
                 member={member}
                 minimumLimit={minimumLimit}
                 handleChangeExcepted={onChangeExcepted}
+                handleWithdraw={onWithdraw}
               />
             ))}
           </tbody>

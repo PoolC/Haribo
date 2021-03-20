@@ -27,11 +27,20 @@ const AdminPassContainer = () => {
     });
   };
 
+  const onWithdraw = (loginID, setIsExpelled) => {
+    memberAPI.updateMemberRole({ loginID, role: 'EXPELLED' }).then((res) => {
+      if (res.status === 200) {
+        setIsExpelled(true);
+      }
+    });
+  };
+
   return (
     <AdminPass
       members={members}
       onChangeExcepted={onChangeExcepted}
       onSubmitSemester={onSubmitSemester}
+      onWithdraw={onWithdraw}
     />
   );
 };
