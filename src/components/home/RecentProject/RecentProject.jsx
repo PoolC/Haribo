@@ -66,6 +66,7 @@ const RecentProject = ({ projects }) => {
     }
 
     return () => io && io.disconnect();
+    // eslint-disable-next-line
   }, [viewport]);
 
   const handleClickPrev = () => {
