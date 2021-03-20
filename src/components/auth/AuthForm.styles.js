@@ -100,3 +100,21 @@ export const ProfileImage = styled.img`
   border-radius: 50px;
   margin: 10px 5px 0 5px;
 `;
+
+export const StyledSelect = styled.select`
+  outline: 0;
+  height: 2rem;
+  width: 100%;
+  box-sizing: content-box;
+`;
+
+export const WithdrawalButton = styled(SubmitButton)`
+  background-color: ${colors.red[0]};
+  margin-top: 1.5rem;
+  &:hover {
+    background-color: ${colors.red[1]};
+  }
+  &:disabled {
+    background-color: ${colors.gray[2]};
+  }
+`;

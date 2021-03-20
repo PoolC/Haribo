@@ -9,6 +9,7 @@ import {
   notEmptyValidation,
   passwordValidation,
   phoneNumberValidation,
+  withdrawCheckValidation,
 } from '../../lib/utils/validation';
 import { Block, WhiteBlock } from '../../styles/common/Block.styles';
 import {
@@ -22,6 +23,8 @@ import {
   ProfileImageSelectContainer,
   ProfileImageSelect,
   ProfileImage,
+  StyledSelect,
+  WithdrawalButton,
 } from './AuthForm.styles';
 
 const textMap = {
@@ -71,6 +74,9 @@ const AuthForm = ({
   handleModalOpen,
   handleModalClose,
   userInfo,
+  onUpdateMemberRoleBySelf,
+  roles,
+  onWithdraw,
 }) => {
   const headerText = textMap[type];
 
@@ -115,8 +121,18 @@ const AuthForm = ({
       : profileImagePlaceholders[0],
   );
 
+  const [role, onChangeRole] = useInput(
+    userInfo ? userInfo.role : 'MEMBER',
+    notEmptyValidation,
+  );
+
   const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordCheckError, setPasswordError] = useState(false);
+
+  const [withdrawCheck, onChangeWithdrawCheck, withdrawCheckError] = useInput(
+    '',
+    withdrawCheckValidation,
+  );
 
   const handlePasswordCheckError = (input) => {
     if (password !== input) {
@@ -243,6 +259,16 @@ const AuthForm = ({
     setProfileImageURL(profileImagePlaceholders[e.target.value]);
   };
 
+  const handleUpdateMemberRoleBySelf = (e) => {
+    e.preventDefault();
+    onUpdateMemberRoleBySelf({ role });
+  };
+
+  const handleWithdraw = (e) => {
+    e.preventDefault();
+    onWithdraw({ role });
+  };
+
   return (
     <>
       <RegisterModalContainer
@@ -339,81 +365,23 @@ const AuthForm = ({
                 />
                 <label>프로필 이미지</label>
                 <ProfileImageSelectContainer>
-                  <ProfileImageSelect>
-                    <input
-                      type="radio"
-                      value="0"
-                      onChange={onChangeProfileImageURL}
-                      checked={
-                        profileImageURL === profileImagePlaceholders[0]
-                          ? true
-                          : false
-                      }
-                    />
-                    <ProfileImage
-                      src={getFileUrl(profileImagePlaceholders[0])}
-                    />
-                  </ProfileImageSelect>
-                  <ProfileImageSelect>
-                    <input
-                      type="radio"
-                      value="1"
-                      onChange={onChangeProfileImageURL}
-                      checked={
-                        profileImageURL === profileImagePlaceholders[1]
-                          ? true
-                          : false
-                      }
-                    />
-                    <ProfileImage
-                      src={getFileUrl(profileImagePlaceholders[1])}
-                    />
-                  </ProfileImageSelect>
-                  <ProfileImageSelect>
-                    <input
-                      type="radio"
-                      value="2"
-                      onChange={onChangeProfileImageURL}
-                      checked={
-                        profileImageURL === profileImagePlaceholders[2]
-                          ? true
-                          : false
-                      }
-                    />
-                    <ProfileImage
-                      src={getFileUrl(profileImagePlaceholders[2])}
-                    />
-                  </ProfileImageSelect>
-                  <ProfileImageSelect>
-                    <input
-                      type="radio"
-                      value="3"
-                      onChange={onChangeProfileImageURL}
-                      checked={
-                        profileImageURL === profileImagePlaceholders[3]
-                          ? true
-                          : false
-                      }
-                    />
-                    <ProfileImage
-                      src={getFileUrl(profileImagePlaceholders[3])}
-                    />
-                  </ProfileImageSelect>
-                  <ProfileImageSelect>
-                    <input
-                      type="radio"
-                      value="4"
-                      onChange={onChangeProfileImageURL}
-                      checked={
-                        profileImageURL === profileImagePlaceholders[4]
-                          ? true
-                          : false
-                      }
-                    />
-                    <ProfileImage
-                      src={getFileUrl(profileImagePlaceholders[4])}
-                    />
-                  </ProfileImageSelect>
+                  {[0, 1, 2, 3, 4].map((num) => (
+                    <ProfileImageSelect key={num}>
+                      <input
+                        type="radio"
+                        value={num}
+                        onChange={onChangeProfileImageURL}
+                        checked={
+                          profileImageURL === profileImagePlaceholders[num]
+                            ? true
+                            : false
+                        }
+                      />
+                      <ProfileImage
+                        src={getFileUrl(profileImagePlaceholders[num])}
+                      />
+                    </ProfileImageSelect>
+                  ))}
                 </ProfileImageSelectContainer>
                 <label htmlFor="introduction">자기소개</label>
                 <StyledTextarea
@@ -431,6 +399,53 @@ const AuthForm = ({
             )}
             <SubmitButton onClick={handleSubmit}>{headerText}</SubmitButton>
           </FormList>
+          {type === 'update' && (
+            <>
+              <FormListHeader>
+                <h2 className="form_list_title">회원 상태 변경</h2>
+              </FormListHeader>
+              <FormList>
+                <>
+                  <StyledSelect value={role} onChange={onChangeRole}>
+                    {roles?.map((r) => (
+                      <option key={r.name} value={r.name}>
+                        {r.description}
+                      </option>
+                    ))}
+                  </StyledSelect>
+                  <SubmitButton
+                    onClick={(e) => {
+                      handleUpdateMemberRoleBySelf(e);
+                    }}
+                    style={{ marginLeft: '0.5rem' }}
+                  >
+                    회원 상태 수정
+                  </SubmitButton>
+                </>
+              </FormList>
+              <FormListHeader>
+                <h2 className="form_list_title">회원 탈퇴</h2>
+              </FormListHeader>
+              <FormList>
+                <Input
+                  valueText={withdrawCheck}
+                  labelText="탈퇴 확인 문구 입력"
+                  typeText="text"
+                  nameText="confirmWithdrawal"
+                  error={withdrawCheckError}
+                  onChangeFunc={onChangeWithdrawCheck}
+                  placeholderText="탈퇴를 확인합니다"
+                />
+                <WithdrawalButton
+                  onClick={(e) => handleWithdraw(e)}
+                  style={{ marginLeft: '0.5rem' }}
+                  disabled={withdrawCheckError || !withdrawCheck}
+                >
+                  탈퇴
+                </WithdrawalButton>
+              </FormList>
+            </>
+          )}
         </WhiteBlock>
       </Block>
     </>

@@ -18,8 +18,13 @@ export const withdrawMember = (loginID) => client.delete(`/member/${loginID}`);
 export const toggleAdmin = ({ loginID, isAdmin }) =>
   client.put(`/member/admin/${loginID}`, { toAdmin: !isAdmin });
 
-export const updateMemberStatus = ({ loginID: loginId, status }) =>
-  client.put(`/member/status`, { loginId, status });
+export const updateMemberRole = ({ loginID, role }) =>
+  client.put(`/member/role/${loginID}`, { role });
+
+export const updateMemberRoleBySelf = ({ role }) =>
+  client.put('/member/role', { role });
+
+export const getMemberRole = () => client.get('/member/role');
 
 export const updateMemberIsExcepted = (loginId) =>
   client.put(`/member/excepted/${loginId}`);
