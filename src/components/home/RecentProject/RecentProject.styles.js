@@ -36,6 +36,7 @@ export const RecentProjectList = styled.ul`
   scrollbar-color: none;
   margin: 0;
   padding: 0;
+  scroll-behavior: smooth;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
