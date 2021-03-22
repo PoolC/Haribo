@@ -104,12 +104,7 @@ const AdminMemberContainer = ({ history }) => {
   };
 
   const onSearchMember = (name) => {
-    const response = memberAPI.searchMember({ name });
-    response.then((res) => {
-      if (res.status === 200) {
-        setSearchMembers(res.data.data);
-      }
-    });
+    setSearchMembers(members.filter((member) => member.name.includes(name)));
   };
 
   if (members === null || roles === null) {
