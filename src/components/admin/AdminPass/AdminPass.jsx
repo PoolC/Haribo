@@ -13,18 +13,26 @@ import {
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import useInput from '../../../hooks/useInput';
 import { notEmptyValidation } from '../../../lib/utils/validation';
+import { MENU } from '../../../constants/menus';
+import { withRouter } from 'react-router';
 
 const Member = ({
   member,
   minimumLimit,
   handleChangeExcepted,
   handleWithdraw,
+  history,
 }) => {
   const [isExpelled, setIsExpelled] = useState(
     member.member.role === 'EXPELLED',
   );
+
+  const moveToMemberDetail = () => {
+    history.push(`/${MENU.MEMBER}/${member.member.loginID}`);
+  };
+
   return (
-    <MemberListRow key={member.member.loginID}>
+    <MemberListRow key={member.member.loginID} onClick={moveToMemberDetail}>
       <td className="member-list-row name">{member.member.name}</td>
       <td className="member-list-row hide studentId">
         {member.member.studentID}
@@ -40,7 +48,10 @@ const Member = ({
       <td className="member-list-row pass">
         {member.isExcepted || member.hour >= minimumLimit ? 'o' : 'x'}
       </td>
-      <td className="member-list-row pass-button">
+      <td
+        className="member-list-row pass-button"
+        onClick={(e) => e.stopPropagation()}
+      >
         <ActionButton
           onClick={() => {
             handleChangeExcepted(member.member.loginID, member.isExcepted);
@@ -49,7 +60,7 @@ const Member = ({
           {member.isExcepted ? '해제' : '면제'}
         </ActionButton>
       </td>
-      <td className="member-list-row out">
+      <td className="member-list-row out" onClick={(e) => e.stopPropagation()}>
         {!isExpelled && (
           <ExpellActionButton
             onClick={() => {
@@ -70,6 +81,7 @@ const AdminPass = ({
   onSubmitSemester,
   onChangeExcepted,
   onWithdraw,
+  history,
 }) => {
   const [semester, onChangeSemester] = useInput('', notEmptyValidation);
   const [minimumLimit, onChangeMinimumLimit] = useInput('', notEmptyValidation);
@@ -132,6 +144,7 @@ const AdminPass = ({
                       minimumLimit={minimumLimit}
                       handleChangeExcepted={onChangeExcepted}
                       handleWithdraw={onWithdraw}
+                      history={history}
                     />
                   ),
               )}
@@ -164,6 +177,7 @@ const AdminPass = ({
                       minimumLimit={minimumLimit}
                       handleChangeExcepted={onChangeExcepted}
                       handleWithdraw={onWithdraw}
+                      history={history}
                     />
                   ),
               )}
@@ -195,6 +209,7 @@ const AdminPass = ({
                     minimumLimit={minimumLimit}
                     handleChangeExcepted={onChangeExcepted}
                     handleWithdraw={onWithdraw}
+                    history={history}
                   />
                 );
               })}
@@ -205,4 +220,4 @@ const AdminPass = ({
   );
 };
 
-export default AdminPass;
+export default withRouter(AdminPass);
