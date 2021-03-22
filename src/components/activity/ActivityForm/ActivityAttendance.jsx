@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import useInput from '../../../hooks/useInput';
 import Input from '../../common/Input/Input';
 import { notEmptyValidation } from '../../../lib/utils/validation';
@@ -17,6 +17,9 @@ import {
 } from './ActivityAttendance.styles';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import Modal from '../../common/Modal/Modal';
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
 
 const Member = ({ member, attended, handleCheckAttendance }) => {
   const [isChecked, setIsChecked] = useState(attended ? attended : false);
@@ -53,6 +56,7 @@ const ActivityAttendance = ({
   onCloseErrorModal,
 }) => {
   const { title } = activity;
+  const editorRef = useRef();
   const newSessionCount = sessionNumber;
 
   const [date, onChangeDate] = useInput(
@@ -60,9 +64,8 @@ const ActivityAttendance = ({
     notEmptyValidation,
   );
 
-  const [description, onChangeDescription] = useInput(
+  const [description, onChangeDescription] = useState(
     activitySession ? activitySession.description : '',
-    notEmptyValidation,
   );
 
   const [attendances, setAttendances] = useState(
@@ -105,6 +108,12 @@ const ActivityAttendance = ({
     });
   };
 
+  const onEditorChange = (e) => {
+    const editorInstance = editorRef.current.getInstance();
+    const markdownContent = editorInstance.getMarkdown();
+    onChangeDescription(markdownContent);
+  };
+
   return (
     <>
       <Modal
@@ -139,12 +148,12 @@ const ActivityAttendance = ({
               <Description>
                 <label htmlFor="description">내용</label>
                 <p>예시: 파이썬의 변수에 대해 공부 / A 논문 스터디 등</p>
-                <textarea
-                  value={description}
-                  onChange={onChangeDescription}
-                  rows="5"
-                  name="description"
-                  placeholder="이번 회차에서 공부한 내용"
+                <Editor
+                  initialEditType="wysiwyg"
+                  initialValue={description}
+                  ref={editorRef}
+                  onChange={(e) => onEditorChange(e)}
+                  style={{ width: '100%' }}
                 />
               </Description>
             </DescriptionContainer>

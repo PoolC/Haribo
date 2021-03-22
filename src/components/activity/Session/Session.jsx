@@ -10,6 +10,7 @@ import {
   SessionDivider,
   SessionNumber,
 } from './Session.styles';
+import { Viewer } from '@toast-ui/react-editor';
 
 const Session = ({ session, memberInfo, activityID, attendance, host }) => {
   const { id, description, date, sessionNumber } = session;
@@ -26,7 +27,9 @@ const Session = ({ session, memberInfo, activityID, attendance, host }) => {
       <SessionCard>
         <SessionNumber>{sessionNumber}회차</SessionNumber>
         <Date>{date}</Date>
-        <Description>{description}</Description>
+        <Description>
+          <Viewer initialValue={description} />
+        </Description>
         {isLogin && members && (
           <AttendanceList>
             <h5>[출석 인원]</h5>

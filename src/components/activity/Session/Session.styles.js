@@ -29,7 +29,60 @@ export const Date = styled.p`
   margin-bottom: 10px;
 `;
 
-export const Description = styled.p``;
+export const Description = styled.div`
+  border: 1px solid ${colors.gray[2]};
+  border-radius: 20px;
+  padding: 1rem;
+  margin: 1rem;
+  width: 90%;
+  word-break: break-all;
+  line-height: 1.5rem;
+  min-width: 90%;
+  max-width: 90%;
+  overflow: auto;
+  color: ${colors.brown[1]};
+  p,
+  ul,
+  ol {
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: ${colors.brown[1]};
+  }
+  ul,
+  ol {
+    padding-left: 1.5rem;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 1rem 0;
+    line-height: 2.5rem;
+    color: ${colors.brown[1]};
+  }
+  hr {
+    margin: 1rem 0;
+  }
+  img {
+    max-width: 600px;
+    margin: 1rem 0;
+  }
+  p {
+    margin: 0.5rem 0;
+  }
+  a {
+    max-width: 100%;
+    word-break: break-all;
+  }
+  th {
+    background-color: ${colors.brown[0]};
+  }
+  img {
+    max-width: 90%;
+  }
+`;
 
 export const AttendanceList = styled.ul`
   display: flex;
