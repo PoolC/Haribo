@@ -18,7 +18,7 @@ vi .env
 
 ### 실행
 ```
-yarn
+yarn start
 ```
 
 ### 배포
