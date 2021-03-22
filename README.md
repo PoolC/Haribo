@@ -1,5 +1,7 @@
 # Haribo - PoolC 홈페이지 프론트엔드 리뉴얼 2021
 
+URL : https://poolc.org/
+
 ## Prerequisites
  - yarn 1.22.4
  - Docker
