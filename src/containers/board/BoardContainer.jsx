@@ -41,7 +41,7 @@ const BoardContainer = ({ match, location }) => {
         setBoardLoading(false);
       }
     });
-  }, [currentLocation]);
+  }, [match.path]);
 
   useEffect(() => {
     if (!boardLoading && currentLocation) {
@@ -49,7 +49,8 @@ const BoardContainer = ({ match, location }) => {
         ...boards.filter((board) => board.urlPath === currentLocation),
       );
     }
-  }, [boards, currentLocation, boardLoading]);
+    // eslint-disable-next-line
+  }, [currentLocation, boardLoading]);
 
   if (boards === null || boardLoading || selectedMenu == null) {
     return null;

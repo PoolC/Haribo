@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { MENU } from '../../../constants/menus';
 import useInput from '../../../hooks/useInput';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
@@ -46,13 +48,18 @@ const Member = ({
   handleToggleAdmin,
   handleUpdateMemberRole,
   roles,
+  history,
 }) => {
   const [role, onChangeRole] = useInput(
     member.role ? member.role : 'MEMBER',
     notEmptyValidation,
   );
+
+  const moveToMemberDetail = () => {
+    history.push(`/${MENU.MEMBER}/${member.loginID}`);
+  };
   return (
-    <MemberListRow key={member.loginID}>
+    <MemberListRow key={member.loginID} onClick={moveToMemberDetail}>
       <td className="member-list-row name">{member.name}</td>
       <td className="member-list-row department hide">{member.department}</td>
       <td className="member-list-row studentId">{member.studentID}</td>
@@ -62,7 +69,10 @@ const Member = ({
       <td className="member-list-row isActivated">
         {member.isActivated ? 'o' : 'x'}
       </td>
-      <td className="member-list-row small-button">
+      <td
+        className="member-list-row small-button"
+        onClick={(e) => e.stopPropagation()}
+      >
         {member.isActivated ? (
           <StyledActionButton
             onClick={(e) => handleWithdrawMember(e, member.loginID)}
@@ -79,7 +89,10 @@ const Member = ({
         )}
       </td>
       <td className="member-list-row isAdmin">{member.isAdmin ? 'o' : 'x'}</td>
-      <td className="member-list-row small-button">
+      <td
+        className="member-list-row small-button"
+        onClick={(e) => e.stopPropagation()}
+      >
         {member.isActivated &&
           (member.isAdmin ? (
             <StyledActionButton
@@ -99,7 +112,10 @@ const Member = ({
             </StyledActionButton>
           ))}
       </td>
-      <td className="member-list-row status">
+      <td
+        className="member-list-row status"
+        onClick={(e) => e.stopPropagation()}
+      >
         {member.isActivated && (
           <>
             <StyledSelect value={role} onChange={onChangeRole}>
@@ -131,6 +147,7 @@ const AdminMember = ({
   onSearchMember,
   searchMembers,
   roles,
+  history,
 }) => {
   const [searchMember, onChangeSearchMember] = useInput('', notEmptyValidation);
 
@@ -191,6 +208,7 @@ const AdminMember = ({
                   handleToggleAdmin={handleToggleAdmin}
                   handleUpdateMemberRole={handleUpdateMemberRole}
                   roles={roles}
+                  history={history}
                 />
               ))}
             </tbody>
@@ -212,6 +230,7 @@ const AdminMember = ({
                     handleToggleAdmin={handleToggleAdmin}
                     handleUpdateMemberRole={handleUpdateMemberRole}
                     roles={roles}
+                    history={history}
                   />
                 );
               })}
@@ -233,6 +252,7 @@ const AdminMember = ({
                     handleToggleAdmin={handleToggleAdmin}
                     handleUpdateMemberRole={handleUpdateMemberRole}
                     roles={roles}
+                    history={history}
                   />
                 );
               })}
@@ -251,6 +271,7 @@ const AdminMember = ({
                 handleToggleAdmin={handleToggleAdmin}
                 handleUpdateMemberRole={handleUpdateMemberRole}
                 roles={roles}
+                history={history}
               />
             ))}
           </tbody>
@@ -260,4 +281,4 @@ const AdminMember = ({
   );
 };
 
-export default AdminMember;
+export default withRouter(AdminMember);

@@ -95,7 +95,7 @@ export const TableHead = styled.tr`
 `;
 
 export const MemberListRow = styled.tr`
-  cursor: default;
+  cursor: pointer;
   display: flex;
   padding: 0.5rem 0;
   transition: 0.3s;
