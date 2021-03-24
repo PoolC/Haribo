@@ -5,10 +5,7 @@ import useInput from '../../../hooks/useInput';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import Input from '../../common/Input/Input';
-import {
-  MemberSearchForm,
-  StyledSearchActionButton,
-} from '../AdminProjectForm/AdminProjectForm.styles';
+import { StyledSearchActionButton } from '../AdminProjectForm/AdminProjectForm.styles';
 import {
   ContentsContainer,
   MemberListRow,
@@ -19,6 +16,7 @@ import {
   StyledSelect,
   SearchHeader,
   SearchResult,
+  MemberSearchForm,
 } from './AdminMember.styles';
 
 const MemberTableHead = () => {
@@ -178,7 +176,7 @@ const AdminMember = ({
     <WhiteNarrowBlock>
       <TitleContainer>회원 관리</TitleContainer>
       <ContentsContainer>
-        <MemberSearchForm>
+        <MemberSearchForm onSubmit={onClickSearch}>
           <Input
             valueText={searchMember}
             labelText=""
@@ -187,9 +185,7 @@ const AdminMember = ({
             onChangeFunc={onChangeSearchMember}
             placeholderText="회원 이름으로 검색"
           />
-          <StyledSearchActionButton onClick={onClickSearch}>
-            검색
-          </StyledSearchActionButton>
+          <StyledSearchActionButton>검색</StyledSearchActionButton>
         </MemberSearchForm>
         <SearchHeader>회원 검색 결과</SearchHeader>
         {searchMembers.length === 0 && (

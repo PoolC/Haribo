@@ -33,7 +33,7 @@ export const StyledSearchActionButton = styled(ActionButton)`
   height: 2rem;
 `;
 
-export const MemberSearchForm = styled.div`
+export const MemberSearchForm = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;

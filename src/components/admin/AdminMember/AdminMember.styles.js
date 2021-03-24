@@ -94,6 +94,16 @@ export const TableHead = styled.tr`
   }
 `;
 
+export const MemberSearchForm = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > input {
+    width: 10rem;
+  }
+`;
+
 export const MemberListRow = styled.tr`
   cursor: pointer;
   display: flex;

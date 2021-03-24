@@ -127,12 +127,16 @@ const AdminProjectForm = ({
     onChangeSearchMember(e);
   };
 
-  function onEditorChange(e) {
+  const handleChangeSearchMember = (e) => {
+    onChangeSearchMember(e);
+  };
+
+  const onEditorChange = (e) => {
     const editorInstance = editorRef.current.getInstance();
     const markdownContent = editorInstance.getMarkdown();
     //const HTMLContent = editorInstance.getHtml();
     setBody(markdownContent);
-  }
+  };
 
   return (
     <>
@@ -199,18 +203,16 @@ const AdminProjectForm = ({
             onChange={(e) => onEditorChange(e)}
           />
           <label>참여자</label>
-          <MemberSearchForm>
+          <MemberSearchForm onSubmit={onClickSearch}>
             <Input
               valueText={searchMember}
               labelText=""
               typeText="text"
               nameText="id"
-              onChangeFunc={onChangeSearchMember}
+              onChangeFunc={handleChangeSearchMember}
               placeholderText="회원 이름으로 검색"
             />
-            <StyledSearchActionButton onClick={onClickSearch}>
-              검색
-            </StyledSearchActionButton>
+            <StyledSearchActionButton>검색</StyledSearchActionButton>
           </MemberSearchForm>
           <MemberContainer>
             <h4>회원 검색 결과</h4>
