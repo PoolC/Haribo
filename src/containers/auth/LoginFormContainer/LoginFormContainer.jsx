@@ -2,21 +2,25 @@ import AuthForm from '../../../components/auth/AuthForm';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { login } from '../../../modules/auth';
+import { initLogin, login } from '../../../modules/auth';
 
 const LoginFormContainer = ({ location, history }) => {
   const dispatch = useDispatch();
+
   const [message, setMessage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+
   const handleModalOpen = () => {
     setModalVisible(true);
   };
   const handleModalClose = () => {
     setModalVisible(false);
   };
+
   const {
     authError,
     status: { isLogin },
+    login: { status },
   } = useSelector((state) => state.auth);
 
   const onSubmit = ({ id, password }) => {
@@ -24,21 +28,17 @@ const LoginFormContainer = ({ location, history }) => {
   };
 
   useEffect(() => {
-    if (authError) {
+    if (status === 'FAILURE' && authError) {
       if (authError.response.status === 403) {
-        setMessage('관리자 승인 전에는 로그인이 불가능합니다.');
+        setMessage(authError.response.data.message);
         handleModalOpen();
-        return;
-      }
-
-      if (authError.response.status === 401) {
-        setMessage('아이디와 비밀번호를 확인해주세요.');
-        handleModalOpen();
+        dispatch(initLogin());
         return;
       }
 
       setMessage('로그인에 실패하였습니다.');
       handleModalOpen();
+      dispatch(initLogin());
       return;
     }
 
@@ -46,7 +46,7 @@ const LoginFormContainer = ({ location, history }) => {
       handleModalOpen();
       history.push('/');
     }
-  }, [authError, isLogin, history]);
+  }, [authError, isLogin, history, status, dispatch]);
 
   function onChangeMessage(msg) {
     setMessage(msg);

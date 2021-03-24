@@ -7,6 +7,7 @@ import client from '../lib/api/client';
 const LOGIN = 'auth/LOGIN';
 const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'auth/LOGIN_FAILURE';
+const LOGIN_INIT = 'auth/LOGIN_INIT';
 
 const LOAD_USER = 'auth/LOAD_USER';
 const LOAD_USER_SUCCESS = 'auth/LOAD_USER_SUCCESS';
@@ -32,6 +33,8 @@ export const setToken = createAction(SET_TOKEN);
 export const loadUser = createAction(LOAD_USER);
 
 export const logout = createAction(LOGOUT);
+
+export const initLogin = createAction(LOGIN_INIT);
 
 export const handleExpiredAccessToken = createAction(
   HANDLE_EXPIRED_ACCESS_TOKEN,
@@ -138,8 +141,18 @@ const initialState = {
 
 const auth = handleActions(
   {
+    [LOGIN_INIT]: (state) => ({
+      ...state,
+      authError: null,
+      login: {
+        status: 'INIT',
+      },
+    }),
     [LOGIN_SUCCESS]: (state, { payload: auth }) => ({
       ...state,
+      login: {
+        status: 'SUCCESS',
+      },
       status: {
         isLogin: true,
         init: false,
@@ -148,6 +161,9 @@ const auth = handleActions(
     }),
     [LOGIN_FAILURE]: (state, { error }) => ({
       ...state,
+      login: {
+        status: 'FAILURE',
+      },
       authError: error,
     }),
     [LOAD_USER_SUCCESS]: (state, { data }) => {
@@ -170,6 +186,9 @@ const auth = handleActions(
     }),
     [LOGOUT]: (state, { payload: error }) => ({
       ...state,
+      login: {
+        status: 'INIT',
+      },
       status: {
         isLogin: false,
         init: false,
