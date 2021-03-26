@@ -1,4 +1,4 @@
-# Haribo - PoolC 홈페이지 프론트엔드 리뉴얼 2021
+# Haribo - PoolC 홈페이지 프론트엔드 리뉴얼 2021 [![travis build status](https://api.travis-ci.com/PoolC/Haribo.svg?branch=master)](https://api.travis-ci.com/PoolC/Haribo)
 
 URL : https://poolc.org/
 
