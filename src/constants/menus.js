@@ -14,6 +14,8 @@ const MENU = {
   APPLY: 'apply',
   ADMIN: 'admin',
   MYINFO: 'my-info',
+  PASSWORD: 'password',
+  RESET_PASSWORD: 'reset',
   SIGNIN: 'login',
   SIGNUP: 'register',
   FORBIDDEN: 'forbidden',
