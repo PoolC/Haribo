@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import colors from '../../lib/styles/colors';
 
@@ -117,4 +118,9 @@ export const WithdrawalButton = styled(SubmitButton)`
   &:disabled {
     background-color: ${colors.gray[2]};
   }
+`;
+
+export const StyledLink = styled(Link)`
+  font-size: 0.9rem;
+  font-weight: 300;
 `;

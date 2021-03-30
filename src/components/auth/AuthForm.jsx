@@ -25,7 +25,9 @@ import {
   ProfileImage,
   StyledSelect,
   WithdrawalButton,
+  StyledLink,
 } from './AuthForm.styles';
+import { MENU } from '../../constants/menus';
 
 const textMap = {
   login: '로그인',
@@ -33,7 +35,7 @@ const textMap = {
   update: '회원 정보 수정',
 };
 
-const Input = ({
+export const Input = ({
   valueText,
   labelText,
   typeText,
@@ -399,6 +401,11 @@ const AuthForm = ({
             )}
             <SubmitButton onClick={handleSubmit}>{headerText}</SubmitButton>
           </FormList>
+          {type === 'login' && (
+            <StyledLink to={`/${MENU.PASSWORD}`}>
+              비밀번호를 잊어버리셨나요?
+            </StyledLink>
+          )}
           {type === 'update' && (
             <>
               <FormListHeader>
