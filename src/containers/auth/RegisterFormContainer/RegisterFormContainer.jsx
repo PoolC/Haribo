@@ -7,6 +7,7 @@ import { removeHeaderAccessToken } from '../../../lib/utils/axiosUtil';
 const RegisterFormContainer = ({ location, history }) => {
   const [message, setMessage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+
   useEffect(() => {
     removeHeaderAccessToken();
   }, []);
@@ -16,6 +17,7 @@ const RegisterFormContainer = ({ location, history }) => {
   const handleModalClose = () => {
     setModalVisible(false);
   };
+
   const onSubmit = ({
     id,
     password,
@@ -71,9 +73,9 @@ const RegisterFormContainer = ({ location, history }) => {
     }
   };
 
-  function onChangeMessage(msg) {
+  const onChangeMessage = (msg) => {
     setMessage(msg);
-  }
+  };
 
   return (
     <AuthForm
