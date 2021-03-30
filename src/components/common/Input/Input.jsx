@@ -4,11 +4,10 @@ import colors from '../../../lib/styles/colors';
 
 const StyledLabel = styled.label`
   margin: 2rem 0 1rem 0;
-  font-weight: 600;
+  font-weight: 400;
 `;
 
 const StyledInput = styled.input`
-  height: 2rem;
   width: 15rem;
   outline: 0;
   border: 1px solid ${colors.brown[0]};
