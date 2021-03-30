@@ -51,3 +51,21 @@ export const updateUser = ({
     introduction,
     profileImageURL,
   });
+
+// 비밀번호 재설정 이메일 전송
+export const sendPasswordResetEmail = ({ email }) =>
+  client.put('/member/reset-password-token', {
+    email,
+  });
+
+// 비밀번호 재설정
+export const resetPassword = ({
+  passwordResetToken,
+  password: newPassword,
+  passwordCheck: newPasswordCheck,
+}) =>
+  client.put('/member/reset-password', {
+    passwordResetToken,
+    newPassword,
+    newPasswordCheck,
+  });
