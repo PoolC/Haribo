@@ -240,7 +240,6 @@ const AdminMember = ({
             {members
               .filter((m) => m.role === 'MEMBER')
               .map((member) => {
-                console.log(member);
                 return (
                   <Member
                     key={member.loginID}
@@ -263,7 +262,6 @@ const AdminMember = ({
             {members
               .filter((m) => m.role === 'GRADUATED' || m.role === 'COMPLETE')
               .map((member) => {
-                console.log(member);
                 return (
                   <Member
                     key={member.loginID}
