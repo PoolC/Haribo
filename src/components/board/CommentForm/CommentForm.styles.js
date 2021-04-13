@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 
-export const CommentFormBlock = styled.div`
+export const CommentFormBlock = styled.form`
   display: flex;
   align-items: center;
   padding: 25px 0 0 0;

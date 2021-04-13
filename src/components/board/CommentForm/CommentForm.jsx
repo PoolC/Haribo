@@ -46,7 +46,7 @@ const CommentForm = ({ onCreateComment }) => {
         onConfirm={onCloseErrorModal}
         onCancel={onCloseErrorModal}
       />
-      <CommentFormBlock>
+      <CommentFormBlock onSubmit={handleCreate}>
         <StyledInput
           type="text"
           placeholder="댓글을 입력하세요"
@@ -54,7 +54,7 @@ const CommentForm = ({ onCreateComment }) => {
           value={body}
         />
         <ButtonContainer>
-          <ActionButton onClick={handleCreate}>작성</ActionButton>
+          <ActionButton>작성</ActionButton>
         </ButtonContainer>
       </CommentFormBlock>
     </>
