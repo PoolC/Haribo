@@ -37,16 +37,20 @@ const Session = ({ session, memberInfo, activityID, attendance, host }) => {
         <Description>
           <Viewer initialValue={description} />
         </Description>
-        <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
-        <FileContainer>
-          {fileList?.length !== 0
-            ? fileList?.map((file) => (
-                <File key={file}>
-                  <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
-                </File>
-              ))
-            : '첨부된 파일 없음'}
-        </FileContainer>
+        {isLogin && (
+          <>
+            <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
+            <FileContainer>
+              {fileList?.length !== 0
+                ? fileList?.map((file) => (
+                    <File key={file}>
+                      <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
+                    </File>
+                  ))
+                : '첨부된 파일 없음'}
+            </FileContainer>
+          </>
+        )}
         {isLogin && members && (
           <AttendanceList>
             <h5>[출석 인원]</h5>
