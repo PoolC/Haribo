@@ -19,8 +19,8 @@ const AdminPassContainer = () => {
     });
   };
 
-  const onSubmitSemester = (semester) => {
-    memberAPI.getMemberActivityHours(semester).then((res) => {
+  const onSubmit = () => {
+    memberAPI.getMemberActivityHours().then((res) => {
       if (res.status === 200) {
         setMembers(res.data.data);
       }
@@ -39,7 +39,7 @@ const AdminPassContainer = () => {
     <AdminPass
       members={members}
       onChangeExcepted={onChangeExcepted}
-      onSubmitSemester={onSubmitSemester}
+      onSubmit={onSubmit}
       onWithdraw={onWithdraw}
     />
   );

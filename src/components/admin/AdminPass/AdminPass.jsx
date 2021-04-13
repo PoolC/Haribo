@@ -78,17 +78,16 @@ const Member = ({
 
 const AdminPass = ({
   members,
-  onSubmitSemester,
+  onSubmit,
   onChangeExcepted,
   onWithdraw,
   history,
 }) => {
-  const [semester, onChangeSemester] = useInput('', notEmptyValidation);
   const [minimumLimit, onChangeMinimumLimit] = useInput('', notEmptyValidation);
 
-  const handleSubmitSemester = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmitSemester(semester);
+    onSubmit();
   };
 
   return (
@@ -96,14 +95,6 @@ const AdminPass = ({
       <TitleContainer>최소활동기준 관리</TitleContainer>
       <ContentsContainer>
         <StyledForm style={{ marginBottom: '2rem' }}>
-          <label style={{ marginBottom: '0.5rem' }}>이번 학기</label>
-          <StyledInput
-            value={semester}
-            onChange={onChangeSemester}
-            type="text"
-            placeholder="ex) 2021-1"
-            style={{ width: '7rem' }}
-          />
           <label style={{ marginBottom: '0.5rem' }}>최소 활동 기준</label>
           <div>
             <StyledInput
@@ -114,7 +105,7 @@ const AdminPass = ({
             />
             <span>시간</span>
           </div>
-          <ActionButton onClick={handleSubmitSemester}>입력</ActionButton>
+          <ActionButton onClick={handleSubmit}>입력</ActionButton>
         </StyledForm>
         <h3>회원 자격 상실 예정자 목록</h3>
         <Table>
