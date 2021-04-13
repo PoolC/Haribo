@@ -76,8 +76,10 @@ const ActivityAttendanceContainer = ({ match, history }) => {
     date,
     description,
     attendances,
+    hour,
+    fileList,
   }) => {
-    if (!date || !description) {
+    if (!date || !description || hour === null) {
       setErrorMessage('모든 항목을 입력하세요');
       onShowErrorModal();
       return;
@@ -88,6 +90,8 @@ const ActivityAttendanceContainer = ({ match, history }) => {
         sessionNumber,
         date,
         description,
+        hour,
+        fileList,
       });
       const sessionID = sessionCreateResponse.data.id;
       const sessionAttendancesCreateResponse = await activityAPI.checkActivityAttendance(
@@ -107,8 +111,14 @@ const ActivityAttendanceContainer = ({ match, history }) => {
     }
   };
 
-  const onUpdateSession = async ({ date, description, attendances }) => {
-    if (!date || !description) {
+  const onUpdateSession = async ({
+    date,
+    description,
+    attendances,
+    hour,
+    fileList,
+  }) => {
+    if (!date || !description || hour === null) {
       setErrorMessage('모든 항목을 입력하세요');
       onShowErrorModal();
       return;
@@ -118,6 +128,8 @@ const ActivityAttendanceContainer = ({ match, history }) => {
         sessionID,
         date,
         description,
+        hour,
+        fileList,
       });
       await activityAPI.checkActivityAttendance({
         sessionID,

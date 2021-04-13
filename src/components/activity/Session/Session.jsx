@@ -11,9 +11,15 @@ import {
   SessionNumber,
 } from './Session.styles';
 import { Viewer } from '@toast-ui/react-editor';
+import {
+  File,
+  FileContainer,
+  FileContainerTitle,
+} from '../../board/PostForm/PostForm.styles';
+import getFileUrl from '../../../lib/utils/getFileUrl';
 
 const Session = ({ session, memberInfo, activityID, attendance, host }) => {
-  const { id, description, date, sessionNumber } = session;
+  const { id, description, date, sessionNumber, hour, fileList } = session;
   const members = attendance
     .filter((a) => a.attended === true)
     .map((a) => a.member);
@@ -27,9 +33,20 @@ const Session = ({ session, memberInfo, activityID, attendance, host }) => {
       <SessionCard>
         <SessionNumber>{sessionNumber}회차</SessionNumber>
         <Date>{date}</Date>
+        <Date>({hour}시간 진행)</Date>
         <Description>
           <Viewer initialValue={description} />
         </Description>
+        <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
+        <FileContainer>
+          {fileList?.length !== 0
+            ? fileList?.map((file) => (
+                <File key={file}>
+                  <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
+                </File>
+              ))
+            : '첨부된 파일 없음'}
+        </FileContainer>
         {isLogin && members && (
           <AttendanceList>
             <h5>[출석 인원]</h5>

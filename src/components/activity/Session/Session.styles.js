@@ -9,6 +9,7 @@ export const SessionCard = styled.li`
   margin: 10px;
   padding: 20px 0 10px 0;
   list-style: none;
+  min-width: 200px;
 `;
 
 export const SessionDivider = styled.div`
@@ -89,6 +90,7 @@ export const AttendanceList = styled.ul`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 1rem;
   h5 {
     font-size: 0.9rem;
     margin: 10px 0;

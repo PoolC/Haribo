@@ -40,6 +40,41 @@ export const Date = styled.p`
   }
 `;
 
+export const HourContainer = styled.div`
+  margin-bottom: 30px;
+`;
+
+export const Hour = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  label {
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  input {
+    outline: 0;
+  }
+  p {
+    color: ${colors.brown[0]};
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    word-break: keep-all;
+    text-align: center;
+    line-height: 1.2rem;
+  }
+`;
+
+export const HourInput = styled.input`
+  width: 3rem;
+  outline: 0;
+  border: 1px solid ${colors.brown[0]};
+  height: 2rem;
+  border-radius: 2px;
+  max-width: 320px;
+  outline: ${colors.gray[1]};
+`;
+
 export const DescriptionContainer = styled.div`
   margin-bottom: 30px;
 `;
@@ -48,6 +83,7 @@ export const Description = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 1rem;
   label {
     margin-bottom: 10px;
     font-weight: 700;

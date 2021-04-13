@@ -71,12 +71,16 @@ export const createActivitySession = ({
   sessionNumber,
   date,
   description,
+  hour,
+  fileList,
 }) =>
   client.post('/activity/session', {
     activityID,
     sessionNumber,
     date,
     description,
+    hour,
+    fileList,
   });
 
 export const getActivitySessions = (activityID) =>
@@ -85,10 +89,18 @@ export const getActivitySessions = (activityID) =>
 export const getActivitySession = (sessionID) =>
   client.get(`/activity/session/${sessionID}`);
 
-export const updateActivitySession = ({ sessionID, date, description }) =>
+export const updateActivitySession = ({
+  sessionID,
+  date,
+  description,
+  hour,
+  fileList,
+}) =>
   client.put(`/activity/session/${sessionID}`, {
     date,
     description,
+    hour,
+    fileList,
   });
 
 export const applyActivity = (activityID) =>

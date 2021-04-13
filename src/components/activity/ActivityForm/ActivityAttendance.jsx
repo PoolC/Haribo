@@ -7,6 +7,9 @@ import {
   DateContainer,
   Description,
   DescriptionContainer,
+  Hour,
+  HourContainer,
+  HourInput,
   MemberBlock,
   MemberContainer,
   Members,
@@ -20,6 +23,16 @@ import Modal from '../../common/Modal/Modal';
 import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
+import {
+  File,
+  FileContainer,
+  FileContainerTitle,
+  FileDeleteButton,
+  StyledDeleteIcon,
+} from '../../board/PostForm/PostForm.styles';
+import getFileUrl from '../../../lib/utils/getFileUrl';
+import { ButtonContainer } from './ActivityForm.styles';
+import FileUploadButton from '../../common/Buttons/FileUploadButton';
 
 const Member = ({ member, attended, handleCheckAttendance }) => {
   const [isChecked, setIsChecked] = useState(attended ? attended : false);
@@ -57,7 +70,9 @@ const ActivityAttendance = ({
 }) => {
   const { title } = activity;
   const editorRef = useRef();
-  const newSessionCount = sessionNumber;
+  const newSessionCount = activitySession
+    ? activitySession.sessionNumber
+    : sessionNumber;
 
   const [date, onChangeDate] = useInput(
     activitySession ? activitySession.date : '',
@@ -66,6 +81,15 @@ const ActivityAttendance = ({
 
   const [description, onChangeDescription] = useState(
     activitySession ? activitySession.description : '',
+  );
+
+  const [hour, onChangeHour] = useInput(
+    activitySession ? activitySession.hour : '',
+    notEmptyValidation,
+  );
+
+  const [fileList, setFileList] = useState(
+    activitySession ? activitySession.fileList : [],
   );
 
   const [attendances, setAttendances] = useState(
@@ -95,6 +119,8 @@ const ActivityAttendance = ({
       date,
       description,
       attendances,
+      hour,
+      fileList,
     });
   };
 
@@ -105,6 +131,8 @@ const ActivityAttendance = ({
       date,
       description,
       attendances,
+      hour,
+      fileList,
     });
   };
 
@@ -112,6 +140,10 @@ const ActivityAttendance = ({
     const editorInstance = editorRef.current.getInstance();
     const markdownContent = editorInstance.getMarkdown();
     onChangeDescription(markdownContent);
+  };
+  const handleDeleteFile = (e, file) => {
+    e.preventDefault();
+    setFileList(fileList.filter((f) => f !== file));
   };
 
   return (
@@ -144,6 +176,22 @@ const ActivityAttendance = ({
                 />
               </Date>
             </DateContainer>
+            <HourContainer>
+              <Hour>
+                <label htmlFor="hour">진행 시간</label>
+                <div>
+                  <HourInput
+                    value={hour}
+                    label="진행 시간"
+                    type="number"
+                    name="hour"
+                    onChange={onChangeHour}
+                    placeholder="ex) 2"
+                  />
+                  <span style={{ marginLeft: '0.5rem' }}>시간</span>
+                </div>
+              </Hour>
+            </HourContainer>
             <DescriptionContainer>
               <Description>
                 <label htmlFor="description">내용</label>
@@ -155,6 +203,30 @@ const ActivityAttendance = ({
                   onChange={(e) => onEditorChange(e)}
                   style={{ width: '100%' }}
                 />
+                <FileContainerTitle style={{ width: '100%' }}>
+                  첨부된 파일 목록
+                </FileContainerTitle>
+                <FileContainer style={{ width: '100%', maxWidth: '100%' }}>
+                  {fileList?.length !== 0
+                    ? fileList.map((file) => (
+                        <File key={file}>
+                          <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
+                          <FileDeleteButton
+                            onClick={(e) => handleDeleteFile(e, file)}
+                          >
+                            <StyledDeleteIcon className="far fa-trash-alt"></StyledDeleteIcon>
+                          </FileDeleteButton>
+                        </File>
+                      ))
+                    : '첨부된 파일 없음'}
+                </FileContainer>
+                <ButtonContainer>
+                  <FileUploadButton
+                    onSubmit={setFileList}
+                    files={fileList}
+                    multiple={true}
+                  />
+                </ButtonContainer>
               </Description>
             </DescriptionContainer>
             <MemberContainer>
