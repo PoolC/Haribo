@@ -79,7 +79,7 @@ const ActivityAttendanceContainer = ({ match, history }) => {
     hour,
     fileList,
   }) => {
-    if (!date || !description || hour === null) {
+    if (!date || !description || hour === '') {
       setErrorMessage('모든 항목을 입력하세요');
       onShowErrorModal();
       return;
@@ -118,7 +118,7 @@ const ActivityAttendanceContainer = ({ match, history }) => {
     hour,
     fileList,
   }) => {
-    if (!date || !description || hour === null) {
+    if (!date || !description || hour === '') {
       setErrorMessage('모든 항목을 입력하세요');
       onShowErrorModal();
       return;
