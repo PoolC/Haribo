@@ -56,6 +56,7 @@ const Member = ({
   const moveToMemberDetail = () => {
     history.push(`/${MENU.MEMBER}/${member.loginID}`);
   };
+
   return (
     <MemberListRow key={member.loginID} onClick={moveToMemberDetail}>
       <td className="member-list-row name">{member.name}</td>
@@ -210,6 +211,74 @@ const AdminMember = ({
             </tbody>
           </Table>
         )}
+        <SearchHeader>승인 전 회원 목록</SearchHeader>
+        <Table>
+          <MemberTableHead />
+          <tbody>
+            {members
+              .filter((m) => m.role === 'UNACCEPTED')
+              .map((member) => {
+                return (
+                  <Member
+                    key={member.loginID}
+                    member={member}
+                    handleAcceptMember={handleAcceptMember}
+                    handleWithdrawMember={handleWithdrawMember}
+                    handleToggleAdmin={handleToggleAdmin}
+                    handleUpdateMemberRole={handleUpdateMemberRole}
+                    roles={roles}
+                    history={history}
+                  />
+                );
+              })}
+          </tbody>
+        </Table>
+        <SearchHeader>일반 회원 목록</SearchHeader>
+        <Table>
+          <MemberTableHead />
+          <tbody>
+            {members
+              .filter((m) => m.role === 'MEMBER')
+              .map((member) => {
+                console.log(member);
+                return (
+                  <Member
+                    key={member.loginID}
+                    member={member}
+                    handleAcceptMember={handleAcceptMember}
+                    handleWithdrawMember={handleWithdrawMember}
+                    handleToggleAdmin={handleToggleAdmin}
+                    handleUpdateMemberRole={handleUpdateMemberRole}
+                    roles={roles}
+                    history={history}
+                  />
+                );
+              })}
+          </tbody>
+        </Table>
+        <SearchHeader>졸업/수료 회원 목록</SearchHeader>
+        <Table>
+          <MemberTableHead />
+          <tbody>
+            {members
+              .filter((m) => m.role === 'GRADUATED' || m.role === 'COMPLETE')
+              .map((member) => {
+                console.log(member);
+                return (
+                  <Member
+                    key={member.loginID}
+                    member={member}
+                    handleAcceptMember={handleAcceptMember}
+                    handleWithdrawMember={handleWithdrawMember}
+                    handleToggleAdmin={handleToggleAdmin}
+                    handleUpdateMemberRole={handleUpdateMemberRole}
+                    roles={roles}
+                    history={history}
+                  />
+                );
+              })}
+          </tbody>
+        </Table>
         <SearchHeader>활동 회원 목록</SearchHeader>
         <Table>
           <MemberTableHead />
