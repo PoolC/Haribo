@@ -36,6 +36,7 @@ const AdminMemberContainer = ({ history }) => {
   const onAcceptMember = (loginID) => {
     memberAPI.acceptMember(loginID).then((res) => {
       if (res.status === 200) {
+        alert('회원 승인이 완료되었습니다.');
         setMembers(
           members.map((member) =>
             member.loginID === loginID
@@ -57,6 +58,7 @@ const AdminMemberContainer = ({ history }) => {
   const onWithdrawMember = (loginID) => {
     memberAPI.withdrawMember(loginID).then((res) => {
       if (res.status === 200) {
+        alert('회원 탈퇴가 완료되었습니다.');
         setMembers(members.filter((member) => member.loginID !== loginID));
         setSearchMembers(
           searchMembers.filter((member) => member.loginID !== loginID),
@@ -68,6 +70,7 @@ const AdminMemberContainer = ({ history }) => {
   const onToggleAdmin = ({ loginID, isAdmin }) => {
     memberAPI.toggleAdmin({ loginID, isAdmin }).then((res) => {
       if (res.status === 200) {
+        alert('관리자 임명이 완료되었습니다.');
         setMembers(
           members.map((member) =>
             member.loginID === loginID
@@ -89,6 +92,7 @@ const AdminMemberContainer = ({ history }) => {
   const onUpdateMemberRole = ({ loginID, role }) => {
     memberAPI.updateMemberRole({ loginID, role }).then((res) => {
       if (res.status === 200) {
+        alert('회원 상태 변경이 완료되었습니다.');
         setMembers(
           members.map((member) =>
             member.loginID === loginID ? { ...member, role: role } : member,
