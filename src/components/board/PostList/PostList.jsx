@@ -10,13 +10,14 @@ import {
   PostListHeader,
   PostListRow,
   PostListTable,
-  StyledLink,
   SubInfoContainer,
   WriterIcon,
   DateIcon,
   PostListRowAuthor,
   PostListRowDate,
   MemberLink,
+  NewIcon,
+  StyledTitleLink,
 } from './PostList.styles';
 
 const PostList = ({
@@ -36,6 +37,15 @@ const PostList = ({
     status: { isLogin },
     user: { isAdmin },
   } = member;
+
+  const isNewPost = (createdAt) => {
+    const now = new Date();
+    const postCreatedTime = new Date(createdAt);
+
+    const isNew = Date.parse(now) - Date.parse(postCreatedTime) <= 6.048e8;
+
+    return isNew;
+  };
 
   return (
     <WhiteNarrowBlock>
@@ -64,12 +74,13 @@ const PostList = ({
           {posts.map((post) => (
             <PostListRow key={post.postId}>
               <td className="post-list-row-title">
-                <StyledLink
+                <StyledTitleLink
                   to={`/${MENU.BOARDS}/${selectedMenu?.urlPath}/${MENU.POST}/${post.postId}`}
                 >
                   {post.title}
-                </StyledLink>
+                </StyledTitleLink>
                 <CommentCount>[{post.comments.length}]</CommentCount>
+                {isNewPost(post.createdAt) && <NewIcon>N</NewIcon>}
               </td>
               <SubInfoContainer>
                 <PostListRowAuthor>
