@@ -179,6 +179,7 @@ const ActivityAttendance = ({
             <HourContainer>
               <Hour>
                 <label htmlFor="hour">진행 시간</label>
+                <p>반올림하여 정수로 입력</p>
                 <div>
                   <HourInput
                     value={hour}

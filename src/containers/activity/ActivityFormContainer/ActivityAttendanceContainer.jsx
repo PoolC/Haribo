@@ -80,7 +80,12 @@ const ActivityAttendanceContainer = ({ match, history }) => {
     fileList,
   }) => {
     if (!date || !description || hour === '') {
-      setErrorMessage('모든 항목을 입력하세요');
+      setErrorMessage('모든 항목을 입력해주세요');
+      onShowErrorModal();
+      return;
+    }
+    if (String(hour).includes('.')) {
+      setErrorMessage('시간은 반올림하여 정수로 입력해주세요');
       onShowErrorModal();
       return;
     }
@@ -119,7 +124,12 @@ const ActivityAttendanceContainer = ({ match, history }) => {
     fileList,
   }) => {
     if (!date || !description || hour === '') {
-      setErrorMessage('모든 항목을 입력하세요');
+      setErrorMessage('모든 항목을 입력해주세요');
+      onShowErrorModal();
+      return;
+    }
+    if (String(hour).includes('.')) {
+      setErrorMessage('시간은 반올림하여 정수로 입력해주세요');
       onShowErrorModal();
       return;
     }
