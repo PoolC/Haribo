@@ -4,6 +4,7 @@ import { store } from '../../index.js';
 require('dotenv').config();
 
 // const { REACT_APP_API_BASE_URL: API_BASE_URL } = process.env;
+console.log(process.env.NODE_ENV);
 const API_BASE_URL =
   process.env.NODE_ENV === 'production'
     ? process.env.REACT_APP_API_BASE_URL
