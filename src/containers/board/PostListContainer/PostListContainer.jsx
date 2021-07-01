@@ -6,13 +6,12 @@ import Spinner from '../../../components/common/Spinner/Spinner';
 import * as postAPI from '../../../lib/api/post';
 
 const PostListContainer = ({ location, selectedMenu, match }) => {
-  const initialCurrentPage =
-    Number(location.search.replace('?page=', '')) < 1
-      ? 1
-      : Number(location.search.replace('?page=', ''));
+  const pageInUrl = Number(location.search.replace('?page=', ''));
+  const initialCurrentPage = pageInUrl < 1 ? 1 : pageInUrl;
   const member = useSelector((state) => state.auth);
   const urlPath = selectedMenu?.urlPath;
 
+  const totalPosts = selectedMenu.postCount;
   const postPerPage = 15;
   const pagePerPage = 5;
 
@@ -30,19 +29,21 @@ const PostListContainer = ({ location, selectedMenu, match }) => {
 
   useEffect(() => {
     setLoading(true);
+    console.log('urlPath:', urlPath, ', currentPage:', currentPage);
     if (urlPath) {
-      postAPI.getPosts(urlPath).then((res) => {
+      postAPI.getPosts({ urlPath, page: currentPage }).then((res) => {
         if (res.status === 200) {
+          console.log('posts: ', res.data);
           setPosts(res.data.data);
           setLoading(false);
         }
       });
     }
-  }, [urlPath, selectedMenu]);
+  }, [urlPath, selectedMenu, currentPage]);
 
-  const indexOfLastPost = currentPage * postPerPage;
-  const indexOfFirstPost = indexOfLastPost - postPerPage;
-  const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
+  //const indexOfLastPost = currentPage * postPerPage;
+  //const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPosts = posts;
   const paginate = (pageNum) => setCurrentPage(pageNum);
 
   return (
@@ -55,7 +56,7 @@ const PostListContainer = ({ location, selectedMenu, match }) => {
             member={member}
             selectedMenu={selectedMenu}
             postPerPage={postPerPage}
-            totalPosts={posts.length}
+            totalPosts={totalPosts}
             paginate={paginate}
             setCurrentPageSet={setCurrentPageSet}
             currentPage={currentPage}
