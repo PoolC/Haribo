@@ -1,6 +1,7 @@
 import client from './client';
 
-export const getPosts = (urlPath) => client.get(`/post/board/${urlPath}`);
+export const getPosts = ({ urlPath, page }) =>
+  client.get(`/post/board/${urlPath}?page=${page}`);
 
 export const getPost = (postID) => client.get(`/post/${postID}`);
 
