@@ -27,7 +27,10 @@ const BookListContainer = () => {
             ? {
                 ...book,
                 status: 'UNAVAILABLE',
-                borrower: { name: member.user.name },
+                borrower: {
+                  loginID: member.user.memberId,
+                  name: member.user.name,
+                },
                 borrowDate: getFullCurrentDateString(),
               }
             : book,
