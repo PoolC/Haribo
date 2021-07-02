@@ -3,9 +3,10 @@ import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import PostList from '../../../components/board/PostList/PostList';
 import Spinner from '../../../components/common/Spinner/Spinner';
+import { MENU } from '../../../constants/menus';
 import * as postAPI from '../../../lib/api/post';
 
-const PostListContainer = ({ location, selectedMenu, match }) => {
+const PostListContainer = ({ location, selectedMenu, history }) => {
   const pageInUrl = Number(location.search.replace('?page=', ''));
   const initialCurrentPage = pageInUrl < 1 ? 1 : pageInUrl;
   const member = useSelector((state) => state.auth);
@@ -30,14 +31,24 @@ const PostListContainer = ({ location, selectedMenu, match }) => {
   useEffect(() => {
     setLoading(true);
     if (urlPath) {
-      postAPI.getPosts({ urlPath, page: currentPage }).then((res) => {
-        if (res.status === 200) {
-          setPosts(res.data.data);
+      postAPI
+        .getPosts({ urlPath, page: currentPage })
+        .then((res) => {
+          if (res.status === 200) {
+            setPosts(res.data.data);
+            setLoading(false);
+          }
+        })
+        .catch((e) => {
+          console.error(e);
           setLoading(false);
-        }
-      });
+          if (e.response.status === 400) {
+            history.push(`/${MENU.NOT_FOUND}`);
+            return;
+          }
+        });
     }
-  }, [urlPath, selectedMenu, currentPage]);
+  }, [urlPath, selectedMenu, currentPage, history]);
 
   //const indexOfLastPost = currentPage * postPerPage;
   //const indexOfFirstPost = indexOfLastPost - postPerPage;

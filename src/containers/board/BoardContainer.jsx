@@ -41,7 +41,7 @@ const BoardContainer = ({ match, location }) => {
         setBoardLoading(false);
       }
     });
-  }, [match.path]);
+  }, [match.path, location]);
 
   useEffect(() => {
     if (!boardLoading && currentLocation) {
