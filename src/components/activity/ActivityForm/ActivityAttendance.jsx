@@ -33,6 +33,7 @@ import {
 import getFileUrl from '../../../lib/utils/getFileUrl';
 import { ButtonContainer } from './ActivityForm.styles';
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
+import throttle from '../../../lib/utils/throttle';
 
 const Member = ({ member, attended, handleCheckAttendance }) => {
   const [isChecked, setIsChecked] = useState(attended ? attended : false);
@@ -124,7 +125,7 @@ const ActivityAttendance = ({
     });
   };
 
-  const handleCreate = (e) => {
+  const handleCreate = throttle((e) => {
     e.preventDefault();
     onCreateSession({
       sessionNumber,
@@ -134,7 +135,7 @@ const ActivityAttendance = ({
       hour,
       fileList,
     });
-  };
+  }, 1000);
 
   const onEditorChange = (e) => {
     const editorInstance = editorRef.current.getInstance();

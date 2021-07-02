@@ -27,6 +27,7 @@ import {
 } from '../AdminInfo/AdminInfo.styles';
 import Modal from '../../common/Modal/Modal';
 import getFileUrl from '../../../lib/utils/getFileUrl';
+import throttle from '../../../lib/utils/throttle';
 
 const SearchMember = ({ member, onAddMember, onChangeSearchMember }) => {
   const { name, department, studentId } = member;
@@ -110,10 +111,10 @@ const AdminProjectForm = ({
   );
   const [body, setBody] = useState(project ? project.body : '');
 
-  const handleCreate = (e) => {
+  const handleCreate = throttle((e) => {
     e.preventDefault();
     onCreateProject({ name, genre, duration, thumbnailURL, description, body });
-  };
+  }, 1000);
 
   const handleUpdate = (e) => {
     e.preventDefault();

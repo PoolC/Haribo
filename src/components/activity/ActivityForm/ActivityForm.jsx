@@ -34,6 +34,7 @@ import {
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
 import Modal from '../../common/Modal/Modal';
 import getFileUrl from '../../../lib/utils/getFileUrl';
+import throttle from '../../../lib/utils/throttle';
 
 const TagItem = React.memo(({ tag, onDeleteTag }) => {
   const handleDeleteTag = () => {
@@ -112,7 +113,7 @@ const ActivityForm = ({
     onChangeTags(tags.filter((t) => t !== tag));
   };
 
-  const handleCreate = (e) => {
+  const handleCreate = throttle((e) => {
     e.preventDefault();
     onCreateActivity({
       title,
@@ -125,7 +126,7 @@ const ActivityForm = ({
       tags,
       fileList: files,
     });
-  };
+  }, 1000);
 
   const handleUpdate = (e) => {
     e.preventDefault();

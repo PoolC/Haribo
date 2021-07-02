@@ -10,6 +10,7 @@ import {
 } from './AdminBoardForm.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import Modal from '../../common/Modal/Modal';
+import throttle from '../../../lib/utils/throttle';
 
 const AdminBoardForm = ({
   board,
@@ -37,10 +38,10 @@ const AdminBoardForm = ({
     notEmptyValidation,
   );
 
-  const handleCreate = (e) => {
+  const handleCreate = throttle((e) => {
     e.preventDefault();
     onCreateBoard({ name, urlPath, readPermission, writePermission });
-  };
+  }, 1000);
 
   const handleUpdate = (e) => {
     e.preventDefault();
