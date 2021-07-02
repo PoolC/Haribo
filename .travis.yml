@@ -20,7 +20,10 @@ script:
 
 after_success:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - if [ -n "${TRAVIS_TAG}"  ]; then
+  - if [ "${TRAVIS_BRANCH}" == "pre-release" ]; then
+    docker build -t poolchm/haribo:pre-release .;
+    docker push poolchm/haribo:pre-release;
+    elif [ -n "${TRAVIS_TAG}"  ]; then
     docker build -t poolchm/haribo:${TRAVIS_TAG} .;
     docker push poolchm/haribo:${TRAVIS_TAG};
     else
