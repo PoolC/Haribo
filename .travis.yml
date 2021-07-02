@@ -8,8 +8,8 @@ services:
   - docker
 
 before_install:
-  - echo "REACT_APP_API_BASE_URL=$TEST_API_BASE_URL" > .env.production
-  - echo "REACT_APP_FILE_URL=$TEST_FILE_URL" >> .env.production
+  - echo "REACT_APP_API_BASE_URL=$API_BASE_URL" > .env.production
+  - echo "REACT_APP_FILE_URL=$FILE_URL" >> .env.production
   - echo "REACT_APP_MAX_FILE_SIZE=$MAX_FILE_SIZE" >> .env.production
 
 install:
