@@ -186,16 +186,8 @@ const BookDetailButton = styled(ActionButton)`
 `;
 
 const BookCard = ({ book, isLogin, user, onBorrowBook, onReturnBook }) => {
-  const {
-    id,
-    title,
-    author,
-    imageURL,
-    status,
-    info,
-    borrower,
-    borrowDate,
-  } = book;
+  const { id, title, author, imageURL, status, info, borrower, borrowDate } =
+    book;
 
   const [animate, setAnimate] = useState(false);
   const [open, setOpen] = useState(false);
@@ -281,7 +273,7 @@ const BookCard = ({ book, isLogin, user, onBorrowBook, onReturnBook }) => {
                   대출
                 </BookDetailButton>
               ) : (
-                user.memberID === borrower?.loginID && (
+                user.memberId === borrower?.loginID && (
                   <BookDetailButton onClick={handleModalOpen}>
                     반납
                   </BookDetailButton>
