@@ -21,6 +21,7 @@ import FileUploadButton from '../../common/Buttons/FileUploadButton';
 import Modal from '../../common/Modal/Modal';
 import ActionButton from '../../common/Buttons/ActionButton';
 import getFileUrl from '../../../lib/utils/getFileUrl';
+import throttle from '../../../lib/utils/throttle';
 
 const PostForm = ({
   history,
@@ -47,7 +48,7 @@ const PostForm = ({
     setBody(markdownContent);
   }
 
-  const handleCreate = (e) => {
+  const handleCreate = throttle((e) => {
     e.preventDefault();
     if (!title || !body) {
       setErrorMessage('제목과 내용을 모두 입력하세요.');
@@ -55,7 +56,7 @@ const PostForm = ({
       return;
     }
     onCreatePost({ title, body, fileList: files });
-  };
+  }, 1000);
 
   const handleUpdate = (e) => {
     e.preventDefault();

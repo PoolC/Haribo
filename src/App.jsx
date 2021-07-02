@@ -77,6 +77,7 @@ function App() {
         <Route component={MyInfoPage} path={`/${MENU.MYINFO}`} />
         <Route component={PasswordResetEmailPage} path={`/${MENU.PASSWORD}`} />
         <Route component={AccessDeniedPage} path={`/${MENU.FORBIDDEN}`} />
+        <Route component={NotFoundPage} path={`/${MENU.NOT_FOUND}`} />
         <Route component={NotFoundPage} path="/" />
       </Switch>
       <FooterContainer />

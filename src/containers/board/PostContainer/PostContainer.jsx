@@ -10,6 +10,7 @@ import Spinner from '../../../components/common/Spinner/Spinner';
 const PostContainer = ({ selectedMenu, history, match, location }) => {
   const { postID } = match.params;
   const member = useSelector((state) => state.auth);
+  const isLogin = member.status.isLogin;
 
   const [loading, setLoading] = useState(true);
 
@@ -28,9 +29,13 @@ const PostContainer = ({ selectedMenu, history, match, location }) => {
       })
       .catch((e) => {
         console.error(e.message);
-        history.push(`/${MENU.FORBIDDEN}`);
+        if (!isLogin) {
+          history.push(`/${MENU.SIGNIN}`);
+        } else {
+          history.push(`/${MENU.FORBIDDEN}`);
+        }
       });
-  }, [history, postID]);
+  }, [history, postID, isLogin]);
 
   if (post === undefined) {
     window.location.reload();

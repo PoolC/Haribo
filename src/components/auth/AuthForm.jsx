@@ -28,6 +28,7 @@ import {
   StyledLink,
 } from './AuthForm.styles';
 import { MENU } from '../../constants/menus';
+import throttle from '../../lib/utils/throttle';
 
 const textMap = {
   login: '로그인',
@@ -195,7 +196,7 @@ const AuthForm = ({
     onChangeMessage('모든 값을 올바르게 입력해주세요.');
   };
 
-  const handleLogin = () => {
+  const handleLogin = throttle(() => {
     if (!loginValidation()) {
       setInputErrorMessage();
       handleModalOpen();
@@ -205,9 +206,9 @@ const AuthForm = ({
       id,
       password,
     });
-  };
+  }, 1000);
 
-  const handleRegister = () => {
+  const handleRegister = throttle(() => {
     if (!registerValidation()) {
       setInputErrorMessage();
       handleModalOpen();
@@ -225,9 +226,9 @@ const AuthForm = ({
       introduction,
       profileImageURL,
     });
-  };
+  }, 1000);
 
-  const handleUpdate = () => {
+  const handleUpdate = throttle(() => {
     if (!updateValidation()) {
       setInputErrorMessage();
       handleModalOpen();
@@ -242,7 +243,7 @@ const AuthForm = ({
       introduction,
       profileImageURL,
     });
-  };
+  }, 1000);
 
   const handleSubmit = (e) => {
     e.preventDefault();

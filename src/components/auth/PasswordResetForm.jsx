@@ -11,6 +11,7 @@ import { Input } from './AuthForm';
 import colors from '../../lib/styles/colors';
 import RegisterModalContainer from '../../containers/auth/RegisterModalContainer/RegisterModalContainer';
 import Spinner from '../common/Spinner/Spinner';
+import throttle from '../../lib/utils/throttle';
 
 const Description = styled.p`
   max-width: 320px;
@@ -71,7 +72,7 @@ const PasswordResetForm = ({
     onChangeMessage('모든 값을 올바르게 입력해주세요.');
   };
 
-  const handleSendEmail = (e) => {
+  const handleSendEmail = throttle((e) => {
     if (!sendEmailValidation()) {
       setInputErrorMessage();
       handleModalOpen();
@@ -80,9 +81,9 @@ const PasswordResetForm = ({
     onSubmit({
       email,
     });
-  };
+  }, 1000);
 
-  const handleResetPassword = (e) => {
+  const handleResetPassword = throttle((e) => {
     if (!resetPasswordValidation()) {
       setInputErrorMessage();
       handleModalOpen();
@@ -92,7 +93,7 @@ const PasswordResetForm = ({
       password,
       passwordCheck,
     });
-  };
+  }, 1000);
 
   const handleSubmit = (e) => {
     e.preventDefault();

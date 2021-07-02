@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useInput from '../../../hooks/useInput';
 import getFileUrl from '../../../lib/utils/getFileUrl';
+import throttle from '../../../lib/utils/throttle';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
@@ -40,10 +41,10 @@ const AdminBookForm = ({
     book ? book.info : '',
     notEmptyValidation,
   );
-  const handleCreate = (e) => {
+  const handleCreate = throttle((e) => {
     e.preventDefault();
     onCreateBook({ title, author, imageURL, info });
-  };
+  }, 1000);
   const handleUpdate = (e) => {
     e.preventDefault();
     onUpdateBook({ title, author, imageURL, info });

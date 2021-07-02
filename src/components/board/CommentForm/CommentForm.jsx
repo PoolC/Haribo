@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useInput from '../../../hooks/useInput';
+import throttle from '../../../lib/utils/throttle';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import ActionButton from '../../common/Buttons/ActionButton';
 import Modal from '../../common/Modal/Modal';
@@ -14,7 +15,7 @@ const CommentForm = ({ onCreateComment }) => {
   const [errorModalVisible, setErrorModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleCreate = (e) => {
+  const handleCreate = throttle((e) => {
     e.preventDefault();
     if (!body) {
       setErrorMessage('내용을 입력하세요.');
@@ -24,7 +25,7 @@ const CommentForm = ({ onCreateComment }) => {
     onCreateComment(body);
     e.target.value = '';
     onChangeBody(e);
-  };
+  }, 1000);
 
   const onShowErrorModal = () => {
     setErrorModalVisible(true);
