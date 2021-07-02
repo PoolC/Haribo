@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ApplyBannerContainer from '../../containers/home/ApplyBannerContainer/ApplyBannerContainer';
 import CarouselContainer from '../../containers/home/CarouselContainer/CarouselContainer';
 import RecentNoticeContainer from '../../containers/home/RecentNoticeContainer/RecentNoticeContainer';
 import RecentProjectContainer from '../../containers/home/RecentProjectContainer/RecentProjectContainer';
@@ -15,6 +16,7 @@ const HomePage = () => {
   return (
     <HomePageBlock>
       <CarouselContainer />
+      <ApplyBannerContainer />
       <RecentNoticeContainer />
       <RecentProjectContainer />
     </HomePageBlock>
