@@ -136,6 +136,7 @@ const initialState = {
     name: '',
     password: '',
     isAdmin: false,
+    role: null,
   },
 };
 
@@ -177,6 +178,7 @@ const auth = handleActions(
           memberId: data.loginID,
           isAdmin: data.isAdmin,
           name: data.name,
+          role: data.role,
         },
       };
     },
@@ -198,6 +200,7 @@ const auth = handleActions(
         password: '',
         name: '',
         isAdmin: false,
+        role: null,
       },
     }),
   },
