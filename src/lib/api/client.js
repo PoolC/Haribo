@@ -3,6 +3,9 @@ import { handleExpiredAccessToken } from '../../modules/auth';
 import { store } from '../../index.js';
 require('dotenv').config();
 
+console.log(process.env);
+console.log(process.env.REACT_APP_API_BASE_URL);
+
 const API_BASE_URL =
   process.env.NODE_ENV === 'production'
     ? process.env.REACT_APP_API_BASE_URL
