@@ -29,11 +29,9 @@ const PostListContainer = ({ location, selectedMenu, match }) => {
 
   useEffect(() => {
     setLoading(true);
-    console.log('urlPath:', urlPath, ', currentPage:', currentPage);
     if (urlPath) {
       postAPI.getPosts({ urlPath, page: currentPage }).then((res) => {
         if (res.status === 200) {
-          console.log('posts: ', res.data);
           setPosts(res.data.data);
           setLoading(false);
         }
