@@ -12,7 +12,7 @@ const PostListContainer = ({ location, selectedMenu, history }) => {
   const member = useSelector((state) => state.auth);
   const urlPath = selectedMenu?.urlPath;
 
-  const totalPosts = selectedMenu.postCount;
+  const totalPosts = selectedMenu?.postCount;
   const postPerPage = 15;
   const pagePerPage = 5;
 

@@ -52,7 +52,11 @@ const BoardContainer = ({ match, location }) => {
     // eslint-disable-next-line
   }, [currentLocation, boardLoading]);
 
-  if (boards === null || boardLoading || selectedMenu == null) {
+  // if (boards === null || boardLoading || selectedMenu == null) {
+  //   return null;
+  // }
+
+  if (boards === null || boardLoading) {
     return null;
   }
 
