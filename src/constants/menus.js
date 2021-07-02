@@ -19,6 +19,7 @@ const MENU = {
   SIGNIN: 'login',
   SIGNUP: 'register',
   FORBIDDEN: 'forbidden',
+  NOT_FOUND: 'not_found',
 };
 
 export { MENU };
