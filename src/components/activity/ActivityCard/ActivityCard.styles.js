@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
 
-export const ActivityCardBlock = styled.li`
+export const ActivityCardBlock = styled.li `
   list-style: none;
   margin: 10px 5px;
 `;
 
-export const ActivityCardContainer = styled.div`
+export const ActivityCardContainer = styled.div `
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -27,7 +27,7 @@ export const ActivityCardContainer = styled.div`
   }
 `;
 
-export const ActivityTitle = styled.p`
+export const ActivityTitle = styled.p `
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +40,7 @@ export const ActivityTitle = styled.p`
   margin-top: 10px;
 `;
 
-export const ActivityClassHour = styled.p`
+export const ActivityClassHour = styled.p `
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,7 +48,7 @@ export const ActivityClassHour = styled.p`
   font-size: 0.8rem;
 `;
 
-export const ActivityCapacity = styled.p`
+export const ActivityCapacity = styled.p `
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,7 +57,7 @@ export const ActivityCapacity = styled.p`
   font-size: 0.8rem;
 `;
 
-export const ActivityDate = styled.p`
+export const ActivityDate = styled.p `
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,7 +66,7 @@ export const ActivityDate = styled.p`
   font-size: 0.8rem;
 `;
 
-export const ActivityHost = styled.p`
+export const ActivityHost = styled.p `
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,7 +75,7 @@ export const ActivityHost = styled.p`
   font-size: 0.8rem;
 `;
 
-export const ActivityTags = styled.div`
+export const ActivityTags = styled.div `
   display: flex;
   flex-flow: wrap;
   align-items: center;
@@ -83,7 +83,7 @@ export const ActivityTags = styled.div`
   flex: 2;
 `;
 
-export const ActivityTag = styled.p`
+export const ActivityTag = styled.p `
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,7 +96,7 @@ export const ActivityTag = styled.p`
   border-radius: 2px;
 `;
 
-export const ActivityButtons = styled.div`
+export const ActivityButtons = styled.div `
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,26 +104,29 @@ export const ActivityButtons = styled.div`
   margin: 0.2rem 0;
 `;
 
-export const StyledActionButton = styled(ActionButton)`
+export const StyledActionButton = styled(ActionButton)
+`
   margin: 0 8px;
 `;
 
-export const StyledDeleteButton = styled(ActionButton)`
+export const StyledDeleteButton = styled(ActionButton)
+`
   margin: 0 8px;
-  background-color: ${colors.red[0]};
+  background-color: ${colors.red[1]};
   transition: 0.3s;
   &:hover {
-    background-color: ${colors.red[1]};
+    background-color: ${colors.red[0]};
     transition: 0.3s;
   }
 `;
 
-export const StyledLink = styled(Link)`
+export const StyledLink = styled(Link)
+`
   color: ${colors.brown[1]};
   margin: 10px 0;
 `;
 
-export const FullText = styled.p`
+export const FullText = styled.p `
   display: flex;
   align-items: center;
   justify-content: center;

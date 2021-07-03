@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
 
-export const TitleContainer = styled.div`
+export const TitleContainer = styled.div `
   display: flex;
   width: 90%;
   justify-content: center;
@@ -12,7 +12,7 @@ export const TitleContainer = styled.div`
   margin: 1rem;
 `;
 
-export const ContentsContainer = styled.div`
+export const ContentsContainer = styled.div `
   display: flex;
   width: 90%;
   flex-direction: column;
@@ -21,7 +21,7 @@ export const ContentsContainer = styled.div`
   margin: 2rem 0;
 `;
 
-export const Table = styled.table`
+export const Table = styled.table `
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -38,7 +38,7 @@ export const Table = styled.table`
   }
 `;
 
-export const TableHead = styled.tr`
+export const TableHead = styled.tr `
   cursor: default;
   display: flex;
   width: 100%;
@@ -73,7 +73,7 @@ export const TableHead = styled.tr`
   }
 `;
 
-export const MemberListRow = styled.tr`
+export const MemberListRow = styled.tr `
   cursor: pointer;
   display: flex;
   padding: 0.5rem 0;
@@ -119,7 +119,7 @@ export const MemberListRow = styled.tr`
   }
 `;
 
-export const StyledForm = styled.form`
+export const StyledForm = styled.form `
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -145,7 +145,7 @@ export const StyledForm = styled.form`
   }
 `;
 
-export const StyledInput = styled.input`
+export const StyledInput = styled.input `
   outline: 0;
   height: 1.8rem;
   width: 3rem;
@@ -156,13 +156,14 @@ export const StyledInput = styled.input`
   outline: ${colors.gray[1]};
 `;
 
-export const CurrentLimit = styled.div`
+export const CurrentLimit = styled.div `
   margin-bottom: 0.5rem;
 `;
 
-export const ExpellActionButton = styled(ActionButton)`
-  background-color: ${colors.red[0]};
+export const ExpellActionButton = styled(ActionButton)
+`
+  background-color: ${colors.red[1]};
   &:hover {
-    background-color: ${colors.red[1]};
+    background-color: ${colors.red[0]};
   }
 `;
