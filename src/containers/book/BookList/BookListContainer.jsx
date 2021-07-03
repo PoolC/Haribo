@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as bookAPI from '../../../lib/api/book';
 import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
-import Spinner from '../../../components/common/Spinner/Spinner';
 
 const BookListContainer = () => {
   const member = useSelector((state) => state.auth);
@@ -55,15 +54,13 @@ const BookListContainer = () => {
 
   return (
     <>
-      {loading && <Spinner />}
-      {!loading && (
-        <BookList
-          member={member}
-          books={books}
-          onBorrowBook={onBorrowBook}
-          onReturnBook={onReturnBook}
-        />
-      )}
+      <BookList
+        loading={loading}
+        member={member}
+        books={books}
+        onBorrowBook={onBorrowBook}
+        onReturnBook={onReturnBook}
+      />
     </>
   );
 };

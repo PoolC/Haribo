@@ -78,21 +78,20 @@ const ActivityListContainer = ({ location, history, match }) => {
 
   return (
     <>
-      {loading && <Spinner />}
-      {!loading && (
-        <TwoColumnsContainerBlock>
-          <ActivityMenu
-            semesters={semesters}
-            currentLocation={currentLocation}
-          />
-          <ActivityList
-            activities={activities}
-            onToggleRegisterActivity={onToggleRegisterActivity}
-            onDeleteActivity={onDeleteActivity}
-            member={member}
-          />
-        </TwoColumnsContainerBlock>
-      )}
+      <TwoColumnsContainerBlock>
+        <ActivityMenu
+          loading={loading}
+          semesters={semesters}
+          currentLocation={currentLocation}
+        />
+        <ActivityList
+          loading={loading}
+          activities={activities}
+          onToggleRegisterActivity={onToggleRegisterActivity}
+          onDeleteActivity={onDeleteActivity}
+          member={member}
+        />
+      </TwoColumnsContainerBlock>
     </>
   );
 };

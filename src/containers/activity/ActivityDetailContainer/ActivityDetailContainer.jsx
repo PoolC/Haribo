@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as activityAPI from '../../../lib/api/activity';
 import { withRouter } from 'react-router-dom';
-import Spinner from '../../../components/common/Spinner/Spinner';
 
 const ActivityDetailContainer = ({ match }) => {
   const activityID = match.params.activityID;
@@ -65,18 +64,14 @@ const ActivityDetailContainer = ({ match }) => {
   };
 
   return (
-    <>
-      {loading && <Spinner />}
-      {!loading && (
-        <ActivityDetail
-          activity={activity}
-          activityMembers={activityMembers}
-          activitySessions={activitySessions}
-          member={member}
-          onToggleRegisterActivity={onToggleRegisterActivity}
-        />
-      )}
-    </>
+    <ActivityDetail
+      loading={loading}
+      activity={activity}
+      activityMembers={activityMembers}
+      activitySessions={activitySessions}
+      member={member}
+      onToggleRegisterActivity={onToggleRegisterActivity}
+    />
   );
 };
 

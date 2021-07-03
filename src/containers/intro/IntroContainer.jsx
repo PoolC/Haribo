@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Spinner from '../../components/common/Spinner/Spinner';
 import Intro from '../../components/intro/Intro';
 import * as infoAPI from '../../lib/api/info';
 
@@ -21,10 +20,11 @@ const IntroContainer = () => {
 
   return (
     <>
-      {loading && <Spinner />}
-      {!loading && (
-        <Intro introduction={introduction} locationUrl={locationUrl} />
-      )}
+      <Intro
+        loading={loading}
+        introduction={introduction}
+        locationUrl={locationUrl}
+      />
     </>
   );
 };

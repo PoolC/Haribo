@@ -45,15 +45,9 @@ const ProjectDetail = ({ project, member }) => {
           </DurationContainer>
           <IntroductionContainer>
             <Introduction>
-              {/* <span>
-                <i className="fas fa-quote-left"></i>
-              </span> */}
               <BodyContainer className="here">
                 <Viewer initialValue={body} />
               </BodyContainer>
-              {/* <span>
-                <i className="fas fa-quote-right"></i>
-              </span> */}
             </Introduction>
           </IntroductionContainer>
         </TextContainer>

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import getFileUrl from '../../lib/utils/getFileUrl';
 import { Viewer } from '@toast-ui/react-editor';
 import colors from '../../lib/styles/colors';
+import Spinner from '../common/Spinner/Spinner';
 
 const Title = styled.h2`
   margin-bottom: 2rem;
@@ -63,15 +64,20 @@ const StyledImage = styled.img`
   max-width: 400px;
 `;
 
-const Intro = ({ introduction, locationUrl }) => {
+const Intro = ({ loading, introduction, locationUrl }) => {
   return (
     <WhiteNarrowBlock>
       <Title>PoolC 소개</Title>
-      <Body>
-        <Viewer initialValue={introduction} />
-      </Body>
-      <Title>동아리방 위치</Title>
-      <StyledImage src={getFileUrl(locationUrl)} />
+      {loading && <Spinner />}
+      {!loading && (
+        <>
+          <Body>
+            <Viewer initialValue={introduction} />
+          </Body>
+          <Title>동아리방 위치</Title>
+          <StyledImage src={getFileUrl(locationUrl)} />
+        </>
+      )}
     </WhiteNarrowBlock>
   );
 };
