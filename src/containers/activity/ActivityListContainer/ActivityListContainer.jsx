@@ -5,7 +5,6 @@ import ActivityList from '../../../components/activity/ActivityList/ActivityList
 import { useSelector } from 'react-redux';
 import * as activityAPI from '../../../lib/api/activity';
 import { TwoColumnsContainerBlock } from '../../../styles/common/Block.styles.js';
-import Spinner from '../../../components/common/Spinner/Spinner';
 import { MENU } from '../../../constants/menus';
 
 const ActivityListContainer = ({ location, history, match }) => {
