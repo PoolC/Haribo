@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
 
-export const TitleContainer = styled.div`
+export const TitleContainer = styled.div `
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,7 @@ export const TitleContainer = styled.div`
   margin: 1rem;
 `;
 
-export const ContentsContainer = styled.div`
+export const ContentsContainer = styled.div `
   display: flex;
   flex-direction: column;
   width: 90%;
@@ -19,7 +19,7 @@ export const ContentsContainer = styled.div`
   align-items: center;
 `;
 
-export const Table = styled.table`
+export const Table = styled.table `
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -36,7 +36,7 @@ export const Table = styled.table`
   }
 `;
 
-export const TableHead = styled.tr`
+export const TableHead = styled.tr `
   cursor: default;
   display: flex;
   width: 100%;
@@ -94,7 +94,7 @@ export const TableHead = styled.tr`
   }
 `;
 
-export const MemberSearchForm = styled.form`
+export const MemberSearchForm = styled.form `
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,7 +104,7 @@ export const MemberSearchForm = styled.form`
   }
 `;
 
-export const MemberListRow = styled.tr`
+export const MemberListRow = styled.tr `
   cursor: pointer;
   display: flex;
   padding: 0.5rem 0;
@@ -166,15 +166,16 @@ export const MemberListRow = styled.tr`
   }
 `;
 
-export const StyledActionButton = styled(ActionButton)`
+export const StyledActionButton = styled(ActionButton)
+`
   margin: 0;
   font-size: 0.7rem;
   padding: 0.1rem 0.4rem;
   &.delete {
-    background-color: ${colors.red[0]};
+    background-color: ${colors.red[1]};
     transition: 0.3s;
     &:hover {
-      background-color: ${colors.red[1]};
+      background-color: ${colors.red[0]};
       transition: 0.3s;
     }
   }
@@ -184,7 +185,7 @@ export const StyledActionButton = styled(ActionButton)`
   }
 `;
 
-export const StyledSelect = styled.select`
+export const StyledSelect = styled.select `
   outline: 0;
   height: 1.5rem;
   width: 4.5rem;
@@ -192,11 +193,11 @@ export const StyledSelect = styled.select`
   box-sizing: content-box;
 `;
 
-export const SearchHeader = styled.h4`
+export const SearchHeader = styled.h4 `
   margin: 2rem 0 1rem 0;
 `;
 
-export const SearchResult = styled.p`
+export const SearchResult = styled.p `
   margin: 1rem 0 2rem 0;
   font-size: 0.8rem;
   font-weight: 300;

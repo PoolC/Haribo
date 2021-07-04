@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import * as memberAPI from '../../../lib/api/member';
 import { withRouter } from 'react-router-dom';
 import { MENU } from '../../../constants/menus';
-import Spinner from '../../../components/common/Spinner/Spinner';
 
 const MemberListContainer = ({ history }) => {
   const [members, setMembers] = useState(null);
@@ -26,8 +25,7 @@ const MemberListContainer = ({ history }) => {
 
   return (
     <>
-      {loading && <Spinner />}
-      {!loading && <MemberList members={members} />}
+      <MemberList members={members} loading={loading} />
     </>
   );
 };

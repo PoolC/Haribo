@@ -5,7 +5,6 @@ import * as postAPI from '../../../lib/api/post';
 import * as commentAPI from '../../../lib/api/comment';
 import { useSelector } from 'react-redux';
 import { MENU } from '../../../constants/menus';
-import Spinner from '../../../components/common/Spinner/Spinner';
 
 const PostContainer = ({ selectedMenu, history, match, location }) => {
   const { postID } = match.params;
@@ -86,20 +85,16 @@ const PostContainer = ({ selectedMenu, history, match, location }) => {
   };
 
   return (
-    <>
-      {loading && <Spinner />}
-      {!loading && (
-        <Post
-          member={member}
-          post={post}
-          comments={comments}
-          selectedMenu={selectedMenu}
-          onDeletePost={onDeletePost}
-          onCreateComment={onCreateComment}
-          onDeleteComment={onDeleteComment}
-        />
-      )}
-    </>
+    <Post
+      loading={loading}
+      member={member}
+      post={post}
+      comments={comments}
+      selectedMenu={selectedMenu}
+      onDeletePost={onDeletePost}
+      onCreateComment={onCreateComment}
+      onDeleteComment={onDeleteComment}
+    />
   );
 };
 

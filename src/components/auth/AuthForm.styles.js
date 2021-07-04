@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import colors from '../../lib/styles/colors';
 
-export const FormListHeader = styled.header`
+export const FormListHeader = styled.header `
   display: flex;
   align-items: center;
   margin: auto;
@@ -12,7 +12,7 @@ export const FormListHeader = styled.header`
   margin-bottom: 3rem;
 `;
 
-export const FormList = styled.form`
+export const FormList = styled.form `
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,7 +28,7 @@ export const FormList = styled.form`
   }
 `;
 
-export const StyledLabel = styled.label`
+export const StyledLabel = styled.label `
   display: flex;
   justify-content: space-between;
   margin: 5px 0 8px 0;
@@ -36,13 +36,13 @@ export const StyledLabel = styled.label`
   width: 100%;
 `;
 
-export const Warning = styled.span`
+export const Warning = styled.span `
   opacity: ${(props) => (props.error ? '100%' : '0%')};
   color: ${colors.red[1]};
   transition: 0.3s ease-in;
 `;
 
-export const StyledInput = styled.input`
+export const StyledInput = styled.input `
   border: 1px solid ${colors.brown[0]};
   height: 2rem;
   border-radius: 2px;
@@ -63,13 +63,13 @@ export const SubmitButton = styled.button`
   width: 100%;
   max-width: 320px;
   height: 2rem;
-  background-color: ${colors.mint[1]};
+  background-color: ${colors.mint[2]};
   color: white;
   border-radius: 12px;
   font-weight: 600;
   transition: 0.3s;
   &:hover {
-    background-color: ${colors.mint[2]};
+    opacity: 0.75;
     transition: 0.3s;
   }
 `;
@@ -110,10 +110,10 @@ export const StyledSelect = styled.select`
 `;
 
 export const WithdrawalButton = styled(SubmitButton)`
-  background-color: ${colors.red[0]};
+  background-color: ${colors.red[1]};
   margin-top: 1.5rem;
   &:hover {
-    background-color: ${colors.red[1]};
+    background-color: ${colors.red[0]};
   }
   &:disabled {
     background-color: ${colors.gray[2]};

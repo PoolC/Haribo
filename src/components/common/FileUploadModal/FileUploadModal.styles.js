@@ -2,7 +2,7 @@ import styled, { css, keyframes } from 'styled-components';
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../Buttons/ActionButton';
 
-export const fadeIn = keyframes`
+export const fadeIn = keyframes `
   from {
     opacity: 0;
   }
@@ -11,7 +11,7 @@ export const fadeIn = keyframes`
   }
 `;
 
-export const fadeOut = keyframes`
+export const fadeOut = keyframes `
   from {
     opacity: 1;
   }
@@ -20,7 +20,7 @@ export const fadeOut = keyframes`
   }
 `;
 
-export const slideUp = keyframes`
+export const slideUp = keyframes `
   from {
     transform: translateY(200px);
   }
@@ -29,7 +29,7 @@ export const slideUp = keyframes`
     }
 `;
 
-export const slideDown = keyframes`
+export const slideDown = keyframes `
   from {
     transform: translateY(0px);
   }
@@ -38,7 +38,7 @@ export const slideDown = keyframes`
     }
 `;
 
-export const ModalBlock = styled.div`
+export const ModalBlock = styled.div `
   position: fixed;
   z-index: 10000;
   background-color: rgba(0, 0, 0, 0.2);
@@ -97,10 +97,10 @@ export const HeaderBar = styled.div`
   & > .fa-times {
     cursor: pointer;
     margin-right: 15px;
-    color: ${colors.brown[0]};
+    color: ${colors.brown[1]};
     transition: 0.3s ease-in;
     &:hover {
-      color: ${colors.brown[1]};
+      color: ${colors.brown[0]};
       transition: 0.3s ease-in;
     }
   }
@@ -150,7 +150,7 @@ export const StyledFileButton = styled.label`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${colors.brown[0]};
+    background-color: ${colors.brown[1]};
     color: ${colors.gray[0]};
     border-radius: 8px;
     transition: 0.3s;
@@ -160,7 +160,7 @@ export const StyledFileButton = styled.label`
     height: 2rem;
     margin: 0;
     &:hover {
-      background-color: ${colors.brown[1]};
+      background-color: ${colors.brown[0]};
       transition: 0.3s;
     }
   }

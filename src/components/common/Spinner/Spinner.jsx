@@ -11,8 +11,16 @@ const SpinnerBlock = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 50vh;
-  margin-bottom: 80vh;
+  height: ${(props) => {
+    if (props.small !== true) {
+      return '40vh';
+    }
+  }};
+  margin-bottom: ${(props) => {
+    if (props.small !== true) {
+      return '70vh';
+    }
+  }};
 `;
 
 const StyledSpinner = styled.i`
@@ -20,9 +28,9 @@ const StyledSpinner = styled.i`
   font-size: 4rem;
 `;
 
-const Spinner = () => {
+const Spinner = ({ small = false }) => {
   return (
-    <SpinnerBlock>
+    <SpinnerBlock small={small}>
       <StyledSpinner className="fas fa-spinner fa-10x fa-spin"></StyledSpinner>
     </SpinnerBlock>
   );

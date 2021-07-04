@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import PostList from '../../../components/board/PostList/PostList';
-import Spinner from '../../../components/common/Spinner/Spinner';
 import { MENU } from '../../../constants/menus';
 import * as postAPI from '../../../lib/api/post';
 
@@ -57,23 +56,19 @@ const PostListContainer = ({ location, selectedMenu, history }) => {
 
   return (
     <>
-      {loading && <Spinner />}
-      {!loading && (
-        <>
-          <PostList
-            posts={currentPosts}
-            member={member}
-            selectedMenu={selectedMenu}
-            postPerPage={postPerPage}
-            totalPosts={totalPosts}
-            paginate={paginate}
-            setCurrentPageSet={setCurrentPageSet}
-            currentPage={currentPage}
-            currentPageSet={currentPageSet}
-            pagePerPage={pagePerPage}
-          />
-        </>
-      )}
+      <PostList
+        loading={loading}
+        posts={currentPosts}
+        member={member}
+        selectedMenu={selectedMenu}
+        postPerPage={postPerPage}
+        totalPosts={totalPosts}
+        paginate={paginate}
+        setCurrentPageSet={setCurrentPageSet}
+        currentPage={currentPage}
+        currentPageSet={currentPageSet}
+        pagePerPage={pagePerPage}
+      />
     </>
   );
 };
