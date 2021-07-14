@@ -9,7 +9,7 @@ const Title = styled.h2`
   margin-bottom: 2rem;
 `;
 
-const Content = styled.div`
+export const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,7 +33,7 @@ const Content = styled.div`
   }
 `;
 
-const StyledIcon = styled.i`
+export const StyledIcon = styled.i`
   font-size: 3rem;
   color: ${colors.red[0]};
 `;
@@ -67,11 +67,16 @@ const Apply = ({ isSubscriptionPeriod, applyUri, history }) => {
                 아래 버튼을 누르면 면접 시간 제출 페이지로 이동합니다.
                 <br />
                 로그인 후 해당 페이지에서 면접 시간을 선택해주세요.
+                <br />
+                면접 시간은 선착순으로 정해집니다.
+                <br />
+                가입 신청 마감 직전 트래픽 과부하가 발생할 수 있으므로 미리
+                신청해주세요.
                 <div>
                   <ActionButton
                     onClick={() =>
                       window.open(
-                        'http://alpha.poolc.org/interview-time',
+                        'http://localhost:3000/interview-time',
                         '_blank',
                       )
                     }
@@ -86,6 +91,9 @@ const Apply = ({ isSubscriptionPeriod, applyUri, history }) => {
                 아래 버튼을 누르면 가입 신청서 링크로 이동합니다.
                 <br />
                 해당 링크에서 지원서를 작성해주세요.
+                <br />
+                면접 시간 제출과 지원서 제출이 모두 완료되면 정상적으로 지원서
+                검토가 시작됩니다.
                 <div>
                   <ActionButton
                     onClick={() => {
