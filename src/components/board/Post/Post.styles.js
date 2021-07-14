@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
 
-export const PostContainer = styled.div `
+export const PostContainer = styled.div`
   display: flex;
   width: 90%;
   max-width: 90%;
@@ -11,7 +11,7 @@ export const PostContainer = styled.div `
   align-items: center;
 `;
 
-export const TitleContainer = styled.div `
+export const TitleContainer = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -25,7 +25,7 @@ export const TitleContainer = styled.div `
   text-overflow: ellipsis;
 `;
 
-export const InfoContainer = styled.div `
+export const InfoContainer = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
@@ -44,7 +44,7 @@ export const InfoContainer = styled.div `
   }
 `;
 
-export const BodyContainer = styled.div `
+export const BodyContainer = styled.div`
   width: 100%;
   padding: 20px 0 20px 0;
   word-break: break-all;
@@ -95,7 +95,7 @@ export const BodyContainer = styled.div `
   }
 `;
 
-export const ButtonContainer = styled.div `
+export const ButtonContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: flex-end;
@@ -103,7 +103,7 @@ export const ButtonContainer = styled.div `
   border-bottom: 1px solid ${colors.mint[0]};
 `;
 
-export const CommentsContainer = styled.div `
+export const CommentsContainer = styled.div`
   display: flex;
   width: 90%;
   flex-direction: column;
@@ -111,8 +111,7 @@ export const CommentsContainer = styled.div `
   align-items: center;
 `;
 
-export const StyledButton = styled(ActionButton)
-`
+export const StyledButton = styled(ActionButton)`
   margin: 0 0 0 15px;
   &.modify {
     background-color: ${colors.brown[1]};
