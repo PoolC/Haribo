@@ -15,6 +15,8 @@ import AdminProjectFormContainer from '../../containers/admin/AdminProjectFormCo
 import AdminBookFormContainer from '../../containers/admin/AdminBookFormContainer/AdminBookFormContainer';
 import AdminHomeContainer from '../../containers/admin/AdminHomeContainer/AdminHomeContainer';
 import useAdminCheck from '../../hooks/useAdminCheck';
+import AdminInterviewContainer from '../../containers/admin/AdminInterviewContainer/AdminInterviewContainer';
+import AdminInterviewTimeContainer from '../../containers/admin/AdminInterviewTimeContainer/AdminInterviewTimeContainer';
 
 const AdminContainerBlock = styled.div`
   position: relative;
@@ -40,6 +42,8 @@ const AdminPage = ({ history }) => {
     { name: '프로젝트 관리', url: '/projects' },
     { name: '활동 관리', url: '/activities' },
     { name: '도서 관리', url: '/books' },
+    { name: '면접 시간 관리', url: '/interview-time' },
+    { name: '면접 신청 조회', url: '/interview' },
   ];
 
   useAdminCheck(history);
@@ -106,6 +110,16 @@ const AdminPage = ({ history }) => {
         <Route
           component={AdminBookContainer}
           path={`/${MENU.ADMIN}/books`}
+          exact
+        />
+        <Route
+          component={AdminInterviewTimeContainer}
+          path={`/${MENU.ADMIN}/interview-time`}
+          exact
+        />
+        <Route
+          component={AdminInterviewContainer}
+          path={`/${MENU.ADMIN}/interview`}
           exact
         />
         <Route component={AdminHomeContainer} path={`/${MENU.ADMIN}`} exact />
