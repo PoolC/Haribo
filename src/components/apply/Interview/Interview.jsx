@@ -10,8 +10,24 @@ import {
   DisabledActionButton,
 } from './Interview.styles';
 import ActionButton from '../../common/Buttons/ActionButton';
+import { useSelector } from 'react-redux';
+import { StyledDeleteButton } from '../../activity/ActivityCard/ActivityCard.styles';
 
-const TimeBlock = ({ startTime, endTime, capacity, num }) => {
+const TimeBlock = ({
+  startTime,
+  endTime,
+  capacity,
+  num,
+  interviewees,
+  loginId,
+  mySlotId,
+  id,
+}) => {
+  console.log(interviewees);
+  const intervieweeIds = interviewees?.map((i) => i.loginId);
+  console.log(intervieweeIds);
+  console.log(intervieweeIds.includes(loginId));
+  console.log(loginId);
   return (
     <StyledTimeBlock>
       <TimeBlockTime>
@@ -20,21 +36,24 @@ const TimeBlock = ({ startTime, endTime, capacity, num }) => {
       <TimeBlockCapacity>
         {num}명/{capacity}명
       </TimeBlockCapacity>
-      {capacity > num && (
+      {mySlotId === null && capacity > num && (
         <div>
           <ActionButton>신청</ActionButton>
         </div>
       )}
-      {capacity === num && (
+      {!intervieweeIds.includes(loginId) && capacity <= num && (
         <div>
           <DisabledActionButton>마감</DisabledActionButton>
         </div>
+      )}
+      {intervieweeIds.includes(loginId) && (
+        <StyledDeleteButton>취소</StyledDeleteButton>
       )}
     </StyledTimeBlock>
   );
 };
 
-const DateBlock = ({ capacity, data }) => {
+const DateBlock = ({ data, loginId, mySlotId }) => {
   return (
     <>
       <StyledDateBlock>{data?.date}</StyledDateBlock>
@@ -42,10 +61,14 @@ const DateBlock = ({ capacity, data }) => {
         {data?.slots.map((d) => (
           <TimeBlock
             key={d.id}
+            id={d.id}
             startTime={d.startTime}
             endTime={d.endTime}
-            capacity={capacity}
-            num={d.num}
+            capacity={d.capacity}
+            num={d.interviewees.length}
+            interviewees={d.interviewees}
+            loginId={loginId}
+            mySlotId={mySlotId}
           />
         ))}
       </StyledTimeList>
@@ -54,7 +77,13 @@ const DateBlock = ({ capacity, data }) => {
 };
 
 const Interview = ({ loading, data }) => {
-  const capacity = 3;
+  const member = useSelector((state) => state.auth);
+  const isLogin = member.status.isLogin;
+  const role = member.user.role;
+  const loginId = member.user.memberId;
+  const mySlotId = data.mySlotId;
+  console.log(member);
+  console.log(data);
 
   return (
     <Block>
@@ -63,8 +92,13 @@ const Interview = ({ loading, data }) => {
         {loading && <Spinner />}
         {!loading && (
           <>
-            {data?.map((d) => (
-              <DateBlock key={d.date} capacity={capacity} data={d} />
+            {data?.data?.map((d) => (
+              <DateBlock
+                key={d.date}
+                data={d}
+                loginId={loginId}
+                mySlotId={mySlotId}
+              />
             ))}
           </>
         )}
