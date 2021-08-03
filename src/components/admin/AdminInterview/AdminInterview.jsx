@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import {
   IntervieweeList,
@@ -12,7 +12,6 @@ import Spinner from '../../common/Spinner/Spinner';
 import { TitleContainer } from '../AdminBook/AdminBook.styles';
 
 const Interviewee = ({ interviewee }) => {
-  console.log(interviewee);
   return (
     <IntervieweeList>
       <div>
@@ -35,7 +34,6 @@ const Interviewee = ({ interviewee }) => {
 };
 
 const TimeBlock = ({ startTime, endTime, capacity, num, interviewees }) => {
-  console.log(interviewees);
   return (
     <StyledTimeBlock>
       <TimeBlockTime>
@@ -58,7 +56,7 @@ const DateBlock = ({ data }) => {
       <StyledTimeList>
         {data?.slots.map((d) => (
           <TimeBlock
-            key={d.id}
+            key={d.slotId}
             id={d.id}
             startTime={d.startTime}
             endTime={d.endTime}
