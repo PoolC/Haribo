@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import ActionButton from '../../common/Buttons/ActionButton';
 import Spinner from '../../common/Spinner/Spinner';
@@ -6,7 +6,6 @@ import { TitleContainer } from '../AdminBook/AdminBook.styles';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import {
   Form,
-  StyledActionButton,
   StyledCapacityForm,
   StyledCapacityInput,
   StyledDateForm,
@@ -93,10 +92,8 @@ const InterviewForm = ({ data }) => {
     notEmptyValidation,
   );
   const [slots, setSlots] = useState(data ? data.slots : []);
-  console.log(data);
   const onAddTime = (e) => {
     e.preventDefault();
-    console.log(data.slots);
     setSlots([
       ...slots,
       {
@@ -138,10 +135,8 @@ const InterviewForm = ({ data }) => {
 const AdminInterviewTime = ({ data, loading, setData }) => {
   const onAddDate = (e) => {
     e.preventDefault();
-    console.log([...data, { date: '', slots: [] }]);
     setData([...data, { date: '', slots: [] }]);
   };
-  console.log(data);
   return (
     <WhiteNarrowBlock>
       <TitleContainer>면접 시간 관리</TitleContainer>
