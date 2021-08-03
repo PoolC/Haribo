@@ -12,6 +12,7 @@ import {
 } from './ActivityList.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import Spinner from '../../common/Spinner/Spinner';
+import { isAuthorizedRole } from '../../../lib/utils/checkRole';
 
 const ActivityList = ({
   loading,
@@ -22,7 +23,7 @@ const ActivityList = ({
 }) => {
   const {
     status: { isLogin },
-    user: { memberId },
+    user: { memberId, role },
   } = member;
 
   return (
@@ -31,7 +32,7 @@ const ActivityList = ({
         <WhiteNarrowBlock>
           <ActivityListHeader>
             <ActivityListTitle>세미나&스터디</ActivityListTitle>
-            {isLogin && (
+            {isLogin && isAuthorizedRole(role) && (
               <ActionButton to={`/${MENU.ACTIVITY}/new`}>개설</ActionButton>
             )}
           </ActivityListHeader>
@@ -52,6 +53,7 @@ const ActivityList = ({
                   activity={activity}
                   isLogin={isLogin}
                   memberId={memberId}
+                  role={role}
                 />
               ))}
             </List>

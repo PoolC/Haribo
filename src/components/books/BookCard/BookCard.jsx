@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import BookModalContainer from '../../../containers/book/BookModal/BookModalContainer';
 import getFileUrl from '../../../lib/utils/getFileUrl';
+import { isAuthorizedRole } from '../../../lib/utils/checkRole';
 
 const openCard = keyframes`
   from {
@@ -268,6 +269,7 @@ const BookCard = ({ book, isLogin, user, onBorrowBook, onReturnBook }) => {
               {info && <BookInfo>[{info}]</BookInfo>}
             </BookDetailInfoContainer>
             {isLogin &&
+              isAuthorizedRole(user.role) &&
               (status === 'AVAILABLE' ? (
                 <BookDetailButton onClick={handleModalOpen}>
                   대출

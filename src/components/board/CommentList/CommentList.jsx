@@ -1,4 +1,5 @@
 import React from 'react';
+import { isAuthorizedRole } from '../../../lib/utils/checkRole';
 import Comment from '../Comment/Comment';
 import CommentForm from '../CommentForm/CommentForm';
 import { CommentListBlock } from './CommentList.styles';
@@ -11,6 +12,7 @@ const CommentList = ({
 }) => {
   const {
     status: { isLogin },
+    user: { role },
   } = member;
 
   return (
@@ -23,7 +25,9 @@ const CommentList = ({
           onDeleteComment={onDeleteComment}
         />
       ))}
-      {isLogin && <CommentForm onCreateComment={onCreateComment} />}
+      {isLogin && isAuthorizedRole(role) && (
+        <CommentForm onCreateComment={onCreateComment} />
+      )}
     </CommentListBlock>
   );
 };

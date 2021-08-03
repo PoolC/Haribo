@@ -1,5 +1,6 @@
 import React from 'react';
 import { MENU } from '../../../constants/menus';
+import { isAuthorizedRole } from '../../../lib/utils/checkRole';
 import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import ActionButton from '../../common/Buttons/ActionButton';
@@ -36,7 +37,7 @@ const PostList = ({
 }) => {
   const {
     status: { isLogin },
-    user: { isAdmin },
+    user: { isAdmin, role },
   } = member;
 
   const isNewPost = (createdAt) => {
@@ -55,7 +56,9 @@ const PostList = ({
         {!loading &&
           isLogin &&
           ((selectedMenu.writePermission === 'ADMIN' && isAdmin) ||
-            (selectedMenu.writePermission === 'MEMBER' && isLogin)) && (
+            (selectedMenu.writePermission === 'MEMBER' &&
+              isLogin &&
+              isAuthorizedRole(role))) && (
             <ActionButton
               to={`/${MENU.BOARDS}/${selectedMenu?.urlPath}/${MENU.POST}/new/${selectedMenu?.id}`}
             >

@@ -29,6 +29,7 @@ import getFileUrl from '../../../lib/utils/getFileUrl';
 import { FullText } from '../ActivityCard/ActivityCard.styles';
 import ActivityRegisterModalContainer from '../../../containers/activity/ActivityModalContainer/ActivityRegisterModalContainer';
 import Spinner from '../../common/Spinner/Spinner';
+import { isAuthorizedRole } from '../../../lib/utils/checkRole';
 
 const Tag = ({ tag }) => {
   return <TagCard>#{tag}</TagCard>;
@@ -44,7 +45,7 @@ const ActivityDetail = ({
 }) => {
   const {
     status: { isLogin },
-    user: { memberId },
+    user: { memberId, role },
   } = member;
 
   const [members, setMembers] = useState(activity?.memberLoginIds);
@@ -111,7 +112,7 @@ const ActivityDetail = ({
                   ))}
                 </TagList>
               </TagContainer>
-              {activity.available && isLogin && (
+              {activity.available && isLogin && isAuthorizedRole(role) && (
                 <ButtonContainer>
                   {activity.available &&
                     memberId !== activity.host.loginID &&
@@ -152,7 +153,7 @@ const ActivityDetail = ({
                     : '첨부된 파일 없음'}
                 </FileContainer>
               </PlanContainer>
-              {isLogin && (
+              {isLogin && isAuthorizedRole(role) && (
                 <MemberContainer>
                   <h2>참여 멤버</h2>
                   <Member>
@@ -171,6 +172,7 @@ const ActivityDetail = ({
                       session={session}
                       activityID={activity.id}
                       host={activity.host}
+                      role={role}
                     />
                   ))}
                 </Sessions>
