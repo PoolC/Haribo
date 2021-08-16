@@ -11,6 +11,7 @@ const LinkButtonStyle = css`
   text-decoration: none;
   outline: 0;
   font-size: 0.8rem;
+  cursor: pointer;
 
   &:hover {
     color: ${colors.brown[1]};

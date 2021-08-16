@@ -25,7 +25,7 @@ import {
   FileContainer,
   FileContainerTitle,
 } from '../../board/PostForm/PostForm.styles';
-import getFileUrl from '../../../lib/utils/getFileUrl';
+import getFileUrl, { getDecodedFileUrl } from '../../../lib/utils/getFileUrl';
 import { FullText } from '../ActivityCard/ActivityCard.styles';
 import ActivityRegisterModalContainer from '../../../containers/activity/ActivityModalContainer/ActivityRegisterModalContainer';
 import Spinner from '../../common/Spinner/Spinner';
@@ -147,7 +147,9 @@ const ActivityDetail = ({
                   {activity.fileList?.length !== 0
                     ? activity.fileList?.map((file) => (
                         <File key={file}>
-                          <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
+                          <a href={getFileUrl(file)}>
+                            {getDecodedFileUrl(file)}
+                          </a>
                         </File>
                       ))
                     : '첨부된 파일 없음'}

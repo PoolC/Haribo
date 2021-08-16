@@ -13,6 +13,7 @@ const StyledActionButton = styled.button`
   font-weight: 700;
   font-size: 0.8rem;
   min-height: 1.8rem;
+  cursor: pointer;
   &:hover {
     opacity: 0.75;
     transition: 0.3s;

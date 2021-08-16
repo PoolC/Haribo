@@ -19,7 +19,7 @@ import {
   FileContainerTitle,
 } from '../PostForm/PostForm.styles';
 import { Viewer } from '@toast-ui/react-editor';
-import getFileUrl from '../../../lib/utils/getFileUrl';
+import getFileUrl, { getDecodedFileUrl } from '../../../lib/utils/getFileUrl';
 import { MemberLink } from '../PostList/PostList.styles';
 import Spinner from '../../common/Spinner/Spinner';
 
@@ -89,7 +89,7 @@ const Post = ({
             {post.fileList?.length !== 0
               ? post.fileList?.map((file) => (
                   <File key={file}>
-                    <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
+                    <a href={getFileUrl(file)}>{getDecodedFileUrl(file)}</a>
                   </File>
                 ))
               : '첨부된 파일 없음'}
