@@ -14,7 +14,7 @@ const Body = styled.div`
   margin: auto;
   margin-bottom: 3rem;
   word-break: keep-all;
-  padding: 0 3rem;
+  padding: 0 1rem;
   line-height: 1.5rem;
   max-width: 100%;
   overflow: auto;
@@ -22,7 +22,7 @@ const Body = styled.div`
   p,
   ul,
   ol {
-    font-weight: 400;
+    font-weight: 300;
     font-size: 0.9rem;
     color: ${colors.brown[1]};
   }
