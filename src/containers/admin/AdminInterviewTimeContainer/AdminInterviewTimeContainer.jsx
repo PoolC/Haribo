@@ -66,6 +66,7 @@ const AdminInterviewTimeContainer = () => {
       .then((res) => {
         if (res.status === SUCCESS.OK) {
           setData(res.data.data);
+          alert('면접 시간 슬롯이 성공적으로 수정되었습니다.');
         }
       });
   };
