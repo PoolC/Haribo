@@ -25,10 +25,14 @@ import { StyledButton } from '../../board/Post/Post.styles';
 
 const DateTimeForm = ({
   id,
+  date,
   startTime,
   endTime,
   capacity,
   currentIntervieweesCount,
+  onCreateInterviewTime,
+  onDeleteInterviewTime,
+  onUpdateInterviewTime,
 }) => {
   const [start, onChangeStart] = useInput(
     startTime ? startTime : '',
@@ -42,6 +46,32 @@ const DateTimeForm = ({
     capacity ? capacity : '',
     notEmptyValidation,
   );
+
+  const handleCreateInterviewTime = (e) => {
+    e.preventDefault();
+    onCreateInterviewTime({
+      date,
+      startTime: start,
+      endTime: end,
+      capacity: capa,
+    });
+  };
+
+  const handleUpdateInterviewTime = (e) => {
+    e.preventDefault();
+    onUpdateInterviewTime({
+      slotId: id,
+      startTime: start,
+      endTime: end,
+      capacity: capa,
+    });
+  };
+
+  const handleDeleteInterviewTime = (e) => {
+    e.preventDefault();
+    onDeleteInterviewTime({ slotId: id });
+  };
+
   return (
     <StyledDateTimeForm>
       <StyledTimeForm>
@@ -79,14 +109,25 @@ const DateTimeForm = ({
         <span>명</span>
       </StyledCapacityForm>
       <TimeCapacityButtonContainer>
-        <StyledButton>제출</StyledButton>
-        <StyledDeleteButton>삭제</StyledDeleteButton>
+        <StyledButton
+          onClick={id ? handleUpdateInterviewTime : handleCreateInterviewTime}
+        >
+          {id ? '수정' : '제출'}
+        </StyledButton>
+        <StyledDeleteButton onClick={handleDeleteInterviewTime}>
+          삭제
+        </StyledDeleteButton>
       </TimeCapacityButtonContainer>
     </StyledDateTimeForm>
   );
 };
 
-const InterviewForm = ({ data }) => {
+const InterviewForm = ({
+  data,
+  onCreateInterviewTime,
+  onDeleteInterviewTime,
+  onUpdateInterviewTime,
+}) => {
   const [date, onChangeDate] = useInput(
     data ? data.date : '',
     notEmptyValidation,
@@ -118,12 +159,16 @@ const InterviewForm = ({ data }) => {
       <StyledTimeFormList>
         {slots.map((s) => (
           <DateTimeForm
+            date={date}
             key={date + s.startTime + s.endTime}
-            id={s.id}
+            id={s.slotId}
             startTime={s.startTime}
             endTime={s.endTime}
             capacity={s.capacity}
             currentIntervieweesCount={s.interviewees.length}
+            onCreateInterviewTime={onCreateInterviewTime}
+            onDeleteInterviewTime={onDeleteInterviewTime}
+            onUpdateInterviewTime={onUpdateInterviewTime}
           />
         ))}
       </StyledTimeFormList>
@@ -132,11 +177,30 @@ const InterviewForm = ({ data }) => {
   );
 };
 
-const AdminInterviewTime = ({ data, loading, setData }) => {
+const AdminInterviewTime = ({
+  data,
+  loading,
+  setData,
+  onCreateInterviewTime,
+  onDeleteInterviewTime,
+  onDeleteAllInterviewTime,
+  onUpdateInterviewTime,
+}) => {
   const onAddDate = (e) => {
     e.preventDefault();
     setData([...data, { date: '', slots: [] }]);
   };
+
+  const onClickDeleteAll = (e) => {
+    e.preventDefault();
+    let result = window.confirm(
+      '[주의] 모든 면접 시간 슬롯을 삭제하시겠습니까?',
+    );
+    if (result) {
+      onDeleteAllInterviewTime();
+    }
+  };
+
   return (
     <WhiteNarrowBlock>
       <TitleContainer>면접 시간 관리</TitleContainer>
@@ -146,13 +210,26 @@ const AdminInterviewTime = ({ data, loading, setData }) => {
         <>
           <Form>
             {data?.map((d) => (
-              <InterviewForm key={d.date} data={d} />
+              <InterviewForm
+                key={d.date}
+                data={d}
+                onCreateInterviewTime={onCreateInterviewTime}
+                onDeleteInterviewTime={onDeleteInterviewTime}
+                onUpdateInterviewTime={onUpdateInterviewTime}
+              />
             ))}
           </Form>
           <ActionButton onClick={onAddDate}>날짜 추가</ActionButton>
+          <StyledDeleteButton
+            onClick={onClickDeleteAll}
+            style={{
+              marginTop: '30px',
+            }}
+          >
+            전체 시간 삭제
+          </StyledDeleteButton>
         </>
       )}
-      {/* <StyledActionButton>제출</StyledActionButton> */}
     </WhiteNarrowBlock>
   );
 };
