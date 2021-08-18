@@ -34,7 +34,6 @@ const AdminInterviewTimeContainer = () => {
 
   const handleDeleteInterviewTime = ({ slotId }) => {
     interviewAPI.deleteInterviewSlot({ slotId }).then((res) => {
-      console.log(res);
       if (res.status === SUCCESS.OK) {
         setData(res.data.data);
       }

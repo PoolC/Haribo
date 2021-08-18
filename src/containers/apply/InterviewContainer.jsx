@@ -24,7 +24,6 @@ const InterviewContainer = () => {
   useEffect(() => {
     setLoading(true);
     interviewAPI.getInterviews().then((res) => {
-      console.log(res.data.data);
       if (res.status === SUCCESS.OK) {
         setMySlotId(res.data.mySlotId);
         setData(res.data.data);
