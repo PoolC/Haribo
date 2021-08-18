@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import RegisterSuccess from '../../../components/auth/RegisterSuccess';
 import * as infoAPI from '../../../lib/api/info';
 import Spinner from '../../../components/common/Spinner/Spinner';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const RegisterSuccessContainer = () => {
   const [loading, setLoading] = useState(true);
@@ -9,7 +10,7 @@ const RegisterSuccessContainer = () => {
 
   useEffect(() => {
     infoAPI.getPoolCInfo().then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setIsSubscriptionPeriod(res.data.isSubscriptionPeriod);
         setLoading(false);
       }

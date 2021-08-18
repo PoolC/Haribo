@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as authAPI from '../../../lib/api/auth';
 import { removeHeaderAccessToken } from '../../../lib/utils/axiosUtil';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const RegisterFormContainer = ({ location, history }) => {
   const [message, setMessage] = useState(null);
@@ -45,7 +46,7 @@ const RegisterFormContainer = ({ location, history }) => {
       });
       response
         .then((res) => {
-          if (res.status === 202) {
+          if (res.status === SUCCESS.OK) {
             setMessage(null);
             history.push('/register/success');
           }

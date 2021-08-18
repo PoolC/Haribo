@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as activityAPI from '../../../lib/api/activity';
 import { withRouter } from 'react-router-dom';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const ActivityDetailContainer = ({ match }) => {
   const activityID = match.params.activityID;
@@ -37,9 +38,9 @@ const ActivityDetailContainer = ({ match }) => {
     activityAPI
       .applyActivity(activityID)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           activityAPI.getActivityMembers(activityID).then((res) => {
-            if (res.status === 200) {
+            if (res.status === SUCCESS.OK) {
               setActivityMembers(res.data.data);
             }
           });

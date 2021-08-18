@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import RecentNotice from '../../../components/home/RecentNotice/RecentNotice';
 import * as postAPI from '../../../lib/api/post';
 import Spinner from '../../../components/common/Spinner/Spinner';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const RecentNoticeContainer = () => {
   const [loading, setLoading] = useState(true);
@@ -9,7 +10,7 @@ const RecentNoticeContainer = () => {
 
   useEffect(() => {
     postAPI.getPosts({ urlPath: 'notice', page: 1 }).then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setNotices(res.data.data.slice(0, 5));
         setLoading(false);
       }

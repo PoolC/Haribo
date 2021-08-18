@@ -4,6 +4,7 @@ import * as infoAPI from '../../../lib/api/info';
 import { withRouter } from 'react-router';
 import ActionButton from '../../../components/common/Buttons/ActionButton';
 import { MENU } from '../../../constants/menus';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const AdminInfoContainer = ({ history }) => {
   const [info, setInfo] = useState(null);
@@ -13,7 +14,7 @@ const AdminInfoContainer = ({ history }) => {
 
   useEffect(() => {
     infoAPI.getPoolCInfo().then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setInfo(res.data);
       }
     });
@@ -54,7 +55,7 @@ const AdminInfoContainer = ({ history }) => {
         applyUri,
       })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           setErrorMessage('정보가 성공적으로 수정되었습니다.');
           onShowErrorModal();
         }

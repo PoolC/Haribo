@@ -7,6 +7,7 @@ import { MENU } from '../../../constants/menus';
 import { useSelector } from 'react-redux';
 import Spinner from '../../../components/common/Spinner/Spinner';
 import ActionButton from '../../../components/common/Buttons/ActionButton';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const ActivityFormContainer = ({ match, history }) => {
   const activityID = match.params.activityID;
@@ -26,16 +27,19 @@ const ActivityFormContainer = ({ match, history }) => {
   useEffect(() => {
     if (activityID) {
       activityAPI.getActivity(activityID).then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           authAPI
             .loadUser()
             .then((user) => {
-              if (user.status === 200 && user.data.isActivated === false) {
+              if (
+                user.status === SUCCESS.OK &&
+                user.data.isActivated === false
+              ) {
                 history.push(`/${MENU.FORBIDDEN}`);
                 return;
               }
               if (
-                user.status === 200 &&
+                user.status === SUCCESS.OK &&
                 user.data.loginID !== res.data.data.host.loginID
               ) {
                 history.push(`/${MENU.FORBIDDEN}`);
@@ -92,7 +96,7 @@ const ActivityFormContainer = ({ match, history }) => {
         fileList,
       })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           history.push('/activities');
         }
       })
@@ -144,7 +148,7 @@ const ActivityFormContainer = ({ match, history }) => {
         fileList,
       })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           history.push('/activities');
         }
       })

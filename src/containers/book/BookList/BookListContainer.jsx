@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as bookAPI from '../../../lib/api/book';
 import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const BookListContainer = () => {
   const member = useSelector((state) => state.auth);
@@ -20,7 +21,7 @@ const BookListContainer = () => {
 
   const onBorrowBook = (id, status) => {
     bookAPI.borrowBook(id).then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         const newBooks = books.map((book) =>
           book.id === id
             ? {
@@ -41,7 +42,7 @@ const BookListContainer = () => {
 
   const onReturnBook = (id, status) => {
     bookAPI.returnBook(id).then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         const newBooks = books.map((book) =>
           book.id === id
             ? { ...book, status: 'AVAILABLE', borrower: null, borrowDate: null }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Intro from '../../components/intro/Intro';
+import { SUCCESS } from '../../constants/statusCode';
 import * as infoAPI from '../../lib/api/info';
 
 const IntroContainer = () => {
@@ -10,7 +11,7 @@ const IntroContainer = () => {
 
   useEffect(() => {
     infoAPI.getPoolCInfo().then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setIntroduction(res.data.introduction);
         setLocationUrl(res.data.locationUrl);
         setLoading(false);

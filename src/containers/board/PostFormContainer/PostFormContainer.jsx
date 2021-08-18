@@ -7,6 +7,7 @@ import * as boardAPI from '../../../lib/api/board';
 import * as postAPI from '../../../lib/api/post';
 import * as authAPI from '../../../lib/api/auth';
 import Spinner from '../../../components/common/Spinner/Spinner';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const PostFormContainer = ({ match, history }) => {
   const { boardID } = match.params;
@@ -25,7 +26,7 @@ const PostFormContainer = ({ match, history }) => {
 
   useEffect(() => {
     boardAPI.getBoard(boardID).then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setSelectedMenu(res.data);
         if (res.data.writePermission === 'ADMIN' && !isAdmin) {
           history.push(`/${MENU.FORBIDDEN}`);
@@ -42,17 +43,20 @@ const PostFormContainer = ({ match, history }) => {
     });
     if (postID) {
       postAPI.getPost(postID).then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           setPost(res.data);
           authAPI
             .loadUser()
             .then((user) => {
-              if (user.status === 200 && user.data.isActivated === false) {
+              if (
+                user.status === SUCCESS.OK &&
+                user.data.isActivated === false
+              ) {
                 history.push(`/${MENU.FORBIDDEN}`);
                 return;
               }
               if (
-                user.status === 200 &&
+                user.status === SUCCESS.OK &&
                 user.data.loginID !== res.data.writerLoginId &&
                 !user.data.isAdmin
               ) {
@@ -78,7 +82,7 @@ const PostFormContainer = ({ match, history }) => {
     postAPI
       .createPost({ title, body, boardID, fileList })
       .then((res) => {
-        if (res.status === 202) {
+        if (res.status === SUCCESS.OK) {
           const { postId } = res.data;
           history.push(
             `/${MENU.BOARDS}/${selectedMenu?.urlPath}/${MENU.POST}/${postId}`,
@@ -95,7 +99,7 @@ const PostFormContainer = ({ match, history }) => {
     postAPI
       .updatePost({ title, body, postID, fileList })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           history.push(
             `/${MENU.BOARDS}/${selectedMenu?.urlPath}/${MENU.POST}/${postID}`,
           );

@@ -5,6 +5,7 @@ import * as memberAPI from '../../../lib/api/member';
 import { withRouter } from 'react-router-dom';
 import { MENU } from '../../../constants/menus';
 import ActionButton from '../../../components/common/Buttons/ActionButton';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const AdminProjectFormContainer = ({ match, history }) => {
   const projectID = match.params.projectID;
@@ -54,7 +55,7 @@ const AdminProjectFormContainer = ({ match, history }) => {
         memberLoginIDs: members.map((member) => member.loginID),
       })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           history.push('/admin/projects');
         }
       })
@@ -93,7 +94,7 @@ const AdminProjectFormContainer = ({ match, history }) => {
         memberLoginIDs: members.map((member) => member.loginID),
       })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           history.push('/admin/projects');
         }
       })
@@ -110,7 +111,7 @@ const AdminProjectFormContainer = ({ match, history }) => {
   const onSearchMember = (name) => {
     const response = memberAPI.searchMember({ name });
     response.then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setSearchMembers(res.data.data);
       }
     });

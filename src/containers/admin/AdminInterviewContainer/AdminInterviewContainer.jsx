@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdminInterview from '../../../components/admin/AdminInterview/AdminInterview';
+import { SUCCESS } from '../../../constants/statusCode';
 import * as interviewAPI from '../../../lib/api/interview';
 
 const AdminInterviewContainer = () => {
@@ -9,7 +10,7 @@ const AdminInterviewContainer = () => {
   useEffect(() => {
     setLoading(true);
     interviewAPI.getInterviews().then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setData(res.data);
         setLoading(false);
       }

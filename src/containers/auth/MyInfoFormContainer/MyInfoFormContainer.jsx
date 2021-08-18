@@ -11,6 +11,7 @@ import {
 import { MENU } from '../../../constants/menus';
 import Spinner from '../../../components/common/Spinner/Spinner';
 import { logout } from '../../../modules/auth';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const MyInfoFormContainer = ({ location, history }) => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const MyInfoFormContainer = ({ location, history }) => {
       authAPI
         .loadUser()
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === SUCCESS.OK) {
             setUserInfo(res.data);
             setUserLoading(false);
           }
@@ -54,7 +55,7 @@ const MyInfoFormContainer = ({ location, history }) => {
       memberAPI
         .getMemberRole()
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === SUCCESS.OK) {
             setRoles(res.data.data);
             setRolesLoading(false);
           }
@@ -91,7 +92,7 @@ const MyInfoFormContainer = ({ location, history }) => {
       });
       response
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === SUCCESS.OK) {
             setMessage('성공적으로 회원정보를 수정했습니다.');
             handleModalOpen();
             //history.push('/');
@@ -123,7 +124,7 @@ const MyInfoFormContainer = ({ location, history }) => {
     memberAPI
       .updateMemberRoleBySelf({ role })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           setMessage('성공적으로 회원 상태를 수정했습니다.');
           handleModalOpen();
         }
@@ -139,7 +140,7 @@ const MyInfoFormContainer = ({ location, history }) => {
     memberAPI
       .updateMemberRoleBySelf({ role: 'QUIT' })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           alert('성공적으로 풀씨에서 탈퇴했습니다.');
           setTimeout(() => {
             dispatch(logout());

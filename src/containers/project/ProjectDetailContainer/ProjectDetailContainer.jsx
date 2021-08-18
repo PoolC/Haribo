@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import * as projectAPI from '../../../lib/api/project';
 import { withRouter } from 'react-router-dom';
 import Spinner from '../../../components/common/Spinner/Spinner';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const ProjectDetailContainer = ({ location }) => {
   const projectId = location.pathname.replace('/project/', '');
@@ -16,7 +17,7 @@ const ProjectDetailContainer = ({ location }) => {
     projectAPI
       .getProject(projectId)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           setProject(res.data.data);
           setLoading(false);
         }

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import PostList from '../../../components/board/PostList/PostList';
 import { MENU } from '../../../constants/menus';
+import { SUCCESS } from '../../../constants/statusCode';
 import * as postAPI from '../../../lib/api/post';
 
 const PostListContainer = ({ location, selectedMenu, history }) => {
@@ -33,7 +34,7 @@ const PostListContainer = ({ location, selectedMenu, history }) => {
       postAPI
         .getPosts({ urlPath, page: currentPage })
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === SUCCESS.OK) {
             setPosts(res.data.data);
             setLoading(false);
           }
