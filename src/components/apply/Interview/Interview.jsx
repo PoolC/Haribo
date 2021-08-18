@@ -15,6 +15,7 @@ import { StyledDeleteButton } from '../../activity/ActivityCard/ActivityCard.sty
 import { getHourMinuteString } from '../../../lib/utils/getDateString';
 import InterviewSelectModal from './InterviewModal/InterviewSelectModal';
 import InterviewCancelModal from './InterviewModal/InterviewCancelModal';
+import { MEMBER_ROLE } from '../../../constants/memberRoles';
 
 const TimeBlock = ({
   date,
@@ -22,13 +23,15 @@ const TimeBlock = ({
   endTime,
   capacity,
   num,
-  interviewees,
-  loginId,
   mySlotId,
   id,
   handleSelectInterviewTime,
   handleCancelInterviewTime,
 }) => {
+  const member = useSelector((state) => state.auth);
+  const role = member.user.role;
+  const isLogin = member.status.isLogin;
+
   const [selectModalVisible, setSelectModalVisible] = useState(false);
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
 
@@ -91,20 +94,26 @@ const TimeBlock = ({
         <TimeBlockCapacity>
           {num}명/{capacity}명
         </TimeBlockCapacity>
-        {mySlotId === null && capacity > num && (
-          <div>
-            <ActionButton onClick={onSelectInterviewTime}>신청</ActionButton>
-          </div>
-        )}
-        {mySlotId !== id && capacity <= num && (
-          <div>
-            <DisabledActionButton>마감</DisabledActionButton>
-          </div>
-        )}
-        {mySlotId === id && (
-          <StyledDeleteButton onClick={onCancelInterviewTime}>
-            취소
-          </StyledDeleteButton>
+        {isLogin && role === MEMBER_ROLE.UNACCEPTED && (
+          <>
+            {mySlotId === null && capacity > num && (
+              <div>
+                <ActionButton onClick={onSelectInterviewTime}>
+                  신청
+                </ActionButton>
+              </div>
+            )}
+            {mySlotId !== id && capacity <= num && (
+              <div>
+                <DisabledActionButton>마감</DisabledActionButton>
+              </div>
+            )}
+            {mySlotId === id && (
+              <StyledDeleteButton onClick={onCancelInterviewTime}>
+                취소
+              </StyledDeleteButton>
+            )}
+          </>
         )}
       </StyledTimeBlock>
     </>
@@ -153,8 +162,9 @@ const Interview = ({
   handleCancelInterviewTime,
 }) => {
   const member = useSelector((state) => state.auth);
-  //const isLogin = member.status.isLogin;
   //const role = member.user.role;
+  //const isLogin = member.status.isLogin;
+
   const loginId = member.user.memberId;
 
   return (
