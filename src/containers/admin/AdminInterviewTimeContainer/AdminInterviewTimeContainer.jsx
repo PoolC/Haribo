@@ -45,9 +45,11 @@ const AdminInterviewTimeContainer = () => {
   };
 
   const handleDeleteAllInterviewTimes = () => {
+    setLoading(true);
     interviewAPI.deleteAllInterviewSlot().then((res) => {
       if (res.status === SUCCESS.OK) {
         setData(res.data.data);
+        setLoading(false);
         alert('모든 면접 시간 슬롯이 삭제되었습니다.');
       }
     });
