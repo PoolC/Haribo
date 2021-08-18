@@ -47,9 +47,10 @@ export const StyledTimeBlock = styled.div`
   transition: 0.3s;
   min-height: 90px;
   &:hover {
-    opacity: 0.8;
+    //opacity: 0.8;
     transition: 0.3s;
     transform: scale(1.02);
+    box-shadow: 0px 0px 10px ${colors.gray[2]};
   }
 `;
 
