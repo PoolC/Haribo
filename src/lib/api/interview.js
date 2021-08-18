@@ -9,10 +9,10 @@ export const deleteInterviewApplication = ({ slotId }) =>
   client.delete(`/interview/application/${slotId}`);
 
 export const createInterviewSlot = ({ date, startTime, endTime, capacity }) =>
-  client.post(`/interview/slots`);
+  client.post(`/interview/slots`, { date, startTime, endTime, capacity });
 
 export const updateInterviewSlot = ({ slotId, startTime, endTime, capacity }) =>
-  client.put(`/interview/slots/${slotId}`);
+  client.put(`/interview/slots/${slotId}`, { startTime, endTime, capacity });
 
 export const deleteInterviewSlot = ({ slotId }) =>
   client.delete(`/interview/slots/${slotId}`);
