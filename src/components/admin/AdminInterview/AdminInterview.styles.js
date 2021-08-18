@@ -85,7 +85,13 @@ export const IntervieweeList = styled.div`
   border-radius: 2px;
   padding: 5px 7px;
   width: 120px;
-  & > div > .admin-interview-label {
+  display: flex;
+  flex-direction: column;
+  & > div > div > .admin-interview-label {
     font-weight: 500;
   }
+`;
+
+export const IntervieweeInfo = styled.div`
+  margin-bottom: 10px;
 `;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import {
+  IntervieweeInfo,
   IntervieweeList,
   StyledDateBlock,
   StyledTimeBlock,
@@ -10,25 +11,42 @@ import {
 } from './AdminInterview.styles';
 import Spinner from '../../common/Spinner/Spinner';
 import { TitleContainer } from '../AdminBook/AdminBook.styles';
+import { getHourMinuteString } from '../../../lib/utils/getDateString';
+import { StyledDeleteButton } from '../../activity/ActivityCard/ActivityCard.styles';
 
 const Interviewee = ({ interviewee }) => {
+  const onClickDelete = (e) => {
+    e.preventDefault();
+    let result = window.confirm(
+      `[주의] ${interviewee.name}님의 면접 신청을 취소하시겠습니까?`,
+    );
+    if (result) {
+    }
+  };
+
   return (
     <IntervieweeList>
-      <div>
-        <span className="admin-interview-label">이름 </span> {interviewee.name}
-      </div>
-      <div>
-        <span className="admin-interview-label">학번 </span>{' '}
-        {interviewee.studentId}
-      </div>
-      <div>
-        <span className="admin-interview-label">학과 </span>{' '}
-        {interviewee.department}
-      </div>
-      <div>
-        <span className="admin-interview-label">연락처 </span>{' '}
-        {interviewee.phoneNumber}
-      </div>
+      <IntervieweeInfo>
+        <div>
+          <span className="admin-interview-label">이름 </span>{' '}
+          {interviewee.name}
+        </div>
+        <div>
+          <span className="admin-interview-label">학번 </span>{' '}
+          {interviewee.studentID}
+        </div>
+        <div>
+          <span className="admin-interview-label">학과 </span>{' '}
+          {interviewee.department}
+        </div>
+        <div>
+          <span className="admin-interview-label">연락처 </span>{' '}
+          {interviewee.phoneNumber}
+        </div>
+      </IntervieweeInfo>
+      <StyledDeleteButton onClick={onClickDelete}>
+        면접 신청 취소
+      </StyledDeleteButton>
     </IntervieweeList>
   );
 };
@@ -37,13 +55,13 @@ const TimeBlock = ({ startTime, endTime, capacity, num, interviewees }) => {
   return (
     <StyledTimeBlock>
       <TimeBlockTime>
-        {startTime} ~ {endTime}
+        {getHourMinuteString(startTime)} ~ {getHourMinuteString(endTime)}
       </TimeBlockTime>
       <TimeBlockCapacity>
         {num}명/{capacity}명
       </TimeBlockCapacity>
       {interviewees.map((i) => (
-        <Interviewee key={i.loginId} interviewee={i} />
+        <Interviewee key={i.studentID} interviewee={i} />
       ))}
     </StyledTimeBlock>
   );
