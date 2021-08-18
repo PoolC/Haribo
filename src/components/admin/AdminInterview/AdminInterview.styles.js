@@ -55,6 +55,15 @@ export const StyledTimeBlock = styled.div`
   }
 `;
 
+export const TimeBlockId = styled.div`
+  display: flex;
+  margin-bottom: 5px;
+  .admin-interview-slot-id {
+    margin-left: 5px;
+    font-weight: 500;
+  }
+`;
+
 export const TimeBlockTime = styled.div`
   display: flex;
   justify-content: center;

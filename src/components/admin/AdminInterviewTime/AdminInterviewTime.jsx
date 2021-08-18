@@ -18,6 +18,7 @@ import {
   TimeCapacityButtonContainer,
   StyledDiv,
   StyledTimeFormList,
+  TimeBlockId,
 } from './AdminInterviewTime.styles';
 import useInput from '../../../hooks/useInput';
 import { StyledDeleteButton } from '../../activity/ActivityCard/ActivityCard.styles';
@@ -74,6 +75,14 @@ const DateTimeForm = ({
 
   return (
     <StyledDateTimeForm>
+      {id && (
+        <>
+          <TimeBlockId>
+            <p>슬롯 ID</p>
+            <p className="admin-interview-slot-id">{id}</p>
+          </TimeBlockId>
+        </>
+      )}
       <StyledTimeForm>
         <StyledLabel htmlFor="interview-start-time">시작 시간</StyledLabel>
         <StyledTimeInput
@@ -160,7 +169,7 @@ const InterviewForm = ({
         {slots.map((s) => (
           <DateTimeForm
             date={date}
-            key={date + s.startTime + s.endTime}
+            key={s.slotId ? s.slotId : date + s.startTime + s.endTime}
             id={s.slotId}
             startTime={s.startTime}
             endTime={s.endTime}

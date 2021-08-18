@@ -29,6 +29,21 @@ export const StyledTimeList = styled.div`
   }
 `;
 
+export const TimeBlockId = styled.div`
+  background-color: ${colors.gray[0]};
+  border: 1px ${colors.gray[2]} solid;
+  border-radius: 3px;
+  padding: 3px 5px;
+  font-size: 0.9rem;
+  display: flex;
+  margin-bottom: 5px;
+  font-weight: 300;
+  .admin-interview-slot-id {
+    margin-left: 5px;
+    font-weight: 500;
+  }
+`;
+
 export const StyledTimeBlock = styled.div`
   cursor: default;
   display: flex;

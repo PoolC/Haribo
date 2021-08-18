@@ -7,6 +7,7 @@ import {
   StyledTimeBlock,
   StyledTimeList,
   TimeBlockCapacity,
+  TimeBlockId,
   TimeBlockTime,
 } from './AdminInterview.styles';
 import Spinner from '../../common/Spinner/Spinner';
@@ -51,9 +52,14 @@ const Interviewee = ({ interviewee }) => {
   );
 };
 
-const TimeBlock = ({ startTime, endTime, capacity, num, interviewees }) => {
+const TimeBlock = ({ id, startTime, endTime, capacity, num, interviewees }) => {
   return (
     <StyledTimeBlock>
+      <TimeBlockId>
+        <p>슬롯 ID </p>
+        <p className="admin-interview-slot-id">{id}</p>
+        <p></p>
+      </TimeBlockId>
       <TimeBlockTime>
         {getHourMinuteString(startTime)} ~ {getHourMinuteString(endTime)}
       </TimeBlockTime>
@@ -75,7 +81,7 @@ const DateBlock = ({ data }) => {
         {data?.slots.map((d) => (
           <TimeBlock
             key={d.slotId}
-            id={d.id}
+            id={d.slotId}
             startTime={d.startTime}
             endTime={d.endTime}
             capacity={d.capacity}
