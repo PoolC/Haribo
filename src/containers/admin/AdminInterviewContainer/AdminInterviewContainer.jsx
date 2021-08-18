@@ -20,7 +20,7 @@ const AdminInterviewContainer = () => {
   const handleCancelInterview = ({ loginId }) => {
     interviewAPI.deleteInterviewApplication({ loginId }).then((res) => {
       if (res.status === SUCCESS.OK) {
-        setData(res.data.data);
+        setData(res.data);
         alert('성공적으로 면접이 취소되었습니다.');
       } else {
         alert('면접 취소를 실패하였습니다.');
