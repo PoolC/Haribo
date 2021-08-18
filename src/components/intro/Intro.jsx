@@ -26,29 +26,34 @@ const Body = styled.div`
     font-size: 0.9rem;
     color: ${colors.brown[1]};
   }
-  ul,
-  ol {
-    padding-left: 1.5rem;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 1rem 0;
-    line-height: 2.2rem;
+  .tui-editor-contents ul li,
+  .tui-editor-contents ol li {
     color: ${colors.brown[1]};
   }
-  hr {
+  .tui-editor-contents ul,
+  .tui-editor-contents ol {
+    padding-left: 1.5rem;
+  }
+  .tui-editor-contents h1,
+  .tui-editor-contents h2,
+  .tui-editor-contents h3,
+  .tui-editor-contents h4,
+  .tui-editor-contents h5,
+  .tui-editor-contents h6 {
+    margin: 0.5rem 0;
+    line-height: 1.5rem;
+    color: ${colors.brown[1]};
+  }
+  .tui-editor-contents hr {
     margin: 1rem 0;
   }
-  img {
+  .tui-editor-contents img {
     max-width: 90%;
     margin: 1rem 0;
   }
-  p {
-    margin: 0.5rem 0;
+  .tui-editor-contents p {
+    margin: 10px 0;
+    color: ${colors.brown[1]};
   }
   a {
     max-width: 100%;
@@ -56,6 +61,15 @@ const Body = styled.div`
   }
   th {
     background-color: ${colors.brown[0]};
+  }
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    & > span {
+      margin-bottom: 0.5rem;
+    }
   }
 `;
 
