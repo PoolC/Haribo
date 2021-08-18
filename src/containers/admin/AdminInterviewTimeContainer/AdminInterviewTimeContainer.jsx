@@ -27,7 +27,8 @@ const AdminInterviewTimeContainer = () => {
       .createInterviewSlot({ date, startTime, endTime, capacity })
       .then((res) => {
         if (res.status === SUCCESS.OK) {
-          setData(res.data.data);
+          setData([...res.data.data]);
+          alert('면접 시간 슬롯이 성공적으로 생성되었습니다.');
         }
       });
   };
@@ -35,7 +36,8 @@ const AdminInterviewTimeContainer = () => {
   const handleDeleteInterviewTime = ({ slotId }) => {
     interviewAPI.deleteInterviewSlot({ slotId }).then((res) => {
       if (res.status === SUCCESS.OK) {
-        setData(res.data.data);
+        setData([...res.data.data]);
+        window.location.reload();
       }
     });
   };
