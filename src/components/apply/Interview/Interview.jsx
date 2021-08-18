@@ -31,6 +31,7 @@ const TimeBlock = ({
   const member = useSelector((state) => state.auth);
   const role = member.user.role;
   const isLogin = member.status.isLogin;
+  const loginId = member.user.memberId;
 
   const [selectModalVisible, setSelectModalVisible] = useState(false);
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
@@ -60,7 +61,7 @@ const TimeBlock = ({
 
   const onConfirmCancel = (e) => {
     e.preventDefault();
-    handleCancelInterviewTime({ slotId: id });
+    handleCancelInterviewTime({ loginId });
     setCancelModalVisible(false);
   };
 

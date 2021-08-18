@@ -5,8 +5,8 @@ export const getInterviews = () => client.get('/interview/slots');
 export const createInterviewApplication = ({ slotId }) =>
   client.post(`/interview/application/${slotId}`);
 
-export const deleteInterviewApplication = ({ slotId }) =>
-  client.delete(`/interview/application/${slotId}`);
+export const deleteInterviewApplication = ({ loginId }) =>
+  client.delete(`/interview/application/${loginId}`);
 
 export const createInterviewSlot = ({ date, startTime, endTime, capacity }) =>
   client.post(`/interview/slots`, { date, startTime, endTime, capacity });

@@ -44,8 +44,8 @@ const InterviewContainer = () => {
     });
   };
 
-  const handleCancelInterviewTime = ({ slotId }) => {
-    interviewAPI.deleteInterviewApplication({ slotId }).then((res) => {
+  const handleCancelInterviewTime = ({ loginId }) => {
+    interviewAPI.deleteInterviewApplication({ loginId }).then((res) => {
       if (res.status === SUCCESS.OK) {
         setData(res.data.data);
         setMySlotId(null);

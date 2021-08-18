@@ -17,7 +17,24 @@ const AdminInterviewContainer = () => {
     });
   }, []);
 
-  return <AdminInterview data={data} loading={loading} />;
+  const handleCancelInterview = ({ loginId }) => {
+    interviewAPI.deleteInterviewApplication({ loginId }).then((res) => {
+      if (res.status === SUCCESS.OK) {
+        setData(res.data.data);
+        alert('성공적으로 면접이 취소되었습니다.');
+      } else {
+        alert('면접 취소를 실패하였습니다.');
+      }
+    });
+  };
+
+  return (
+    <AdminInterview
+      data={data}
+      loading={loading}
+      handleCancelInterview={handleCancelInterview}
+    />
+  );
 };
 
 export default AdminInterviewContainer;

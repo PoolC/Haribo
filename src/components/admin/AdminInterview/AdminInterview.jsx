@@ -15,13 +15,14 @@ import { TitleContainer } from '../AdminBook/AdminBook.styles';
 import { getHourMinuteString } from '../../../lib/utils/getDateString';
 import { StyledDeleteButton } from '../../activity/ActivityCard/ActivityCard.styles';
 
-const Interviewee = ({ interviewee }) => {
+const Interviewee = ({ interviewee, handleCancelInterview }) => {
   const onClickDelete = (e) => {
     e.preventDefault();
     let result = window.confirm(
       `[주의] ${interviewee.name}님의 면접 신청을 취소하시겠습니까?`,
     );
     if (result) {
+      handleCancelInterview({ loginId: interviewee.loginID });
     }
   };
 
@@ -52,7 +53,15 @@ const Interviewee = ({ interviewee }) => {
   );
 };
 
-const TimeBlock = ({ id, startTime, endTime, capacity, num, interviewees }) => {
+const TimeBlock = ({
+  id,
+  startTime,
+  endTime,
+  capacity,
+  num,
+  interviewees,
+  handleCancelInterview,
+}) => {
   return (
     <StyledTimeBlock>
       <TimeBlockId>
@@ -67,13 +76,17 @@ const TimeBlock = ({ id, startTime, endTime, capacity, num, interviewees }) => {
         {num}명/{capacity}명
       </TimeBlockCapacity>
       {interviewees.map((i) => (
-        <Interviewee key={i.studentID} interviewee={i} />
+        <Interviewee
+          key={i.studentID}
+          interviewee={i}
+          handleCancelInterview={handleCancelInterview}
+        />
       ))}
     </StyledTimeBlock>
   );
 };
 
-const DateBlock = ({ data }) => {
+const DateBlock = ({ data, handleCancelInterview }) => {
   return (
     <>
       <StyledDateBlock>{data?.date}</StyledDateBlock>
@@ -87,6 +100,7 @@ const DateBlock = ({ data }) => {
             capacity={d.capacity}
             num={d.interviewees.length}
             interviewees={d.interviewees}
+            handleCancelInterview={handleCancelInterview}
           />
         ))}
       </StyledTimeList>
@@ -94,7 +108,7 @@ const DateBlock = ({ data }) => {
   );
 };
 
-const AdminInterview = ({ loading, data }) => {
+const AdminInterview = ({ loading, data, handleCancelInterview }) => {
   return (
     <WhiteNarrowBlock>
       <TitleContainer>면접 신청 조회</TitleContainer>
@@ -102,7 +116,11 @@ const AdminInterview = ({ loading, data }) => {
       {!loading && (
         <>
           {data?.data?.map((d) => (
-            <DateBlock key={d.date} data={d} />
+            <DateBlock
+              key={d.date}
+              data={d}
+              handleCancelInterview={handleCancelInterview}
+            />
           ))}
         </>
       )}
