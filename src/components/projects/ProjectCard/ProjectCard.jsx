@@ -1,6 +1,7 @@
 import React from 'react';
 import { MENU } from '../../../constants/menus';
 import getFileUrl from '../../../lib/utils/getFileUrl';
+import { getParametersForUnsplash } from '../../../lib/utils/imageUtils';
 import {
   Card,
   ProjectCardBlock,
@@ -20,7 +21,15 @@ const ProjectCard = ({ project }) => {
         <Card>
           <ThumbnailContainer>
             <ProjectThumbnail
-              src={getFileUrl(thumbnailURL)}
+              src={
+                getFileUrl(thumbnailURL) +
+                getParametersForUnsplash({
+                  width: 240,
+                  height: 120,
+                  quality: 80,
+                  format: 'jpg',
+                })
+              }
               alt="project_thumbnail"
             />
           </ThumbnailContainer>
