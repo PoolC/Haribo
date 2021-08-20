@@ -7,7 +7,7 @@ import { MENU } from '../../../constants/menus';
 import { useSelector } from 'react-redux';
 import Spinner from '../../../components/common/Spinner/Spinner';
 import ActionButton from '../../../components/common/Buttons/ActionButton';
-import { SUCCESS } from '../../../constants/statusCode';
+import { CLIENT_ERROR, SUCCESS } from '../../../constants/statusCode';
 
 const ActivityFormContainer = ({ match, history }) => {
   const activityID = match.params.activityID;
@@ -102,7 +102,7 @@ const ActivityFormContainer = ({ match, history }) => {
       })
       .catch((e) => {
         console.error(e.response.data);
-        if (e.response.data.status === 403) {
+        if (e.response.data.status === CLIENT_ERROR.FORBIDDEN) {
           history.push(`/${MENU.FORBIDDEN}`);
         }
         setErrorMessage('오류가 발생했습니다');
