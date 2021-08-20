@@ -86,10 +86,7 @@ const Apply = ({ isSubscriptionPeriod, applyUri, history }) => {
                 <div>
                   <ActionButton
                     onClick={() =>
-                      window.open(
-                        'http://localhost:3000/interview-time',
-                        '_blank',
-                      )
+                      window.open('https://poolc.org/interview-time', '_blank')
                     }
                   >
                     면접 시간 제출
