@@ -93,7 +93,8 @@ const TimeBlock = ({
           {getHourMinuteString(startTime)} ~ {getHourMinuteString(endTime)}
         </TimeBlockTime>
         <TimeBlockCapacity>
-          {num}명/{capacity}명
+          {num < capacity && '신청가능'}
+          {num >= capacity && '신청불가'}
         </TimeBlockCapacity>
         {isLogin && role === MEMBER_ROLE.UNACCEPTED && (
           <>
