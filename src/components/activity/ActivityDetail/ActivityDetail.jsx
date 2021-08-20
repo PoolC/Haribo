@@ -159,7 +159,7 @@ const ActivityDetail = ({
                 <MemberContainer>
                   <h2>참여 멤버</h2>
                   <Member>
-                    {activity.activityMembers?.map((member) => (
+                    {activityMembers?.map((member) => (
                       <MemberCard key={member.loginID} member={member} />
                     ))}
                   </Member>
@@ -168,7 +168,7 @@ const ActivityDetail = ({
               <SessionBlock>
                 <h2>회차 정보</h2>
                 <Sessions>
-                  {activity?.activitySessions?.map((session) => (
+                  {activitySessions?.map((session) => (
                     <SessionContainer
                       key={session.id}
                       session={session}
