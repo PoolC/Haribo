@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Interview from '../../components/apply/Interview/Interview';
 import InterviewAccessDenied from '../../components/apply/Interview/InterviewAccessDenied';
-import { SUCCESS } from '../../constants/statusCode';
+import { CLIENT_ERROR, SUCCESS } from '../../constants/statusCode';
 import * as infoAPI from '../../lib/api/info';
 import * as interviewAPI from '../../lib/api/interview';
 
@@ -38,8 +38,12 @@ const InterviewContainer = () => {
         setData(res.data.data);
         setMySlotId(slotId);
         alert('성공적으로 신청되었습니다.');
+      } else if (res.status === CLIENT_ERROR.CONFLICT) {
+        alert('[신청 실패] 면접 인원이 가득 찼습니다.');
+        window.location.reload();
       } else {
         alert('면접 신청에 실패하였습니다.');
+        window.location.reload();
       }
     });
   };
