@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import PostList from '../../../components/board/PostList/PostList';
 import { MENU } from '../../../constants/menus';
-import { SUCCESS } from '../../../constants/statusCode';
+import { CLIENT_ERROR, SUCCESS } from '../../../constants/statusCode';
 import * as postAPI from '../../../lib/api/post';
 
 const PostListContainer = ({ location, selectedMenu, history }) => {
@@ -42,7 +42,10 @@ const PostListContainer = ({ location, selectedMenu, history }) => {
         .catch((e) => {
           console.error(e);
           setLoading(false);
-          if (e.response.status === 400) {
+          if (
+            e.response.status === CLIENT_ERROR.NOT_FOUND ||
+            e.response.status === CLIENT_ERROR.BAD_REQUEST
+          ) {
             history.push(`/${MENU.NOT_FOUND}`);
             return;
           }
