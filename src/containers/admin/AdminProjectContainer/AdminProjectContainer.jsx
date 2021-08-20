@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AdminProject from '../../../components/admin/AdminProject/AdminProject';
+import { SUCCESS } from '../../../constants/statusCode';
 import * as projectAPI from '../../../lib/api/project';
 
 const AdminProjectContainer = () => {
@@ -17,7 +18,7 @@ const AdminProjectContainer = () => {
 
   const onDeleteProject = (projectID) => {
     projectAPI.deleteProject(projectID).then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setProjects(projects.filter((project) => project.id !== projectID));
       }
     });

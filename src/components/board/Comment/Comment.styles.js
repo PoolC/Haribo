@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 
-export const CommentBlock = styled.div`
+export const CommentBlock = styled.div `
   display: flex;
   width: 100%;
   padding: 8px 0;
@@ -16,7 +16,7 @@ export const CommentBlock = styled.div`
   }
 `;
 
-export const Author = styled.div`
+export const Author = styled.div `
   display: flex;
   align-items: center;
   font-size: 0.9rem;
@@ -25,7 +25,7 @@ export const Author = styled.div`
   padding-left: 0.5rem;
 `;
 
-export const Body = styled.div`
+export const Body = styled.div `
   display: flex;
   flex: 1;
   font-size: 0.9rem;
@@ -38,16 +38,16 @@ export const Body = styled.div`
   }
 `;
 
-export const Button = styled.div`
+export const Button = styled.div `
   display: flex;
   align-items: center;
   justify-content: flex-end;
   min-width: 3rem;
   & > button {
     margin: 0;
-    background-color: ${colors.red[0]};
+    background-color: ${colors.red[1]};
     &:hover {
-      background-color: ${colors.red[1]};
+      background-color: ${colors.red[0]};
     }
   }
   @media (max-width: 576px) {
@@ -55,7 +55,7 @@ export const Button = styled.div`
   }
 `;
 
-export const Date = styled.div`
+export const Date = styled.div `
   display: flex;
   flex: 1;
   justify-content: flex-end;
@@ -68,7 +68,7 @@ export const Date = styled.div`
   }
 `;
 
-export const DateButtonConatiner = styled.div`
+export const DateButtonConatiner = styled.div `
   display: flex;
   justify-content: flex-end;
   align-items: center;

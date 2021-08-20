@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { MENU } from '../../../constants/menus';
 import Spinner from '../../../components/common/Spinner/Spinner';
 import ActionButton from '../../../components/common/Buttons/ActionButton';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const ActivityAttendanceContainer = ({ match, history }) => {
   const activityID = match.params.activityID;
@@ -29,12 +30,12 @@ const ActivityAttendanceContainer = ({ match, history }) => {
       authAPI
         .loadUser()
         .then((user) => {
-          if (user.status === 200 && user.data.isActivated === false) {
+          if (user.status === SUCCESS.OK && user.data.isActivated === false) {
             history.push(`/${MENU.FORBIDDEN}`);
             return;
           }
           if (
-            user.status === 200 &&
+            user.status === SUCCESS.OK &&
             user.data.loginID !== activityResponse.data.data.host.loginID
           ) {
             history.push(`/${MENU.FORBIDDEN}`);
@@ -60,9 +61,8 @@ const ActivityAttendanceContainer = ({ match, history }) => {
         const activitySessionResponse = await activityAPI.getActivitySession(
           sessionID,
         );
-        const sessionAttendance = await activityAPI.getActivitySessionAttendances(
-          sessionID,
-        );
+        const sessionAttendance =
+          await activityAPI.getActivitySessionAttendances(sessionID);
         setSessionAttendance(sessionAttendance.data.data);
         setActivitySession(activitySessionResponse.data);
       }
@@ -99,13 +99,12 @@ const ActivityAttendanceContainer = ({ match, history }) => {
         fileList,
       });
       const sessionID = sessionCreateResponse.data.id;
-      const sessionAttendancesCreateResponse = await activityAPI.checkActivityAttendance(
-        {
+      const sessionAttendancesCreateResponse =
+        await activityAPI.checkActivityAttendance({
           sessionID,
           memberLoginIDs: attendances.map((attendance) => attendance.loginID),
-        },
-      );
-      if (sessionAttendancesCreateResponse.status === 200) {
+        });
+      if (sessionAttendancesCreateResponse.status === SUCCESS.OK) {
         history.push(`/${MENU.ACTIVITY}/${activityID}`);
       }
     } catch (e) {
@@ -145,7 +144,7 @@ const ActivityAttendanceContainer = ({ match, history }) => {
         sessionID,
         memberLoginIDs: attendances.map((attendance) => attendance.loginID),
       });
-      if (sessionUpdateResponse.status === 200) {
+      if (sessionUpdateResponse.status === SUCCESS.OK) {
         history.push(`/${MENU.ACTIVITY}/${activityID}`);
       }
     } catch (e) {

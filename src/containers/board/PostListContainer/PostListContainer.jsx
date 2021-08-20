@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import PostList from '../../../components/board/PostList/PostList';
-import Spinner from '../../../components/common/Spinner/Spinner';
 import { MENU } from '../../../constants/menus';
+import { CLIENT_ERROR, SUCCESS } from '../../../constants/statusCode';
 import * as postAPI from '../../../lib/api/post';
 
 const PostListContainer = ({ location, selectedMenu, history }) => {
@@ -34,7 +34,7 @@ const PostListContainer = ({ location, selectedMenu, history }) => {
       postAPI
         .getPosts({ urlPath, page: currentPage })
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === SUCCESS.OK) {
             setPosts(res.data.data);
             setLoading(false);
           }
@@ -42,7 +42,10 @@ const PostListContainer = ({ location, selectedMenu, history }) => {
         .catch((e) => {
           console.error(e);
           setLoading(false);
-          if (e.response.status === 400) {
+          if (
+            e.response.status === CLIENT_ERROR.NOT_FOUND ||
+            e.response.status === CLIENT_ERROR.BAD_REQUEST
+          ) {
             history.push(`/${MENU.NOT_FOUND}`);
             return;
           }
@@ -57,23 +60,19 @@ const PostListContainer = ({ location, selectedMenu, history }) => {
 
   return (
     <>
-      {loading && <Spinner />}
-      {!loading && (
-        <>
-          <PostList
-            posts={currentPosts}
-            member={member}
-            selectedMenu={selectedMenu}
-            postPerPage={postPerPage}
-            totalPosts={totalPosts}
-            paginate={paginate}
-            setCurrentPageSet={setCurrentPageSet}
-            currentPage={currentPage}
-            currentPageSet={currentPageSet}
-            pagePerPage={pagePerPage}
-          />
-        </>
-      )}
+      <PostList
+        loading={loading}
+        posts={currentPosts}
+        member={member}
+        selectedMenu={selectedMenu}
+        postPerPage={postPerPage}
+        totalPosts={totalPosts}
+        paginate={paginate}
+        setCurrentPageSet={setCurrentPageSet}
+        currentPage={currentPage}
+        currentPageSet={currentPageSet}
+        pagePerPage={pagePerPage}
+      />
     </>
   );
 };

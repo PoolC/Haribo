@@ -15,4 +15,8 @@ const getFileUrl = (url) => {
   return fileUrl;
 };
 
+export const getDecodedFileUrl = (url) => {
+  return decodeURI(url);
+};
+
 export default getFileUrl;

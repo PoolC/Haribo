@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import getFileUrl from '../../lib/utils/getFileUrl';
 import { Viewer } from '@toast-ui/react-editor';
 import colors from '../../lib/styles/colors';
+import Spinner from '../common/Spinner/Spinner';
 
 const Title = styled.h2`
   margin-bottom: 2rem;
@@ -13,7 +14,7 @@ const Body = styled.div`
   margin: auto;
   margin-bottom: 3rem;
   word-break: keep-all;
-  padding: 0 3rem;
+  padding: 0 1rem;
   line-height: 1.5rem;
   max-width: 100%;
   overflow: auto;
@@ -21,33 +22,38 @@ const Body = styled.div`
   p,
   ul,
   ol {
-    font-weight: 400;
+    font-weight: 300;
     font-size: 0.9rem;
     color: ${colors.brown[1]};
   }
-  ul,
-  ol {
-    padding-left: 1.5rem;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 1rem 0;
-    line-height: 2.2rem;
+  .tui-editor-contents ul li,
+  .tui-editor-contents ol li {
     color: ${colors.brown[1]};
   }
-  hr {
+  .tui-editor-contents ul,
+  .tui-editor-contents ol {
+    padding-left: 1.5rem;
+  }
+  .tui-editor-contents h1,
+  .tui-editor-contents h2,
+  .tui-editor-contents h3,
+  .tui-editor-contents h4,
+  .tui-editor-contents h5,
+  .tui-editor-contents h6 {
+    margin: 0.5rem 0;
+    line-height: 1.5rem;
+    color: ${colors.brown[1]};
+  }
+  .tui-editor-contents hr {
     margin: 1rem 0;
   }
-  img {
+  .tui-editor-contents img {
     max-width: 90%;
     margin: 1rem 0;
   }
-  p {
-    margin: 0.5rem 0;
+  .tui-editor-contents p {
+    margin: 10px 0;
+    color: ${colors.brown[1]};
   }
   a {
     max-width: 100%;
@@ -56,6 +62,15 @@ const Body = styled.div`
   th {
     background-color: ${colors.brown[0]};
   }
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    & > span {
+      margin-bottom: 0.5rem;
+    }
+  }
 `;
 
 const StyledImage = styled.img`
@@ -63,15 +78,20 @@ const StyledImage = styled.img`
   max-width: 400px;
 `;
 
-const Intro = ({ introduction, locationUrl }) => {
+const Intro = ({ loading, introduction, locationUrl }) => {
   return (
     <WhiteNarrowBlock>
       <Title>PoolC 소개</Title>
-      <Body>
-        <Viewer initialValue={introduction} />
-      </Body>
-      <Title>동아리방 위치</Title>
-      <StyledImage src={getFileUrl(locationUrl)} />
+      {loading && <Spinner />}
+      {!loading && (
+        <>
+          <Body>
+            <Viewer initialValue={introduction} />
+          </Body>
+          <Title>동아리방 위치</Title>
+          <StyledImage src={getFileUrl(locationUrl)} />
+        </>
+      )}
     </WhiteNarrowBlock>
   );
 };

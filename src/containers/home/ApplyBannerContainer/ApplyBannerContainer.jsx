@@ -3,6 +3,7 @@ import * as infoAPI from '../../../lib/api/info';
 import Spinner from '../../../components/common/Spinner/Spinner';
 import ApplyBanner from '../../../components/home/ApplyBanner/ApplyBanner';
 import { useSelector } from 'react-redux';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const ApplyBannerContainer = () => {
   const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const ApplyBannerContainer = () => {
 
   useEffect(() => {
     infoAPI.getPoolCInfo().then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setIsSubscriptionPeriod(res.data.isSubscriptionPeriod);
         setApplyUri(res.data.applyUri);
         setLoading(false);

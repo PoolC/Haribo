@@ -4,6 +4,7 @@ import AdminBookForm from '../../../components/admin/AdminBookForm/AdminBookForm
 import { withRouter } from 'react-router-dom';
 import { MENU } from '../../../constants/menus';
 import ActionButton from '../../../components/common/Buttons/ActionButton';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const AdminBookFormContainer = ({ match, history }) => {
   const bookID = match.params.bookID;
@@ -35,7 +36,7 @@ const AdminBookFormContainer = ({ match, history }) => {
     bookAPI
       .createBook({ title, author, imageURL, info })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           history.push('/admin/books');
         }
       })
@@ -69,7 +70,7 @@ const AdminBookFormContainer = ({ match, history }) => {
     bookAPI
       .updateBook({ bookID, title, author, imageURL, info })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           history.push('/admin/books');
         }
       })

@@ -5,8 +5,8 @@ import ActivityList from '../../../components/activity/ActivityList/ActivityList
 import { useSelector } from 'react-redux';
 import * as activityAPI from '../../../lib/api/activity';
 import { TwoColumnsContainerBlock } from '../../../styles/common/Block.styles.js';
-import Spinner from '../../../components/common/Spinner/Spinner';
 import { MENU } from '../../../constants/menus';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const ActivityListContainer = ({ location, history, match }) => {
   const currentLocation = location.search.replace('?semester=', '');
@@ -19,7 +19,7 @@ const ActivityListContainer = ({ location, history, match }) => {
 
   useEffect(() => {
     activityAPI.getActivityYears().then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setSemesters(res.data.data);
         if (res.data.data.length === 0) {
           activityAPI.getActivities().then((activities) => {
@@ -48,7 +48,7 @@ const ActivityListContainer = ({ location, history, match }) => {
     activityAPI
       .applyActivity(activityID)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           if (!members.includes(member.user.memberId)) {
             setMembers(res.data.memberLoginIds);
             alert('성공적으로 신청되었습니다.');
@@ -68,7 +68,7 @@ const ActivityListContainer = ({ location, history, match }) => {
 
   const onDeleteActivity = (activityID) => {
     activityAPI.deleteActivity(activityID).then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setActivities(
           activities.filter((activity) => activity.id !== activityID),
         );
@@ -78,21 +78,20 @@ const ActivityListContainer = ({ location, history, match }) => {
 
   return (
     <>
-      {loading && <Spinner />}
-      {!loading && (
-        <TwoColumnsContainerBlock>
-          <ActivityMenu
-            semesters={semesters}
-            currentLocation={currentLocation}
-          />
-          <ActivityList
-            activities={activities}
-            onToggleRegisterActivity={onToggleRegisterActivity}
-            onDeleteActivity={onDeleteActivity}
-            member={member}
-          />
-        </TwoColumnsContainerBlock>
-      )}
+      <TwoColumnsContainerBlock>
+        <ActivityMenu
+          loading={loading}
+          semesters={semesters}
+          currentLocation={currentLocation}
+        />
+        <ActivityList
+          loading={loading}
+          activities={activities}
+          onToggleRegisterActivity={onToggleRegisterActivity}
+          onDeleteActivity={onDeleteActivity}
+          member={member}
+        />
+      </TwoColumnsContainerBlock>
     </>
   );
 };

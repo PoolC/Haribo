@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { withRouter } from 'react-router';
 import PasswordResetForm from '../../../components/auth/PasswordResetForm';
 import { MENU } from '../../../constants/menus';
+import { SUCCESS } from '../../../constants/statusCode';
 import * as authAPI from '../../../lib/api/auth';
 
 const PasswordResetContainer = ({ history, location }) => {
@@ -30,7 +31,7 @@ const PasswordResetContainer = ({ history, location }) => {
       });
       response
         .then((res) => {
-          if (res.status === 200) {
+          if (res.status === SUCCESS.OK) {
             setMessage(null);
             history.push(`/${MENU.PASSWORD}/success/${MENU.RESET_PASSWORD}`);
           }

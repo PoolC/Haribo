@@ -4,6 +4,7 @@ import * as fileAPI from '../../../lib/api/file';
 import FileUploadModal from '../FileUploadModal/FileUploadModal';
 import Modal from '../Modal/Modal';
 import uploadableTypes from '../../../constants/uploadableTypes';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const { REACT_APP_MAX_FILE_SIZE: MAX_FILE_SIZE } = process.env;
 
@@ -43,7 +44,7 @@ const FileUploadButton = ({ files, onSubmit, multiple }) => {
     fileAPI
       .createFile(formData)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           setFile(res.data);
           if (multiple) {
             onSubmit([...files, res.data]);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../../components/footer/Footer';
+import { SUCCESS } from '../../constants/statusCode';
 import * as infoAPI from '../../lib/api/info';
 
 const FooterContainer = () => {
@@ -9,7 +10,7 @@ const FooterContainer = () => {
 
   useEffect(() => {
     infoAPI.getPoolCInfo().then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setPresidentName(res.data.presidentName);
         setPhoneNumber(res.data.phoneNumber);
         setLocation(res.data.location);

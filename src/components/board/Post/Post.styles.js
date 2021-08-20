@@ -114,15 +114,15 @@ export const CommentsContainer = styled.div`
 export const StyledButton = styled(ActionButton)`
   margin: 0 0 0 15px;
   &.modify {
-    background-color: ${colors.brown[0]};
+    background-color: ${colors.brown[1]};
     &:hover {
-      background-color: ${colors.brown[1]};
+      background-color: ${colors.brown[0]};
     }
   }
   &.delete {
-    background-color: ${colors.red[0]};
+    background-color: ${colors.red[1]};
     &:hover {
-      background-color: ${colors.red[1]};
+      background-color: ${colors.red[0]};
     }
   }
 `;

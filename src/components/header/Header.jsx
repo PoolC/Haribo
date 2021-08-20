@@ -7,7 +7,7 @@ import Menus from './Menus/Menus';
 const Header = ({ member, onLogout }) => {
   const {
     status: { isLogin },
-    user: { isAdmin },
+    user: { isAdmin, role },
   } = member;
 
   const [menuVisible, setMenuVisible] = useState(false);
@@ -32,6 +32,7 @@ const Header = ({ member, onLogout }) => {
         menuVisible={menuVisible}
         onToggleMenu={onToggleMenu}
         isLogin={isLogin}
+        role={role}
         isAdmin={isAdmin}
         onLogout={onLogout}
       />

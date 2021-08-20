@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import * as authAPI from '../lib/api/auth';
 import { useSelector } from 'react-redux';
 import { MENU } from '../constants/menus';
+import { SUCCESS } from '../constants/statusCode';
 
 export default (history) => {
   const member = useSelector((state) => state.auth);
@@ -9,7 +10,7 @@ export default (history) => {
     authAPI
       .loadUser()
       .then((res) => {
-        if (res.status === 200 && res.data.isAdmin === false) {
+        if (res.status === SUCCESS.OK && res.data.isAdmin === false) {
           history.push(`/${MENU.FORBIDDEN}`);
           return;
         }

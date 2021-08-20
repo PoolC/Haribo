@@ -33,7 +33,7 @@ import {
 } from '../../board/PostForm/PostForm.styles';
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
 import Modal from '../../common/Modal/Modal';
-import getFileUrl from '../../../lib/utils/getFileUrl';
+import getFileUrl, { getDecodedFileUrl } from '../../../lib/utils/getFileUrl';
 import throttle from '../../../lib/utils/throttle';
 
 const TagItem = React.memo(({ tag, onDeleteTag }) => {
@@ -297,7 +297,9 @@ const ActivityForm = ({
                     {files?.length !== 0
                       ? files.map((file) => (
                           <File key={file}>
-                            <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
+                            <a href={getFileUrl(file)}>
+                              {getDecodedFileUrl(file)}
+                            </a>
                             <FileDeleteButton
                               onClick={(e) => handleDeleteFile(e, file)}
                             >

@@ -3,21 +3,18 @@ import { handleExpiredAccessToken } from '../../modules/auth';
 import { store } from '../../index.js';
 require('dotenv').config();
 
-const API_BASE_URL =
-  process.env.NODE_ENV === 'production'
-    ? process.env.REACT_APP_API_BASE_URL
-    : process.env.REACT_APP_TEST_API_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 const client = axios.create();
 
 client.defaults.baseURL = API_BASE_URL;
 
 if (localStorage.getItem('accessToken')) {
-  client.defaults.headers.common[
-    'Authorization'
-  ] = `Bearer ${localStorage.getItem('accessToken')}`;
+    client.defaults.headers.common[
+        'Authorization'
+    ] = `Bearer ${localStorage.getItem('accessToken')}`;
 } else {
-  client.defaults.headers.common['Authorization'] = ``;
+    client.defaults.headers.common['Authorization'] = ``;
 }
 
 // client.interceptors.request.use(
@@ -37,17 +34,17 @@ if (localStorage.getItem('accessToken')) {
 // );
 
 client.interceptors.response.use(
-  (response) => {
-    // 요청 성공 시 특정 작업 수행
-    return response;
-  },
-  (error) => {
-    // 요청 실패 시 특정 작업 수행
-    if (error.response.status === 401) {
-      store.dispatch(handleExpiredAccessToken());
-    }
-    return Promise.reject(error);
-  },
+    (response) => {
+        // 요청 성공 시 특정 작업 수행
+        return response;
+    },
+    (error) => {
+        // 요청 실패 시 특정 작업 수행
+        if (error.response.status === 401) {
+            store.dispatch(handleExpiredAccessToken());
+        }
+        return Promise.reject(error);
+    },
 );
 
 /*

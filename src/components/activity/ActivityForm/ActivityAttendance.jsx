@@ -30,7 +30,7 @@ import {
   FileDeleteButton,
   StyledDeleteIcon,
 } from '../../board/PostForm/PostForm.styles';
-import getFileUrl from '../../../lib/utils/getFileUrl';
+import getFileUrl, { getDecodedFileUrl } from '../../../lib/utils/getFileUrl';
 import { ButtonContainer } from './ActivityForm.styles';
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
 import throttle from '../../../lib/utils/throttle';
@@ -212,7 +212,9 @@ const ActivityAttendance = ({
                   {fileList?.length !== 0
                     ? fileList.map((file) => (
                         <File key={file}>
-                          <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
+                          <a href={getFileUrl(file)}>
+                            {getDecodedFileUrl(file)}
+                          </a>
                           <FileDeleteButton
                             onClick={(e) => handleDeleteFile(e, file)}
                           >

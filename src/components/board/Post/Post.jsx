@@ -19,10 +19,12 @@ import {
   FileContainerTitle,
 } from '../PostForm/PostForm.styles';
 import { Viewer } from '@toast-ui/react-editor';
-import getFileUrl from '../../../lib/utils/getFileUrl';
+import getFileUrl, { getDecodedFileUrl } from '../../../lib/utils/getFileUrl';
 import { MemberLink } from '../PostList/PostList.styles';
+import Spinner from '../../common/Spinner/Spinner';
 
 const Post = ({
+  loading,
   history,
   member,
   post,
@@ -36,16 +38,6 @@ const Post = ({
     user: { memberId, isAdmin },
   } = member;
 
-  const {
-    body,
-    createdAt,
-    postId,
-    title,
-    writerLoginId,
-    writerName,
-    fileList,
-  } = post;
-
   const handleDelete = (e) => {
     e.preventDefault();
     onDeletePost();
@@ -53,61 +45,66 @@ const Post = ({
 
   return (
     <WhiteNarrowBlock className="block">
-      <PostContainer>
-        <TitleContainer>{title}</TitleContainer>
-        <InfoContainer>
-          <MemberLink to={`/${MENU.MEMBER}/${post.writerLoginId}`}>
-            {writerName}
-          </MemberLink>
-          <div />
-          <p>{getFullCurrentDateTimeString(createdAt)}</p>
-        </InfoContainer>
-        <BodyContainer>
-          <Viewer initialValue={body} />
-        </BodyContainer>
-        <ButtonContainer>
-          {memberId === writerLoginId && (
-            <StyledButton
-              className="modify"
-              to={`/${MENU.BOARDS}/${selectedMenu?.urlPath}/${MENU.POST}/${selectedMenu?.id}/edit/${postId}`}
-            >
-              수정
-            </StyledButton>
-          )}
-          {(memberId === writerLoginId || isAdmin) && (
-            <StyledButton className="delete" onClick={handleDelete}>
-              삭제
-            </StyledButton>
-          )}
-          <StyledButton
-            className="list"
-            onClick={() =>
-              history.push(`/${MENU.BOARDS}/${selectedMenu.urlPath}?page=1`)
-            }
-          >
-            목록
-          </StyledButton>
-        </ButtonContainer>
-      </PostContainer>
-      <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
-      <FileContainer>
-        {fileList?.length !== 0
-          ? fileList?.map((file) => (
-              <File key={file}>
-                <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
-              </File>
-            ))
-          : '첨부된 파일 없음'}
-      </FileContainer>
-      <CommentsContainer>
-        <CommentList
-          member={member}
-          postId={postId}
-          comments={comments}
-          onCreateComment={onCreateComment}
-          onDeleteComment={onDeleteComment}
-        />
-      </CommentsContainer>
+      {loading && <Spinner />}
+      {!loading && (
+        <>
+          <PostContainer>
+            <TitleContainer>{post.title}</TitleContainer>
+            <InfoContainer>
+              <MemberLink to={`/${MENU.MEMBER}/${post.writerLoginId}`}>
+                {post.writerName}
+              </MemberLink>
+              <div />
+              <p>{getFullCurrentDateTimeString(post.createdAt)}</p>
+            </InfoContainer>
+            <BodyContainer>
+              <Viewer initialValue={post.body} />
+            </BodyContainer>
+            <ButtonContainer>
+              {memberId === post.writerLoginId && (
+                <StyledButton
+                  className="modify"
+                  to={`/${MENU.BOARDS}/${selectedMenu?.urlPath}/${MENU.POST}/${selectedMenu?.id}/edit/${post.postId}`}
+                >
+                  수정
+                </StyledButton>
+              )}
+              {(memberId === post.writerLoginId || isAdmin) && (
+                <StyledButton className="delete" onClick={handleDelete}>
+                  삭제
+                </StyledButton>
+              )}
+              <StyledButton
+                className="list"
+                onClick={() =>
+                  history.push(`/${MENU.BOARDS}/${selectedMenu.urlPath}?page=1`)
+                }
+              >
+                목록
+              </StyledButton>
+            </ButtonContainer>
+          </PostContainer>
+          <FileContainerTitle>첨부된 파일 목록</FileContainerTitle>
+          <FileContainer>
+            {post.fileList?.length !== 0
+              ? post.fileList?.map((file) => (
+                  <File key={file}>
+                    <a href={getFileUrl(file)}>{getDecodedFileUrl(file)}</a>
+                  </File>
+                ))
+              : '첨부된 파일 없음'}
+          </FileContainer>
+          <CommentsContainer>
+            <CommentList
+              member={member}
+              postId={post.postId}
+              comments={comments}
+              onCreateComment={onCreateComment}
+              onDeleteComment={onDeleteComment}
+            />
+          </CommentsContainer>
+        </>
+      )}
     </WhiteNarrowBlock>
   );
 };

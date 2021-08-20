@@ -9,6 +9,7 @@ import PostFormContainer from './PostFormContainer/PostFormContainer';
 import PostContainer from './PostContainer/PostContainer';
 import { MENU } from '../../constants/menus';
 import NotFoundPage from '../../pages/error/NotFoundPage';
+import { SUCCESS } from '../../constants/statusCode';
 
 const BoardContainerBlock = styled.div`
   position: relative;
@@ -36,7 +37,7 @@ const BoardContainer = ({ match, location }) => {
     setBoardLoading(true);
 
     boardAPI.getBoards().then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setBoards(res.data.data);
         setBoardLoading(false);
       }

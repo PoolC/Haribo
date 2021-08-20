@@ -4,6 +4,7 @@ import * as boardAPI from '../../../lib/api/board';
 import { withRouter } from 'react-router-dom';
 import ActionButton from '../../../components/common/Buttons/ActionButton';
 import { MENU } from '../../../constants/menus';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const AdminBoardFormContainer = ({ match, history, location }) => {
   const boardID = match.params.boardID;
@@ -45,7 +46,7 @@ const AdminBoardFormContainer = ({ match, history, location }) => {
         writePermission,
       })
       .then((res) => {
-        if (res.status === 202) {
+        if (res.status === SUCCESS.OK) {
           history.push('/admin/boards');
         }
       })
@@ -79,7 +80,7 @@ const AdminBoardFormContainer = ({ match, history, location }) => {
         writePermission,
       })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           history.push('/admin/boards');
         }
       })

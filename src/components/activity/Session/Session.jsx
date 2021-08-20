@@ -16,7 +16,8 @@ import {
   FileContainer,
   FileContainerTitle,
 } from '../../board/PostForm/PostForm.styles';
-import getFileUrl from '../../../lib/utils/getFileUrl';
+import getFileUrl, { getDecodedFileUrl } from '../../../lib/utils/getFileUrl';
+import { isAuthorizedRole } from '../../../lib/utils/checkRole';
 
 const Session = ({ session, memberInfo, activityID, attendance, host }) => {
   const { id, description, date, sessionNumber, hour, fileList } = session;
@@ -25,7 +26,7 @@ const Session = ({ session, memberInfo, activityID, attendance, host }) => {
     .map((a) => a.member);
   const {
     status: { isLogin },
-    user: { memberId },
+    user: { memberId, role },
   } = memberInfo;
 
   return (
@@ -44,14 +45,14 @@ const Session = ({ session, memberInfo, activityID, attendance, host }) => {
               {fileList?.length !== 0
                 ? fileList?.map((file) => (
                     <File key={file}>
-                      <a href={getFileUrl(file)}>{getFileUrl(file)}</a>
+                      <a href={getFileUrl(file)}>{getDecodedFileUrl(file)}</a>
                     </File>
                   ))
                 : '첨부된 파일 없음'}
             </FileContainer>
           </>
         )}
-        {isLogin && members && (
+        {isLogin && isAuthorizedRole(role) && members && (
           <AttendanceList>
             <h5>[출석 인원]</h5>
             {members.map((member) => (

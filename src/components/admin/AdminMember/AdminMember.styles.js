@@ -171,10 +171,10 @@ export const StyledActionButton = styled(ActionButton)`
   font-size: 0.7rem;
   padding: 0.1rem 0.4rem;
   &.delete {
-    background-color: ${colors.red[0]};
+    background-color: ${colors.red[1]};
     transition: 0.3s;
     &:hover {
-      background-color: ${colors.red[1]};
+      background-color: ${colors.red[0]};
       transition: 0.3s;
     }
   }

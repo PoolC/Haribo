@@ -110,10 +110,10 @@ export const StyledActionButton = styled(ActionButton)`
 
 export const StyledDeleteButton = styled(ActionButton)`
   margin: 0 8px;
-  background-color: ${colors.red[0]};
+  background-color: ${colors.red[1]};
   transition: 0.3s;
   &:hover {
-    background-color: ${colors.red[1]};
+    background-color: ${colors.red[0]};
     transition: 0.3s;
   }
 `;

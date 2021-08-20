@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Apply from '../../components/apply/Apply';
+import { SUCCESS } from '../../constants/statusCode';
 import * as infoAPI from '../../lib/api/info';
 
 const ApplyContainer = () => {
@@ -8,7 +9,7 @@ const ApplyContainer = () => {
 
   useEffect(() => {
     infoAPI.getPoolCInfo().then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setIsSubscriptionPeriod(res.data.isSubscriptionPeriod);
         setApplyUri(res.data.applyUri);
       }

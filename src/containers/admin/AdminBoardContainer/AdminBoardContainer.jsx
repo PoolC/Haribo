@@ -1,6 +1,7 @@
 import AdminBoard from '../../../components/admin/AdminBoard/AdminBoard';
 import React, { useEffect, useState } from 'react';
 import * as boardAPI from '../../../lib/api/board';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const AdminBoardContainer = () => {
   const [boards, setBoards] = useState(null);
@@ -18,7 +19,7 @@ const AdminBoardContainer = () => {
 
   const onDeleteBoard = (boardID) => {
     boardAPI.deleteBoard(boardID).then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setBoards(boards.filter((board) => board.id !== boardID));
       }
     });

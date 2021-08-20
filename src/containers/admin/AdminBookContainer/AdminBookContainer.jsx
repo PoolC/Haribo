@@ -1,6 +1,7 @@
 import AdminBook from '../../../components/admin/AdminBook/AdminBook';
 import React, { useEffect, useState } from 'react';
 import * as bookAPI from '../../../lib/api/book';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const AdminBookContainer = () => {
   const [books, setBooks] = useState(null);
@@ -17,7 +18,7 @@ const AdminBookContainer = () => {
 
   const onDeleteBook = (bookID) => {
     bookAPI.deleteBook(bookID).then((res) => {
-      if (res.status === 200) {
+      if (res.status === SUCCESS.OK) {
         setBooks(books.filter((book) => book.id !== bookID));
       }
     });

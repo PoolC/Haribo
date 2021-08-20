@@ -1,9 +1,17 @@
 import React from 'react';
+import { isAuthorizedRole } from '../../../lib/utils/checkRole';
 import ActionButton from '../../common/Buttons/ActionButton';
 import LinkButton from '../../common/Buttons/LinkButton';
 import { MenuBlock, LeftHeaderMenu, RightHeaderMenu } from './Menus.styles';
 
-const Menus = ({ menuVisible, isLogin, isAdmin, onLogout, onToggleMenu }) => {
+const Menus = ({
+  menuVisible,
+  isLogin,
+  role,
+  isAdmin,
+  onLogout,
+  onToggleMenu,
+}) => {
   const handleLogout = () => {
     onToggleMenu();
     onLogout();
@@ -15,7 +23,7 @@ const Menus = ({ menuVisible, isLogin, isAdmin, onLogout, onToggleMenu }) => {
         <LinkButton onClick={onToggleMenu} to="/intro">
           PoolC
         </LinkButton>
-        {isLogin && (
+        {isLogin && isAuthorizedRole(role) && (
           <LinkButton onClick={onToggleMenu} to="/members">
             Members
           </LinkButton>
@@ -32,7 +40,7 @@ const Menus = ({ menuVisible, isLogin, isAdmin, onLogout, onToggleMenu }) => {
         <LinkButton onClick={onToggleMenu} to="/books">
           Books
         </LinkButton>
-        {!isLogin && (
+        {(!isLogin || (isLogin && !isAuthorizedRole(role))) && (
           <LinkButton onClick={onToggleMenu} to="/apply">
             Apply
           </LinkButton>

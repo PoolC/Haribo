@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import * as memberAPI from '../../../lib/api/member';
 import { MENU } from '../../../constants/menus';
 import Spinner from '../../../components/common/Spinner/Spinner';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const MemberDetailContainer = ({ match, history }) => {
   const { memberID } = match.params;
@@ -14,7 +15,7 @@ const MemberDetailContainer = ({ match, history }) => {
     memberAPI
       .getMember(memberID)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           setMember(res.data);
           setLoading(false);
         }

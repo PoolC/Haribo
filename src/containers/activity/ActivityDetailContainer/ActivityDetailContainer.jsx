@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as activityAPI from '../../../lib/api/activity';
 import { withRouter } from 'react-router-dom';
-import Spinner from '../../../components/common/Spinner/Spinner';
+import { SUCCESS } from '../../../constants/statusCode';
+import { MEMBER_ROLE } from '../../../constants/memberRoles';
 
 const ActivityDetailContainer = ({ match }) => {
   const activityID = match.params.activityID;
@@ -23,7 +24,10 @@ const ActivityDetailContainer = ({ match }) => {
         activityID,
       );
       setActivitySessions(activitySessionResponse.data.data);
-      if (member.status.isLogin) {
+      if (
+        member.status.isLogin &&
+        member.user.role !== MEMBER_ROLE.UNACCEPTED
+      ) {
         const activityMemberResponse = await activityAPI.getActivityMembers(
           activityID,
         );
@@ -32,15 +36,15 @@ const ActivityDetailContainer = ({ match }) => {
 
       setLoading(false);
     })();
-  }, [activityID, member.status.isLogin]);
+  }, [activityID, member.status.isLogin, member.user.role]);
 
   const onToggleRegisterActivity = (activityID, members, setMembers) => {
     activityAPI
       .applyActivity(activityID)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           activityAPI.getActivityMembers(activityID).then((res) => {
-            if (res.status === 200) {
+            if (res.status === SUCCESS.OK) {
               setActivityMembers(res.data.data);
             }
           });
@@ -65,18 +69,14 @@ const ActivityDetailContainer = ({ match }) => {
   };
 
   return (
-    <>
-      {loading && <Spinner />}
-      {!loading && (
-        <ActivityDetail
-          activity={activity}
-          activityMembers={activityMembers}
-          activitySessions={activitySessions}
-          member={member}
-          onToggleRegisterActivity={onToggleRegisterActivity}
-        />
-      )}
-    </>
+    <ActivityDetail
+      loading={loading}
+      activity={activity}
+      activityMembers={activityMembers}
+      activitySessions={activitySessions}
+      member={member}
+      onToggleRegisterActivity={onToggleRegisterActivity}
+    />
   );
 };
 

@@ -5,7 +5,7 @@ import * as postAPI from '../../../lib/api/post';
 import * as commentAPI from '../../../lib/api/comment';
 import { useSelector } from 'react-redux';
 import { MENU } from '../../../constants/menus';
-import Spinner from '../../../components/common/Spinner/Spinner';
+import { SUCCESS } from '../../../constants/statusCode';
 
 const PostContainer = ({ selectedMenu, history, match, location }) => {
   const { postID } = match.params;
@@ -21,7 +21,7 @@ const PostContainer = ({ selectedMenu, history, match, location }) => {
     postAPI
       .getPost(postID)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           setPost(res.data);
           setComments(res.data.comments);
           setLoading(false);
@@ -45,7 +45,7 @@ const PostContainer = ({ selectedMenu, history, match, location }) => {
     postAPI
       .deletePost(postID)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           history.push(`/${MENU.BOARDS}/${selectedMenu.urlPath}?page=1`);
         }
       })
@@ -59,7 +59,7 @@ const PostContainer = ({ selectedMenu, history, match, location }) => {
     commentAPI
       .createComment({ postID, body })
       .then((res) => {
-        if (res.status === 202) {
+        if (res.status === SUCCESS.OK) {
           setComments([...comments, res.data]);
         }
       })
@@ -73,7 +73,7 @@ const PostContainer = ({ selectedMenu, history, match, location }) => {
     commentAPI
       .deleteComment(commentID)
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === SUCCESS.OK) {
           setComments(
             comments.filter((comment) => comment.commentId !== commentID),
           );
@@ -86,20 +86,16 @@ const PostContainer = ({ selectedMenu, history, match, location }) => {
   };
 
   return (
-    <>
-      {loading && <Spinner />}
-      {!loading && (
-        <Post
-          member={member}
-          post={post}
-          comments={comments}
-          selectedMenu={selectedMenu}
-          onDeletePost={onDeletePost}
-          onCreateComment={onCreateComment}
-          onDeleteComment={onDeleteComment}
-        />
-      )}
-    </>
+    <Post
+      loading={loading}
+      member={member}
+      post={post}
+      comments={comments}
+      selectedMenu={selectedMenu}
+      onDeletePost={onDeletePost}
+      onCreateComment={onCreateComment}
+      onDeleteComment={onDeleteComment}
+    />
   );
 };
 

@@ -161,8 +161,8 @@ export const CurrentLimit = styled.div`
 `;
 
 export const ExpellActionButton = styled(ActionButton)`
-  background-color: ${colors.red[0]};
+  background-color: ${colors.red[1]};
   &:hover {
-    background-color: ${colors.red[1]};
+    background-color: ${colors.red[0]};
   }
 `;

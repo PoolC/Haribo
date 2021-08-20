@@ -23,6 +23,7 @@ import AdminHomePage from './pages/admin/AdminHomePage';
 import NotFoundPage from './pages/error/NotFoundPage';
 import AccessDeniedPage from './pages/error/AccessDeniedPage';
 import PasswordResetEmailPage from './pages/auth/PasswordResetEmailPage';
+import InterviewPage from './pages/apply/InterviewPage';
 
 function App() {
   return (
@@ -76,6 +77,7 @@ function App() {
         <Route component={AdminHomePage} path={`/${MENU.ADMIN}`} />
         <Route component={MyInfoPage} path={`/${MENU.MYINFO}`} />
         <Route component={PasswordResetEmailPage} path={`/${MENU.PASSWORD}`} />
+        <Route component={InterviewPage} path={`/${MENU.INTERVIEW_TIME}`} />
         <Route component={AccessDeniedPage} path={`/${MENU.FORBIDDEN}`} />
         <Route component={NotFoundPage} path={`/${MENU.NOT_FOUND}`} />
         <Route component={NotFoundPage} path="/" />
