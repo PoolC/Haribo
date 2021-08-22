@@ -8,6 +8,7 @@ import {
   TimeBlockTime,
   TimeBlockCapacity,
   DisabledActionButton,
+  InterviewWarningBlock,
 } from './Interview.styles';
 import ActionButton from '../../common/Buttons/ActionButton';
 import { useSelector } from 'react-redux';
@@ -16,6 +17,7 @@ import { getHourMinuteString } from '../../../lib/utils/getDateString';
 import InterviewSelectModal from './InterviewModal/InterviewSelectModal';
 import InterviewCancelModal from './InterviewModal/InterviewCancelModal';
 import { MEMBER_ROLE } from '../../../constants/memberRoles';
+import LinkButton from '../../common/Buttons/LinkButton';
 
 const TimeBlock = ({
   date,
@@ -165,7 +167,7 @@ const Interview = ({
 }) => {
   const member = useSelector((state) => state.auth);
   //const role = member.user.role;
-  //const isLogin = member.status.isLogin;
+  const isLogin = member.status.isLogin;
 
   const loginId = member.user.memberId;
 
@@ -174,6 +176,21 @@ const Interview = ({
       <WhiteBlock>
         <h2 className="block_title">면접 시간 제출</h2>
         {loading && <Spinner />}
+        {!loading && !isLogin && (
+          <InterviewWarningBlock>
+            <p>회원가입 후 로그인을 하셔야 면접 신청이 가능합니다.</p>
+            <LinkButton
+            className="right-menu"
+            to="/register">
+            회원가입 하러 가기
+            </LinkButton>
+            <ActionButton
+            className="right-menu sign-in"
+            to="/login">
+            로그인
+            </ActionButton>
+          </InterviewWarningBlock>
+        )}
         {!loading && (
           <>
             {data?.map((d) => {
