@@ -33,19 +33,25 @@ const InterviewContainer = () => {
   }, []);
 
   const handleSelectInterviewTime = ({ slotId }) => {
-    interviewAPI.createInterviewApplication({ slotId }).then((res) => {
-      if (res.status === SUCCESS.OK) {
-        setData(res.data.data);
-        setMySlotId(slotId);
-        alert('성공적으로 신청되었습니다.');
-      } else if (res.status === CLIENT_ERROR.CONFLICT) {
-        alert('[신청 실패] 면접 인원이 가득 찼습니다.');
-        window.location.reload();
-      } else {
+    interviewAPI
+      .createInterviewApplication({ slotId })
+      .then((res) => {
+        if (res.status === SUCCESS.OK) {
+          setData(res.data.data);
+          setMySlotId(slotId);
+          alert('성공적으로 신청되었습니다.');
+        } else if (res.status === CLIENT_ERROR.CONFLICT) {
+          alert('[신청 실패] 면접 인원이 가득 찼습니다.');
+          window.location.reload();
+        } else {
+          alert('면접 신청에 실패하였습니다.');
+          window.location.reload();
+        }
+      })
+      .catch((e) => {
         alert('면접 신청에 실패하였습니다.');
         window.location.reload();
-      }
-    });
+      });
   };
 
   const handleCancelInterviewTime = ({ loginId }) => {
