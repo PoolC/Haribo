@@ -116,21 +116,21 @@ const ActivityDetail = ({
                 <ButtonContainer>
                   {activity.available &&
                     memberId !== activity.host.loginID &&
-                    !activity.members.includes(memberId) &&
-                    activity.members.length < activity.capacity && (
+                    !activity.memberLoginIds.includes(memberId) &&
+                    activity.memberLoginIds.length < activity.capacity && (
                       <StyledButton onClick={handleRegisterModalOpen}>
                         신청
                       </StyledButton>
                     )}
                   {activity.available &&
                     memberId !== activity.host.loginID &&
-                    !activity.members.includes(memberId) &&
-                    activity.members.length >= activity.capacity && (
+                    !activity.memberLoginIds.includes(memberId) &&
+                    activity.memberLoginIds.length >= activity.capacity && (
                       <FullText>[정원 마감]</FullText>
                     )}
                   {activity.available &&
                     memberId !== activity.host.loginID &&
-                    activity.members.includes(memberId) && (
+                    activity.memberLoginIds.includes(memberId) && (
                       <StyledButton onClick={handleRegisterModalOpen}>
                         신청 취소
                       </StyledButton>
