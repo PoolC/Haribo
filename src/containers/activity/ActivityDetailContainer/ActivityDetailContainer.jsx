@@ -9,53 +9,75 @@ import { MEMBER_ROLE } from '../../../constants/memberRoles';
 const ActivityDetailContainer = ({ match }) => {
   const activityID = match.params.activityID;
 
-  const [loading, setLoading] = useState(true);
+  const [activityLoading, setActivityLoading] = useState(true);
+  const [activityMembersLoading, setActivityMembersLoading] = useState(true);
+  const [activitySessionsLoading, setActivitySessionsLoading] = useState(true);
 
   const [activity, setActivity] = useState(null);
   const [activityMembers, setActivityMembers] = useState(null);
+  const [activityMemberIDs, setActivityMemberIDs] = useState(null);
   const [activitySessions, setActivitySessions] = useState(null);
   const member = useSelector((state) => state.auth);
 
   useEffect(() => {
-    (async () => {
-      const activityResponse = await activityAPI.getActivity(activityID);
-      setActivity(activityResponse.data.data);
-      const activitySessionResponse = await activityAPI.getActivitySessions(
-        activityID,
-      );
-      setActivitySessions(activitySessionResponse.data.data);
-      if (
-        member.status.isLogin &&
-        member.user.role !== MEMBER_ROLE.UNACCEPTED
-      ) {
-        const activityMemberResponse = await activityAPI.getActivityMembers(
-          activityID,
-        );
-        setActivityMembers(activityMemberResponse.data.data);
+    activityAPI.getActivity(activityID).then((res) => {
+      if (res.status === SUCCESS.OK) {
+        setActivity(res.data.data);
+        setActivityLoading(false);
       }
+    });
+  }, [activityID]);
 
-      setLoading(false);
-    })();
+  useEffect(() => {
+    activityAPI.getActivitySessions(activityID).then((res) => {
+      if (res.status === SUCCESS.OK) {
+        setActivitySessions(res.data.data);
+        setActivitySessionsLoading(false);
+      }
+    });
+  }, [activityID]);
+
+  useEffect(() => {
+    if (member.status.isLogin && member.user.role !== MEMBER_ROLE.UNACCEPTED) {
+      setActivityMembersLoading(true);
+      activityAPI.getActivityMembers(activityID).then((res) => {
+        if (res.status === SUCCESS.OK) {
+          setActivityMembers(res.data.data);
+          setActivityMemberIDs(res.data.data.map((m) => m.loginID));
+          setActivityMembersLoading(false);
+        }
+      });
+    } else {
+      setActivityMembersLoading(false);
+    }
   }, [activityID, member.status.isLogin, member.user.role]);
 
-  const onToggleRegisterActivity = (activityID, members, setMembers) => {
+  const onToggleRegisterActivity = (activityID) => {
     activityAPI
       .applyActivity(activityID)
       .then((res) => {
         if (res.status === SUCCESS.OK) {
           activityAPI.getActivityMembers(activityID).then((res) => {
             if (res.status === SUCCESS.OK) {
+              setActivityMemberIDs(res.data.data.map((m) => m.loginID));
               setActivityMembers(res.data.data);
             }
           });
 
-          if (!members.includes(member.user.memberId)) {
-            setMembers([...members, member.user.memberId]);
+          if (!activityMemberIDs?.includes(member.user.memberId)) {
+            setActivityMemberIDs([...activityMemberIDs, member.user.memberId]);
             alert('성공적으로 신청되었습니다.');
           }
-          if (members.includes(member.user.memberId)) {
-            setMembers(
-              members.filter((memberId) => memberId !== member.user.memberId),
+          if (activityMemberIDs?.includes(member.user.memberId)) {
+            setActivityMemberIDs(
+              activityMemberIDs?.filter(
+                (memberID) => memberID !== member.user.memberId,
+              ),
+            );
+            setActivityMembers(
+              activityMembers?.filter(
+                (m) => m.memberID !== member.user.memberId,
+              ),
             );
             alert('성공적으로 신청 취소되었습니다.');
           }
@@ -70,9 +92,12 @@ const ActivityDetailContainer = ({ match }) => {
 
   return (
     <ActivityDetail
-      loading={loading}
+      loading={
+        activityLoading || activityMembersLoading || activitySessionsLoading
+      }
       activity={activity}
       activityMembers={activityMembers}
+      activityMemberIDs={activityMemberIDs}
       activitySessions={activitySessions}
       member={member}
       onToggleRegisterActivity={onToggleRegisterActivity}
