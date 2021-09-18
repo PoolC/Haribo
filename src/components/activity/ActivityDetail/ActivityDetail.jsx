@@ -39,6 +39,7 @@ const ActivityDetail = ({
   loading,
   activity,
   activityMembers,
+  activityMemberIDs,
   activitySessions,
   member,
   onToggleRegisterActivity,
@@ -48,7 +49,7 @@ const ActivityDetail = ({
     user: { memberId, role },
   } = member;
 
-  const [members, setMembers] = useState(activity?.memberLoginIds);
+  const [members, setMembers] = useState(activityMembers);
   const [registerModalVisible, setRegisterModalVisible] = useState(false);
 
   const handleRegisterModalOpen = () => {
@@ -73,7 +74,7 @@ const ActivityDetail = ({
           activityTitle={activity.title}
           onConfirm={handleConfirm}
           onCancel={handleRegisterCancel}
-          isRegister={!members?.includes(memberId)}
+          isRegister={!activityMemberIDs?.includes(memberId)}
         />
       )}
       <Block>
@@ -100,7 +101,7 @@ const ActivityDetail = ({
               <ContentContainer>
                 <h2>정원</h2>
                 <Content>
-                  {isLogin && `${activity.memberLoginIds.length}명/`}
+                  {isLogin && `${activityMemberIDs?.length}명/`}
                   {activity.capacity}명
                 </Content>
               </ContentContainer>
@@ -116,21 +117,21 @@ const ActivityDetail = ({
                 <ButtonContainer>
                   {activity.available &&
                     memberId !== activity.host.loginID &&
-                    !activity.memberLoginIds.includes(memberId) &&
-                    activity.memberLoginIds.length < activity.capacity && (
+                    !activityMemberIDs?.includes(memberId) &&
+                    activityMemberIDs?.length < activity.capacity && (
                       <StyledButton onClick={handleRegisterModalOpen}>
                         신청
                       </StyledButton>
                     )}
                   {activity.available &&
                     memberId !== activity.host.loginID &&
-                    !activity.memberLoginIds.includes(memberId) &&
-                    activity.memberLoginIds.length >= activity.capacity && (
+                    !activityMemberIDs?.includes(memberId) &&
+                    activityMemberIDs?.length >= activity.capacity && (
                       <FullText>[정원 마감]</FullText>
                     )}
                   {activity.available &&
                     memberId !== activity.host.loginID &&
-                    activity.memberLoginIds.includes(memberId) && (
+                    activityMemberIDs?.includes(memberId) && (
                       <StyledButton onClick={handleRegisterModalOpen}>
                         신청 취소
                       </StyledButton>
