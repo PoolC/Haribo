@@ -2,7 +2,8 @@ import AdminMember from '../../../components/admin/AdminMember/AdminMember';
 import React, { useEffect, useState } from 'react';
 import * as memberAPI from '../../../lib/api/member';
 import Spinner from '../../../components/common/Spinner/Spinner';
-import { SUCCESS } from '../../../constants/statusCode';
+import { CLIENT_ERROR, SUCCESS } from '../../../constants/statusCode';
+import { MEMBER_ROLE } from '../../../constants/memberRoles';
 
 const AdminMemberContainer = ({ history }) => {
   const [memberLoading, setMemberLoading] = useState(true);
@@ -108,6 +109,23 @@ const AdminMemberContainer = ({ history }) => {
     });
   };
 
+  const onDeleteUnacceptedMembers = () => {
+    memberAPI.deleteUnacceptedMembers().then((res) => {
+      if (res.status === SUCCESS.OK) {
+        alert('승인 전 회원들을 모두 탈퇴 처리 하였습니다.');
+        setMembers(
+          members.filter(m => m.role !== MEMBER_ROLE.UNACCEPTED)
+        );
+      } else if (res.status === CLIENT_ERROR.FORBIDDEN) {
+        alert('권한이 없습니다.');
+      } else {
+        alert('오류가 발생하여 요청을 수행할 수 없습니다.');
+      }
+    });
+  };
+
+
+
   const onSearchMember = (name) => {
     setSearchMembers(members.filter((member) => member.name.includes(name)));
   };
@@ -128,6 +146,7 @@ const AdminMemberContainer = ({ history }) => {
           onUpdateMemberRole={onUpdateMemberRole}
           onSearchMember={onSearchMember}
           searchMembers={searchMembers}
+          onDeleteUnacceptedMembers={onDeleteUnacceptedMembers}
           roles={roles}
         />
       )}
