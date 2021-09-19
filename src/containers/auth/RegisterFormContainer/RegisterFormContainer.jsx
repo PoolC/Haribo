@@ -46,7 +46,7 @@ const RegisterFormContainer = ({ location, history }) => {
       });
       response
         .then((res) => {
-          if (res.status === SUCCESS.OK) {
+          if (res.status === 202) {
             setMessage(null);
             history.push('/register/success');
           }
