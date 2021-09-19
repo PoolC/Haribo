@@ -4,6 +4,7 @@ import { MENU } from '../../../constants/menus';
 import useInput from '../../../hooks/useInput';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
+import { StyledDeleteButton } from '../../activity/ActivityCard/ActivityCard.styles';
 import Input from '../../common/Input/Input';
 import { StyledSearchActionButton } from '../AdminProjectForm/AdminProjectForm.styles';
 import {
@@ -145,6 +146,7 @@ const AdminMember = ({
   onUpdateMemberRole,
   onSearchMember,
   searchMembers,
+  onDeleteUnacceptedMembers,
   roles,
   history,
 }) => {
@@ -154,24 +156,39 @@ const AdminMember = ({
     e.preventDefault();
     onWithdrawMember(loginID);
   };
+
   const handleAcceptMember = (e, loginID) => {
     e.preventDefault();
     onAcceptMember(loginID);
   };
+
   const handleToggleAdmin = (e, loginID, isAdmin) => {
     e.preventDefault();
     onToggleAdmin({ loginID, isAdmin });
   };
+
   const handleUpdateMemberRole = (e, loginID, role) => {
     e.preventDefault();
     onUpdateMemberRole({ loginID, role });
   };
+
+  const handleDeleteUnacceptedMembers = (e) => {
+    e.preventDefault();
+    let result = window.confirm(
+      `[주의] 승인 전 회원들을 모두 탈퇴 처리 하시겠습니까? 정보는 모두 DB에서 삭제되며 복구할 수 없습니다.`,
+    );
+    if (result) {
+      onDeleteUnacceptedMembers();
+    }
+  }
+
   const onClickSearch = (e) => {
     e.preventDefault();
     onSearchMember(searchMember);
     e.target.value = '';
     onChangeSearchMember(e);
   };
+
 
   return (
     <WhiteNarrowBlock>
@@ -211,7 +228,7 @@ const AdminMember = ({
             </tbody>
           </Table>
         )}
-        <SearchHeader>승인 전 회원 목록</SearchHeader>
+        <SearchHeader>승인 전 회원 목록<span><StyledDeleteButton onClick={handleDeleteUnacceptedMembers}>전체 삭제</StyledDeleteButton></span></SearchHeader>
         <Table>
           <MemberTableHead />
           <tbody>
