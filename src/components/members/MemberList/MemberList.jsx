@@ -1,4 +1,5 @@
 import React from 'react';
+import { UNAUTHORIZED_MEMBER_ROLES } from '../../../constants/memberRoles';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import Spinner from '../../common/Spinner/Spinner';
 import MemberCard from '../MemberCard/MemberCard';
@@ -14,7 +15,7 @@ const MemberList = ({ members, loading }) => {
         {loading && <Spinner />}
         {!loading && (
           <StyledMemberList>
-            {members.map((member) => (
+            {members.filter(member => !UNAUTHORIZED_MEMBER_ROLES.includes(member.role)).map((member) => (
               <MemberCard key={member.loginID} member={member} />
             ))}
           </StyledMemberList>
