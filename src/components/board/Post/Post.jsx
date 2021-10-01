@@ -20,7 +20,7 @@ import {
 } from '../PostForm/PostForm.styles';
 import { Viewer } from '@toast-ui/react-editor';
 import getFileUrl, { getDecodedFileUrl } from '../../../lib/utils/getFileUrl';
-import { MemberLink } from '../PostList/PostList.styles';
+import { MemberName } from '../PostList/PostList.styles';
 import Spinner from '../../common/Spinner/Spinner';
 
 const Post = ({
@@ -51,9 +51,9 @@ const Post = ({
           <PostContainer>
             <TitleContainer>{post.title}</TitleContainer>
             <InfoContainer>
-              <MemberLink to={`/${MENU.MEMBER}/${post.writerLoginId}`}>
+              <MemberName>
                 {post.writerName}
-              </MemberLink>
+              </MemberName>
               <div />
               <p>{getFullCurrentDateTimeString(post.createdAt)}</p>
             </InfoContainer>

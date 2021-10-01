@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import colors from '../../../lib/styles/colors';
 import { Link } from 'react-router-dom';
 
-export const PostListHeader = styled.header`
+export const PostListHeader = styled.header `
   display: flex;
   align-items: center;
   width: 90%;
@@ -14,7 +14,7 @@ export const PostListHeader = styled.header`
   }
 `;
 
-export const PostListTable = styled.table`
+export const PostListTable = styled.table `
   display: flex;
   flex-direction: column;
   width: 90%;
@@ -32,7 +32,7 @@ export const PostListTable = styled.table`
   }
 `;
 
-export const PostListHead = styled.tr`
+export const PostListHead = styled.tr `
   position: relative;
   cursor: default;
   display: flex;
@@ -87,7 +87,7 @@ export const PostListHead = styled.tr`
   }
 `;
 
-export const NewIcon = styled.span`
+export const NewIcon = styled.span `
   background-color: ${colors.red[0]};
   opacity: 0.8;
   color: white;
@@ -114,14 +114,16 @@ export const NewIcon = styled.span`
   }
 `;
 
-export const StyledTitleLink = styled(Link)`
+// eslint-disable-next-line
+export const StyledTitleLink = styled(Link)
+`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: ${colors.brown[1]};
 `;
 
-export const PostListRow = styled.tr`
+export const PostListRow = styled.tr `
   position: relative;
   cursor: default;
   display: flex;
@@ -156,21 +158,21 @@ export const PostListRow = styled.tr`
   }
 `;
 
-export const WriterIcon = styled.i`
+export const WriterIcon = styled.i `
   display: none;
   @media (max-width: 768px) {
     display: inline-block;
   }
 `;
 
-export const DateIcon = styled.i`
+export const DateIcon = styled.i `
   display: none;
   @media (max-width: 768px) {
     display: inline-block;
   }
 `;
 
-export const SubInfoContainer = styled.td`
+export const SubInfoContainer = styled.td `
   display: flex;
   position: absolute;
   right: 0;
@@ -186,7 +188,7 @@ export const SubInfoContainer = styled.td`
   }
 `;
 
-export const PostListRowAuthor = styled.div`
+export const PostListRowAuthor = styled.div `
   display: flex;
   align-items: center;
   justify-content: center;
@@ -203,7 +205,7 @@ export const PostListRowAuthor = styled.div`
   }
 `;
 
-export const PostListRowDate = styled.div`
+export const PostListRowDate = styled.div `
   display: flex;
   align-items: center;
   justify-content: center;
@@ -221,11 +223,11 @@ export const PostListRowDate = styled.div`
   }
 `;
 
-export const Title = styled.div`
+export const Title = styled.div `
   display: flex;
 `;
 
-export const CommentCount = styled.span`
+export const CommentCount = styled.span `
   display: flex;
   align-items: center;
   justify-content: center;
@@ -239,11 +241,13 @@ export const CommentCount = styled.span`
   }
 `;
 
-export const StyledLink = styled(Link)`
+// eslint-disable-next-line
+export const StyledLink = styled(Link)
+`
   color: ${colors.brown[1]};
 `;
 
-export const MemberLink = styled(Link)`
+export const MemberName = styled.p `
   color: ${colors.brown[1]};
   transition: 0.25s ease-in;
   &:hover {
