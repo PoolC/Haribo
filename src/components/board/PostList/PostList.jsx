@@ -17,7 +17,7 @@ import {
   DateIcon,
   PostListRowAuthor,
   PostListRowDate,
-  MemberLink,
+  MemberName,
   NewIcon,
   StyledTitleLink,
 } from './PostList.styles';
@@ -96,9 +96,9 @@ const PostList = ({
                         className="fas fa-user"
                         style={{ marginRight: '0.2rem' }}
                       ></WriterIcon>
-                      <MemberLink to={`/${MENU.MEMBER}/${post.writerLoginId}`}>
+                      <MemberName>
                         {post.writerName}
-                      </MemberLink>
+                      </MemberName>
                     </PostListRowAuthor>
                     <PostListRowDate>
                       <DateIcon
