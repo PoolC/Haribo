@@ -24,6 +24,7 @@ import NotFoundPage from './pages/error/NotFoundPage';
 import AccessDeniedPage from './pages/error/AccessDeniedPage';
 import PasswordResetEmailPage from './pages/auth/PasswordResetEmailPage';
 import InterviewPage from './pages/apply/InterviewPage';
+import NewBoardPage from './pages/new-board/NewBoard';
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function App() {
         <Route component={InterviewPage} path={`/${MENU.INTERVIEW_TIME}`} />
         <Route component={AccessDeniedPage} path={`/${MENU.FORBIDDEN}`} />
         <Route component={NotFoundPage} path={`/${MENU.NOT_FOUND}`} />
+        <Route component={NewBoardPage} path={"/new-board"}/>
         <Route component={NotFoundPage} path="/" />
       </Switch>
       <FooterContainer />

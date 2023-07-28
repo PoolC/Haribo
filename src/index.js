@@ -10,6 +10,7 @@ import rootReducer, { rootSaga } from './modules/index';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { loadUser } from './modules/auth';
+import { ConfigProvider } from 'antd';
 
 const sagaMiddleware = createSagaMiddleware();
 export const store =
@@ -35,9 +36,11 @@ setUser();
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ConfigProvider theme={{ token: { colorPrimary:'#47be9b'}}}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ConfigProvider>
   </Provider>,
   document.getElementById('root'),
 );
