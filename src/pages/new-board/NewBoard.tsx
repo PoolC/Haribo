@@ -17,7 +17,7 @@ export default function NewBoardPage() {
     }
   ]
 
-  const onTabChange = (key) => {
+  const onTabChange = (key: string) => {
     setCurrentKey(key)
   }
 
