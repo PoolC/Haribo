@@ -24,7 +24,8 @@ import NotFoundPage from './pages/error/NotFoundPage';
 import AccessDeniedPage from './pages/error/AccessDeniedPage';
 import PasswordResetEmailPage from './pages/auth/PasswordResetEmailPage';
 import InterviewPage from './pages/apply/InterviewPage';
-import NewBoardListPage from './pages/new-board/NewBoard';
+import NewBoardListPage from './pages/new-board/NewBoardListPage';
+import NewBoardDetailPage from './pages/new-board/NewBoardDetailPage';
 
 function App() {
   return (
@@ -82,6 +83,7 @@ function App() {
         <Route component={AccessDeniedPage} path={`/${MENU.FORBIDDEN}`} />
         <Route component={NotFoundPage} path={`/${MENU.NOT_FOUND}`} />
         <Route component={NewBoardListPage} path={`/${MENU.NEW_BOARDS}`}/>
+        <Route component={NewBoardDetailPage} path={`/${MENU.NEW_BOARD}/:id`}/>
         <Route component={NotFoundPage} path="/" />
       </Switch>
       <FooterContainer />
