@@ -21,6 +21,8 @@ const MENU = {
     FORBIDDEN: 'forbidden',
     NOT_FOUND: 'not-found',
     INTERVIEW_TIME: 'interview-time',
+    NEW_BOARDS: 'new-boards',
+    NEW_BOARD: 'new-board'
 };
 
 export { MENU };
