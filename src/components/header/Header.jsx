@@ -9,7 +9,7 @@ import {
   LogoImage,
 } from './Header.styles';
 import Menus from './Menus/Menus';
-import { Avatar, Dropdown } from 'antd';
+import { Avatar, Button, Dropdown } from 'antd';
 import { MENU } from '~/constants/menus';
 
 const Header = ({ member, onLogout }) => {
@@ -69,10 +69,15 @@ const Header = ({ member, onLogout }) => {
         <HeaderIconBox>
           {isLogin && (
             <Dropdown menu={{ items: dropDownItems }}>
-              <Avatar
-                src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=3"
-                size={36}
-              />
+              <Button
+                shape={'circle'}
+                style={{ padding: 0, width: '40px', height: '40px' }}
+              >
+                <Avatar
+                  src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=3"
+                  size={36}
+                />
+              </Button>
             </Dropdown>
           )}
           <BarsIcon onClick={onToggleMenu} className="fas fa-bars"></BarsIcon>

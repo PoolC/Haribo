@@ -3,7 +3,7 @@ import { isAuthorizedRole } from '../../../lib/utils/checkRole';
 import ActionButton from '../../common/Buttons/ActionButton';
 import LinkButton from '../../common/Buttons/LinkButton';
 import { LeftHeaderMenu, MenuBlock, RightHeaderMenu } from './Menus.styles';
-import { Avatar, Dropdown } from 'antd';
+import { Avatar, Button, Dropdown } from 'antd';
 
 const Menus = ({ menuVisible, isLogin, role, onToggleMenu, dropDownItems }) => {
   return (
@@ -56,10 +56,15 @@ const Menus = ({ menuVisible, isLogin, role, onToggleMenu, dropDownItems }) => {
       <RightHeaderMenu>
         {isLogin && (
           <Dropdown menu={{ items: dropDownItems }}>
-            <Avatar
-              src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=3"
-              size={36}
-            />
+            <Button
+              shape={'circle'}
+              style={{ padding: 0, width: '40px', height: '40px' }}
+            >
+              <Avatar
+                src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=3"
+                size={36}
+              />
+            </Button>
           </Dropdown>
         )}
         {!isLogin && (
