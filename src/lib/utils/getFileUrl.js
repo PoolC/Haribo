@@ -1,9 +1,6 @@
-require('dotenv').config();
-//const { REACT_APP_FILE_URL: FILE_URL } = process.env;
-const FILE_URL =
-  process.env.NODE_ENV === 'production'
-    ? process.env.REACT_APP_FILE_URL
-    : process.env.REACT_APP_TEST_FILE_URL;
+const FILE_URL = import.meta.env.DEV
+  ? import.meta.env.VITE_TEST_FILE_URL
+  : import.meta.env.VITE_FILE_URL;
 
 const getFileUrl = (url) => {
   const fileUrl =

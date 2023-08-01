@@ -6,10 +6,15 @@ import {
   Divider,
   Input,
   Space,
+  Tooltip,
   Typography,
 } from 'antd';
 import { Block, WhiteBlock } from '../../styles/common/Block.styles';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { MENU } from '../../constants/menus';
+import { FcLike } from 'react-icons/fc';
+import { BsFillStarFill } from 'react-icons/bs';
 
 export default function NewBoardDetailPage() {
   return (
@@ -23,13 +28,17 @@ export default function NewBoardDetailPage() {
         >
           <Breadcrumb
             items={[
-              { title: 'Board' },
+              { title: <Link to={`/${MENU.NEW_BOARDS}`}>게시판</Link> },
               {
-                title: '자유게시판',
+                title: <Link to={`/${MENU.NEW_BOARDS}`}>자유게시판</Link>,
               },
             ]}
           />
-          <Space direction={'vertical'} size={'middle'}>
+          <Space
+            direction={'vertical'}
+            size={'middle'}
+            style={{ width: '100%' }}
+          >
             <Space align={'center'}>
               <Avatar style={{ width: '50px', height: '50px' }} />
               <Space direction={'vertical'} size={0}>
@@ -42,6 +51,20 @@ export default function NewBoardDetailPage() {
             <Space direction={'vertical'} size={0}>
               <Typography.Title level={2}>제목입니다.</Typography.Title>
               <Typography.Text>내용이 입력됩니다</Typography.Text>
+            </Space>
+            <Space
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+              }}
+            >
+              <Tooltip title={'좋아요'}>
+                <Button icon={<FcLike />}>0</Button>
+              </Tooltip>
+              <Tooltip title={'스크랩'}>
+                <Button icon={<BsFillStarFill color={'orange'} />}>0</Button>
+              </Tooltip>
             </Space>
           </Space>
           <Space
