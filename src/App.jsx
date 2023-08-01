@@ -27,6 +27,7 @@ import InterviewPage from './pages/apply/InterviewPage';
 import NewBoardListPage from './pages/new-board/NewBoardListPage';
 import NewBoardDetailPage from './pages/new-board/NewBoardDetailPage';
 import NewBoardWritePage from './pages/new-board/NewBoardWritePage';
+import MyPage from '~/pages/my-page/MyPage';
 
 function App() {
   return (
@@ -89,6 +90,7 @@ function App() {
           path={`/${MENU.NEW_BOARD}/write`}
         />
         <Route component={NewBoardDetailPage} path={`/${MENU.NEW_BOARD}/:id`} />
+        <Route component={MyPage} path={`/${MENU.MY_PAGE}`} />
         <Route component={NotFoundPage} path="/" />
       </Switch>
       <FooterContainer />
