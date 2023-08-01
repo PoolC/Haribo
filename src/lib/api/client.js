@@ -2,7 +2,9 @@ import axios from 'axios';
 import { handleExpiredAccessToken } from '~/modules/auth';
 import { store } from '~';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.DEV
+  ? '/api/mincho'
+  : import.meta.env.VITE_API_BASE_URL;
 
 const client = axios.create();
 
