@@ -11,8 +11,15 @@ import {
 } from 'antd';
 import { Editor } from '@toast-ui/react-editor';
 import { FiUpload } from 'react-icons/fi';
+import { useSearchParams } from '../../hooks/useSearchParams';
+import { Link } from 'react-router-dom';
+import { MENU } from '../../constants/menus';
 
 export default function NewBoardWritePage() {
+  const searchParams = useSearchParams();
+  const boardType =
+    (searchParams.get('boardType') as 'free' | 'notice') ?? 'free'; // TODO type 정리필요
+
   const editorRef = useRef<Editor | null>(null);
 
   return (
@@ -30,14 +37,29 @@ export default function NewBoardWritePage() {
         >
           <Breadcrumb
             items={[
-              { title: 'Board' },
+              { title: <Link to={`/${MENU.NEW_BOARDS}`}>게시판</Link> },
               {
-                title: '글쓰기',
+                title: (
+                  <Link to={`${MENU.NEW_BOARDS}?boardType=${boardType}`}>
+                    {boardType === 'free' ? '자유게시판' : '공지사항'}
+                  </Link>
+                ),
               },
             ]}
           />
-          <Space direction={'vertical'} style={{ width: '100%' }}>
-            <Typography.Title level={2}>글 작성하기</Typography.Title>
+          <Space
+            direction={'vertical'}
+            style={{ width: '100%' }}
+            size={'middle'}
+          >
+            <Space
+              direction={'vertical'}
+              size={0}
+              style={{ borderLeft: '4px solid #47be9b', paddingLeft: '16px' }}
+            >
+              <Typography.Title level={3}>자유게시판</Typography.Title>
+              <Typography>자유롭게 글을 작성해주세요 :)</Typography>
+            </Space>
             <Space
               direction={'vertical'}
               size={'middle'}

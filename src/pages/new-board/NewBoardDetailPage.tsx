@@ -10,6 +10,8 @@ import {
 } from 'antd';
 import { Block, WhiteBlock } from '../../styles/common/Block.styles';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { MENU } from '../../constants/menus';
 
 export default function NewBoardDetailPage() {
   return (
@@ -23,9 +25,9 @@ export default function NewBoardDetailPage() {
         >
           <Breadcrumb
             items={[
-              { title: 'Board' },
+              { title: <Link to={`/${MENU.NEW_BOARDS}`}>게시판</Link> },
               {
-                title: '자유게시판',
+                title: <Link to={`/${MENU.NEW_BOARDS}`}>자유게시판</Link>,
               },
             ]}
           />
