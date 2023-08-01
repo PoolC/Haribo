@@ -75,3 +75,13 @@ export const BarsIcon = styled.i`
     color: ${colors.brown[1]};
   }
 `;
+
+export const HeaderIconBox = styled.div`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+`;

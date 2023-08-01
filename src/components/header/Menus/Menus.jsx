@@ -2,21 +2,10 @@ import React from 'react';
 import { isAuthorizedRole } from '../../../lib/utils/checkRole';
 import ActionButton from '../../common/Buttons/ActionButton';
 import LinkButton from '../../common/Buttons/LinkButton';
-import { MenuBlock, LeftHeaderMenu, RightHeaderMenu } from './Menus.styles';
+import { LeftHeaderMenu, MenuBlock, RightHeaderMenu } from './Menus.styles';
+import { Avatar, Dropdown } from 'antd';
 
-const Menus = ({
-  menuVisible,
-  isLogin,
-  role,
-  isAdmin,
-  onLogout,
-  onToggleMenu,
-}) => {
-  const handleLogout = () => {
-    onToggleMenu();
-    onLogout();
-  };
-
+const Menus = ({ menuVisible, isLogin, role, onToggleMenu, dropDownItems }) => {
   return (
     <MenuBlock className={menuVisible ? 'menus open' : 'menus'}>
       <LeftHeaderMenu>
@@ -45,20 +34,6 @@ const Menus = ({
             Apply
           </LinkButton>
         )}
-        {isLogin && isAdmin && (
-          <LinkButton className="right-menu" onClick={onToggleMenu} to="/admin">
-            Admin
-          </LinkButton>
-        )}
-        {isLogin && (
-          <LinkButton
-            className="right-menu"
-            onClick={onToggleMenu}
-            to="/my-info"
-          >
-            My Info
-          </LinkButton>
-        )}
         {!isLogin && (
           <LinkButton
             className="right-menu"
@@ -77,22 +52,15 @@ const Menus = ({
             Sign In
           </ActionButton>
         )}
-        {isLogin && (
-          <ActionButton className="right-menu sign-out" onClick={handleLogout}>
-            Sign Out
-          </ActionButton>
-        )}
       </LeftHeaderMenu>
       <RightHeaderMenu>
-        {isLogin && isAdmin && (
-          <LinkButton onClick={onToggleMenu} to="/admin">
-            Admin
-          </LinkButton>
-        )}
         {isLogin && (
-          <LinkButton onClick={onToggleMenu} to="/my-info">
-            My Info
-          </LinkButton>
+          <Dropdown menu={{ items: dropDownItems }}>
+            <Avatar
+              src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=3"
+              size={36}
+            />
+          </Dropdown>
         )}
         {!isLogin && (
           <LinkButton onClick={onToggleMenu} to="/register">
@@ -103,9 +71,6 @@ const Menus = ({
           <ActionButton onClick={onToggleMenu} to="/login">
             Sign In
           </ActionButton>
-        )}
-        {isLogin && (
-          <ActionButton onClick={handleLogout}>Sign Out</ActionButton>
         )}
       </RightHeaderMenu>
     </MenuBlock>
