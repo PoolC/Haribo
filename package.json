@@ -67,5 +67,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://server.poolc.kr:8080/"
+  "resolutions": {
+    "@types/react": "16.14.43"
+  }
 }
