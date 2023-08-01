@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { MENU } from '../../constants/menus';
 import styled from 'styled-components';
 import { GoPencil } from 'react-icons/go';
+import { FcLike } from 'react-icons/fc';
+import { FaRegCommentAlt } from 'react-icons/fa';
 
 type DataType = {
   key: string;
@@ -19,19 +21,19 @@ export default function NewBoardList() {
       key: '1',
       title: '질문 있습니다',
       content: 'html은 프로그래밍 언어인가요?',
-      createdAt: '2023년 7월 28일',
+      createdAt: '2023. 07. 28',
     },
     {
       key: '2',
       title: '질문 있습니다',
       content: 'html은 프로그래밍 언어인가요?',
-      createdAt: '2023년 7월 28일',
+      createdAt: '2023. 07. 28',
     },
     {
       key: '3',
       title: '질문 있습니다',
       content: 'html은 프로그래밍 언어인가요?',
-      createdAt: '2023년 7월 28일',
+      createdAt: '2023. 07. 28',
     },
   ];
 
@@ -39,10 +41,30 @@ export default function NewBoardList() {
     {
       render: (_, { title, content, key, createdAt }) => (
         <StyledLink to={`${MENU.NEW_BOARD}/${key}`}>
-          <Space direction={'vertical'}>
-            <Typography.Title level={5}>{title}</Typography.Title>
-            <Typography.Text>{content}</Typography.Text>
-            <Typography.Text type={'secondary'}>{createdAt}</Typography.Text>
+          <Space
+            direction={'vertical'}
+            style={{ width: '100%' }}
+            size={'middle'}
+          >
+            <Space
+              style={{ justifyContent: 'space-between', width: '100%' }}
+              size={'middle'}
+            >
+              <Space>
+                <Typography.Text>작성자</Typography.Text>
+                <Typography.Text type={'secondary'}>
+                  {createdAt}
+                </Typography.Text>
+              </Space>
+              <Space size={'middle'}>
+                <FcLike />
+                <FaRegCommentAlt />
+              </Space>
+            </Space>
+            <Space direction={'vertical'} size={0}>
+              <Typography.Title level={5}>{title}</Typography.Title>
+              <Typography.Text>{content}</Typography.Text>
+            </Space>
           </Space>
         </StyledLink>
       ),
