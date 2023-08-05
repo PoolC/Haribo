@@ -30,6 +30,16 @@ export default function NewBoardListPage() {
       label: '공지사항',
       children: <NewBoardList />,
     },
+    {
+      key: '3',
+      label: '홍보게시판',
+      children: <NewBoardList />,
+    },
+    {
+      key: '4',
+      label: '질문게시판',
+      children: <NewBoardList />,
+    },
   ];
 
   const onTabChange = (key: string) => {

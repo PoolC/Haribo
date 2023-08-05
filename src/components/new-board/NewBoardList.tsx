@@ -1,4 +1,4 @@
-import { Button, Input, Space, Table, Typography } from 'antd';
+import { Button, Input, Pagination, Space, Table, Typography } from 'antd';
 import React from 'react';
 import { ColumnsType } from 'antd/es/table';
 import { Link } from 'react-router-dom';
@@ -33,6 +33,11 @@ const useStyles = createStyles(({ css }) => ({
     align-items: stretch;
     flex-direction: column;
     gap: 8px;
+  `,
+  paginationWrap: css`
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
   `,
 }));
 
@@ -111,9 +116,12 @@ export default function NewBoardList() {
       <Table
         dataSource={dataSource}
         columns={columns}
-        pagination={{ position: ['bottomCenter'] }}
         showHeader={false}
+        pagination={false}
       />
+      <div className={styles.paginationWrap}>
+        <Pagination total={100} showSizeChanger={false} />
+      </div>
     </div>
   );
 }

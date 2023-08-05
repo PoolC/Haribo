@@ -16,7 +16,7 @@ import { createStyles } from 'antd-style';
 const useStyles = createStyles(({ css }) => ({
   avatarButton: css`
     width: 40px;
-    aspect-ratio: 1 / 1;
+    height: 40px;
     padding: 0;
   `,
 }));
@@ -46,10 +46,6 @@ const Header = ({ member, onLogout }) => {
 
   const dropDownItems = (() => {
     const arr = [
-      {
-        label: <Link to={`/${MENU.MYINFO}`}>My info</Link>,
-        key: 'my-info',
-      },
       {
         label: <Link to={`/${MENU.MY_PAGE}`}>My Page</Link>,
         key: 'my-page',
