@@ -2,9 +2,22 @@ import React, { useState } from 'react';
 import { Tabs } from 'antd';
 import { Block, WhiteBlock } from '../../styles/common/Block.styles';
 import NewBoardList from '../../components/new-board/NewBoardList';
-import styled from 'styled-components';
+import { createStyles } from 'antd-style';
+
+const useStyles = createStyles(({ css }) => ({
+  whiteBlock: css`
+    padding: 30px 0;
+  `,
+  wrapper: css`
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    box-sizing: border-box;
+  `,
+}));
 
 export default function NewBoardListPage() {
+  const { styles } = useStyles();
   const [currentKey, setCurrentKey] = useState('1');
   const items = [
     {
@@ -25,22 +38,15 @@ export default function NewBoardListPage() {
 
   return (
     <Block>
-      <WhiteBlock>
-        <Box>
+      <WhiteBlock className={styles.whiteBlock}>
+        <div className={styles.wrapper}>
           <Tabs
             items={items}
             defaultActiveKey={currentKey}
             onChange={onTabChange}
           />
-        </Box>
+        </div>
       </WhiteBlock>
     </Block>
   );
 }
-
-const Box = styled.div`
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 20px;
-  box-sizing: border-box;
-`;

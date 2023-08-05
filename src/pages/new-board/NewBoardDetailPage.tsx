@@ -27,20 +27,23 @@ const useStyles = createStyles(({ css }) => ({
   `,
   writerAvatar: css`
     width: 50px;
-    aspect-ratio: 1 / 1;
+    height: 50px;
   `,
-  commenttextarea: css`
+  commentTextArea: css`
     min-width: 120px;
     resize: none;
   `,
-  buttongroup: css`
+  buttonGroup: css`
     justify-content: center;
     align-items: center;
     width: 100%;
   `,
-  commentbuttonwrap: css`
+  commentButtonWrap: css`
     display: flex;
     justify-content: flex-end;
+  `,
+  whiteBlock: css`
+    padding: 30px 0;
   `,
 }));
 
@@ -49,7 +52,7 @@ export default function NewBoardDetailPage() {
 
   return (
     <Block>
-      <WhiteBlock>
+      <WhiteBlock className={styles.whiteBlock}>
         <Space
           direction={'vertical'}
           size={0}

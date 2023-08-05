@@ -2,8 +2,7 @@ import { Button, Input, Space, Table, Typography } from 'antd';
 import React from 'react';
 import { ColumnsType } from 'antd/es/table';
 import { Link } from 'react-router-dom';
-import { MENU } from '../../constants/menus';
-import styled from 'styled-components';
+import { MENU } from '~/constants/menus';
 import { GoPencil } from 'react-icons/go';
 import { FcLike } from 'react-icons/fc';
 import { FaRegCommentAlt } from 'react-icons/fa';
@@ -19,6 +18,21 @@ const useStyles = createStyles(({ css }) => ({
   `,
   search: css`
     max-width: 300px;
+  `,
+  link: css`
+    display: block;
+    width: 100%;
+  `,
+  topArea: css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `,
+  wrapper: css`
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 8px;
   `,
 }));
 
@@ -56,7 +70,7 @@ export default function NewBoardList() {
   const columns: ColumnsType<DataType> = [
     {
       render: (_, { title, content, key, createdAt }) => (
-        <StyledLink to={`${MENU.NEW_BOARD}/${key}`}>
+        <Link to={`${MENU.NEW_BOARD}/${key}`} className={styles.link}>
           <Space
             direction={'vertical'}
             className={styles.fullWidth}
@@ -79,45 +93,27 @@ export default function NewBoardList() {
               <Typography.Text>{content}</Typography.Text>
             </Space>
           </Space>
-        </StyledLink>
+        </Link>
       ),
     },
   ];
 
   return (
-    <StyledWrapper>
-      <StyledTopBox>
+    <div className={styles.wrapper}>
+      <div className={styles.topArea}>
         <Input.Search allowClear className={styles.search} />
         <Link to={`${MENU.NEW_BOARD}/write`}>
           <Button type={'primary'} icon={<GoPencil />}>
             글쓰기
           </Button>
         </Link>
-      </StyledTopBox>
+      </div>
       <Table
         dataSource={dataSource}
         columns={columns}
         pagination={{ position: ['bottomCenter'] }}
         showHeader={false}
       />
-    </StyledWrapper>
+    </div>
   );
 }
-
-const StyledLink = styled(Link)`
-  display: block;
-  width: 100%;
-`;
-
-const StyledWrapper = styled.div`
-  display: flex;
-  align-items: stretch;
-  flex-direction: column;
-  gap: 8px;
-`;
-
-const StyledTopBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
