@@ -7,6 +7,20 @@ import styled from 'styled-components';
 import { GoPencil } from 'react-icons/go';
 import { FcLike } from 'react-icons/fc';
 import { FaRegCommentAlt } from 'react-icons/fa';
+import { createStyles } from 'antd-style';
+
+const useStyles = createStyles(({ css }) => ({
+  fullWidth: css`
+    width: 100%;
+  `,
+  metaInfoArea: css`
+    width: 100%;
+    justify-content: space-between;
+  `,
+  search: css`
+    max-width: 300px;
+  `,
+}));
 
 type DataType = {
   key: string;
@@ -16,6 +30,8 @@ type DataType = {
 };
 
 export default function NewBoardList() {
+  const { styles } = useStyles();
+
   const dataSource: DataType[] = [
     {
       key: '1',
@@ -43,13 +59,10 @@ export default function NewBoardList() {
         <StyledLink to={`${MENU.NEW_BOARD}/${key}`}>
           <Space
             direction={'vertical'}
-            style={{ width: '100%' }}
+            className={styles.fullWidth}
             size={'middle'}
           >
-            <Space
-              style={{ justifyContent: 'space-between', width: '100%' }}
-              size={'middle'}
-            >
+            <Space className={styles.metaInfoArea} size={'middle'}>
               <Space>
                 <Typography.Text>작성자</Typography.Text>
                 <Typography.Text type={'secondary'}>
@@ -74,7 +87,7 @@ export default function NewBoardList() {
   return (
     <StyledWrapper>
       <StyledTopBox>
-        <Input.Search allowClear style={{ maxWidth: '300px' }} />
+        <Input.Search allowClear className={styles.search} />
         <Link to={`${MENU.NEW_BOARD}/write`}>
           <Button type={'primary'} icon={<GoPencil />}>
             글쓰기

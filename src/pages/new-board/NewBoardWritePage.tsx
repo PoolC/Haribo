@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Block, WhiteBlock } from '../../styles/common/Block.styles';
+import { Block, WhiteBlock } from '~/styles/common/Block.styles';
 import {
   Breadcrumb,
   Button,
@@ -11,9 +11,25 @@ import {
 } from 'antd';
 import { Editor } from '@toast-ui/react-editor';
 import { FiUpload } from 'react-icons/fi';
-import { useSearchParams } from '../../hooks/useSearchParams';
 import { Link } from 'react-router-dom';
-import { MENU } from '../../constants/menus';
+import { MENU } from '~/constants/menus';
+import { createStyles } from 'antd-style';
+import { useSearchParams } from '~/hooks/useSearchParams';
+
+const useStyles = createStyles(({ css }) => ({
+  wrapper: css`
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+  `,
+  fullWidth: css`
+    width: 100%;
+  `,
+  titleWrap: css`
+    border-left: 4px solid #47be9b;
+    padding-left: 16px;
+  `,
+}));
 
 export default function NewBoardWritePage() {
   const searchParams = useSearchParams();
@@ -22,17 +38,15 @@ export default function NewBoardWritePage() {
 
   const editorRef = useRef<Editor | null>(null);
 
+  const { styles } = useStyles();
+
   return (
     <Block>
       <WhiteBlock>
         <Space
           direction={'vertical'}
           size={0}
-          style={{
-            width: '100%',
-            padding: '0 20px',
-            boxSizing: 'border-box',
-          }}
+          className={styles.wrapper}
           split={<Divider />}
         >
           <Breadcrumb
@@ -49,21 +63,17 @@ export default function NewBoardWritePage() {
           />
           <Space
             direction={'vertical'}
-            style={{ width: '100%' }}
+            className={styles.fullWidth}
             size={'middle'}
           >
-            <Space
-              direction={'vertical'}
-              size={0}
-              style={{ borderLeft: '4px solid #47be9b', paddingLeft: '16px' }}
-            >
+            <Space direction={'vertical'} className={styles.titleWrap} size={0}>
               <Typography.Title level={3}>자유게시판</Typography.Title>
               <Typography>자유롭게 글을 작성해주세요 :)</Typography>
             </Space>
             <Space
               direction={'vertical'}
               size={'middle'}
-              style={{ width: '100%' }}
+              className={styles.fullWidth}
             >
               <Input
                 addonBefore={'제목'}
@@ -73,7 +83,7 @@ export default function NewBoardWritePage() {
               <Upload multiple beforeUpload={() => false}>
                 <Button icon={<FiUpload />}>파일 업로드</Button>
               </Upload>
-              <Button type={'primary'} style={{ width: '100%' }}>
+              <Button type={'primary'} className={styles.fullWidth}>
                 작성완료
               </Button>
             </Space>
