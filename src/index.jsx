@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer, { rootSaga } from './modules/index';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -34,9 +34,26 @@ export function setUser() {
 sagaMiddleware.run(rootSaga);
 setUser();
 
+const fontFamily = [
+  'SUIT',
+  '-apple-system',
+  'BlinkMacSystemFont',
+  'system-ui',
+  'Roboto',
+  'Helvetica Neue',
+  'Segoe UI',
+  'Apple SD Gothic Neo',
+  'Noto Sans KR',
+  'Malgun Gothic',
+  'Apple Color Emoji',
+  'Segoe UI Emoji',
+  'Segoe UI Symbol',
+  'sans-serif',
+].join(',');
+
 ReactDOM.render(
   <Provider store={store}>
-    <ConfigProvider theme={{ token: { colorPrimary:'#47be9b'}}}>
+    <ConfigProvider theme={{ token: { colorPrimary: '#47be9b', fontFamily } }}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
