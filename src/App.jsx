@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { MENU } from './constants/menus';
 import FooterContainer from './containers/footer/FooterContainer';
@@ -28,6 +27,8 @@ import NewBoardListPage from './pages/new-board/NewBoardListPage';
 import NewBoardDetailPage from './pages/new-board/NewBoardDetailPage';
 import NewBoardWritePage from './pages/new-board/NewBoardWritePage';
 import MyPage from '~/pages/my-page/MyPage';
+import MyPageMessageList from './pages/my-page/MyPageMessageList';
+import MyPageMessageForm from './pages/my-page/MyPageMessageForm';
 
 function App() {
   return (
@@ -90,6 +91,8 @@ function App() {
           path={`/${MENU.NEW_BOARD}/write`}
         />
         <Route component={NewBoardDetailPage} path={`/${MENU.NEW_BOARD}/:id`} />
+        <Route component={MyPageMessageList} path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_LIST}`} />
+        <Route component={MyPageMessageForm} path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_FORM}`} />
         <Route component={MyPage} path={`/${MENU.MY_PAGE}`} />
         <Route component={NotFoundPage} path="/" />
       </Switch>

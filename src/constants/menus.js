@@ -24,6 +24,8 @@ const MENU = {
   NEW_BOARDS: 'new-boards',
   NEW_BOARD: 'new-board',
   MY_PAGE: 'my-page',
+  MY_PAGE_MESSAGE_LIST: 'message-list',
+  MY_PAGE_MESSAGE_FORM: 'message-form'
 };
 
 export { MENU };

@@ -13,6 +13,7 @@ import {
   queryKey,
   useAppQueries,
 } from '~/lib/api-v2';
+import { MENU } from '~/constants/menus';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
@@ -77,7 +78,7 @@ export default function MyPage() {
     {
       title: '쪽지',
       icon: <AiFillMessage size={24} color={'#4dabf7'} />,
-      link: '#',
+      link: `/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_LIST}`,
     },
   ];
 
