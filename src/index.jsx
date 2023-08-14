@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -11,6 +10,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { loadUser } from './modules/auth';
 import { ConfigProvider } from 'antd';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const sagaMiddleware = createSagaMiddleware();
 export const store =
@@ -51,12 +51,24 @@ const fontFamily = [
   'sans-serif',
 ].join(',');
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnReconnect: !import.meta.env.DEV,
+      refetchOnWindowFocus: !import.meta.env.DEV,
+      retry: 0
+    }
+  }
+});
+
 ReactDOM.render(
   <Provider store={store}>
     <ConfigProvider theme={{ token: { colorPrimary: '#47be9b', fontFamily } }}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </QueryClientProvider>
     </ConfigProvider>
   </Provider>,
   document.getElementById('root'),

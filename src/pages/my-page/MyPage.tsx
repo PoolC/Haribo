@@ -1,13 +1,18 @@
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
-import { Avatar, List, Space, Typography } from 'antd';
-import React, { JSX } from 'react';
+import { Avatar, List, Progress, Space, Typography, Image } from 'antd';
+import { JSX } from 'react';
 import { createStyles } from 'antd-style';
 import { AiFillMessage } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { BsFillPencilFill, BsFillStarFill } from 'react-icons/bs';
-import { GiHighGrass } from 'react-icons/gi';
 import { BiSolidUser } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';
+import {
+  BadgeControllerService,
+  MemberControllerService,
+  queryKey,
+  useAppQueries,
+} from '~/lib/api-v2';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
@@ -70,16 +75,28 @@ export default function MyPage() {
       link: '#',
     },
     {
-      title: '나의 백준',
-      icon: <GiHighGrass size={24} color={'#69db7c'} />,
-      link: '#',
-    },
-    {
       title: '쪽지',
       icon: <AiFillMessage size={24} color={'#4dabf7'} />,
       link: '#',
     },
   ];
+
+  const [myHourRes, meRes, allBadgesRes] = useAppQueries({
+    queries: [
+      {
+        queryKey: [queryKey.MY_HOUR],
+        queryFn: MemberControllerService.getMyActivityTimeUsingGet,
+      },
+      {
+        queryKey: [queryKey.ME],
+        queryFn: MemberControllerService.getMeUsingGet,
+      },
+      {
+        queryKey: [queryKey.MY_BADGE],
+        queryFn: BadgeControllerService.getMyBadgeUsingGet,
+      },
+    ],
+  });
 
   return (
     <Block>
@@ -90,16 +107,34 @@ export default function MyPage() {
           size={'large'}
         >
           <Space className={styles.wrapper} size={'middle'}>
-            <Avatar
-              size={80}
-              src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=3"
-            />
+            <Avatar size={80} src={meRes.data?.profileImageURL} />
             <Space direction={'vertical'}>
               <Typography.Text className={styles.userName}>
-                최진호님
+                {meRes.data?.name}
               </Typography.Text>
               <Typography.Text>풀씨와 함께한지 120일 ❤️</Typography.Text>
             </Space>
+          </Space>
+          <Space direction="vertical" size={0} className={styles.wrapper}>
+            <Typography.Text>
+              {myHourRes.data?.hour ?? 0}시간 / 6시간
+            </Typography.Text>
+            <Progress percent={myHourRes.data?.hour ?? 0} />
+          </Space>
+          <Space direction="vertical" size={0} className={styles.wrapper}>
+            <Typography.Title level={5}>풀씨 잔디</Typography.Title>
+          </Space>
+          <Space direction="vertical" size={0} className={styles.wrapper}>
+            <Typography.Title level={5}>얻은 뱃지</Typography.Title>
+            {allBadgesRes.data?.data?.length ? (
+              <Space size={[8, 16]} wrap>
+                {allBadgesRes.data?.data.map((el) => (
+                  <Image src={el.imageUrl} alt={el.name} key={el.id} />
+                ))}
+              </Space>
+            ) : (
+              <Typography.Text>아직 뱃지가 없습니다.</Typography.Text>
+            )}
           </Space>
           <List
             size="large"
