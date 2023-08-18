@@ -1,5 +1,5 @@
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
-import { Avatar, List, Progress, Space, Typography, Image } from 'antd';
+import { Avatar, Image, List, Progress, Space, Typography } from 'antd';
 import { JSX } from 'react';
 import { createStyles } from 'antd-style';
 import { AiFillMessage } from 'react-icons/ai';
@@ -7,12 +7,7 @@ import { Link } from 'react-router-dom';
 import { BsFillPencilFill, BsFillStarFill } from 'react-icons/bs';
 import { BiSolidUser } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';
-import {
-  BadgeControllerService,
-  MemberControllerService,
-  queryKey,
-  useAppQueries,
-} from '~/lib/api-v2';
+import { BadgeControllerService, MemberControllerService, queryKey, useAppQueries } from '~/lib/api-v2';
 import { MENU } from '~/constants/menus';
 
 const useStyles = createStyles(({ css }) => ({
@@ -85,15 +80,15 @@ export default function MyPage() {
   const [myHourRes, meRes, allBadgesRes] = useAppQueries({
     queries: [
       {
-        queryKey: [queryKey.MY_HOUR],
+        queryKey: [queryKey.member.hour],
         queryFn: MemberControllerService.getMyActivityTimeUsingGet,
       },
       {
-        queryKey: [queryKey.ME],
+        queryKey: [queryKey.member.me],
         queryFn: MemberControllerService.getMeUsingGet,
       },
       {
-        queryKey: [queryKey.MY_BADGE],
+        queryKey: [queryKey.badge.badge],
         queryFn: BadgeControllerService.getMyBadgeUsingGet,
       },
     ],
