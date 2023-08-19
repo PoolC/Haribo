@@ -114,7 +114,7 @@ export default function NewBoardList({
     <div className={styles.wrapper}>
       <div className={styles.topArea}>
         <Input.Search allowClear className={styles.search} />
-        <Link to={`${MENU.NEW_BOARD}/write`}>
+        <Link to={`${MENU.NEW_BOARD}/write/${stringify({ boardId })}`}>
           <Button type={'primary'} icon={<GoPencil />}>
             글쓰기
           </Button>
