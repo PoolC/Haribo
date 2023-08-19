@@ -7,6 +7,9 @@ import { GoPencil } from 'react-icons/go';
 import { FcLike } from 'react-icons/fc';
 import { FaRegCommentAlt } from 'react-icons/fa';
 import { createStyles } from 'antd-style';
+import { PostControllerService, PostResponse, queryKey } from '~/lib/api-v2';
+import { useQuery } from '@tanstack/react-query';
+import { match } from 'ts-pattern';
 
 const useStyles = createStyles(({ css }) => ({
   fullWidth: css`
@@ -41,41 +44,27 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-type DataType = {
-  key: string;
-  title: string;
-  content: string;
-  createdAt: string;
-};
-
-export default function NewBoardList() {
+export default function NewBoardList({
+  boardId,
+  page,
+}: {
+  boardId: number;
+  page: number;
+}) {
+  // data
   const { styles } = useStyles();
 
-  const dataSource: DataType[] = [
-    {
-      key: '1',
-      title: '질문 있습니다',
-      content: 'html은 프로그래밍 언어인가요?',
-      createdAt: '2023. 07. 28',
-    },
-    {
-      key: '2',
-      title: '질문 있습니다',
-      content: 'html은 프로그래밍 언어인가요?',
-      createdAt: '2023. 07. 28',
-    },
-    {
-      key: '3',
-      title: '질문 있습니다',
-      content: 'html은 프로그래밍 언어인가요?',
-      createdAt: '2023. 07. 28',
-    },
-  ];
+  const boardListQuery = useQuery({
+    queryKey: queryKey.post.all(boardId, page),
+    queryFn: () =>
+      PostControllerService.viewPostByBoardUsingGet({ boardId, page }),
+  });
 
-  const columns: ColumnsType<DataType> = [
+  // template
+  const columns: ColumnsType<PostResponse> = [
     {
-      render: (_, { title, content, key, createdAt }) => (
-        <Link to={`${MENU.NEW_BOARD}/${key}`} className={styles.link}>
+      render: (_, post) => (
+        <Link to={`${MENU.NEW_BOARD}/${post.postId}`} className={styles.link}>
           <Space
             direction={'vertical'}
             className={styles.fullWidth}
@@ -83,19 +72,25 @@ export default function NewBoardList() {
           >
             <Space className={styles.metaInfoArea} size={'middle'}>
               <Space>
-                <Typography.Text>작성자</Typography.Text>
+                <Typography.Text>{post.writerName}</Typography.Text>
                 <Typography.Text type={'secondary'}>
-                  {createdAt}
+                  {post.createdAt}
                 </Typography.Text>
               </Space>
               <Space size={'middle'}>
-                <FcLike />
-                <FaRegCommentAlt />
+                <Space>
+                  <FcLike />
+                  {post.likeCount}
+                </Space>
+                <Space>
+                  <FaRegCommentAlt />
+                  {post.commentCount ?? 0}
+                </Space>
               </Space>
             </Space>
             <Space direction={'vertical'} size={0}>
-              <Typography.Title level={5}>{title}</Typography.Title>
-              <Typography.Text>{content}</Typography.Text>
+              <Typography.Title level={5}>{post.title}</Typography.Title>
+              <Typography.Text>{post.body}</Typography.Text>
             </Space>
           </Space>
         </Link>
@@ -113,15 +108,23 @@ export default function NewBoardList() {
           </Button>
         </Link>
       </div>
-      <Table
-        dataSource={dataSource}
-        columns={columns}
-        showHeader={false}
-        pagination={false}
-      />
-      <div className={styles.paginationWrap}>
-        <Pagination total={100} showSizeChanger={false} />
-      </div>
+      {match(boardListQuery)
+        .with({ status: 'loading' }, () => <div>loading</div>)
+        .with({ status: 'error' }, () => <div>something wrong</div>)
+        .with({ status: 'success' }, ({ data: postList }) => (
+          <>
+            <Table
+              dataSource={postList}
+              columns={columns}
+              showHeader={false}
+              pagination={false}
+            />
+            <div className={styles.paginationWrap}>
+              <Pagination total={100} showSizeChanger={false} />
+            </div>
+          </>
+        ))
+        .exhaustive()}
     </div>
   );
 }

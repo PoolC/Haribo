@@ -7,7 +7,12 @@ import { Link } from 'react-router-dom';
 import { BsFillPencilFill, BsFillStarFill } from 'react-icons/bs';
 import { BiSolidUser } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';
-import { BadgeControllerService, MemberControllerService, queryKey, useAppQueries } from '~/lib/api-v2';
+import {
+  BadgeControllerService,
+  MemberControllerService,
+  queryKey,
+  useAppQueries,
+} from '~/lib/api-v2';
 import { MENU } from '~/constants/menus';
 
 const useStyles = createStyles(({ css }) => ({
@@ -80,15 +85,15 @@ export default function MyPage() {
   const [myHourRes, meRes, allBadgesRes] = useAppQueries({
     queries: [
       {
-        queryKey: [queryKey.member.hour],
+        queryKey: queryKey.member.hour,
         queryFn: MemberControllerService.getMyActivityTimeUsingGet,
       },
       {
-        queryKey: [queryKey.member.me],
+        queryKey: queryKey.member.me,
         queryFn: MemberControllerService.getMeUsingGet,
       },
       {
-        queryKey: [queryKey.badge.badge],
+        queryKey: queryKey.badge.badge,
         queryFn: BadgeControllerService.getMyBadgeUsingGet,
       },
     ],
