@@ -38,7 +38,7 @@ export const WhiteBlock = styled.div`
   background-color: white;
   box-shadow: 0px 0px 20px ${colors.gray[1]};
   border-radius: 50px;
-  padding: 60px 0px;
+  padding: ${(props) => (props.dense ? '30px 0' : '60px 0')};
   min-height: 50vh;
   max-width: 1366px;
   & > .block_title {

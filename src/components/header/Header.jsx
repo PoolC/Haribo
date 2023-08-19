@@ -11,8 +11,19 @@ import {
 import Menus from './Menus/Menus';
 import { Avatar, Button, Dropdown } from 'antd';
 import { MENU } from '~/constants/menus';
+import { createStyles } from 'antd-style';
+
+const useStyles = createStyles(({ css }) => ({
+  avatarButton: css`
+    width: 40px;
+    height: 40px;
+    padding: 0;
+  `,
+}));
 
 const Header = ({ member, onLogout }) => {
+  const { styles } = useStyles();
+
   const {
     status: { isLogin },
     user: { isAdmin, role },
@@ -25,7 +36,7 @@ const Header = ({ member, onLogout }) => {
   };
 
   const onCloseMenu = () => {
-    setMenuVisible((menuVisible) => false);
+    setMenuVisible(() => false);
   };
 
   const handleLogout = () => {
@@ -35,10 +46,6 @@ const Header = ({ member, onLogout }) => {
 
   const dropDownItems = (() => {
     const arr = [
-      {
-        label: <Link to={`/${MENU.MYINFO}`}>My info</Link>,
-        key: 'my-info',
-      },
       {
         label: <Link to={`/${MENU.MY_PAGE}`}>My Page</Link>,
         key: 'my-page',
@@ -69,10 +76,7 @@ const Header = ({ member, onLogout }) => {
         <HeaderIconBox>
           {isLogin && (
             <Dropdown menu={{ items: dropDownItems }}>
-              <Button
-                shape={'circle'}
-                style={{ padding: 0, width: '40px', height: '40px' }}
-              >
+              <Button shape={'circle'} className={styles.avatarButton}>
                 <Avatar
                   src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=3"
                   size={36}

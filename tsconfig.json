@@ -23,7 +23,8 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+    "types": ["node", "vite/client"]
   },
   "exclude": [
     "node_modules"

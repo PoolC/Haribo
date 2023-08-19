@@ -9,21 +9,54 @@ import {
   Tooltip,
   Typography,
 } from 'antd';
-import { Block, WhiteBlock } from '../../styles/common/Block.styles';
-import styled from 'styled-components';
+import { Block, WhiteBlock } from '~/styles/common/Block.styles';
 import { Link } from 'react-router-dom';
-import { MENU } from '../../constants/menus';
+import { MENU } from '~/constants/menus';
 import { FcLike } from 'react-icons/fc';
 import { BsFillStarFill } from 'react-icons/bs';
+import { createStyles } from 'antd-style';
+
+const useStyles = createStyles(({ css }) => ({
+  wrapper: css`
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+  `,
+  fullWidth: css`
+    width: 100%;
+  `,
+  writerAvatar: css`
+    width: 50px;
+    height: 50px;
+  `,
+  commentTextArea: css`
+    min-width: 120px;
+    resize: none;
+  `,
+  buttonGroup: css`
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  `,
+  commentButtonWrap: css`
+    display: flex;
+    justify-content: flex-end;
+  `,
+  whiteBlock: css`
+    padding: 30px 0;
+  `,
+}));
 
 export default function NewBoardDetailPage() {
+  const { styles } = useStyles();
+
   return (
     <Block>
-      <WhiteBlock>
+      <WhiteBlock className={styles.whiteBlock}>
         <Space
           direction={'vertical'}
           size={0}
-          style={{ width: '100%', padding: '0 20px', boxSizing: 'border-box' }}
+          className={styles.wrapper}
           split={<Divider />}
         >
           <Breadcrumb
@@ -37,10 +70,10 @@ export default function NewBoardDetailPage() {
           <Space
             direction={'vertical'}
             size={'middle'}
-            style={{ width: '100%' }}
+            className={styles.fullWidth}
           >
             <Space align={'center'}>
-              <Avatar style={{ width: '50px', height: '50px' }} />
+              <Avatar className={styles.writerAvatar} />
               <Space direction={'vertical'} size={0}>
                 <Typography.Text>글쓴이</Typography.Text>
                 <Typography.Text type={'secondary'}>
@@ -52,13 +85,7 @@ export default function NewBoardDetailPage() {
               <Typography.Title level={2}>제목입니다.</Typography.Title>
               <Typography.Text>내용이 입력됩니다</Typography.Text>
             </Space>
-            <Space
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-              }}
-            >
+            <Space className={styles.buttonGroup}>
               <Tooltip title={'좋아요'}>
                 <Button icon={<FcLike />}>0</Button>
               </Tooltip>
@@ -70,7 +97,7 @@ export default function NewBoardDetailPage() {
           <Space
             direction={'vertical'}
             size={'large'}
-            style={{ width: '100%' }}
+            className={styles.fullWidth}
           >
             <Space align={'start'}>
               <Avatar />
@@ -82,14 +109,14 @@ export default function NewBoardDetailPage() {
                 </Typography.Text>
               </Space>
             </Space>
-            <Space direction={'vertical'} style={{ width: '100%' }}>
+            <Space direction={'vertical'} className={styles.fullWidth}>
               <Input.TextArea
-                style={{ minHeight: '120px', resize: 'none' }}
+                className={styles.commentTextArea}
                 placeholder="댓글을 남겨주세요 :)"
               />
-              <StyledButtonWrap>
+              <div className={styles.commentButtonWrap}>
                 <Button type={'primary'}>댓글 달기</Button>
-              </StyledButtonWrap>
+              </div>
             </Space>
           </Space>
         </Space>
@@ -97,8 +124,3 @@ export default function NewBoardDetailPage() {
     </Block>
   );
 }
-
-const StyledButtonWrap = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;

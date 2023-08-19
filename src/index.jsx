@@ -1,16 +1,16 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer, { rootSaga } from './modules/index';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { loadUser } from './modules/auth';
 import { ConfigProvider } from 'antd';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const sagaMiddleware = createSagaMiddleware();
 export const store =
@@ -34,12 +34,41 @@ export function setUser() {
 sagaMiddleware.run(rootSaga);
 setUser();
 
+const fontFamily = [
+  'SUIT',
+  '-apple-system',
+  'BlinkMacSystemFont',
+  'system-ui',
+  'Roboto',
+  'Helvetica Neue',
+  'Segoe UI',
+  'Apple SD Gothic Neo',
+  'Noto Sans KR',
+  'Malgun Gothic',
+  'Apple Color Emoji',
+  'Segoe UI Emoji',
+  'Segoe UI Symbol',
+  'sans-serif',
+].join(',');
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnReconnect: !import.meta.env.DEV,
+      refetchOnWindowFocus: !import.meta.env.DEV,
+      retry: 0
+    }
+  }
+});
+
 ReactDOM.render(
   <Provider store={store}>
-    <ConfigProvider theme={{ token: { colorPrimary:'#47be9b'}}}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+    <ConfigProvider theme={{ token: { colorPrimary: '#47be9b', fontFamily } }}>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </QueryClientProvider>
     </ConfigProvider>
   </Provider>,
   document.getElementById('root'),

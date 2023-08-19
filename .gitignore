@@ -28,3 +28,5 @@ yarn-error.log*
 .idea
 public/data/제목-없는-디자인.png
 src/lib/utils/seeders.js
+
+__generated__
