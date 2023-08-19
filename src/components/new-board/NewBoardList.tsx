@@ -1,7 +1,7 @@
 import { Button, Input, Pagination, Space, Table, Typography } from 'antd';
 import React from 'react';
 import { ColumnsType } from 'antd/es/table';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
 import { GoPencil } from 'react-icons/go';
 import { FcLike } from 'react-icons/fc';
@@ -10,6 +10,7 @@ import { createStyles } from 'antd-style';
 import { PostControllerService, PostResponse, queryKey } from '~/lib/api-v2';
 import { useQuery } from '@tanstack/react-query';
 import { match } from 'ts-pattern';
+import { stringify } from 'qs';
 
 const useStyles = createStyles(({ css }) => ({
   fullWidth: css`
@@ -59,6 +60,17 @@ export default function NewBoardList({
     queryFn: () =>
       PostControllerService.viewPostByBoardUsingGet({ boardId, page }),
   });
+
+  const history = useHistory();
+
+  // methods
+  const onPageChange = (page: number) =>
+    history.push(
+      `/${MENU.NEW_BOARDS}?${stringify({
+        boardId,
+        page,
+      })}`,
+    );
 
   // template
   const columns: ColumnsType<PostResponse> = [
@@ -120,7 +132,11 @@ export default function NewBoardList({
               pagination={false}
             />
             <div className={styles.paginationWrap}>
-              <Pagination total={100} showSizeChanger={false} />
+              <Pagination
+                total={100}
+                showSizeChanger={false}
+                onChange={onPageChange}
+              />
             </div>
           </>
         ))
