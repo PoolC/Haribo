@@ -9,7 +9,7 @@ const RecentNoticeContainer = () => {
   const [notices, setNotices] = useState(null);
 
   useEffect(() => {
-    postAPI.getPosts({ urlPath: 'notice', page: 1 }).then((res) => {
+    postAPI.getPosts({ urlPath: 'promotion', page: 1 }).then((res) => {
       if (res.status === SUCCESS.OK) {
         setNotices(res.data.data.slice(0, 5));
         setLoading(false);

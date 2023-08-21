@@ -51,19 +51,26 @@ const fontFamily = [
   'sans-serif',
 ].join(',');
 
+const theme = {
+  token: {
+    colorPrimary: '#47be9b',
+    fontFamily,
+  },
+};
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnReconnect: !import.meta.env.DEV,
       refetchOnWindowFocus: !import.meta.env.DEV,
-      retry: 0
-    }
-  }
+      retry: 0,
+    },
+  },
 });
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConfigProvider theme={{ token: { colorPrimary: '#47be9b', fontFamily } }}>
+    <ConfigProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <App />

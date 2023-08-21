@@ -14,6 +14,7 @@ import {
   useAppQueries,
 } from '~/lib/api-v2';
 import { MENU } from '~/constants/menus';
+import MyPageGrassSection from '~/components/my-page/MyPageGrassSection';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
@@ -124,6 +125,7 @@ export default function MyPage() {
           </Space>
           <Space direction="vertical" size={0} className={styles.wrapper}>
             <Typography.Title level={5}>풀씨 잔디</Typography.Title>
+            <MyPageGrassSection />
           </Space>
           <Space direction="vertical" size={0} className={styles.wrapper}>
             <Typography.Title level={5}>얻은 뱃지</Typography.Title>
