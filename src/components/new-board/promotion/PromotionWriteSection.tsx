@@ -11,12 +11,15 @@ import {
   Input,
   message,
   Radio,
-  Select,
   Space,
   Typography,
   Upload,
 } from 'antd';
-import { PostControllerService, useAppMutation } from '~/lib/api-v2';
+import {
+  PostControllerService,
+  PostCreateRequest,
+  useAppMutation,
+} from '~/lib/api-v2';
 import { UploadChangeParam } from 'antd/es/upload';
 import { noop } from '~/lib/utils/noop';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
@@ -26,6 +29,7 @@ import { stringify } from 'qs';
 import { FiUpload } from 'react-icons/fi';
 import { createStyles } from 'antd-style';
 import dayjs from 'dayjs';
+import { convertPositionToText } from '~/lib/utils/positionUtil';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -90,10 +94,14 @@ export default function PromotionWriteSection({
     mutationFn: PostControllerService.registerPostUsingPost,
   });
 
-  const positions: { value: string; text: string }[] = [
-    { value: '..', text: '신입' },
-    { value: '...', text: '인턴' },
-    { value: '.....', text: '경력직' },
+  const positions: { value: PostCreateRequest['position'] }[] = [
+    { value: 'BOOTCAMP' },
+    { value: 'COMPETITION' },
+    { value: 'NEW_EMPLOYEE' },
+    { value: 'EXPERIENCED_EMPLOYEE' },
+    { value: 'INTERN_FOR_EXPERIENCE' },
+    { value: 'INTERN_FOR_JOB' },
+    { value: 'OTHER' },
   ];
 
   const fields: { value: string }[] = [
@@ -133,6 +141,10 @@ export default function PromotionWriteSection({
           boardId,
           body: form.values.content,
           title: form.values.title,
+          deadline: form.values.deadline,
+          field: form.values.field,
+          postType: 'JOB_POST',
+          region: form.values.region,
         },
       },
       {
@@ -158,7 +170,7 @@ export default function PromotionWriteSection({
               {
                 title: (
                   <Link to={`${MENU.NEW_BOARDS}?${stringify(boardId)}`}>
-                    자유게시판
+                    홍보게시판
                   </Link>
                 ),
               },
@@ -193,7 +205,7 @@ export default function PromotionWriteSection({
                 >
                   {positions.map((position) => (
                     <Radio key={position.value} value={position.value}>
-                      {position.text}
+                      {convertPositionToText(position.value)}
                     </Radio>
                   ))}
                 </Radio.Group>
@@ -205,13 +217,16 @@ export default function PromotionWriteSection({
                 />
               </Form.Item>
               <Form.Item label="분야">
-                <Select {...form.getInputProps('field')}>
+                <Radio.Group
+                  onChange={(e) => form.setFieldValue('field', e.target.value)}
+                  value={form.values.field}
+                >
                   {fields.map((field) => (
-                    <Select.Option value={field.value} key={field.value}>
+                    <Radio key={field.value} value={field.value}>
                       {field.value}
-                    </Select.Option>
+                    </Radio>
                   ))}
-                </Select>
+                </Radio.Group>
               </Form.Item>
               <Form.Item label="마감일자">
                 <DatePicker
