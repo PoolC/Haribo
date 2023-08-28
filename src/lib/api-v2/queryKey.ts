@@ -13,4 +13,10 @@ export const queryKey = {
   baekjoon: {
     baekjoon: ['baekjoon.baekjoon'] as const,
   },
+  poolc: {
+    poolc: ['poolc.poolc'] as const,
+  },
+  project: {
+    all: ['project.all'] as const,
+  },
 };

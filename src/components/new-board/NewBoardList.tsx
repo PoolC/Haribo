@@ -1,5 +1,12 @@
-import { Button, Input, Pagination, Space, Table, Typography } from 'antd';
-import React from 'react';
+import {
+  Button,
+  Pagination,
+  Result,
+  Skeleton,
+  Space,
+  Table,
+  Typography,
+} from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { Link, useHistory } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
@@ -29,7 +36,7 @@ const useStyles = createStyles(({ css }) => ({
   `,
   topArea: css`
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
   `,
   wrapper: css`
@@ -113,7 +120,6 @@ export default function NewBoardList({
   return (
     <div className={styles.wrapper}>
       <div className={styles.topArea}>
-        <Input.Search allowClear className={styles.search} />
         <Link to={`${MENU.NEW_BOARD}/write/${stringify({ boardId })}`}>
           <Button type={'primary'} icon={<GoPencil />}>
             글쓰기
@@ -121,8 +127,10 @@ export default function NewBoardList({
         </Link>
       </div>
       {match(boardListQuery)
-        .with({ status: 'loading' }, () => <div>loading</div>)
-        .with({ status: 'error' }, () => <div>something wrong</div>)
+        .with({ status: 'loading' }, () => <Skeleton />)
+        .with({ status: 'error' }, () => (
+          <Result status="500" subTitle="에러가 발생했습니다." />
+        ))
         .with({ status: 'success' }, ({ data: postList }) => (
           <>
             <Table

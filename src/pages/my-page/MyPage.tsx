@@ -60,7 +60,7 @@ const useStyles = createStyles(({ css }) => ({
 
 export default function MyPage() {
   const { styles } = useStyles();
-  const data: { title: string; icon: JSX.Element; link: string }[] = [
+  const listData: { title: string; icon: JSX.Element; link: string }[] = [
     {
       title: '회원 정보 수정',
       icon: <BiSolidUser size={24} />,
@@ -116,7 +116,7 @@ export default function MyPage() {
             <Avatar size={80} src={meRes.data?.profileImageURL} />
             <Space direction={'vertical'}>
               <Typography.Text className={styles.userName}>
-                {meRes.data?.name}
+                {meRes.data?.name}님
               </Typography.Text>
               <Typography.Text>풀씨와 함께한지 120일 ❤️</Typography.Text>
             </Space>
@@ -149,7 +149,7 @@ export default function MyPage() {
             size="large"
             className={styles.fullWidth}
             bordered
-            dataSource={data}
+            dataSource={listData}
             renderItem={(item) => (
               <List.Item>
                 <Link to={item.link} className={styles.link}>
