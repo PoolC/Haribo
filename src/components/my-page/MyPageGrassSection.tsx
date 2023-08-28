@@ -1,69 +1,122 @@
 import { Tooltip } from 'antd';
 import { createStyles } from 'antd-style';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
+import objectSupport from 'dayjs/plugin/objectSupport';
 import { memo } from 'react';
+import { BaekjoonResponse } from '~/lib/api-v2';
+
+dayjs.extend(objectSupport);
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
     display: flex;
-    flex-direction: column;
     gap: 16px;
-    overflow-x: auto;
   `,
+  month: css``,
   monthWrap: css`
     display: flex;
-    justify-content: space-between;
   `,
   cell: css`
-    width: 18px;
-    height: 18px;
+    width: 11px;
+    height: 11px;
     background-color: #dadfe3;
     border-radius: 4px;
   `,
   cellWrap: css`
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(7, 1fr);
     gap: 5px;
-    flex-wrap: wrap;
-    max-height: 200px;
-    flex-shrink: 0;
-    width: 100%;
   `,
 }));
 
-function MyPageGrassSection() {
+function MyPageGrassSection({
+  baekjoonData,
+}: {
+  baekjoonData: BaekjoonResponse[];
+}) {
   const { styles } = useStyles();
 
-  const months = Array(12)
-    .fill(0)
-    .map((_, i) => i + 1);
+  const getDisplayingMonths = () => {
+    const currYear = dayjs().year();
+    const currMonth = dayjs().month();
 
-  const currMonth = dayjs().month();
+    const res = [];
 
-  const displayingMonths = [
-    ...months.slice(currMonth),
-    ...months.slice(0, currMonth + 1),
-  ];
+    for (let m = currMonth + 1; m < 12 + 1; m++) {
+      res.push(dayjs({ year: currYear - 1, month: m }));
+    }
 
-  const totalDays = displayingMonths
-    .map((month) => dayjs(month).daysInMonth())
-    .reduce((a, b) => a + b);
+    for (let m = 1; m < currMonth + 1; m++) {
+      res.push(dayjs({ year: currYear, month: m }));
+    }
+
+    return res;
+  };
+
+  const displayingMonths = getDisplayingMonths();
+
+  const getDisplayingDays = () => {
+    const months = displayingMonths.flatMap((month) =>
+      Array(month.daysInMonth())
+        .fill(0)
+        .map((_, i) =>
+          dayjs({
+            year: month.year(),
+            month: month.month(),
+            day: i + 1,
+          }),
+        ),
+    );
+
+    return months;
+  };
+
+  const displayingDays = getDisplayingDays();
+
+  const getSolvedProblemsCount = (day: Dayjs) => {
+    const targetDayDatas = baekjoonData.filter((data) =>
+      dayjs(data.date).isSame(day),
+    );
+    return targetDayDatas.length;
+  };
+
+  const getMonthWidth = (month: Dayjs) => {
+    const totalDays = displayingMonths.reduce((a, b) => a + b.daysInMonth(), 0);
+    return `${(month.daysInMonth() / totalDays) * 100}%`;
+  };
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.monthWrap}>
+      {/* <div className={styles.monthWrap}>
         {displayingMonths.map((month, i) => (
-          <span key={i}>{month}월</span>
+          <div
+            key={i}
+            style={{ width: getMonthWidth(month) }}
+            className={styles.month}
+          >
+            {month.month() + 1}월
+          </div>
         ))}
-      </div>
+      </div> */}
       <div className={styles.cellWrap}>
-        {Array(totalDays)
-          .fill(0)
-          .map((month, i) => (
-            <Tooltip key={i} placement="top" title={month}>
-              <div className={styles.cell}></div>
-            </Tooltip>
-          ))}
+        {displayingDays.map((day, i) => (
+          <Tooltip
+            placement="top"
+            title={`${day.format('YYYY년 MM월 DD일')}: ${getSolvedProblemsCount(
+              day,
+            )}개`}
+            key={i}
+          >
+            <div
+              className={styles.cell}
+              style={{
+                backgroundColor:
+                  getSolvedProblemsCount(day) > 0 ? 'green' : '#dadfe3',
+              }}
+            />
+          </Tooltip>
+        ))}
       </div>
     </div>
   );

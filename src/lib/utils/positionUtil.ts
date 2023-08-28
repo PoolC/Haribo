@@ -8,7 +8,7 @@ export function convertPositionToText(position: PostCreateRequest['position']) {
     .with('NEW_EMPLOYEE', () => '신입')
     .with('EXPERIENCED_EMPLOYEE', () => '경력')
     .with('INTERN_FOR_EXPERIENCE', () => '체험형 인턴')
-    .with('INTERN_FOR_JOB', () => '체용형 인턴')
+    .with('INTERN_FOR_JOB', () => '채용형 인턴')
     .with('OTHER', () => '기타')
     .with(undefined, () => '')
     .exhaustive();

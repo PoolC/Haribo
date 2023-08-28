@@ -3,6 +3,7 @@ import * as authAPI from '../lib/api/auth';
 import { call, put } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga/effects';
 import client from '../lib/api/client';
+import { setApiAccessToken } from '~/lib/api-v2';
 
 const LOGIN = 'auth/LOGIN';
 const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
@@ -61,6 +62,7 @@ function* setTokenSaga(action) {
     yield (client.defaults.headers.common[
       'Authorization'
     ] = `Bearer ${action.data}`);
+    yield setApiAccessToken(action.data);
     yield put({
       type: SET_TOKEN_SUCCESS,
     });

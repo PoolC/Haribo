@@ -10,4 +10,7 @@ export const queryKey = {
     all: (boardId: number, page: number) =>
       ['post.all', boardId, page] as const,
   },
+  baekjoon: {
+    baekjoon: ['baekjoon.baekjoon'] as const,
+  },
 };
