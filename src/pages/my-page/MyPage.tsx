@@ -9,6 +9,7 @@ import { BiSolidUser } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';
 import {
   BadgeControllerService,
+  BaekjoonControllerService,
   MemberControllerService,
   queryKey,
   useAppQueries,
@@ -22,7 +23,6 @@ const useStyles = createStyles(({ css }) => ({
   `,
   wrapper: css`
     width: 100%;
-    max-width: 1200px;
     box-sizing: border-box;
   `,
   fullWidth: css`
@@ -83,7 +83,7 @@ export default function MyPage() {
     },
   ];
 
-  const [myHourRes, meRes, allBadgesRes] = useAppQueries({
+  const [myHourRes, meRes, allBadgesRes, baekjoonRes] = useAppQueries({
     queries: [
       {
         queryKey: queryKey.member.hour,
@@ -96,6 +96,10 @@ export default function MyPage() {
       {
         queryKey: queryKey.badge.badge,
         queryFn: BadgeControllerService.getMyBadgeUsingGet,
+      },
+      {
+        queryKey: queryKey.baekjoon.baekjoon,
+        queryFn: BaekjoonControllerService.getMyBaekjoonUsingGet,
       },
     ],
   });
@@ -125,7 +129,9 @@ export default function MyPage() {
           </Space>
           <Space direction="vertical" size={0} className={styles.wrapper}>
             <Typography.Title level={5}>풀씨 잔디</Typography.Title>
-            <MyPageGrassSection />
+            {baekjoonRes.data?.data && (
+              <MyPageGrassSection baekjoonData={baekjoonRes.data.data} />
+            )}
           </Space>
           <Space direction="vertical" size={0} className={styles.wrapper}>
             <Typography.Title level={5}>얻은 뱃지</Typography.Title>
