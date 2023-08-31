@@ -36,7 +36,7 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-export default function MyPageMessageList() {
+export default function MyPageMessageListPage() {
   const { styles } = useStyles();
   const history = useHistory();
 

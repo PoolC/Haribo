@@ -73,6 +73,7 @@ const Menus = ({
               <LinkButton
                 to={link.to}
                 key={i}
+                onClick={onToggleMenu}
                 style={{
                   color: location.pathname.startsWith(link.to) && '#47be9b',
                   fontWeight: location.pathname.startsWith(link.to) && 800,
