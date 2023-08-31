@@ -30,6 +30,7 @@ import MyPage from '~/pages/my-page/MyPage';
 import MyPageMessageList from './pages/my-page/MyPageMessageList';
 import MyPageMessageForm from './pages/my-page/MyPageMessageForm';
 import { createStyles } from 'antd-style';
+import MyPageBadgeList from '~/pages/my-page/MyPageBadgeList';
 
 const useStyles = createStyles(({ css }) => ({
   container: css`
@@ -121,6 +122,10 @@ function App() {
           <Route
             component={MyPageMessageForm}
             path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_FORM}`}
+          />
+          <Route
+            component={MyPageBadgeList}
+            path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_BADGE_LIST}`}
           />
           <Route component={MyPage} path={`/${MENU.MY_PAGE}`} />
           <Route component={NotFoundPage} path="/" />

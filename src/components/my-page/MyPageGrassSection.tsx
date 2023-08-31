@@ -93,23 +93,21 @@ function MyPageGrassSection({
 
   return (
     <div className={styles.wrapper}>
-      <div>
-        <div className={styles.calendarWrap}>
-          <ActivityCalendar
-            data={getDisplayingDays()}
-            renderBlock={(block, activity) => (
-              <Tooltip title={`${activity.count}개 풀이 | ${activity.date}`}>
-                {block}
-              </Tooltip>
-            )}
-            theme={{
-              light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-            }}
-            labels={labels}
-            showWeekdayLabels
-            hideTotalCount
-          />
-        </div>
+      <div className={styles.calendarWrap}>
+        <ActivityCalendar
+          data={getDisplayingDays()}
+          renderBlock={(block, activity) => (
+            <Tooltip title={`${activity.count}개 풀이 | ${activity.date}`}>
+              {block}
+            </Tooltip>
+          )}
+          theme={{
+            light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+          }}
+          labels={labels}
+          showWeekdayLabels
+          hideTotalCount
+        />
       </div>
     </div>
   );

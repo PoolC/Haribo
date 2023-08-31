@@ -1,10 +1,23 @@
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
-import { Avatar, Image, List, Progress, Space, Typography } from 'antd';
+import {
+  Avatar,
+  Button,
+  Image,
+  List,
+  Popover,
+  Progress,
+  Space,
+  Typography,
+} from 'antd';
 import { JSX } from 'react';
 import { createStyles } from 'antd-style';
 import { AiFillMessage } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { BsFillPencilFill, BsFillStarFill } from 'react-icons/bs';
+import {
+  BsFillPencilFill,
+  BsFillQuestionCircleFill,
+  BsFillStarFill,
+} from 'react-icons/bs';
 import { BiSolidUser } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';
 import {
@@ -55,6 +68,23 @@ const useStyles = createStyles(({ css }) => ({
       bottom: 0;
       left: 0;
     }
+  `,
+  grassTitle: css`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  `,
+  badgeTitle: css`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  `,
+  badgeLink: css`
+    font-size: 12px;
+    color: #9d9893 !important;
+    display: flex;
+    align-items: center;
+    gap: 5px;
   `,
 }));
 
@@ -107,11 +137,7 @@ export default function MyPage() {
   return (
     <Block>
       <WhiteBlock className={styles.whiteBlock}>
-        <Space
-          direction={'vertical'}
-          className={styles.fullWidth}
-          size={'large'}
-        >
+        <Space direction={'vertical'} className={styles.fullWidth} size={40}>
           <Space className={styles.wrapper} size={'middle'}>
             <Avatar size={80} src={meRes.data?.profileImageURL} />
             <Space direction={'vertical'}>
@@ -122,19 +148,53 @@ export default function MyPage() {
             </Space>
           </Space>
           <Space direction="vertical" size={0} className={styles.wrapper}>
+            <Typography.Title level={5}>나의 활동시간</Typography.Title>
             <Typography.Text>
               {myHourRes.data?.hour ?? 0}시간 / 6시간
             </Typography.Text>
             <Progress percent={myHourRes.data?.hour ?? 0} />
           </Space>
-          <Space direction="vertical" size={0} className={styles.wrapper}>
-            <Typography.Title level={5}>풀씨 잔디</Typography.Title>
+          <Space direction="vertical" className={styles.wrapper}>
+            <Typography.Title level={5} className={styles.grassTitle}>
+              풀씨 잔디
+              <Popover
+                title={'풀씨 잔디란?'}
+                content={
+                  <Space direction={'vertical'}>
+                    <Typography.Text>
+                      풀씨-백준 익스텐션을 설치하고
+                      <br />
+                      백준문제를 풀면 풀씨 잔디를 심을 수 있습니다.
+                    </Typography.Text>
+                    <a
+                      href={
+                        'https://chrome.google.com/webstore/detail/poolc-baekjoon-hub/doeamknhlolnflkmhbhkagganhjjbefe?hl=ko'
+                      }
+                      target={'_blank'}
+                      rel="noopener noreferrer"
+                    >
+                      <Button type={'primary'}>익스텐션 설치하러가기 ✨</Button>
+                    </a>
+                  </Space>
+                }
+              >
+                <BsFillQuestionCircleFill />
+              </Popover>
+            </Typography.Title>
             {baekjoonRes.data?.data && (
               <MyPageGrassSection baekjoonData={baekjoonRes.data.data} />
             )}
           </Space>
           <Space direction="vertical" size={0} className={styles.wrapper}>
-            <Typography.Title level={5}>얻은 뱃지</Typography.Title>
+            <Typography.Title level={5} className={styles.badgeTitle}>
+              얻은 뱃지
+              <Link
+                to={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_BADGE_LIST}`}
+                className={styles.badgeLink}
+              >
+                모든 뱃지보기 <span>&gt;</span>
+              </Link>
+            </Typography.Title>
             {allBadgesRes.data?.data?.length ? (
               <Space size={[8, 16]} wrap>
                 {allBadgesRes.data?.data.map((el) => (
@@ -145,22 +205,26 @@ export default function MyPage() {
               <Typography.Text>아직 뱃지가 없습니다.</Typography.Text>
             )}
           </Space>
-          <List
-            size="large"
-            className={styles.fullWidth}
-            bordered
-            dataSource={listData}
-            renderItem={(item) => (
-              <List.Item>
-                <Link to={item.link} className={styles.link}>
-                  <div className={styles.linkInner}>
-                    {item.icon} <Typography.Text>{item.title}</Typography.Text>
-                  </div>
-                  <IoIosArrowForward size={18} color={'#ced4da'} />
-                </Link>
-              </List.Item>
-            )}
-          />
+          <Space direction="vertical" size={0} className={styles.wrapper}>
+            <Typography.Title level={5}>나의 메뉴</Typography.Title>
+            <List
+              size="large"
+              className={styles.fullWidth}
+              bordered
+              dataSource={listData}
+              renderItem={(item) => (
+                <List.Item>
+                  <Link to={item.link} className={styles.link}>
+                    <div className={styles.linkInner}>
+                      {item.icon}{' '}
+                      <Typography.Text>{item.title}</Typography.Text>
+                    </div>
+                    <IoIosArrowForward size={18} color={'#ced4da'} />
+                  </Link>
+                </List.Item>
+              )}
+            />
+          </Space>
         </Space>
       </WhiteBlock>
     </Block>
