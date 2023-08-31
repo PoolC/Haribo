@@ -4,14 +4,18 @@ import colors from '../../lib/styles/colors';
 export const HeaderBlock = styled.div`
   display: flex;
   align-items: center;
-  padding: 20px 5%;
-  position: relative;
+  padding: 10px 5%;
   top: 0;
   left: 0;
   right: 0;
-  margin-bottom: 0px;
   max-width: 1366px;
   margin: auto;
+
+  position: fixed;
+  background-color: ${colors.gray[0]};
+  border-bottom: 1px solid #eee;
+  z-index: 100;
+
   @media (max-width: 768px) {
     position: sticky;
     flex-direction: column;

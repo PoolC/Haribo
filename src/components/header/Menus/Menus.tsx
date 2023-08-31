@@ -3,36 +3,84 @@ import { isAuthorizedRole } from '../../../lib/utils/checkRole';
 import ActionButton from '../../common/Buttons/ActionButton';
 import LinkButton from '../../common/Buttons/LinkButton';
 import { LeftHeaderMenu, MenuBlock, RightHeaderMenu } from './Menus.styles';
-import { Avatar, Button, Dropdown } from 'antd';
+import { Avatar, Button, Dropdown, MenuProps } from 'antd';
+import { MENU } from '~/constants/menus';
+import { useLocation } from 'react-router-dom';
 
-const Menus = ({ menuVisible, isLogin, role, onToggleMenu, dropDownItems }) => {
+const Menus = ({
+  menuVisible,
+  isLogin,
+  role,
+  onToggleMenu,
+  dropDownItems,
+}: {
+  menuVisible: boolean;
+  isLogin: boolean;
+  role: any;
+  onToggleMenu: () => void;
+  dropDownItems: MenuProps['items'];
+}) => {
+  const links: {
+    to: string;
+    visible: boolean;
+    content: string;
+  }[] = [
+    {
+      to: '/intro',
+      visible: true,
+      content: 'PoolC',
+    },
+    {
+      to: '/members',
+      visible: isLogin && isAuthorizedRole(role),
+      content: 'Members',
+    },
+    {
+      to: `/${MENU.NEW_BOARDS}`,
+      visible: true,
+      content: 'Boards',
+    },
+    {
+      to: `/${MENU.PROJECTS}`,
+      visible: true,
+      content: 'Projects',
+    },
+    {
+      to: `/${MENU.ACTIVITIES}`,
+      visible: true,
+      content: 'Seminars',
+    },
+    {
+      to: `/${MENU.BOOKS}`,
+      visible: true,
+      content: 'Books',
+    },
+    {
+      to: `/${MENU.APPLY}`,
+      visible: !isLogin || (isLogin && !isAuthorizedRole(role)),
+      content: 'Apply',
+    },
+  ];
+
+  const location = useLocation();
+
   return (
     <MenuBlock className={menuVisible ? 'menus open' : 'menus'}>
       <LeftHeaderMenu>
-        <LinkButton onClick={onToggleMenu} to="/intro">
-          PoolC
-        </LinkButton>
-        {isLogin && isAuthorizedRole(role) && (
-          <LinkButton onClick={onToggleMenu} to="/members">
-            Members
-          </LinkButton>
-        )}
-        <LinkButton onClick={onToggleMenu} to="/boards/notice?page=1">
-          Boards
-        </LinkButton>
-        <LinkButton onClick={onToggleMenu} to="/projects">
-          Projects
-        </LinkButton>
-        <LinkButton onClick={onToggleMenu} to="/activities">
-          Seminars
-        </LinkButton>
-        <LinkButton onClick={onToggleMenu} to="/books">
-          Books
-        </LinkButton>
-        {(!isLogin || (isLogin && !isAuthorizedRole(role))) && (
-          <LinkButton onClick={onToggleMenu} to="/apply">
-            Apply
-          </LinkButton>
+        {links.map(
+          (link, i) =>
+            link.visible && (
+              <LinkButton
+                to={link.to}
+                key={i}
+                style={{
+                  color: location.pathname.startsWith(link.to) && '#47be9b',
+                  fontWeight: location.pathname.startsWith(link.to) && 800,
+                }}
+              >
+                {link.content}
+              </LinkButton>
+            ),
         )}
         {!isLogin && (
           <LinkButton

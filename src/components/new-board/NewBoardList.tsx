@@ -1,12 +1,4 @@
-import {
-  Button,
-  Pagination,
-  Result,
-  Skeleton,
-  Space,
-  Table,
-  Typography,
-} from 'antd';
+import { Button, Pagination, Result, Skeleton, Space, Table, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { Link, useHistory } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
@@ -120,7 +112,7 @@ export default function NewBoardList({
   return (
     <div className={styles.wrapper}>
       <div className={styles.topArea}>
-        <Link to={`${MENU.NEW_BOARD}/write/${stringify({ boardId })}`}>
+        <Link to={`${MENU.NEW_BOARD}/write?${stringify({ boardId })}`}>
           <Button type={'primary'} icon={<GoPencil />}>
             글쓰기
           </Button>

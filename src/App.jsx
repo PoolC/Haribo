@@ -29,73 +29,103 @@ import NewBoardWritePage from './pages/new-board/NewBoardWritePage';
 import MyPage from '~/pages/my-page/MyPage';
 import MyPageMessageList from './pages/my-page/MyPageMessageList';
 import MyPageMessageForm from './pages/my-page/MyPageMessageForm';
+import { createStyles } from 'antd-style';
+
+const useStyles = createStyles(({ css }) => ({
+  container: css`
+    padding-top: 90px;
+
+    @media (max-width: 768px) {
+      padding-top: 0;
+    }
+  `,
+}));
 
 function App() {
+  const { styles } = useStyles();
+
   return (
     <>
       <HeaderContainer />
-      <Switch>
-        <Route component={HomePage} path="/" exact />
-        <Route component={IntroPage} path={`/${MENU.INTRO}`} />
-        <Route component={MemberListPage} path={`/${MENU.MEMBERS}`} />
-        <Route
-          component={MemberDetailPage}
-          path={`/${MENU.MEMBER}/:memberID`}
-        />
-        {/* <Route component={PostWritePage} path={`/${MENU.POST}/new/:boardID`} />
+      <div className={styles.container}>
+        <Switch>
+          <Route component={HomePage} path="/" exact />
+          <Route component={IntroPage} path={`/${MENU.INTRO}`} />
+          <Route component={MemberListPage} path={`/${MENU.MEMBERS}`} />
+          <Route
+            component={MemberDetailPage}
+            path={`/${MENU.MEMBER}/:memberID`}
+          />
+          {/* <Route component={PostWritePage} path={`/${MENU.POST}/new/:boardID`} />
         <Route component={PostPage} path={`/${MENU.POST}/:postID`} /> */}
-        <Route
-          component={BoardPage}
-          path={[
-            `/${MENU.BOARDS}/:urlPath`,
-            `/${MENU.BOARDS}`,
-            `/${MENU.POST}`,
-          ]}
-        />
-        <Route component={ProjectListPage} path={`/${MENU.PROJECTS}`} />
-        <Route
-          component={ProjectDetailPage}
-          path={`/${MENU.PROJECT}/:projectID`}
-        />
-        <Route
-          component={ActivityAdminPage}
-          path={[`/${MENU.ACTIVITY}/new`, `/${MENU.ACTIVITY}/edit/:activityID`]}
-          exact
-        />
-        <Route component={ActivityListPage} path={`/${MENU.ACTIVITIES}`} />
-        <Route
-          component={ActivityAttendancePage}
-          path={[
-            `/${MENU.ACTIVITY}/:activityID/attendance/:sessionID`,
-            `/${MENU.ACTIVITY}/:activityID/attendance`,
-          ]}
-        />
-        <Route
-          component={ActivityDetailPage}
-          path={`/${MENU.ACTIVITY}/:activityID`}
-          exact
-        />
-        <Route component={BookListPage} path={`/${MENU.BOOKS}`} />
-        <Route component={LoginPage} path={`/${MENU.SIGNIN}`} />
-        <Route component={RegisterPage} path={`/${MENU.SIGNUP}`} />
-        <Route component={ApplyPage} path={`/${MENU.APPLY}`} />
-        <Route component={AdminHomePage} path={`/${MENU.ADMIN}`} />
-        <Route component={MyInfoPage} path={`/${MENU.MYINFO}`} />
-        <Route component={PasswordResetEmailPage} path={`/${MENU.PASSWORD}`} />
-        <Route component={InterviewPage} path={`/${MENU.INTERVIEW_TIME}`} />
-        <Route component={AccessDeniedPage} path={`/${MENU.FORBIDDEN}`} />
-        <Route component={NotFoundPage} path={`/${MENU.NOT_FOUND}`} />
-        <Route component={NewBoardListPage} path={`/${MENU.NEW_BOARDS}`} />
-        <Route
-          component={NewBoardWritePage}
-          path={`/${MENU.NEW_BOARD}/write`}
-        />
-        <Route component={NewBoardDetailPage} path={`/${MENU.NEW_BOARD}/:id`} />
-        <Route component={MyPageMessageList} path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_LIST}`} />
-        <Route component={MyPageMessageForm} path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_FORM}`} />
-        <Route component={MyPage} path={`/${MENU.MY_PAGE}`} />
-        <Route component={NotFoundPage} path="/" />
-      </Switch>
+          <Route
+            component={BoardPage}
+            path={[
+              `/${MENU.BOARDS}/:urlPath`,
+              `/${MENU.BOARDS}`,
+              `/${MENU.POST}`,
+            ]}
+          />
+          <Route component={ProjectListPage} path={`/${MENU.PROJECTS}`} />
+          <Route
+            component={ProjectDetailPage}
+            path={`/${MENU.PROJECT}/:projectID`}
+          />
+          <Route
+            component={ActivityAdminPage}
+            path={[
+              `/${MENU.ACTIVITY}/new`,
+              `/${MENU.ACTIVITY}/edit/:activityID`,
+            ]}
+            exact
+          />
+          <Route component={ActivityListPage} path={`/${MENU.ACTIVITIES}`} />
+          <Route
+            component={ActivityAttendancePage}
+            path={[
+              `/${MENU.ACTIVITY}/:activityID/attendance/:sessionID`,
+              `/${MENU.ACTIVITY}/:activityID/attendance`,
+            ]}
+          />
+          <Route
+            component={ActivityDetailPage}
+            path={`/${MENU.ACTIVITY}/:activityID`}
+            exact
+          />
+          <Route component={BookListPage} path={`/${MENU.BOOKS}`} />
+          <Route component={LoginPage} path={`/${MENU.SIGNIN}`} />
+          <Route component={RegisterPage} path={`/${MENU.SIGNUP}`} />
+          <Route component={ApplyPage} path={`/${MENU.APPLY}`} />
+          <Route component={AdminHomePage} path={`/${MENU.ADMIN}`} />
+          <Route component={MyInfoPage} path={`/${MENU.MYINFO}`} />
+          <Route
+            component={PasswordResetEmailPage}
+            path={`/${MENU.PASSWORD}`}
+          />
+          <Route component={InterviewPage} path={`/${MENU.INTERVIEW_TIME}`} />
+          <Route component={AccessDeniedPage} path={`/${MENU.FORBIDDEN}`} />
+          <Route component={NotFoundPage} path={`/${MENU.NOT_FOUND}`} />
+          <Route component={NewBoardListPage} path={`/${MENU.NEW_BOARDS}`} />
+          <Route
+            component={NewBoardWritePage}
+            path={`/${MENU.NEW_BOARD}/write`}
+          />
+          <Route
+            component={NewBoardDetailPage}
+            path={`/${MENU.NEW_BOARD}/:id`}
+          />
+          <Route
+            component={MyPageMessageList}
+            path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_LIST}`}
+          />
+          <Route
+            component={MyPageMessageForm}
+            path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_FORM}`}
+          />
+          <Route component={MyPage} path={`/${MENU.MY_PAGE}`} />
+          <Route component={NotFoundPage} path="/" />
+        </Switch>
+      </div>
       <FooterContainer />
     </>
   );
