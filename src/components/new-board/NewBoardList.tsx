@@ -1,4 +1,13 @@
-import { Button, Pagination, Result, Skeleton, Space, Table, Typography } from 'antd';
+import {
+  Button,
+  Empty,
+  Pagination,
+  Result,
+  Skeleton,
+  Space,
+  Table,
+  Typography,
+} from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { Link, useHistory } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
@@ -123,23 +132,34 @@ export default function NewBoardList({
         .with({ status: 'error' }, () => (
           <Result status="500" subTitle="에러가 발생했습니다." />
         ))
-        .with({ status: 'success' }, ({ data: postList }) => (
-          <>
-            <Table
-              dataSource={postList}
-              columns={columns}
-              showHeader={false}
-              pagination={false}
-            />
-            <div className={styles.paginationWrap}>
-              <Pagination
-                total={100}
-                showSizeChanger={false}
-                onChange={onPageChange}
+        .with({ status: 'success' }, ({ data: postList }) => {
+          if (postList.length === 0) {
+            return (
+              <>
+                <Empty />
+                <Typography>아직 등록된 게시물이 없습니다.</Typography>
+              </>
+            );
+          }
+
+          return (
+            <>
+              <Table
+                dataSource={postList}
+                columns={columns}
+                showHeader={false}
+                pagination={false}
               />
-            </div>
-          </>
-        ))
+              <div className={styles.paginationWrap}>
+                <Pagination
+                  total={100}
+                  showSizeChanger={false}
+                  onChange={onPageChange}
+                />
+              </div>
+            </>
+          );
+        })
         .exhaustive()}
     </div>
   );
