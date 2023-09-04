@@ -1,32 +1,29 @@
-import { Tooltip } from 'antd';
 import { createStyles } from 'antd-style';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
 import objectSupport from 'dayjs/plugin/objectSupport';
 import { memo } from 'react';
 import { BaekjoonResponse } from '~/lib/api-v2';
+import ActivityCalendar, {
+  Activity,
+  Labels,
+  Level,
+} from 'react-activity-calendar';
+import { Tooltip } from 'antd';
 
 dayjs.extend(objectSupport);
+dayjs.extend(weekOfYear);
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
+    overflow-x: auto;
+    overflow-y: clip;
+  `,
+  calendarWrap: css`
+    width: 100%;
+    min-width: 800px;
     display: flex;
-    gap: 16px;
-  `,
-  month: css``,
-  monthWrap: css`
-    display: flex;
-  `,
-  cell: css`
-    width: 11px;
-    height: 11px;
-    background-color: #dadfe3;
-    border-radius: 4px;
-  `,
-  cellWrap: css`
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(7, 1fr);
-    gap: 5px;
+    justify-content: center;
   `,
 }));
 
@@ -54,69 +51,63 @@ function MyPageGrassSection({
     return res;
   };
 
-  const displayingMonths = getDisplayingMonths();
+  const getDisplayingDays = (): Activity[] => {
+    const months = getDisplayingMonths();
 
-  const getDisplayingDays = () => {
-    const months = displayingMonths.flatMap((month) =>
-      Array(month.daysInMonth())
-        .fill(0)
-        .map((_, i) =>
-          dayjs({
-            year: month.year(),
-            month: month.month(),
-            day: i + 1,
-          }),
-        ),
-    );
+    const res: Activity[] = [];
 
-    return months;
+    for (const month of months) {
+      for (let i = 1; i < month.daysInMonth() + 1; i++) {
+        const date = month.date(i);
+        if (date.isAfter(dayjs())) {
+          break;
+        }
+
+        const formattedDate = date.format('YYYY-MM-DD');
+
+        const filtered = baekjoonData.filter(
+          (data) => data.date === formattedDate,
+        );
+
+        res.push({
+          date: formattedDate,
+          count: filtered.length,
+          level: filtered.length as Level,
+        });
+      }
+    }
+
+    return res;
   };
 
-  const displayingDays = getDisplayingDays();
-
-  const getSolvedProblemsCount = (day: Dayjs) => {
-    const targetDayDatas = baekjoonData.filter((data) =>
-      dayjs(data.date).isSame(day),
-    );
-    return targetDayDatas.length;
-  };
-
-  const getMonthWidth = (month: Dayjs) => {
-    const totalDays = displayingMonths.reduce((a, b) => a + b.daysInMonth(), 0);
-    return `${(month.daysInMonth() / totalDays) * 100}%`;
+  const labels: Labels = {
+    months: Array(12)
+      .fill(0)
+      .map((_, i) => `${i + 1}월`),
+    weekdays: ['일', '월', '화', '수', '목', '금', '토'],
+    legend: {
+      less: 'Less',
+      more: 'More',
+    },
   };
 
   return (
     <div className={styles.wrapper}>
-      {/* <div className={styles.monthWrap}>
-        {displayingMonths.map((month, i) => (
-          <div
-            key={i}
-            style={{ width: getMonthWidth(month) }}
-            className={styles.month}
-          >
-            {month.month() + 1}월
-          </div>
-        ))}
-      </div> */}
-      <div className={styles.cellWrap}>
-        {displayingDays.map((day, i) => (
-          <Tooltip
-            placement="top"
-            title={`${day.format('YYYY년 MM월 DD일')}: ${getSolvedProblemsCount(
-              day,
-            )}개`}
-            key={i}
-          >
-            <div
-              className={styles.cell}
-              style={{
-                backgroundColor:
-                  getSolvedProblemsCount(day) > 0 ? 'green' : '#dadfe3',
-              }}
-            />
-          </Tooltip>
-        ))}
+      <div className={styles.calendarWrap}>
+        <ActivityCalendar
+          data={getDisplayingDays()}
+          renderBlock={(block, activity) => (
+            <Tooltip title={`${activity.count}개 풀이 | ${activity.date}`}>
+              {block}
+            </Tooltip>
+          )}
+          theme={{
+            light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+          }}
+          labels={labels}
+          showWeekdayLabels
+          hideTotalCount
+        />
       </div>
     </div>
   );

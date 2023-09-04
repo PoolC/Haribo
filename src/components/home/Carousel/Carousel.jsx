@@ -1,5 +1,3 @@
-import React from 'react';
-import getFileUrl from '../../../lib/utils/getFileUrl';
 import {
   CarouselBlock,
   // CarouselButton,
@@ -7,21 +5,15 @@ import {
   MainCarouselImage,
 } from './Carousel.styles';
 
-const Carousel = ({ imageURLs }) => {
+const Carousel = () => {
   return (
     <CarouselBlock>
-      {/* <CarouselButton className="carousel_prev">
-        <i className="fas fa-chevron-left"></i>
-      </CarouselButton> */}
       <MainCarousel>
         <MainCarouselImage
-          src={getFileUrl(imageURLs)}
+          src={'/images/main-carousel-image.png'}
           alt="main_carousel_image"
         />
       </MainCarousel>
-      {/* <CarouselButton className="carousel_next">
-        <i className="fas fa-chevron-right"></i>
-      </CarouselButton> */}
     </CarouselBlock>
   );
 };

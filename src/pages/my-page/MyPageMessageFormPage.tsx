@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { Space, Button, Typography, Input } from 'antd';
+import { Button, Input, Space, Typography } from 'antd';
 import { createStyles } from 'antd-style';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -33,7 +33,7 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-export default function MyPageMessageForm() {
+export default function MyPageMessageFormPage() {
   const { styles } = useStyles();
   const [content, setContent] = useState('');
   const history = useHistory();

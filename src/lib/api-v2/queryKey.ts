@@ -5,6 +5,7 @@ export const queryKey = {
   },
   badge: {
     badge: ['badge.badge'] as const,
+    all: ['badge.all'] as const,
   },
   post: {
     all: (boardId: number, page: number) =>
@@ -12,5 +13,11 @@ export const queryKey = {
   },
   baekjoon: {
     baekjoon: ['baekjoon.baekjoon'] as const,
+  },
+  poolc: {
+    poolc: ['poolc.poolc'] as const,
+  },
+  project: {
+    all: ['project.all'] as const,
   },
 };
