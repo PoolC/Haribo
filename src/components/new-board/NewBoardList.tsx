@@ -66,7 +66,10 @@ export default function NewBoardList({
   const boardListQuery = useQuery({
     queryKey: queryKey.post.all(boardId, page),
     queryFn: () =>
-      PostControllerService.viewPostByBoardUsingGet({ boardId, page }),
+      PostControllerService.viewPostsByBoardUsingGet({
+        boardTitle: 'CS게시판',
+        page,
+      }),
   });
 
   const history = useHistory();
@@ -134,12 +137,7 @@ export default function NewBoardList({
         ))
         .with({ status: 'success' }, ({ data: postList }) => {
           if (postList.length === 0) {
-            return (
-              <>
-                <Empty />
-                <Typography>아직 등록된 게시물이 없습니다.</Typography>
-              </>
-            );
+            return <Empty />;
           }
 
           return (

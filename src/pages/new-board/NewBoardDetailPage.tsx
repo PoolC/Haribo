@@ -3,6 +3,7 @@ import {
   Avatar,
   Breadcrumb,
   Button,
+  Checkbox,
   Divider,
   Input,
   Space,
@@ -41,6 +42,8 @@ const useStyles = createStyles(({ css }) => ({
   commentButtonWrap: css`
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
   `,
   whiteBlock: css`
     padding: 30px 0;
@@ -109,15 +112,18 @@ export default function NewBoardDetailPage() {
                 </Typography.Text>
               </Space>
             </Space>
-            <Space direction={'vertical'} className={styles.fullWidth}>
-              <Input.TextArea
-                className={styles.commentTextArea}
-                placeholder="댓글을 남겨주세요 :)"
-              />
-              <div className={styles.commentButtonWrap}>
-                <Button type={'primary'}>댓글 달기</Button>
-              </div>
-            </Space>
+            <form>
+              <Space direction={'vertical'} className={styles.fullWidth}>
+                <Input.TextArea
+                  className={styles.commentTextArea}
+                  placeholder="댓글을 남겨주세요 :)"
+                />
+                <div className={styles.commentButtonWrap}>
+                  <Checkbox>익명</Checkbox>
+                  <Button type={'primary'}>댓글 달기</Button>
+                </div>
+              </Space>
+            </form>
           </Space>
         </Space>
       </WhiteBlock>

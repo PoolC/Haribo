@@ -5,7 +5,9 @@ import { z } from 'zod';
 import {
   Breadcrumb,
   Button,
+  Checkbox,
   Divider,
+  Form,
   Input,
   message,
   Space,
@@ -45,25 +47,26 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
+const schema = z.object({
+  title: z.string().min(1),
+  content: z.string().min(1),
+  files: z.array(z.any()),
+  isAnonymous: z.boolean(),
+});
+
 export default function NormalWriteSection({ boardId }: { boardId: number }) {
   const editorRef = useRef<Editor | null>(null);
 
   const { styles } = useStyles();
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof schema>>({
     initialValues: {
       title: '',
       content: '',
-      files: [] as File[],
+      files: [],
+      isAnonymous: false,
     },
-    validate: zodResolver(
-      z.object({
-        title: z.string().min(1),
-        content: z.string().min(1),
-        files: z.array(z.any()),
-      }),
-    ),
-    validateInputOnChange: true,
+    validate: zodResolver(schema),
   });
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -85,19 +88,14 @@ export default function NormalWriteSection({ boardId }: { boardId: number }) {
     });
   };
 
-  const onFormSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-
-    if (!form.isValid()) {
-      return;
-    }
-
+  const onFormSubmit = (val: typeof form.values) => {
     submitPost(
       {
         request: {
-          boardId,
-          body: form.values.content,
-          title: form.values.title,
+          body: val.content,
+          title: val.title,
+          anonymous: val.isAnonymous,
+          boardType: 'FREE',
         },
       },
       {
@@ -129,7 +127,7 @@ export default function NormalWriteSection({ boardId }: { boardId: number }) {
               },
             ]}
           />
-          <form onSubmit={onFormSubmit}>
+          <form onSubmit={form.onSubmit(onFormSubmit, () => {})}>
             <Space
               direction={'vertical'}
               className={styles.fullWidth}
@@ -148,11 +146,24 @@ export default function NormalWriteSection({ boardId }: { boardId: number }) {
                 size={'middle'}
                 className={styles.fullWidth}
               >
-                <Input
-                  addonBefore={'제목'}
-                  placeholder={'제목을 입력해주세요.'}
-                  {...form.getInputProps('title')}
-                />
+                <div>
+                  <Form.Item label={'제목'}>
+                    <Input
+                      placeholder={'제목을 입력해주세요.'}
+                      {...form.getInputProps('title')}
+                    />
+                  </Form.Item>
+                  <Form.Item label={'익명'}>
+                    <Checkbox
+                      checked={form.values.isAnonymous}
+                      onChange={(e) =>
+                        form.setFieldValue('isAnonymous', e.target.checked)
+                      }
+                    >
+                      익명선택
+                    </Checkbox>
+                  </Form.Item>
+                </div>
                 <div onInput={onEditorInput}>
                   <Editor initialEditType="wysiwyg" ref={editorRef} />
                 </div>
