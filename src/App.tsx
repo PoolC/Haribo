@@ -131,20 +131,20 @@ function App() {
             <Route component={InterviewPage} path={`/${MENU.INTERVIEW_TIME}`} />
             <Route component={AccessDeniedPage} path={`/${MENU.FORBIDDEN}`} />
             <Route component={NotFoundPage} path={`/${MENU.NOT_FOUND}`} />
+            <Route component={BoardListPage} path={`/${MENU.BOARD}`} exact />
             <Route component={BoardWritePage} path={`/${MENU.BOARD}/write`} />
             <Route component={BoardDetailPage} path={`/${MENU.BOARD}/:id`} />
-            <Route component={BoardListPage} path={`/${MENU.BOARD}`} />
             <Route
               component={MessageAllListPage}
               path={`/${MENU.MESSAGE_ALL_LIST}`}
             />
             <Route component={MessageListPage} path={`/${MENU.MESSAGE_LIST}`} />
             <Route component={MessageFormPage} path={`/${MENU.MESSAGE_FORM}`} />
+            <Route component={MyPage} path={`/${MENU.MY_PAGE}`} exact />
             <Route
               component={MyPageBadgeListPage}
               path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_BADGE_LIST}`}
             />
-            <Route component={MyPage} path={`/${MENU.MY_PAGE}`} />
             <Route component={NotFoundPage} path="/" />
           </Switch>
         </Suspense>

@@ -189,7 +189,7 @@ export default function MyPage() {
             <Typography.Title level={5} className={styles.badgeTitle}>
               얻은 뱃지
               <Link
-                to={`/${MENU.MY_PAGE}/${MENU.MESSAGE_ALL_LIST}`}
+                to={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_BADGE_LIST}`}
                 className={styles.badgeLink}
               >
                 모든 뱃지보기 <span>&gt;</span>
