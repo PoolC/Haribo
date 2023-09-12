@@ -4,7 +4,7 @@
  * --------------------------------------------
  * */
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import colors from '../../../lib/styles/colors';
 
 export const FileContainer = styled.div`

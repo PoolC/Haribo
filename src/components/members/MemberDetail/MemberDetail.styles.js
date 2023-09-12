@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import colors from '../../../lib/styles/colors';
 
 export const ContentContainer = styled.div`

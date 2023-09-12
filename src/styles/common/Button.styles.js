@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import LinkButton from '../../components/common/Buttons/LinkButton';
 import colors from '../../lib/styles/colors';
 

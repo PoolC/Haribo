@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import AdminMenu from '../../components/admin/AdminMenu/AdminMenu';
 import AdminInfoContainer from '../../containers/admin/AdminInfoContainer/AdminInfoContainer';

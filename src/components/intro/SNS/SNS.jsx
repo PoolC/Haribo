@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 
 const Title = styled.h2`
