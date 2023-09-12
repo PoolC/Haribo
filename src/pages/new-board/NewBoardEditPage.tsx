@@ -1,20 +1,20 @@
 import { useSearchParams } from '~/hooks/useSearchParams';
-import { BoardType } from '~/typings';
 import { match } from 'ts-pattern';
 import NormalEditSection from '~/components/new-board/normal/NormalEditSection';
-import NormalWriteSection from '~/components/new-board/normal/NormalWriteSection';
 import PromotionEditSection from '~/components/new-board/promotion/PromotionEditSection';
+import { BoardType } from '~/lib/utils/boardUtil';
 
 export default function NewBoardEditPage() {
   const searchParams = useSearchParams();
-  const boardId = Number(searchParams.get('boardId') ?? 1) as BoardType;
+  const boardType = (searchParams.get('boardType') ?? 'NOTICE') as BoardType;
 
-  return match(boardId)
-    .with(1, () => <NormalEditSection boardId={boardId} />)
-    .with(2, () => <PromotionEditSection boardId={boardId} />)
-    .with(3, () => <NormalEditSection boardId={boardId} />)
-    .with(4, () => <NormalWriteSection boardId={boardId} />)
+  return match(boardType)
+    .with('NOTICE', () => <NormalEditSection boardType={'NOTICE'} />)
+    .with('FREE', () => <NormalEditSection boardType={'FREE'} />)
+    .with('JOB', () => <PromotionEditSection />)
+    .with('PROJECT', () => <NormalEditSection boardType={'PROJECT'} />)
+    .with('CS', () => <NormalEditSection boardType={'CS'} />)
     .otherwise(() => {
-      throw new Error(`invalid boardId: ${boardId}`);
+      throw new Error(`invalid boardType: ${boardType}`);
     });
 }

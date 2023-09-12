@@ -54,11 +54,7 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-export default function PromotionWriteSection({
-  boardId,
-}: {
-  boardId: number;
-}) {
+export default function PromotionWriteSection() {
   // data
   const editorRef = useRef<Editor | null>(null);
 
@@ -85,7 +81,6 @@ export default function PromotionWriteSection({
         files: z.array(z.any()),
       }),
     ),
-    // validateInputOnChange: true,
   });
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -168,8 +163,10 @@ export default function PromotionWriteSection({
               { title: <Link to={`/${MENU.NEW_BOARDS}`}>게시판</Link> },
               {
                 title: (
-                  <Link to={`${MENU.NEW_BOARDS}?${stringify(boardId)}`}>
-                    홍보게시판
+                  <Link
+                    to={`${MENU.NEW_BOARDS}?${stringify({ boardType: 'JOB' })}`}
+                  >
+                    취업게시판
                   </Link>
                 ),
               },
@@ -181,8 +178,8 @@ export default function PromotionWriteSection({
             size={'middle'}
           >
             <Space direction={'vertical'} className={styles.titleWrap} size={0}>
-              <Typography.Title level={3}>홍보게시판</Typography.Title>
-              <Typography>홍보 글을 작성해보아요</Typography>
+              <Typography.Title level={3}>취업게시판</Typography.Title>
+              <Typography>취업 관련 글을 작성해보아요</Typography>
             </Space>
             <Form
               labelCol={{ span: 2 }}

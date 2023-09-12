@@ -19,6 +19,7 @@ import { PostControllerService, PostResponse, queryKey } from '~/lib/api-v2';
 import { useQuery } from '@tanstack/react-query';
 import { match } from 'ts-pattern';
 import { stringify } from 'qs';
+import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
 
 const useStyles = createStyles(({ css }) => ({
   fullWidth: css`
@@ -54,20 +55,20 @@ const useStyles = createStyles(({ css }) => ({
 }));
 
 export default function NewBoardList({
-  boardId,
+  boardType,
   page,
 }: {
-  boardId: number;
+  boardType: BoardType;
   page: number;
 }) {
   // data
   const { styles } = useStyles();
 
   const boardListQuery = useQuery({
-    queryKey: queryKey.post.all(boardId, page),
+    queryKey: queryKey.post.all(boardType, page),
     queryFn: () =>
       PostControllerService.viewPostsByBoardUsingGet({
-        boardTitle: 'CS게시판',
+        boardTitle: getBoardTitleByBoardType(boardType),
         page,
       }),
   });
@@ -78,7 +79,7 @@ export default function NewBoardList({
   const onPageChange = (page: number) =>
     history.push(
       `/${MENU.NEW_BOARDS}?${stringify({
-        boardId,
+        boardType,
         page,
       })}`,
     );
@@ -124,7 +125,7 @@ export default function NewBoardList({
   return (
     <div className={styles.wrapper}>
       <div className={styles.topArea}>
-        <Link to={`${MENU.NEW_BOARD}/write?${stringify({ boardId })}`}>
+        <Link to={`${MENU.NEW_BOARD}/write?${stringify({ boardType })}`}>
           <Button type={'primary'} icon={<GoPencil />}>
             글쓰기
           </Button>

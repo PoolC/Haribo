@@ -1,3 +1,3 @@
-export default function PromotionEditSection({ boardId }: { boardId: number }) {
+export default function PromotionEditSection() {
   return <div></div>;
 }

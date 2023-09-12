@@ -1,11 +1,11 @@
-import React from 'react';
 import { Tabs } from 'antd';
-import { Block, WhiteBlock } from '../../styles/common/Block.styles';
+import { Block, WhiteBlock } from '~/styles/common/Block.styles';
 import NewBoardList from '../../components/new-board/NewBoardList';
 import { createStyles } from 'antd-style';
 import { useSearchParams } from '~/hooks/useSearchParams';
 import { useHistory } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
+import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
@@ -22,37 +22,46 @@ const useStyles = createStyles(({ css }) => ({
 export default function NewBoardListPage() {
   const { styles } = useStyles();
   const searchParams = useSearchParams();
-  const boardId = searchParams.get('boardId') ?? '1';
+  const boardType = (searchParams.get('boardType') ?? 'NOTICE') as BoardType;
   const page = Number(searchParams.get('page') ?? 1);
 
   const history = useHistory();
 
   // FIXME antd에서 string타입으로 밖에 키를 안받음..
-  const items = [
+  const items: {
+    key: BoardType;
+    label: string;
+    children: JSX.Element;
+  }[] = [
     {
-      key: '1',
-      label: '자유게시판',
-      children: <NewBoardList boardId={1} page={page} />,
+      key: 'NOTICE',
+      label: getBoardTitleByBoardType('NOTICE'),
+      children: <NewBoardList boardType={'NOTICE'} page={page} />,
     },
     {
-      key: '2',
-      label: '공지사항',
-      children: <NewBoardList boardId={2} page={page} />,
+      key: 'FREE',
+      label: getBoardTitleByBoardType('FREE'),
+      children: <NewBoardList boardType={'FREE'} page={page} />,
     },
     {
-      key: '3',
-      label: '홍보게시판',
-      children: <NewBoardList boardId={3} page={page} />,
+      key: 'JOB',
+      label: getBoardTitleByBoardType('JOB'),
+      children: <NewBoardList boardType={'JOB'} page={page} />,
     },
     {
-      key: '4',
-      label: '질문게시판',
-      children: <NewBoardList boardId={4} page={page} />,
+      key: 'PROJECT',
+      label: getBoardTitleByBoardType('PROJECT'),
+      children: <NewBoardList boardType={'PROJECT'} page={page} />,
+    },
+    {
+      key: 'CS',
+      label: getBoardTitleByBoardType('CS'),
+      children: <NewBoardList boardType={'CS'} page={page} />,
     },
   ];
 
   const onTabChange = (key: string) =>
-    history.push(`/${MENU.NEW_BOARDS}?boardId=${key}&page=1`);
+    history.push(`/${MENU.NEW_BOARDS}?boardType=${key}&page=1`);
 
   return (
     <Block>
@@ -60,7 +69,7 @@ export default function NewBoardListPage() {
         <div className={styles.wrapper}>
           <Tabs
             items={items}
-            defaultActiveKey={boardId}
+            defaultActiveKey={boardType}
             onChange={onTabChange}
           />
         </div>
