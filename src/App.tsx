@@ -77,15 +77,15 @@ const NewBoardEditPage = lazy(
 );
 
 const MyPage = lazy(() => import('./pages/my-page/MyPage'));
-const MyPageMessageListPage = lazy(
-  () => import('./pages/my-page/MyPageMessageListPage'),
-);
-const MyPageMessageFormPage = lazy(
-  () => import('./pages/my-page/MyPageMessageFormPage'),
-);
 const MyPageBadgeListPage = lazy(
   () => import('./pages/my-page/MyPageBadgeListPage'),
 );
+
+const MessageAllListPage = lazy(
+  () => import('./pages/message/MessageAllListPage'),
+);
+const MessageListPage = lazy(() => import('./pages/message/MessageListPage'));
+const MessageFormPage = lazy(() => import('./pages/message/MessageFormPage'));
 
 function App() {
   const { styles } = useStyles();
@@ -164,13 +164,11 @@ function App() {
               path={`/${MENU.NEW_BOARD}/:id`}
             />
             <Route
-              component={MyPageMessageListPage}
-              path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_LIST}`}
+              component={MessageAllListPage}
+              path={`/${MENU.MESSAGE_ALL_LIST}`}
             />
-            <Route
-              component={MyPageMessageFormPage}
-              path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_FORM}`}
-            />
+            <Route component={MessageListPage} path={`/${MENU.MESSAGE_LIST}`} />
+            <Route component={MessageFormPage} path={`/${MENU.MESSAGE_FORM}`} />
             <Route
               component={MyPageBadgeListPage}
               path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_BADGE_LIST}`}

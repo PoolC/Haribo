@@ -2,8 +2,7 @@ import { Button, List, Space, Typography } from 'antd';
 import { createStyles } from 'antd-style';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { Link, useHistory } from 'react-router-dom';
-import { MENU } from '~/constants/menus';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
@@ -36,7 +35,7 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-export default function MyPageMessageListPage() {
+export default function MessageAllListPage() {
   const { styles } = useStyles();
   const history = useHistory();
 
@@ -73,12 +72,9 @@ export default function MyPageMessageListPage() {
                 <ArrowLeftOutlined />
               </Button>
               <Typography.Text className={styles.topBoxName}>
-                익명
+                쪽지목록
               </Typography.Text>
             </Space>
-            <Link to={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_FORM}`}>
-              <Button>쪽지 보내기</Button>
-            </Link>
           </Space>
           <List
             itemLayout="horizontal"
