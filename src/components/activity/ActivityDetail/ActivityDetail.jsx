@@ -3,28 +3,28 @@ import React, { useState } from 'react';
 import { Viewer } from '@toast-ui/react-editor';
 import SessionContainer from '../../../containers/activity/SessionContainer/SessionContainer';
 import {
-  TagCard,
-  TitleContainer,
-  Title,
-  ContentContainer,
+  ButtonContainer,
   Content,
-  TagContainer,
-  TagList,
-  PlanContainer,
-  MemberContainer,
+  ContentContainer,
   Member,
+  MemberContainer,
+  PlanContainer,
+  PlanContents,
   SessionBlock,
   Sessions,
-  PlanContents,
-  ButtonContainer,
   StyledButton,
+  TagCard,
+  TagContainer,
+  TagList,
+  Title,
+  TitleContainer,
 } from './ActivityDetail.styles.js';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import {
   File,
   FileContainer,
   FileContainerTitle,
-} from '../../board/PostForm/PostForm.styles';
+} from '~/components/board-legacy/PostForm/PostForm.styles';
 import getFileUrl, { getDecodedFileUrl } from '../../../lib/utils/getFileUrl';
 import { FullText } from '../ActivityCard/ActivityCard.styles';
 import ActivityRegisterModalContainer from '../../../containers/activity/ActivityModalContainer/ActivityRegisterModalContainer';

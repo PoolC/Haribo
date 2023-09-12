@@ -1,7 +1,5 @@
 import ActionButton from '../../common/Buttons/ActionButton';
 import React, { useRef, useState } from 'react';
-import 'codemirror/lib/codemirror.css';
-import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import useInput from '../../../hooks/useInput';
@@ -30,7 +28,7 @@ import {
   FileContainerTitle,
   FileDeleteButton,
   StyledDeleteIcon,
-} from '../../board/PostForm/PostForm.styles';
+} from '~/components/board-legacy/PostForm/PostForm.styles';
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
 import Modal from '../../common/Modal/Modal';
 import getFileUrl, { getDecodedFileUrl } from '../../../lib/utils/getFileUrl';

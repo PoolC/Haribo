@@ -1,6 +1,6 @@
 import React from 'react';
 import { WhiteNarrowBlock } from '../../styles/common/Block.styles';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import getFileUrl from '../../lib/utils/getFileUrl';
 import { Viewer } from '@toast-ui/react-editor';
 import colors from '../../lib/styles/colors';

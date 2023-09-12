@@ -4,10 +4,13 @@ import { Block, WhiteBlock } from '~/styles/common/Block.styles';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Link, useHistory } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
+import classNames from 'classnames';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
-    padding: 30px 20px;
+    &.scope {
+      padding: 30px 20px;
+    }
   `,
   wrapper: css`
     width: 100%;
@@ -57,7 +60,7 @@ export default function MyPageMessageListPage() {
 
   return (
     <Block>
-      <WhiteBlock className={styles.whiteBlock}>
+      <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
         <Space
           direction={'vertical'}
           className={styles.fullWidth}
@@ -76,7 +79,7 @@ export default function MyPageMessageListPage() {
                 익명
               </Typography.Text>
             </Space>
-            <Link to={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_FORM}`}>
+            <Link to={`/${MENU.MY_PAGE}/${MENU.MESSAGE_FORM}`}>
               <Button>쪽지 보내기</Button>
             </Link>
           </Space>

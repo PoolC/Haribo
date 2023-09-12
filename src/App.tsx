@@ -5,6 +5,10 @@ import HeaderContainer from './containers/header/HeaderContainer';
 import { createStyles } from 'antd-style';
 import { lazy, Suspense } from 'react';
 
+// toast ui - global
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+
 const useStyles = createStyles(({ css }) => ({
   container: css`
     padding-top: 90px;
@@ -21,8 +25,6 @@ const IntroPage = lazy(() => import('./pages/intro/IntroPage'));
 
 const MemberListPage = lazy(() => import('./pages/member/MemberListPage'));
 const MemberDetailPage = lazy(() => import('./pages/member/MemberDetailPage'));
-
-const BoardPage = lazy(() => import('./pages/board/BoardPage'));
 
 const ProjectListPage = lazy(() => import('./pages/project/ProjectListPage'));
 const ProjectDetailPage = lazy(
@@ -59,29 +61,20 @@ const AdminHomePage = lazy(() => import('./pages/admin/AdminHomePage'));
 const AccessDeniedPage = lazy(() => import('./pages/error/AccessDeniedPage'));
 const NotFoundPage = lazy(() => import('./pages/error/NotFoundPage'));
 
-const NewBoardListPage = lazy(
-  () => import('./pages/new-board/NewBoardListPage'),
-);
-const NewBoardDetailPage = lazy(
-  () => import('./pages/new-board/NewBoardDetailPage'),
-);
-const NewBoardWritePage = lazy(
-  () => import('./pages/new-board/NewBoardWritePage'),
-);
-const NewBoardEditPage = lazy(
-  () => import('./pages/new-board/NewBoardEditPage'),
-);
+const BoardListPage = lazy(() => import('~/pages/board/BoardListPage'));
+const BoardDetailPage = lazy(() => import('~/pages/board/BoardDetailPage'));
+const BoardWritePage = lazy(() => import('~/pages/board/BoardWritePage'));
 
 const MyPage = lazy(() => import('./pages/my-page/MyPage'));
-const MyPageMessageListPage = lazy(
-  () => import('./pages/my-page/MyPageMessageListPage'),
-);
-const MyPageMessageFormPage = lazy(
-  () => import('./pages/my-page/MyPageMessageFormPage'),
-);
 const MyPageBadgeListPage = lazy(
   () => import('./pages/my-page/MyPageBadgeListPage'),
 );
+
+const MessageAllListPage = lazy(
+  () => import('./pages/message/MessageAllListPage'),
+);
+const MessageListPage = lazy(() => import('./pages/message/MessageListPage'));
+const MessageFormPage = lazy(() => import('./pages/message/MessageFormPage'));
 
 function App() {
   const { styles } = useStyles();
@@ -98,14 +91,6 @@ function App() {
             <Route
               component={MemberDetailPage}
               path={`/${MENU.MEMBER}/:memberID`}
-            />
-            <Route
-              component={BoardPage}
-              path={[
-                `/${MENU.BOARDS}/:urlPath`,
-                `/${MENU.BOARDS}`,
-                `/${MENU.POST}`,
-              ]}
             />
             <Route component={ProjectListPage} path={`/${MENU.PROJECTS}`} />
             <Route
@@ -146,32 +131,20 @@ function App() {
             <Route component={InterviewPage} path={`/${MENU.INTERVIEW_TIME}`} />
             <Route component={AccessDeniedPage} path={`/${MENU.FORBIDDEN}`} />
             <Route component={NotFoundPage} path={`/${MENU.NOT_FOUND}`} />
-            <Route component={NewBoardListPage} path={`/${MENU.NEW_BOARDS}`} />
+            <Route component={BoardListPage} path={`/${MENU.BOARD}`} exact />
+            <Route component={BoardWritePage} path={`/${MENU.BOARD}/write`} />
+            <Route component={BoardDetailPage} path={`/${MENU.BOARD}/:id`} />
             <Route
-              component={NewBoardWritePage}
-              path={`/${MENU.NEW_BOARD}/write`}
+              component={MessageAllListPage}
+              path={`/${MENU.MESSAGE_ALL_LIST}`}
             />
-            <Route
-              component={NewBoardEditPage}
-              path={`/${MENU.NEW_BOARD}/edit`}
-            />
-            <Route
-              component={NewBoardDetailPage}
-              path={`/${MENU.NEW_BOARD}/:id`}
-            />
-            <Route
-              component={MyPageMessageListPage}
-              path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_LIST}`}
-            />
-            <Route
-              component={MyPageMessageFormPage}
-              path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_MESSAGE_FORM}`}
-            />
+            <Route component={MessageListPage} path={`/${MENU.MESSAGE_LIST}`} />
+            <Route component={MessageFormPage} path={`/${MENU.MESSAGE_FORM}`} />
+            <Route component={MyPage} path={`/${MENU.MY_PAGE}`} exact />
             <Route
               component={MyPageBadgeListPage}
               path={`/${MENU.MY_PAGE}/${MENU.MY_PAGE_BADGE_LIST}`}
             />
-            <Route component={MyPage} path={`/${MENU.MY_PAGE}`} />
             <Route component={NotFoundPage} path="/" />
           </Switch>
         </Suspense>

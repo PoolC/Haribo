@@ -2,8 +2,6 @@ const MENU = {
   INTRO: 'intro',
   MEMBERS: 'members',
   MEMBER: 'member',
-  BOARDS: 'boards',
-  BOARD: 'board',
   POST: 'post',
   PROJECTS: 'projects',
   PROJECT: 'project',
@@ -21,12 +19,12 @@ const MENU = {
   FORBIDDEN: 'forbidden',
   NOT_FOUND: 'not-found',
   INTERVIEW_TIME: 'interview-time',
-  NEW_BOARDS: 'new-boards',
-  NEW_BOARD: 'new-board',
+  BOARD: 'board',
   MY_PAGE: 'my-page',
-  MY_PAGE_MESSAGE_LIST: 'message-list',
-  MY_PAGE_MESSAGE_FORM: 'message-form',
   MY_PAGE_BADGE_LIST: 'badge-list',
+  MESSAGE_LIST: 'message-list',
+  MESSAGE_FORM: 'message-form',
+  MESSAGE_ALL_LIST: 'message-all-list',
 };
 
 export { MENU };

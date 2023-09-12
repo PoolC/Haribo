@@ -1,10 +1,11 @@
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
 import React, { useEffect, useState } from 'react';
-import styled, { css, keyframes } from 'styled-components';
 import BookModalContainer from '../../../containers/book/BookModal/BookModalContainer';
 import getFileUrl from '../../../lib/utils/getFileUrl';
-import { isAuthorizedRole } from '../../../lib/utils/checkRole';
+import { isAuthorizedRole } from '~/lib/utils/checkRole';
+import styled from '@emotion/styled';
+import { css, keyframes } from '@emotion/react';
 
 const openCard = keyframes`
   from {
@@ -55,7 +56,7 @@ const BookCardContainer = styled.div`
 
 const BookInfoContainer = styled.div`
   flex: 3;
-  margin: 0px 10px;
+  margin: 0 10px;
 `;
 
 const BookTitle = styled.p`
@@ -99,12 +100,16 @@ const BookStatus = styled.p`
   }
 `;
 
+const disappearAnimation = css`
+  animation-name: ${closeCard};
+`;
+
 const BookContentsContainer = styled.div`
   background-color: ${colors.mint[0]};
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   width: 80%;
-  box-shadow: 0px 10px 10px ${colors.gray[1]};
+  box-shadow: 0 10px 10px ${colors.gray[1]};
   padding: 10px 20px;
   transition: 0.3s;
   display: ${(props) => (props.open ? 'flex' : 'none')};
@@ -114,11 +119,7 @@ const BookContentsContainer = styled.div`
   animation-name: ${openCard};
   animation-fill-mode: forwards;
 
-  ${(props) =>
-    props.disappear &&
-    css`
-      animation-name: ${closeCard};
-    `}
+  ${(props) => props.disappear && disappearAnimation}
 `;
 
 const BookImageContainer = styled.div`

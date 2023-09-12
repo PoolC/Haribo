@@ -18,6 +18,7 @@ const useStyles = createStyles(({ css }) => ({
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 1366px;
   `,
   skeletonWrap: css`
     width: 100%;

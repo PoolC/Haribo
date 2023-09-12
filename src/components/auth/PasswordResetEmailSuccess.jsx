@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import colors from '../../lib/styles/colors';
 import { Block, WhiteBlock } from '../../styles/common/Block.styles';
 import ActionButton from '../common/Buttons/ActionButton';

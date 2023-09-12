@@ -1,6 +1,4 @@
 import React, { useRef, useState } from 'react';
-import 'codemirror/lib/codemirror.css';
-import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import useInput from '../../../hooks/useInput';
 import { notEmptyValidation } from '../../../lib/utils/validation';
@@ -11,8 +9,8 @@ import {
   StyledActionButton,
   StyledForm,
   StyledImage,
-  TitleContainer,
   StyledInput,
+  TitleContainer,
 } from './AdminInfo.styles';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import { FileName } from '../../common/FileUploadModal/FileUploadModal.styles';

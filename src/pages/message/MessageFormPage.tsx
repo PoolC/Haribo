@@ -4,10 +4,13 @@ import { createStyles } from 'antd-style';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
+import classNames from 'classnames';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
-    padding: 30px 20px;
+    &.scope {
+      padding: 30px 20px;
+    }
   `,
   wrapper: css`
     width: 100%;
@@ -40,7 +43,7 @@ export default function MyPageMessageFormPage() {
 
   return (
     <Block>
-      <WhiteBlock className={styles.whiteBlock}>
+      <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
         <Space
           direction={'vertical'}
           className={styles.fullWidth}

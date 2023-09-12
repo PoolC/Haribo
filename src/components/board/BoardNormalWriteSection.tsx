@@ -5,7 +5,9 @@ import { z } from 'zod';
 import {
   Breadcrumb,
   Button,
+  Checkbox,
   Divider,
+  Form,
   Input,
   message,
   Space,
@@ -22,6 +24,12 @@ import { MENU } from '~/constants/menus';
 import { stringify } from 'qs';
 import { FiUpload } from 'react-icons/fi';
 import { createStyles } from 'antd-style';
+import {
+  BoardType,
+  BoardWriteMode,
+  getBoardTitleByBoardType,
+} from '~/lib/utils/boardUtil';
+import { match } from 'ts-pattern';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -45,25 +53,37 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-export default function NormalWriteSection({ boardId }: { boardId: number }) {
+const schema = z.object({
+  title: z.string().min(1),
+  content: z.string().min(1),
+  files: z.array(z.any()),
+  isAnonymous: z.boolean(),
+});
+
+/**
+ * TODO
+ * - 편집시 데이터 바인딩
+ * - 권한 확인
+ * */
+export default function BoardNormalWriteSection({
+  boardType,
+  mode,
+}: {
+  boardType: Exclude<BoardType, 'JOB'>;
+  mode: BoardWriteMode;
+}) {
   const editorRef = useRef<Editor | null>(null);
 
   const { styles } = useStyles();
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof schema>>({
     initialValues: {
       title: '',
       content: '',
-      files: [] as File[],
+      files: [],
+      isAnonymous: false,
     },
-    validate: zodResolver(
-      z.object({
-        title: z.string().min(1),
-        content: z.string().min(1),
-        files: z.array(z.any()),
-      }),
-    ),
-    validateInputOnChange: true,
+    validate: zodResolver(schema),
   });
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -85,19 +105,14 @@ export default function NormalWriteSection({ boardId }: { boardId: number }) {
     });
   };
 
-  const onFormSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-
-    if (!form.isValid()) {
-      return;
-    }
-
+  const onFormSubmit = (val: typeof form.values) => {
     submitPost(
       {
         request: {
-          boardId,
-          body: form.values.content,
-          title: form.values.title,
+          body: val.content,
+          title: val.title,
+          anonymous: val.isAnonymous,
+          boardType,
         },
       },
       {
@@ -107,6 +122,14 @@ export default function NormalWriteSection({ boardId }: { boardId: number }) {
       },
     );
   };
+
+  const renderDescription = () =>
+    match(boardType)
+      .with('FREE', () => '자유롭게 글을 작성해보아요')
+      .with('NOTICE', () => '공지사항을 올릴 수 있어요')
+      .with('PROJECT', () => '프로젝트 팀원을 구해요')
+      .with('CS', () => 'CS 전공지식을 공유해요')
+      .exhaustive();
 
   return (
     <Block>
@@ -119,17 +142,17 @@ export default function NormalWriteSection({ boardId }: { boardId: number }) {
         >
           <Breadcrumb
             items={[
-              { title: <Link to={`/${MENU.NEW_BOARDS}`}>게시판</Link> },
+              { title: <Link to={`/${MENU.BOARD}`}>게시판</Link> },
               {
                 title: (
-                  <Link to={`${MENU.NEW_BOARDS}?${stringify(boardId)}`}>
-                    자유게시판
+                  <Link to={`/${MENU.BOARD}?${stringify({ boardType })}`}>
+                    {getBoardTitleByBoardType(boardType)}
                   </Link>
                 ),
               },
             ]}
           />
-          <form onSubmit={onFormSubmit}>
+          <form onSubmit={form.onSubmit(onFormSubmit, () => {})}>
             <Space
               direction={'vertical'}
               className={styles.fullWidth}
@@ -140,19 +163,36 @@ export default function NormalWriteSection({ boardId }: { boardId: number }) {
                 className={styles.titleWrap}
                 size={0}
               >
-                <Typography.Title level={3}>자유게시판</Typography.Title>
-                <Typography>자유롭게 글을 작성해보아요</Typography>
+                <Typography.Title level={3}>
+                  {getBoardTitleByBoardType(boardType)}
+                </Typography.Title>
+                <Typography>{renderDescription()}</Typography>
               </Space>
               <Space
                 direction={'vertical'}
                 size={'middle'}
                 className={styles.fullWidth}
               >
-                <Input
-                  addonBefore={'제목'}
-                  placeholder={'제목을 입력해주세요.'}
-                  {...form.getInputProps('title')}
-                />
+                <div>
+                  <Form.Item label={'제목'}>
+                    <Input
+                      placeholder={'제목을 입력해주세요.'}
+                      {...form.getInputProps('title')}
+                    />
+                  </Form.Item>
+                  {boardType !== 'NOTICE' && (
+                    <Form.Item label={'익명'}>
+                      <Checkbox
+                        checked={form.values.isAnonymous}
+                        onChange={(e) =>
+                          form.setFieldValue('isAnonymous', e.target.checked)
+                        }
+                      >
+                        익명선택
+                      </Checkbox>
+                    </Form.Item>
+                  )}
+                </div>
                 <div onInput={onEditorInput}>
                   <Editor initialEditType="wysiwyg" ref={editorRef} />
                 </div>

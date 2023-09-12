@@ -1,3 +1,5 @@
+import { BoardType } from '~/lib/utils/boardUtil';
+
 export const queryKey = {
   member: {
     hour: ['member.hour'] as const,
@@ -8,8 +10,8 @@ export const queryKey = {
     all: ['badge.all'] as const,
   },
   post: {
-    all: (boardId: number, page: number) =>
-      ['post.all', boardId, page] as const,
+    all: (boardType: BoardType, page: number) =>
+      ['post.all', boardType, page] as const,
   },
   baekjoon: {
     baekjoon: ['baekjoon.baekjoon'] as const,

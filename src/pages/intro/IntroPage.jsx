@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import IntroMenu from '../../components/intro/IntroMenu/IntroMenu';
 import { MENU } from '../../constants/menus';
 import FAQContainer from '../../containers/intro/FAQContainer/FAQContainer';

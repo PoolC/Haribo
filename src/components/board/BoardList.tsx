@@ -19,6 +19,7 @@ import { PostControllerService, PostResponse, queryKey } from '~/lib/api-v2';
 import { useQuery } from '@tanstack/react-query';
 import { match } from 'ts-pattern';
 import { stringify } from 'qs';
+import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
 
 const useStyles = createStyles(({ css }) => ({
   fullWidth: css`
@@ -53,20 +54,23 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-export default function NewBoardList({
-  boardId,
+export default function BoardList({
+  boardType,
   page,
 }: {
-  boardId: number;
+  boardType: BoardType;
   page: number;
 }) {
   // data
   const { styles } = useStyles();
 
   const boardListQuery = useQuery({
-    queryKey: queryKey.post.all(boardId, page),
+    queryKey: queryKey.post.all(boardType, page),
     queryFn: () =>
-      PostControllerService.viewPostByBoardUsingGet({ boardId, page }),
+      PostControllerService.viewPostsByBoardUsingGet({
+        boardTitle: getBoardTitleByBoardType(boardType),
+        page,
+      }),
   });
 
   const history = useHistory();
@@ -74,8 +78,8 @@ export default function NewBoardList({
   // methods
   const onPageChange = (page: number) =>
     history.push(
-      `/${MENU.NEW_BOARDS}?${stringify({
-        boardId,
+      `/${MENU.BOARD}?${stringify({
+        boardType,
         page,
       })}`,
     );
@@ -84,7 +88,7 @@ export default function NewBoardList({
   const columns: ColumnsType<PostResponse> = [
     {
       render: (_, post) => (
-        <Link to={`${MENU.NEW_BOARD}/${post.postId}`} className={styles.link}>
+        <Link to={`${MENU.BOARD}/${post.postId}`} className={styles.link}>
           <Space
             direction={'vertical'}
             className={styles.fullWidth}
@@ -121,7 +125,7 @@ export default function NewBoardList({
   return (
     <div className={styles.wrapper}>
       <div className={styles.topArea}>
-        <Link to={`${MENU.NEW_BOARD}/write?${stringify({ boardId })}`}>
+        <Link to={`/${MENU.BOARD}/write?${stringify({ boardType })}`}>
           <Button type={'primary'} icon={<GoPencil />}>
             글쓰기
           </Button>
@@ -134,12 +138,7 @@ export default function NewBoardList({
         ))
         .with({ status: 'success' }, ({ data: postList }) => {
           if (postList.length === 0) {
-            return (
-              <>
-                <Empty />
-                <Typography>아직 등록된 게시물이 없습니다.</Typography>
-              </>
-            );
+            return <Empty />;
           }
 
           return (
