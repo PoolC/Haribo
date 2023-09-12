@@ -54,7 +54,7 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-export default function PromotionWriteSection() {
+export default function BoardJobWriteSection() {
   // data
   const editorRef = useRef<Editor | null>(null);
 
@@ -160,11 +160,11 @@ export default function PromotionWriteSection() {
         >
           <Breadcrumb
             items={[
-              { title: <Link to={`/${MENU.NEW_BOARDS}`}>게시판</Link> },
+              { title: <Link to={`/${MENU.BOARD}`}>게시판</Link> },
               {
                 title: (
                   <Link
-                    to={`/${MENU.NEW_BOARDS}?${stringify({
+                    to={`/${MENU.BOARD}?${stringify({
                       boardType: 'JOB',
                     })}`}
                   >

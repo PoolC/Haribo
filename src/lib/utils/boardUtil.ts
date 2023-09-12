@@ -11,3 +11,5 @@ export function getBoardTitleByBoardType(boardType: BoardType) {
     .with('CS', () => 'CS게시판')
     .exhaustive();
 }
+
+export type BoardWriteMode = 'NEW' | 'EDIT';

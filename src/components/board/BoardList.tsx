@@ -54,7 +54,7 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-export default function NewBoardList({
+export default function BoardList({
   boardType,
   page,
 }: {
@@ -78,7 +78,7 @@ export default function NewBoardList({
   // methods
   const onPageChange = (page: number) =>
     history.push(
-      `/${MENU.NEW_BOARDS}?${stringify({
+      `/${MENU.BOARD}?${stringify({
         boardType,
         page,
       })}`,
@@ -88,7 +88,7 @@ export default function NewBoardList({
   const columns: ColumnsType<PostResponse> = [
     {
       render: (_, post) => (
-        <Link to={`${MENU.NEW_BOARD}/${post.postId}`} className={styles.link}>
+        <Link to={`${MENU.BOARD}/${post.postId}`} className={styles.link}>
           <Space
             direction={'vertical'}
             className={styles.fullWidth}
@@ -125,7 +125,7 @@ export default function NewBoardList({
   return (
     <div className={styles.wrapper}>
       <div className={styles.topArea}>
-        <Link to={`${MENU.NEW_BOARD}/write?${stringify({ boardType })}`}>
+        <Link to={`/${MENU.BOARD}/write?${stringify({ boardType })}`}>
           <Button type={'primary'} icon={<GoPencil />}>
             글쓰기
           </Button>

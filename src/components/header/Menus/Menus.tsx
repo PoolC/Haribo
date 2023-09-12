@@ -36,7 +36,7 @@ const Menus = ({
       content: 'Members',
     },
     {
-      to: `/${MENU.NEW_BOARDS}`,
+      to: `/${MENU.BOARD}`,
       visible: true,
       content: 'Boards',
     },

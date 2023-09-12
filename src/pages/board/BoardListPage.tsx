@@ -1,6 +1,6 @@
 import { Tabs } from 'antd';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
-import NewBoardList from '../../components/new-board/NewBoardList';
+import BoardList from '~/components/board/BoardList';
 import { createStyles } from 'antd-style';
 import { useSearchParams } from '~/hooks/useSearchParams';
 import { useHistory } from 'react-router-dom';
@@ -19,7 +19,7 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-export default function NewBoardListPage() {
+export default function BoardListPage() {
   const { styles } = useStyles();
   const searchParams = useSearchParams();
   const boardType = (searchParams.get('boardType') ?? 'NOTICE') as BoardType;
@@ -36,32 +36,32 @@ export default function NewBoardListPage() {
     {
       key: 'NOTICE',
       label: getBoardTitleByBoardType('NOTICE'),
-      children: <NewBoardList boardType={'NOTICE'} page={page} />,
+      children: <BoardList boardType={'NOTICE'} page={page} />,
     },
     {
       key: 'FREE',
       label: getBoardTitleByBoardType('FREE'),
-      children: <NewBoardList boardType={'FREE'} page={page} />,
+      children: <BoardList boardType={'FREE'} page={page} />,
     },
     {
       key: 'JOB',
       label: getBoardTitleByBoardType('JOB'),
-      children: <NewBoardList boardType={'JOB'} page={page} />,
+      children: <BoardList boardType={'JOB'} page={page} />,
     },
     {
       key: 'PROJECT',
       label: getBoardTitleByBoardType('PROJECT'),
-      children: <NewBoardList boardType={'PROJECT'} page={page} />,
+      children: <BoardList boardType={'PROJECT'} page={page} />,
     },
     {
       key: 'CS',
       label: getBoardTitleByBoardType('CS'),
-      children: <NewBoardList boardType={'CS'} page={page} />,
+      children: <BoardList boardType={'CS'} page={page} />,
     },
   ];
 
   const onTabChange = (key: string) =>
-    history.push(`/${MENU.NEW_BOARDS}?boardType=${key}&page=1`);
+    history.push(`/${MENU.BOARD}?boardType=${key}&page=1`);
 
   return (
     <Block>

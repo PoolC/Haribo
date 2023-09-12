@@ -61,18 +61,9 @@ const AdminHomePage = lazy(() => import('./pages/admin/AdminHomePage'));
 const AccessDeniedPage = lazy(() => import('./pages/error/AccessDeniedPage'));
 const NotFoundPage = lazy(() => import('./pages/error/NotFoundPage'));
 
-const NewBoardListPage = lazy(
-  () => import('./pages/new-board/NewBoardListPage'),
-);
-const NewBoardDetailPage = lazy(
-  () => import('./pages/new-board/NewBoardDetailPage'),
-);
-const NewBoardWritePage = lazy(
-  () => import('./pages/new-board/NewBoardWritePage'),
-);
-const NewBoardEditPage = lazy(
-  () => import('./pages/new-board/NewBoardEditPage'),
-);
+const BoardListPage = lazy(() => import('~/pages/board/BoardListPage'));
+const BoardDetailPage = lazy(() => import('~/pages/board/BoardDetailPage'));
+const BoardWritePage = lazy(() => import('~/pages/board/BoardWritePage'));
 
 const MyPage = lazy(() => import('./pages/my-page/MyPage'));
 const MyPageBadgeListPage = lazy(
@@ -140,19 +131,9 @@ function App() {
             <Route component={InterviewPage} path={`/${MENU.INTERVIEW_TIME}`} />
             <Route component={AccessDeniedPage} path={`/${MENU.FORBIDDEN}`} />
             <Route component={NotFoundPage} path={`/${MENU.NOT_FOUND}`} />
-            <Route component={NewBoardListPage} path={`/${MENU.NEW_BOARDS}`} />
-            <Route
-              component={NewBoardWritePage}
-              path={`/${MENU.NEW_BOARD}/write`}
-            />
-            <Route
-              component={NewBoardEditPage}
-              path={`/${MENU.NEW_BOARD}/edit`}
-            />
-            <Route
-              component={NewBoardDetailPage}
-              path={`/${MENU.NEW_BOARD}/:id`}
-            />
+            <Route component={BoardWritePage} path={`/${MENU.BOARD}/write`} />
+            <Route component={BoardDetailPage} path={`/${MENU.BOARD}/:id`} />
+            <Route component={BoardListPage} path={`/${MENU.BOARD}`} />
             <Route
               component={MessageAllListPage}
               path={`/${MENU.MESSAGE_ALL_LIST}`}

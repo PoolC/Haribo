@@ -15,7 +15,7 @@ import {
   File,
   FileContainer,
   FileContainerTitle,
-} from '../../board/PostForm/PostForm.styles';
+} from '~/components/board-legacy/PostForm/PostForm.styles';
 import getFileUrl, { getDecodedFileUrl } from '../../../lib/utils/getFileUrl';
 import { isAuthorizedRole } from '../../../lib/utils/checkRole';
 

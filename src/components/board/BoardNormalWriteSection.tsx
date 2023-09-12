@@ -24,7 +24,11 @@ import { MENU } from '~/constants/menus';
 import { stringify } from 'qs';
 import { FiUpload } from 'react-icons/fi';
 import { createStyles } from 'antd-style';
-import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
+import {
+  BoardType,
+  BoardWriteMode,
+  getBoardTitleByBoardType,
+} from '~/lib/utils/boardUtil';
 import { match } from 'ts-pattern';
 
 const useStyles = createStyles(({ css }) => ({
@@ -56,10 +60,17 @@ const schema = z.object({
   isAnonymous: z.boolean(),
 });
 
-export default function NormalWriteSection({
+/**
+ * TODO
+ * - 편집시 데이터 바인딩
+ * - 권한 확인
+ * */
+export default function BoardNormalWriteSection({
   boardType,
+  mode,
 }: {
   boardType: Exclude<BoardType, 'JOB'>;
+  mode: BoardWriteMode;
 }) {
   const editorRef = useRef<Editor | null>(null);
 
@@ -131,10 +142,10 @@ export default function NormalWriteSection({
         >
           <Breadcrumb
             items={[
-              { title: <Link to={`/${MENU.NEW_BOARDS}`}>게시판</Link> },
+              { title: <Link to={`/${MENU.BOARD}`}>게시판</Link> },
               {
                 title: (
-                  <Link to={`/${MENU.NEW_BOARDS}?${stringify({ boardType })}`}>
+                  <Link to={`/${MENU.BOARD}?${stringify({ boardType })}`}>
                     {getBoardTitleByBoardType(boardType)}
                   </Link>
                 ),

@@ -16,6 +16,9 @@ import { MENU } from '~/constants/menus';
 import { FcLike } from 'react-icons/fc';
 import { BsFillStarFill } from 'react-icons/bs';
 import { createStyles } from 'antd-style';
+import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
+import { useSearchParams } from '~/hooks/useSearchParams';
+import { stringify } from 'qs';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -48,10 +51,22 @@ const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
     padding: 30px 0;
   `,
+  actionButtonGroup: css`
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+  `,
 }));
 
-export default function NewBoardDetailPage() {
+/**
+ * TODO
+ * - 권한 체크
+ * - 댓글 작업
+ * */
+export default function BoardDetailPage() {
   const { styles } = useStyles();
+  const searchParams = useSearchParams();
+  const boardType = (searchParams.get('boardType') ?? 'NOTICE') as BoardType;
 
   return (
     <Block>
@@ -64,9 +79,13 @@ export default function NewBoardDetailPage() {
         >
           <Breadcrumb
             items={[
-              { title: <Link to={`/${MENU.NEW_BOARDS}`}>게시판</Link> },
+              { title: <Link to={`/${MENU.BOARD}`}>게시판</Link> },
               {
-                title: <Link to={`/${MENU.NEW_BOARDS}`}>자유게시판</Link>,
+                title: (
+                  <Link to={`/${MENU.BOARD}?${stringify({ boardType })}`}>
+                    {getBoardTitleByBoardType(boardType)}
+                  </Link>
+                ),
               },
             ]}
           />
@@ -95,6 +114,20 @@ export default function NewBoardDetailPage() {
               <Tooltip title={'스크랩'}>
                 <Button icon={<BsFillStarFill color={'orange'} />}>0</Button>
               </Tooltip>
+            </Space>
+            <Space className={styles.actionButtonGroup}>
+              <Link
+                to={`/${MENU.BOARD}/write?${stringify({
+                  mode: 'EDIT',
+                  boardType: boardType,
+                  boardId: 1,
+                })}`}
+              >
+                <Button type={'primary'}>수정</Button>
+              </Link>
+              <Button type={'primary'} danger>
+                삭제
+              </Button>
             </Space>
           </Space>
           <Space

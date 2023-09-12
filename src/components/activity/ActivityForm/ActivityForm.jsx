@@ -28,7 +28,7 @@ import {
   FileContainerTitle,
   FileDeleteButton,
   StyledDeleteIcon,
-} from '../../board/PostForm/PostForm.styles';
+} from '~/components/board-legacy/PostForm/PostForm.styles';
 import FileUploadButton from '../../common/Buttons/FileUploadButton';
 import Modal from '../../common/Modal/Modal';
 import getFileUrl, { getDecodedFileUrl } from '../../../lib/utils/getFileUrl';

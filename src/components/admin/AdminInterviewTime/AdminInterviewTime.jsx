@@ -11,18 +11,18 @@ import {
   StyledDateForm,
   StyledDateInput,
   StyledDateTimeForm,
+  StyledDiv,
   StyledInterviewForm,
   StyledLabel,
   StyledTimeForm,
-  StyledTimeInput,
-  TimeCapacityButtonContainer,
-  StyledDiv,
   StyledTimeFormList,
+  StyledTimeInput,
   TimeBlockId,
+  TimeCapacityButtonContainer,
 } from './AdminInterviewTime.styles';
 import useInput from '../../../hooks/useInput';
 import { StyledDeleteButton } from '../../activity/ActivityCard/ActivityCard.styles';
-import { StyledButton } from '../../board/Post/Post.styles';
+import { StyledButton } from '~/components/board-legacy/Post/Post.styles';
 
 const DateTimeForm = ({
   id,
