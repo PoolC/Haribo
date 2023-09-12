@@ -55,7 +55,8 @@
     "openapi-typescript-codegen": "0.25.0",
     "prettier": "3.0.0",
     "typescript": "4.9.5",
-    "vite": "4.4.7"
+    "vite": "4.4.7",
+    "concurrently": "8.2.1"
   },
   "scripts": {
     "start": "vite",
@@ -63,8 +64,9 @@
     "build": "vite build",
     "serve": "vite preview",
     "sync:type": "npx typesync",
-    "check:type": "tsc",
-    "codegen": "openapi -i http://server.poolc.kr:8080/v2/api-docs -o src/lib/api-v2/__generated__ -c axios --useUnionTypes --useOptions"
+    "check:type": "tsc --noEmit",
+    "codegen": "openapi -i http://server.poolc.kr:8080/v2/api-docs -o src/lib/api-v2/__generated__ -c axios --useUnionTypes --useOptions",
+    "go": "concurrently \"yarn dev\" \"yarn check:type --watch\""
   },
   "browserslist": {
     "production": [
