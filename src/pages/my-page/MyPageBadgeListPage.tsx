@@ -9,12 +9,15 @@ import {
   useAppQueries,
 } from '~/lib/api-v2';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
+import classNames from 'classnames';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
-    padding: 30px 20px;
-    align-items: stretch;
-    gap: 40px;
+    &.scope {
+      padding: 30px 20px;
+      align-items: stretch;
+      gap: 40px;
+    }
   `,
   wrapper: css`
     width: 100%;
@@ -137,7 +140,7 @@ export default function MyPageBadgeListPage() {
 
   return (
     <Block>
-      <WhiteBlock className={styles.whiteBlock}>
+      <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
         <Space className={styles.wrapper} size={'middle'}>
           <Avatar size={80} src={me?.profileImageURL} />
           <Space>
@@ -147,7 +150,11 @@ export default function MyPageBadgeListPage() {
             <Typography.Text>의 뱃지함</Typography.Text>
           </Space>
         </Space>
-        <Space direction="vertical" size={'middle'}>
+        <Space
+          direction="vertical"
+          size={'middle'}
+          className={styles.fullWidth}
+        >
           <div>
             <Typography.Text className={styles.category}>
               Attendance
@@ -173,7 +180,11 @@ export default function MyPageBadgeListPage() {
             />
           </Space>
         </Space>
-        <Space direction="vertical" size={'middle'}>
+        <Space
+          direction="vertical"
+          size={'middle'}
+          className={styles.fullWidth}
+        >
           <div>
             <Typography.Text className={styles.category}>
               Baekjoon

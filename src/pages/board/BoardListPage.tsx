@@ -6,10 +6,13 @@ import { useSearchParams } from '~/hooks/useSearchParams';
 import { useHistory } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
 import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
+import classNames from 'classnames';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
-    padding: 30px 0;
+    &.scope {
+      padding: 30px 0;
+    }
   `,
   wrapper: css`
     width: 100%;
@@ -27,7 +30,6 @@ export default function BoardListPage() {
 
   const history = useHistory();
 
-  // FIXME antd에서 string타입으로 밖에 키를 안받음..
   const items: {
     key: BoardType;
     label: string;
@@ -65,7 +67,7 @@ export default function BoardListPage() {
 
   return (
     <Block>
-      <WhiteBlock className={styles.whiteBlock}>
+      <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
         <div className={styles.wrapper}>
           <Tabs
             items={items}

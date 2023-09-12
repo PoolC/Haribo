@@ -29,10 +29,13 @@ import {
 } from '~/lib/api-v2';
 import { MENU } from '~/constants/menus';
 import MyPageGrassSection from '~/components/my-page/MyPageGrassSection';
+import classNames from 'classnames';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
-    padding: 30px 20px;
+    &.scope {
+      padding: 30px 20px;
+    }
   `,
   wrapper: css`
     width: 100%;
@@ -136,7 +139,7 @@ export default function MyPage() {
 
   return (
     <Block>
-      <WhiteBlock className={styles.whiteBlock}>
+      <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
         <Space direction={'vertical'} className={styles.fullWidth} size={40}>
           <Space className={styles.wrapper} size={'middle'}>
             <Avatar size={80} src={meRes.data?.profileImageURL} />
@@ -216,7 +219,7 @@ export default function MyPage() {
                 <List.Item>
                   <Link to={item.link} className={styles.link}>
                     <div className={styles.linkInner}>
-                      {item.icon}{' '}
+                      {item.icon}
                       <Typography.Text>{item.title}</Typography.Text>
                     </div>
                     <IoIosArrowForward size={18} color={'#ced4da'} />

@@ -4,7 +4,7 @@ import ActivityMenu from '../../../components/activity/ActivityMenu/ActivityMenu
 import ActivityList from '../../../components/activity/ActivityList/ActivityList';
 import { useSelector } from 'react-redux';
 import * as activityAPI from '../../../lib/api/activity';
-import { TwoColumnsContainerBlock } from '../../../styles/common/Block.styles.js';
+import { TwoColumnsContainerBlock } from '../../../styles/common/Block.styles.tsx';
 import { MENU } from '../../../constants/menus';
 import { SUCCESS } from '../../../constants/statusCode';
 

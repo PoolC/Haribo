@@ -3,10 +3,13 @@ import { createStyles } from 'antd-style';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
+import classNames from 'classnames';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
-    padding: 30px 20px;
+    &.scope {
+      padding: 30px 20px;
+    }
   `,
   wrapper: css`
     width: 100%;
@@ -56,7 +59,7 @@ export default function MessageAllListPage() {
 
   return (
     <Block>
-      <WhiteBlock className={styles.whiteBlock}>
+      <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
         <Space
           direction={'vertical'}
           className={styles.fullWidth}

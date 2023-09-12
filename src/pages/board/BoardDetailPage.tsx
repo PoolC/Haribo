@@ -19,6 +19,7 @@ import { createStyles } from 'antd-style';
 import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
 import { useSearchParams } from '~/hooks/useSearchParams';
 import { stringify } from 'qs';
+import classNames from 'classnames';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -49,7 +50,9 @@ const useStyles = createStyles(({ css }) => ({
     gap: 16px;
   `,
   whiteBlock: css`
-    padding: 30px 0;
+    &.scope {
+      padding: 30px 0;
+    }
   `,
   actionButtonGroup: css`
     justify-content: flex-end;
@@ -70,7 +73,7 @@ export default function BoardDetailPage() {
 
   return (
     <Block>
-      <WhiteBlock className={styles.whiteBlock}>
+      <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
         <Space
           direction={'vertical'}
           size={0}
