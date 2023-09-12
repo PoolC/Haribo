@@ -20,8 +20,6 @@ import {
 } from './ActivityAttendance.styles';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import Modal from '../../common/Modal/Modal';
-import 'codemirror/lib/codemirror.css';
-import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import {
   File,
