@@ -164,7 +164,9 @@ export default function PromotionWriteSection() {
               {
                 title: (
                   <Link
-                    to={`${MENU.NEW_BOARDS}?${stringify({ boardType: 'JOB' })}`}
+                    to={`/${MENU.NEW_BOARDS}?${stringify({
+                      boardType: 'JOB',
+                    })}`}
                   >
                     취업게시판
                   </Link>

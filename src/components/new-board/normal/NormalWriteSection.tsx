@@ -134,7 +134,7 @@ export default function NormalWriteSection({
               { title: <Link to={`/${MENU.NEW_BOARDS}`}>게시판</Link> },
               {
                 title: (
-                  <Link to={`${MENU.NEW_BOARDS}?${stringify(boardType)}`}>
+                  <Link to={`/${MENU.NEW_BOARDS}?${stringify({ boardType })}`}>
                     {getBoardTitleByBoardType(boardType)}
                   </Link>
                 ),
