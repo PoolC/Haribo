@@ -38,6 +38,10 @@ export const slideDown = keyframes`
     }
 `;
 
+const disappearAnimation = css`
+  animation-name: ${fadeOut};
+`;
+
 export const ModalBlock = styled.div`
   position: fixed;
   z-index: 10000;
@@ -55,11 +59,11 @@ export const ModalBlock = styled.div`
   animation-name: ${fadeIn};
   animation-fill-mode: forwards;
 
-  ${(props) =>
-    props.disappear &&
-    css`
-      animation-name: ${fadeOut};
-    `}
+  ${(props) => props.disappear && disappearAnimation}
+`;
+
+const slideDownAnimation = css`
+  animation-name: ${slideDown};
 `;
 
 export const ModalContainer = styled.div`
@@ -78,11 +82,7 @@ export const ModalContainer = styled.div`
   animation-name: ${slideUp};
   animation-fill-mode: forwards;
 
-  ${(props) =>
-    props.disappear &&
-    css`
-      animation-name: ${slideDown};
-    `}
+  ${(props) => props.disappear && slideDownAnimation}
 `;
 
 export const HeaderBar = styled.div`

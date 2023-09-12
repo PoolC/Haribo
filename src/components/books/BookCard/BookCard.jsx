@@ -100,6 +100,10 @@ const BookStatus = styled.p`
   }
 `;
 
+const disappearAnimation = css`
+  animation-name: ${closeCard};
+`;
+
 const BookContentsContainer = styled.div`
   background-color: ${colors.mint[0]};
   border-bottom-left-radius: 20px;
@@ -115,11 +119,7 @@ const BookContentsContainer = styled.div`
   animation-name: ${openCard};
   animation-fill-mode: forwards;
 
-  ${(props) =>
-    props.disappear &&
-    css`
-      animation-name: ${closeCard};
-    `}
+  ${(props) => props.disappear && disappearAnimation}
 `;
 
 const BookImageContainer = styled.div`

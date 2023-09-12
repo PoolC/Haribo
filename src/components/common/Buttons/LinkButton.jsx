@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import colors from '../../../lib/styles/colors';
-import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-const LinkButtonStyle = css`
+const StyledLink = styled(Link)`
   font-weight: 700;
   color: ${(props) => (props.selected ? colors.brown[1] : colors.brown[0])};
   margin: 15px 10px;
@@ -20,10 +19,6 @@ const LinkButtonStyle = css`
     transition: 0.3s;
     text-decoration: none;
   }
-`;
-
-const StyledLink = styled(Link)`
-  ${LinkButtonStyle}
 `;
 
 const LinkButton = (props) => {
