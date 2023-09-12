@@ -138,7 +138,6 @@ export default function PromotionWriteSection({
     submitPost(
       {
         request: {
-          boardId,
           body: form.values.content,
           title: form.values.title,
           deadline: form.values.deadline,

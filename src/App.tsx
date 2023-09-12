@@ -26,8 +26,6 @@ const IntroPage = lazy(() => import('./pages/intro/IntroPage'));
 const MemberListPage = lazy(() => import('./pages/member/MemberListPage'));
 const MemberDetailPage = lazy(() => import('./pages/member/MemberDetailPage'));
 
-const BoardPage = lazy(() => import('./pages/board/BoardPage'));
-
 const ProjectListPage = lazy(() => import('./pages/project/ProjectListPage'));
 const ProjectDetailPage = lazy(
   () => import('./pages/project/ProjectDetailPage'),
@@ -102,14 +100,6 @@ function App() {
             <Route
               component={MemberDetailPage}
               path={`/${MENU.MEMBER}/:memberID`}
-            />
-            <Route
-              component={BoardPage}
-              path={[
-                `/${MENU.BOARDS}/:urlPath`,
-                `/${MENU.BOARDS}`,
-                `/${MENU.POST}`,
-              ]}
             />
             <Route component={ProjectListPage} path={`/${MENU.PROJECTS}`} />
             <Route
