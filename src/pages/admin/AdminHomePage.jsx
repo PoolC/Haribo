@@ -17,6 +17,7 @@ import AdminHomeContainer from '../../containers/admin/AdminHomeContainer/AdminH
 import useAdminCheck from '../../hooks/useAdminCheck';
 import AdminInterviewContainer from '../../containers/admin/AdminInterviewContainer/AdminInterviewContainer';
 import AdminInterviewTimeContainer from '../../containers/admin/AdminInterviewTimeContainer/AdminInterviewTimeContainer';
+import AdminBadgeContainer from '~/containers/admin/AdminBadgeContainer/AdminBadgeContainer';
 
 const AdminContainerBlock = styled.div`
   position: relative;
@@ -44,6 +45,7 @@ const AdminPage = ({ history }) => {
     { name: '도서 관리', url: '/books' },
     { name: '면접 시간 관리', url: '/interview-time' },
     { name: '면접 신청 조회', url: '/interview' },
+    { name: '뱃지 관리', url: '/badge' },
   ];
 
   useAdminCheck(history);
@@ -120,6 +122,11 @@ const AdminPage = ({ history }) => {
         <Route
           component={AdminInterviewContainer}
           path={`/${MENU.ADMIN}/interview`}
+          exact
+        />
+        <Route
+          component={AdminBadgeContainer}
+          path={`/${MENU.ADMIN}/badge`}
           exact
         />
         <Route component={AdminHomeContainer} path={`/${MENU.ADMIN}`} exact />

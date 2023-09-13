@@ -5,3 +5,4 @@ export * from './useAppQuery';
 export * from './useAppMutation';
 export * from './useAppQueries';
 export * from './useAppInfiniteQuery';
+export * from './customApi';
