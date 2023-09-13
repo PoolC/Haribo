@@ -9,6 +9,7 @@ import {
   Table,
   Typography,
   Upload,
+  UploadFile,
 } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import {
@@ -24,6 +25,7 @@ import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
 import { noop } from '~/lib/utils/noop';
 import { queryClient } from '~/lib/utils/queryClient';
+import { UploadChangeParam } from 'antd/es/upload';
 
 /* ---------------------------
  * BADGE MANAGEMENT TABLE
@@ -158,7 +160,7 @@ export default function AdminBadgeManagement() {
  * BADGE GENERATE MODAL
  * ---------------------------- */
 const generateSchema = z.object({
-  image: z.any().refine(Boolean),
+  imageUrl: z.string().min(1),
   category: z.string().min(1),
   name: z.string().min(1),
   description: z.string().min(1),
@@ -174,7 +176,7 @@ function BadgeGenerateModal({
   const form = useForm<z.infer<typeof generateSchema>>({
     validate: zodResolver(generateSchema),
     initialValues: {
-      image: null,
+      imageUrl: '',
       category: '',
       name: '',
       description: '',
@@ -192,31 +194,24 @@ function BadgeGenerateModal({
   const [messageApi, contextHolder] = message.useMessage();
 
   const onSubmit = (val: typeof form.values) => {
-    mutateUploadFile(val.image, {
-      onSuccess(imageUrl) {
-        uploadBadge(
-          {
-            postBadgeRequest: {
-              imageUrl,
-              name: val.name,
-              description: val.description,
-            },
-          },
-          {
-            onSuccess() {
-              messageApi.success('뱃지가 생성되었습니다.').then(noop);
-              _onOk();
-            },
-            onError() {
-              messageApi.error('에러가 발생했습니다.').then(noop);
-            },
-          },
-        );
+    uploadBadge(
+      {
+        postBadgeRequest: {
+          imageUrl: val.imageUrl,
+          name: val.name,
+          description: val.description,
+        },
       },
-      onError() {
-        messageApi.error('에러가 발생했습니다.').then(noop);
+      {
+        onSuccess() {
+          messageApi.success('뱃지가 생성되었습니다.').then(noop);
+          _onOk();
+        },
+        onError() {
+          messageApi.error('에러가 발생했습니다.').then(noop);
+        },
       },
-    });
+    );
   };
 
   const onOk = () => {
@@ -226,6 +221,29 @@ function BadgeGenerateModal({
     }
 
     onSubmit(form.values);
+  };
+
+  const onUploadChange = (info: UploadChangeParam<UploadFile<any>>) => {
+    mutateUploadFile(info.file as unknown as File, {
+      onSuccess(imageUrl) {
+        form.setFieldValue('imageUrl', imageUrl);
+      },
+      onError() {
+        messageApi.error('에러가 발생했습니다.').then(noop);
+      },
+    });
+  };
+
+  const getUploadFileList = () => {
+    return form.values.imageUrl
+      ? [
+          {
+            uid: 'SOME_UID',
+            url: form.values.imageUrl,
+            name: form.values.imageUrl,
+          },
+        ]
+      : [];
   };
 
   return (
@@ -244,8 +262,8 @@ function BadgeGenerateModal({
         <Form.Item label={'로고'}>
           <Upload
             beforeUpload={() => false}
-            onChange={(info) => form.setFieldValue('image', info.file)}
-            fileList={form.values.image ? [form.values.image] : []}
+            onChange={onUploadChange}
+            fileList={getUploadFileList()}
           >
             <Button icon={<UploadOutlined />}>로고파일 업로드</Button>
           </Upload>
@@ -261,7 +279,7 @@ function BadgeGenerateModal({
  * ---------------------------- */
 const editSchema = z.object({
   id: z.number(),
-  image: z.any().refine(Boolean),
+  imageUrl: z.string().min(1),
   category: z.string().min(1),
   name: z.string().min(1),
   description: z.string().min(1),
@@ -292,32 +310,25 @@ function BadgeEditModal({
   const [messageApi, contextHolder] = message.useMessage();
 
   const onSubmit = (val: typeof form.values) => {
-    mutateUploadFile(val.image, {
-      onSuccess(imageUrl) {
-        editBadge(
-          {
-            badgeId: val.id,
-            updateBadgeRequest: {
-              imageUrl: imageUrl,
-              name: val.name,
-              description: val.description,
-            },
-          },
-          {
-            onSuccess() {
-              messageApi.success('뱃지가 수정되었습니다.').then(noop);
-              _onOk();
-            },
-            onError() {
-              messageApi.error('에러가 발생했습니다.').then(noop);
-            },
-          },
-        );
+    editBadge(
+      {
+        badgeId: val.id,
+        updateBadgeRequest: {
+          imageUrl: val.imageUrl,
+          name: val.name,
+          description: val.description,
+        },
       },
-      onError() {
-        messageApi.error('에러가 발생했습니다.').then(noop);
+      {
+        onSuccess() {
+          messageApi.success('뱃지가 수정되었습니다.').then(noop);
+          _onOk();
+        },
+        onError() {
+          messageApi.error('에러가 발생했습니다.').then(noop);
+        },
       },
-    });
+    );
   };
 
   const onOk = () => {
@@ -327,6 +338,29 @@ function BadgeEditModal({
     }
 
     onSubmit(form.values);
+  };
+
+  const onUploadChange = (info: UploadChangeParam<UploadFile<any>>) => {
+    mutateUploadFile(info.file as unknown as File, {
+      onSuccess(imageUrl) {
+        form.setFieldValue('imageUrl', imageUrl);
+      },
+      onError() {
+        messageApi.error('에러가 발생했습니다.').then(noop);
+      },
+    });
+  };
+
+  const getUploadFileList = () => {
+    return form.values.imageUrl
+      ? [
+          {
+            uid: 'SOME_UID',
+            url: form.values.imageUrl,
+            name: form.values.imageUrl,
+          },
+        ]
+      : [];
   };
 
   return (
@@ -345,8 +379,8 @@ function BadgeEditModal({
         <Form.Item label={'로고'}>
           <Upload
             beforeUpload={() => false}
-            onChange={(info) => form.setFieldValue('image', info.file)}
-            fileList={form.values.image ? [form.values.image] : []}
+            onChange={onUploadChange}
+            fileList={getUploadFileList()}
           >
             <Button icon={<UploadOutlined />}>로고파일 업로드</Button>
           </Upload>
