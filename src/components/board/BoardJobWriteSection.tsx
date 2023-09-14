@@ -29,6 +29,7 @@ import { createStyles } from 'antd-style';
 import dayjs from 'dayjs';
 import { convertPositionToText } from '~/lib/utils/positionUtil';
 import { useMessage } from '~/hooks/useMessage';
+import { noop } from '~/lib/utils/noop';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -122,22 +123,16 @@ export default function BoardJobWriteSection() {
     });
   };
 
-  const onFormSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-
-    if (!form.isValid()) {
-      return;
-    }
-
+  const onFormSubmit = (val: typeof form.values) => {
     submitPost(
       {
         request: {
-          body: form.values.content,
-          title: form.values.title,
-          deadline: form.values.deadline,
-          field: form.values.field,
+          body: val.content,
+          title: val.title,
+          deadline: val.deadline,
+          field: val.field,
           postType: 'JOB_POST',
-          region: form.values.region,
+          region: val.region,
         },
       },
       {
@@ -185,7 +180,7 @@ export default function BoardJobWriteSection() {
             <Form
               labelCol={{ span: 2 }}
               wrapperCol={{ span: 22 }}
-              onSubmitCapture={onFormSubmit}
+              onSubmitCapture={form.onSubmit(onFormSubmit, noop)}
             >
               <Form.Item label="제목">
                 <Input

@@ -14,7 +14,7 @@ import {
   Upload,
   UploadFile,
 } from 'antd';
-import { PostControllerService, useAppMutation } from '~/lib/api-v2';
+import { CustomApi, PostControllerService, useAppMutation } from '~/lib/api-v2';
 import { UploadChangeParam } from 'antd/es/upload';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
 import { Link } from 'react-router-dom';
@@ -47,6 +47,9 @@ const useStyles = createStyles(({ css }) => ({
     width: 100%;
     justify-content: space-between;
   `,
+  editorWrap: css`
+    margin-bottom: 24px;
+  `,
   divider: css`
     margin: 12px 0;
   `,
@@ -55,7 +58,7 @@ const useStyles = createStyles(({ css }) => ({
 const schema = z.object({
   title: z.string().min(1),
   content: z.string().min(1),
-  files: z.array(z.any()),
+  fileList: z.array(z.string()),
   isAnonymous: z.boolean(),
 });
 
@@ -79,7 +82,7 @@ export default function BoardNormalWriteSection({
     initialValues: {
       title: '',
       content: '',
-      files: [],
+      fileList: [],
       isAnonymous: false,
     },
     validate: zodResolver(schema),
@@ -91,16 +94,14 @@ export default function BoardNormalWriteSection({
     mutationFn: PostControllerService.registerPostUsingPost,
   });
 
+  const { mutate: mutateUploadFile } = useAppMutation({
+    mutationFn: CustomApi.uploadFile,
+  });
+
   // NOTE 에디터에서 값을 직접 가져올 수 없어서 이벤트 버블링 이용
   const onEditorInput: FormEventHandler = () => {
     form.setValues({
       content: editorRef.current?.getInstance().getHtml(),
-    });
-  };
-
-  const onFileChange = (info: UploadChangeParam<UploadFile<any>>) => {
-    form.setValues({
-      files: info.fileList.map((file) => file.originFileObj) as File[],
     });
   };
 
@@ -130,6 +131,25 @@ export default function BoardNormalWriteSection({
       .with('CS', () => 'CS 전공지식을 공유해요')
       .exhaustive();
 
+  const onUploadChange = (info: UploadChangeParam<UploadFile<any>>) => {
+    mutateUploadFile(info.file as unknown as File, {
+      onSuccess(fileUrl) {
+        form.setFieldValue('fileList', [...form.values.fileList, fileUrl]);
+      },
+      onError() {
+        message.error('에러가 발생했습니다.');
+      },
+    });
+  };
+
+  const getUploadFileList = () => {
+    return form.values.fileList.map((file, i) => ({
+      uid: `UPLOAD_FILE@.{i}`,
+      url: file,
+      name: file,
+    }));
+  };
+
   return (
     <Block>
       <WhiteBlock>
@@ -151,7 +171,7 @@ export default function BoardNormalWriteSection({
               },
             ]}
           />
-          <form onSubmit={form.onSubmit(onFormSubmit, () => {})}>
+          <Form onSubmitCapture={form.onSubmit(onFormSubmit, () => {})}>
             <Space
               direction={'vertical'}
               className={styles.fullWidth}
@@ -167,32 +187,14 @@ export default function BoardNormalWriteSection({
                 </Typography.Title>
                 <Typography>{renderDescription()}</Typography>
               </Space>
-              <Space
-                direction={'vertical'}
-                size={'middle'}
-                className={styles.fullWidth}
-              >
-                <div>
-                  <Form.Item label={'제목'}>
-                    <Input
-                      placeholder={'제목을 입력해주세요.'}
-                      {...form.getInputProps('title')}
-                    />
-                  </Form.Item>
-                  {boardType !== 'NOTICE' && (
-                    <Form.Item label={'익명'}>
-                      <Checkbox
-                        checked={form.values.isAnonymous}
-                        onChange={(e) =>
-                          form.setFieldValue('isAnonymous', e.target.checked)
-                        }
-                      >
-                        익명선택
-                      </Checkbox>
-                    </Form.Item>
-                  )}
-                </div>
-                <div onInput={onEditorInput}>
+              <div className={styles.fullWidth}>
+                <Form.Item label={'제목'} name={'title'}>
+                  <Input
+                    placeholder={'제목을 입력해주세요.'}
+                    {...form.getInputProps('title')}
+                  />
+                </Form.Item>
+                <div onInput={onEditorInput} className={styles.editorWrap}>
                   <Editor initialEditType="wysiwyg" ref={editorRef} />
                 </div>
                 <Space
@@ -203,25 +205,37 @@ export default function BoardNormalWriteSection({
                   <Upload
                     multiple
                     beforeUpload={() => false}
-                    onChange={onFileChange}
+                    onChange={onUploadChange}
+                    fileList={getUploadFileList()}
                   >
                     <Button icon={<FiUpload />}>파일 업로드</Button>
                   </Upload>
-                  <Button
-                    type={'primary'}
-                    htmlType={'submit'}
-                    className={styles.fullWidth}
-                    disabled={!form.isValid()}
-                  >
-                    등록
-                  </Button>
+                  <Space>
+                    {boardType !== 'NOTICE' && (
+                      <Checkbox
+                        checked={form.values.isAnonymous}
+                        onChange={(e) =>
+                          form.setFieldValue('isAnonymous', e.target.checked)
+                        }
+                      >
+                        익명
+                      </Checkbox>
+                    )}
+                    <Button
+                      type={'primary'}
+                      htmlType={'submit'}
+                      className={styles.fullWidth}
+                      disabled={!form.isValid()}
+                    >
+                      등록
+                    </Button>
+                  </Space>
                 </Space>
-              </Space>
+              </div>
             </Space>
-          </form>
+          </Form>
         </Space>
       </WhiteBlock>
-      {contextHolder}
     </Block>
   );
 }
