@@ -22,9 +22,6 @@ export default defineConfig(({ mode }) => {
     },
     build: {
       outDir: 'build',
-      rollupOptions: {
-        external: ['react', 'react/jsx-runtime', 'react-dom'],
-      },
     },
     plugins: [react()],
     define: {
