@@ -1,12 +1,12 @@
-version: '1.1'
+version: '1'
 services:
   app:
-    build: .
+    build:
+      dockerfile: Dockerfile
     env_file: .env.production
     volumes:
       - app-assets:/app/build
     stdin_open: true
-    tty: true
 
   web:
     build:
