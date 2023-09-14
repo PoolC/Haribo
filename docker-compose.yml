@@ -4,8 +4,8 @@ services:
     build:
       dockerfile: Dockerfile
     env_file: .env.production
-    volumes:
-      - app-assets:/app/build
+    ports:
+      - "3000:3000"
     stdin_open: true
 
   web:
@@ -15,8 +15,6 @@ services:
       - "80:80"
     volumes:
       - web-logs:/var/log/nginx
-      - app-assets:/var/www
 
 volumes:
   web-logs:
-  app-assets:

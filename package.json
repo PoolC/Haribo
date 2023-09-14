@@ -56,7 +56,7 @@
     "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview",
+    "serve": "vite serve",
     "sync:type": "npx typesync",
     "check:type": "tsc --noEmit",
     "codegen": "openapi -i http://server.poolc.kr:8080/v2/api-docs -o src/lib/api-v2/__generated__ -c axios --useUnionTypes --useOptions",
