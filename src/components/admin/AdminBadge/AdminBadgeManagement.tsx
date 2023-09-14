@@ -26,6 +26,7 @@ import { z } from 'zod';
 import { noop } from '~/lib/utils/noop';
 import { queryClient } from '~/lib/utils/queryClient';
 import { UploadChangeParam } from 'antd/es/upload';
+import { createStyles } from 'antd-style';
 
 /* ---------------------------
  * BADGE MANAGEMENT TABLE
@@ -39,8 +40,16 @@ type DataType = {
   edit?: void;
 };
 
+const useStyles = createStyles(({ css }) => ({
+  fullWidth: css`
+    width: 100%;
+  `,
+}));
+
 export default function AdminBadgeManagement() {
   // data
+  const { styles } = useStyles();
+
   const [showGenerateModal, setShowGenerateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editId, setEditId] = useState(-1);
@@ -66,6 +75,7 @@ export default function AdminBadgeManagement() {
       description: item.description ?? '',
     })) ?? [];
 
+  // actions
   const onEditButtonClick = (id: number) => {
     setEditId(id);
     setShowEditModal(true);
@@ -90,6 +100,7 @@ export default function AdminBadgeManagement() {
       },
     );
   };
+
   // render
   const columns: ColumnsType<DataType> = [
     {
@@ -127,8 +138,8 @@ export default function AdminBadgeManagement() {
   ];
 
   return (
-    <div>
-      <Space direction={'vertical'}>
+    <>
+      <Space direction={'vertical'} className={styles.fullWidth}>
         <Button type={'primary'} onClick={() => setShowGenerateModal(true)}>
           뱃지생성하기
         </Button>
@@ -152,7 +163,7 @@ export default function AdminBadgeManagement() {
           initialValues={dataSource.find((data) => data.id === editId)!}
         />
       )}
-    </div>
+    </>
   );
 }
 
