@@ -161,10 +161,13 @@ function MemberBadgeListModal({
   };
 
   const onOk = () => {
+    if (!memberBadgeList?.data) {
+      return;
+    }
     const isChanged = Boolean(
       badgeOwnList.find(
         (badge) =>
-          memberBadgeList?.data?.find(({ id }) => id === badge.id)?.own !==
+          memberBadgeList.data!.find(({ id }) => id === badge.id)?.own !==
           badge.own,
       ),
     );
