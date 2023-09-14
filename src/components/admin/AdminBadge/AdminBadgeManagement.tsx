@@ -158,7 +158,10 @@ export default function AdminBadgeManagement() {
       {showEditModal && (
         <BadgeEditModal
           onCancel={() => setShowEditModal(false)}
-          onOk={onRefecthAllBadges}
+          onOk={() => {
+            setShowEditModal(false);
+            onRefecthAllBadges().catch(console.log);
+          }}
           initialValues={dataSource.find((data) => data.id === editId)!}
         />
       )}
