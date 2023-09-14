@@ -9,7 +9,6 @@ import {
   Divider,
   Form,
   Input,
-  message,
   Space,
   Typography,
   Upload,
@@ -17,7 +16,6 @@ import {
 } from 'antd';
 import { PostControllerService, useAppMutation } from '~/lib/api-v2';
 import { UploadChangeParam } from 'antd/es/upload';
-import { noop } from '~/lib/utils/noop';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
 import { Link } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
@@ -30,6 +28,7 @@ import {
   getBoardTitleByBoardType,
 } from '~/lib/utils/boardUtil';
 import { match } from 'ts-pattern';
+import { useMessage } from '~/hooks/useMessage';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -86,7 +85,7 @@ export default function BoardNormalWriteSection({
     validate: zodResolver(schema),
   });
 
-  const [messageApi, contextHolder] = message.useMessage();
+  const message = useMessage();
 
   const { mutate: submitPost } = useAppMutation({
     mutationFn: PostControllerService.registerPostUsingPost,
@@ -117,7 +116,7 @@ export default function BoardNormalWriteSection({
       },
       {
         onSuccess() {
-          messageApi.success('글이 작성되었습니다.').then(noop);
+          message.success('글이 작성되었습니다.');
         },
       },
     );

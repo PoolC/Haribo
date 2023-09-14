@@ -4,10 +4,12 @@ export const queryKey = {
   member: {
     hour: ['member.hour'] as const,
     me: ['member.me'] as const,
+    all: ['member.all'] as const,
   },
   badge: {
     badge: ['badge.badge'] as const,
     all: ['badge.all'] as const,
+    member: (loginId: string) => ['badge.member', loginId] as const,
   },
   post: {
     all: (boardType: BoardType, page: number) =>

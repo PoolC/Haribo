@@ -12,6 +12,7 @@ import { loadUser } from './modules/auth';
 import { ConfigProvider } from 'antd';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '~/lib/utils/queryClient';
+import { MessageProvider } from '~/hooks/useMessage';
 
 const sagaMiddleware = createSagaMiddleware();
 export const store =
@@ -63,9 +64,11 @@ ReactDOM.render(
   <Provider store={store}>
     <ConfigProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <MessageProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </MessageProvider>
       </QueryClientProvider>
     </ConfigProvider>
   </Provider>,

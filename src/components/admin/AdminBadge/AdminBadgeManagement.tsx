@@ -3,7 +3,6 @@ import {
   Button,
   Form,
   Input,
-  message,
   Modal,
   Space,
   Table,
@@ -27,6 +26,7 @@ import { noop } from '~/lib/utils/noop';
 import { queryClient } from '~/lib/utils/queryClient';
 import { UploadChangeParam } from 'antd/es/upload';
 import { createStyles } from 'antd-style';
+import { useMessage } from '~/hooks/useMessage';
 
 /* ---------------------------
  * BADGE MANAGEMENT TABLE
@@ -37,7 +37,6 @@ type DataType = {
   category: string;
   name: string;
   description: string;
-  edit?: void;
 };
 
 const useStyles = createStyles(({ css }) => ({
@@ -106,30 +105,30 @@ export default function AdminBadgeManagement() {
     {
       key: 'image',
       title: '이미지',
-      render: (val) => <Avatar src={val.imageUrl} />,
+      render: (_, { imageUrl }) => <Avatar src={imageUrl} />,
     },
     {
       key: 'category',
       title: '카테고리',
-      render: (val) => <Typography.Text>{val.category}</Typography.Text>,
+      render: (_, { category }) => category,
     },
     {
       key: 'name',
       title: '제목',
-      render: (val) => <Typography.Text>{val.name}</Typography.Text>,
+      render: (_, { name }) => name,
     },
     {
       key: 'description',
       title: '설명',
-      render: (val) => <Typography.Text>{val.description}</Typography.Text>,
+      render: (_, { description }) => description,
     },
     {
-      key: 'edit',
+      key: 'action',
       title: '수정/삭제',
-      render: (val) => (
+      render: (_, { id }) => (
         <Space>
-          <Button onClick={() => onEditButtonClick(val.id)}>수정</Button>
-          <Button danger onClick={() => onDangerButtonClick(val.id)}>
+          <Button onClick={() => onEditButtonClick(id)}>수정</Button>
+          <Button danger onClick={() => onDangerButtonClick(id)}>
             삭제
           </Button>
         </Space>
@@ -202,7 +201,7 @@ function BadgeGenerateModal({
     mutationFn: BadgeControllerService.postBadgeUsingPost,
   });
 
-  const [messageApi, contextHolder] = message.useMessage();
+  const message = useMessage();
 
   const onSubmit = (val: typeof form.values) => {
     uploadBadge(
@@ -215,11 +214,11 @@ function BadgeGenerateModal({
       },
       {
         onSuccess() {
-          messageApi.success('뱃지가 생성되었습니다.').then(noop);
+          message.success('뱃지가 생성되었습니다.');
           _onOk();
         },
         onError() {
-          messageApi.error('에러가 발생했습니다.').then(noop);
+          message.error('에러가 발생했습니다.');
         },
       },
     );
@@ -227,7 +226,7 @@ function BadgeGenerateModal({
 
   const onOk = () => {
     if (!form.isValid()) {
-      messageApi.error('폼을 전부 입력해주세요.').then(noop);
+      message.error('폼을 전부 입력해주세요.');
       return;
     }
 
@@ -240,7 +239,7 @@ function BadgeGenerateModal({
         form.setFieldValue('imageUrl', imageUrl);
       },
       onError() {
-        messageApi.error('에러가 발생했습니다.').then(noop);
+        message.error('에러가 발생했습니다.');
       },
     });
   };
@@ -280,7 +279,6 @@ function BadgeGenerateModal({
           </Upload>
         </Form.Item>
       </Form>
-      {contextHolder}
     </Modal>
   );
 }
@@ -318,7 +316,7 @@ function BadgeEditModal({
     mutationFn: BadgeControllerService.updateBadgeUsingPut,
   });
 
-  const [messageApi, contextHolder] = message.useMessage();
+  const message = useMessage();
 
   const onSubmit = (val: typeof form.values) => {
     editBadge(
@@ -332,11 +330,11 @@ function BadgeEditModal({
       },
       {
         onSuccess() {
-          messageApi.success('뱃지가 수정되었습니다.').then(noop);
+          message.success('뱃지가 수정되었습니다.');
           _onOk();
         },
         onError() {
-          messageApi.error('에러가 발생했습니다.').then(noop);
+          message.error('에러가 발생했습니다.');
         },
       },
     );
@@ -344,7 +342,7 @@ function BadgeEditModal({
 
   const onOk = () => {
     if (!form.isValid()) {
-      messageApi.error('폼을 전부 입력해주세요.').then(noop);
+      message.error('폼을 전부 입력해주세요.');
       return;
     }
 
@@ -357,7 +355,7 @@ function BadgeEditModal({
         form.setFieldValue('imageUrl', imageUrl);
       },
       onError() {
-        messageApi.error('에러가 발생했습니다.').then(noop);
+        message.error('에러가 발생했습니다.');
       },
     });
   };
@@ -397,7 +395,6 @@ function BadgeEditModal({
           </Upload>
         </Form.Item>
       </Form>
-      {contextHolder}
     </Modal>
   );
 }
