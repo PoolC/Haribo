@@ -9,7 +9,6 @@ import {
   Divider,
   Form,
   Input,
-  message,
   Radio,
   Space,
   Typography,
@@ -21,7 +20,6 @@ import {
   useAppMutation,
 } from '~/lib/api-v2';
 import { UploadChangeParam } from 'antd/es/upload';
-import { noop } from '~/lib/utils/noop';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
 import { Link } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
@@ -30,6 +28,8 @@ import { FiUpload } from 'react-icons/fi';
 import { createStyles } from 'antd-style';
 import dayjs from 'dayjs';
 import { convertPositionToText } from '~/lib/utils/positionUtil';
+import { useMessage } from '~/hooks/useMessage';
+import { noop } from '~/lib/utils/noop';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -83,7 +83,7 @@ export default function BoardJobWriteSection() {
     ),
   });
 
-  const [messageApi, contextHolder] = message.useMessage();
+  const message = useMessage();
 
   const { mutate: submitPost } = useAppMutation({
     mutationFn: PostControllerService.registerPostUsingPost,
@@ -123,27 +123,21 @@ export default function BoardJobWriteSection() {
     });
   };
 
-  const onFormSubmit: FormEventHandler = (e) => {
-    e.preventDefault();
-
-    if (!form.isValid()) {
-      return;
-    }
-
+  const onFormSubmit = (val: typeof form.values) => {
     submitPost(
       {
         request: {
-          body: form.values.content,
-          title: form.values.title,
-          deadline: form.values.deadline,
-          field: form.values.field,
+          body: val.content,
+          title: val.title,
+          deadline: val.deadline,
+          field: val.field,
           postType: 'JOB_POST',
-          region: form.values.region,
+          region: val.region,
         },
       },
       {
         onSuccess() {
-          messageApi.success('글이 수정되었습니다.').then(noop);
+          message.success('글이 수정되었습니다.');
         },
       },
     );
@@ -186,7 +180,7 @@ export default function BoardJobWriteSection() {
             <Form
               labelCol={{ span: 2 }}
               wrapperCol={{ span: 22 }}
-              onSubmitCapture={onFormSubmit}
+              onSubmitCapture={form.onSubmit(onFormSubmit, noop)}
             >
               <Form.Item label="제목">
                 <Input
@@ -260,7 +254,6 @@ export default function BoardJobWriteSection() {
           </Space>
         </Space>
       </WhiteBlock>
-      {contextHolder}
     </Block>
   );
 }

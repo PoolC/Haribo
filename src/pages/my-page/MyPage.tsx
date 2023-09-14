@@ -2,7 +2,6 @@ import { Block, WhiteBlock } from '~/styles/common/Block.styles';
 import {
   Avatar,
   Button,
-  Image,
   List,
   Popover,
   Progress,
@@ -25,11 +24,13 @@ import {
   BaekjoonControllerService,
   MemberControllerService,
   queryKey,
+  useAppMutation,
   useAppQueries,
 } from '~/lib/api-v2';
 import { MENU } from '~/constants/menus';
 import MyPageGrassSection from '~/components/my-page/MyPageGrassSection';
 import classNames from 'classnames';
+import { queryClient } from '~/lib/utils/queryClient';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
@@ -89,6 +90,16 @@ const useStyles = createStyles(({ css }) => ({
     align-items: center;
     gap: 5px;
   `,
+  badgeButton: css`
+    display: flex;
+    height: auto;
+    min-width: auto;
+    padding: 0;
+    border: 2px solid transparent;
+    &.active {
+      border-color: #47be9b;
+    }
+  `,
 }));
 
 export default function MyPage() {
@@ -116,46 +127,69 @@ export default function MyPage() {
     },
   ];
 
-  const [myHourRes, meRes, allBadgesRes, baekjoonRes] = useAppQueries({
-    queries: [
-      {
-        queryKey: queryKey.member.hour,
-        queryFn: MemberControllerService.getMyActivityTimeUsingGet,
-      },
-      {
-        queryKey: queryKey.member.me,
-        queryFn: MemberControllerService.getMeUsingGet,
-      },
-      {
-        queryKey: queryKey.badge.badge,
-        queryFn: BadgeControllerService.getMyBadgeUsingGet,
-      },
-      {
-        queryKey: queryKey.baekjoon.baekjoon,
-        queryFn: BaekjoonControllerService.getMyBaekjoonUsingGet,
-      },
-    ],
+  const [{ data: myHour }, { data: me }, { data: badge }, { data: baekjoon }] =
+    useAppQueries({
+      queries: [
+        {
+          queryKey: queryKey.member.hour,
+          queryFn: MemberControllerService.getMyActivityTimeUsingGet,
+        },
+        {
+          queryKey: queryKey.member.me,
+          queryFn: MemberControllerService.getMeUsingGet,
+        },
+        {
+          queryKey: queryKey.badge.badge,
+          queryFn: BadgeControllerService.getMyBadgeUsingGet,
+        },
+        {
+          queryKey: queryKey.baekjoon.baekjoon,
+          queryFn: BaekjoonControllerService.getMyBaekjoonUsingGet,
+        },
+      ],
+    });
+
+  const { mutate: selectBadge } = useAppMutation({
+    mutationFn: BadgeControllerService.selectBadgeUsingPost,
   });
+
+  const onBadgeButtonClick = (id: number) => {
+    if (me?.badge?.id === id) {
+      return;
+    }
+
+    selectBadge(
+      {
+        badgeId: id,
+      },
+      {
+        onSuccess() {
+          queryClient.invalidateQueries(queryKey.member.me).catch(console.log);
+        },
+      },
+    );
+  };
 
   return (
     <Block>
       <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
         <Space direction={'vertical'} className={styles.fullWidth} size={40}>
           <Space className={styles.wrapper} size={'middle'}>
-            <Avatar size={80} src={meRes.data?.profileImageURL} />
+            <Avatar size={80} src={me?.profileImageURL} />
             <Space direction={'vertical'}>
-              <Typography.Text className={styles.userName}>
-                {meRes.data?.name}님
-              </Typography.Text>
-              <Typography.Text>풀씨와 함께한지 120일 ❤️</Typography.Text>
+              <Space>
+                <Typography.Text className={styles.userName}>
+                  {me?.name}님
+                </Typography.Text>
+                <Avatar src={me?.badge?.imageUrl} alt={me?.name} />
+              </Space>
+              <Typography.Text>{me?.introduction}</Typography.Text>
             </Space>
           </Space>
           <Space direction="vertical" size={0} className={styles.wrapper}>
             <Typography.Title level={5}>나의 활동시간</Typography.Title>
-            <Typography.Text>
-              {myHourRes.data?.hour ?? 0}시간 / 6시간
-            </Typography.Text>
-            <Progress percent={myHourRes.data?.hour ?? 0} />
+            <Typography.Text>{myHour?.hour ?? 0}시간 / 6시간</Typography.Text>
+            <Progress percent={myHour?.hour ?? 0} strokeColor={'#47be9b'} />
           </Space>
           <Space direction="vertical" className={styles.wrapper}>
             <Typography.Title level={5} className={styles.grassTitle}>
@@ -184,8 +218,8 @@ export default function MyPage() {
                 <BsFillQuestionCircleFill />
               </Popover>
             </Typography.Title>
-            {baekjoonRes.data?.data && (
-              <MyPageGrassSection baekjoonData={baekjoonRes.data.data} />
+            {baekjoon?.data && (
+              <MyPageGrassSection baekjoonData={baekjoon.data} />
             )}
           </Space>
           <Space direction="vertical" size={0} className={styles.wrapper}>
@@ -198,10 +232,19 @@ export default function MyPage() {
                 모든 뱃지보기 <span>&gt;</span>
               </Link>
             </Typography.Title>
-            {allBadgesRes.data?.data?.length ? (
+            {badge?.data && badge.data.length > 0 ? (
               <Space size={[8, 16]} wrap>
-                {allBadgesRes.data?.data.map((el) => (
-                  <Image src={el.imageUrl} alt={el.name} key={el.id} />
+                {badge.data.map((el) => (
+                  <Button
+                    key={el.id}
+                    onClick={() => onBadgeButtonClick(el.id!)}
+                    shape={'circle'}
+                    className={classNames(styles.badgeButton, {
+                      active: me?.badge?.id === el.id,
+                    })}
+                  >
+                    <Avatar src={el.imageUrl} alt={el.name} />
+                  </Button>
                 ))}
               </Space>
             ) : (

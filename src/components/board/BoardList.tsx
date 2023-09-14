@@ -15,8 +15,12 @@ import { GoPencil } from 'react-icons/go';
 import { FcLike } from 'react-icons/fc';
 import { FaRegCommentAlt } from 'react-icons/fa';
 import { createStyles } from 'antd-style';
-import { PostControllerService, PostResponse, queryKey } from '~/lib/api-v2';
-import { useQuery } from '@tanstack/react-query';
+import {
+  PostControllerService,
+  PostResponse,
+  queryKey,
+  useAppQuery,
+} from '~/lib/api-v2';
 import { match } from 'ts-pattern';
 import { stringify } from 'qs';
 import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
@@ -64,7 +68,7 @@ export default function BoardList({
   // data
   const { styles } = useStyles();
 
-  const boardListQuery = useQuery({
+  const boardListQuery = useAppQuery({
     queryKey: queryKey.post.all(boardType, page),
     queryFn: () =>
       PostControllerService.viewPostsByBoardUsingGet({

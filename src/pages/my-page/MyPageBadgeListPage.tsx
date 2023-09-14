@@ -165,7 +165,7 @@ export default function MyPageBadgeListPage() {
               ?.filter((badge) => badge.category === 'ATTENDANCE')
               .map((badge) => (
                 <Tooltip key={badge.id} title={renderBadgeTooltipTitle(badge)}>
-                  <Image src={badge.imageUrl} alt={badge.name} />
+                  <Avatar src={badge.imageUrl} alt={badge.name} />
                 </Tooltip>
               ))}
           </div>
@@ -193,7 +193,7 @@ export default function MyPageBadgeListPage() {
           <div className={styles.badgeWrap}>
             {baekjoonSuccessiveSolveBadges.map((badge) => (
               <Tooltip key={badge.id} title={renderBadgeTooltipTitle(badge)}>
-                <Image src={badge.imageUrl} alt={badge.name} />
+                <Avatar src={badge.imageUrl} alt={badge.name} />
               </Tooltip>
             ))}
           </div>

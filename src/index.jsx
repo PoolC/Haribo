@@ -10,7 +10,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { loadUser } from './modules/auth';
 import { ConfigProvider } from 'antd';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from '~/lib/utils/queryClient';
+import { MessageProvider } from '~/hooks/useMessage';
 
 const sagaMiddleware = createSagaMiddleware();
 export const store =
@@ -58,23 +60,15 @@ const theme = {
   },
 };
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnReconnect: !import.meta.env.DEV,
-      refetchOnWindowFocus: !import.meta.env.DEV,
-      retry: 0,
-    },
-  },
-});
-
 ReactDOM.render(
   <Provider store={store}>
     <ConfigProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <MessageProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </MessageProvider>
       </QueryClientProvider>
     </ConfigProvider>
   </Provider>,
