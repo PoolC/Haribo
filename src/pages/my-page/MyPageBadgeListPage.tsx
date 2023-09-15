@@ -1,4 +1,4 @@
-import { Avatar, Image, Progress, Space, Tooltip, Typography } from 'antd';
+import { Avatar, Progress, Space, Tooltip, Typography } from 'antd';
 import { createStyles } from 'antd-style';
 import { match } from 'ts-pattern';
 import {
@@ -210,7 +210,7 @@ export default function MyPageBadgeListPage() {
           <div className={styles.badgeWrap}>
             {baekjoonTierBadges.map((badge) => (
               <Tooltip key={badge.id} title={renderBadgeTooltipTitle(badge)}>
-                <Image src={badge.imageUrl} alt={badge.name} />
+                <Avatar src={badge.imageUrl} alt={badge.name} />
               </Tooltip>
             ))}
           </div>

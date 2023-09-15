@@ -1,7 +1,15 @@
-FROM nginx:1.19.8
+FROM node:18-alpine
 
-WORKDIR /var/www/poolc.org
-COPY ./build .
-COPY ./nginx.conf /etc/nginx/conf.d/poolc.org.conf
+WORKDIR /app
 
-CMD ["nginx", "-g", "daemon off;"]
+
+COPY package.json yarn.lock ./
+RUN yarn
+
+COPY . .
+
+RUN yarn codegen
+CMD yarn build
+
+VOLUME ["/app/build"]
+
