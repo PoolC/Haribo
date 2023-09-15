@@ -8,8 +8,6 @@ services:
       - VITE_API_BASE_URL=$VITE_API_BASE_URL
       - VITE_FILE_URL=$VITE_FILE_URL
       - VITE_MAX_FILE_SIZE=$VITE_MAX_FILE_SIZE
-      - VITE_TEST_API_BASE_URL=$VITE_TEST_API_BASE_URL
-      - VITE_TEST_FILE_URL=$VITE_TEST_FILE_URL
     stdin_open: true
     volumes:
       - app-assets:/app/build
