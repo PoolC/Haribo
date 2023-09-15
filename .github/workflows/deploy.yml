@@ -13,7 +13,7 @@ jobs:
       - name: setting env
         run: |
           # env file
-          $ENV_PRODUCTION=.env.production
+          ENV_PRODUCTION=.env.production
           echo "VITE_API_BASE_URL=$secrets.VITE_API_BASE_URL" > $ENV_PRODUCTION
           echo "VITE_FILE_URL=$secrets.VITE_FILE_URL" > $ENV_PRODUCTION
           echo "VITE_MAX_FILE_SIZE=$secrets.VITE_MAX_FILE_SIZE" > $ENV_PRODUCTION
