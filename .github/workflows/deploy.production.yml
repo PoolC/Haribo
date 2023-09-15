@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-22.04
     environment: production
     steps:
@@ -21,17 +21,21 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             DIRECTORY=dialga
-            if [ ! -d "$DIRECTORY" ]; then
+            if [ -d "$DIRECTORY" ]
+            then
+              cd "$DIRECTORY/Dialga"
+              git pull
+            else
               mkdir $DIRECTORY
+              cd $DIRECTORY
+              git clone https://github.com/PoolC/Dialga.git
+              cd Dialga
             fi
-            cd $DIRECTORY
-            
-            git clone https://github.com/PoolC/Dialga.git
             
             ENV_PRODUCTION=.env.production
             echo "VITE_API_BASE_URL=$secrets.VITE_API_BASE_URL" > $ENV_PRODUCTION
             echo "VITE_FILE_URL=$secrets.VITE_FILE_URL" > $ENV_PRODUCTION
             echo "VITE_MAX_FILE_SIZE=$secrets.VITE_MAX_FILE_SIZE" > $ENV_PRODUCTION
             
-            docker-compose down
-            docker-compose up -d --build
+            docker compose down
+            docker compose up -d --build
