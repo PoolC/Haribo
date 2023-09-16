@@ -31,11 +31,14 @@ jobs:
               git clone https://github.com/PoolC/Dialga.git
               cd Dialga
             fi
-            
-            ENV_PRODUCTION=.env.production
-            echo "VITE_API_BASE_URL=$secrets.VITE_API_BASE_URL" > $ENV_PRODUCTION
-            echo "VITE_FILE_URL=$secrets.VITE_FILE_URL" > $ENV_PRODUCTION
-            echo "VITE_MAX_FILE_SIZE=$secrets.VITE_MAX_FILE_SIZE" > $ENV_PRODUCTION
+           
+            VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }} 
+            VITE_FILE_URL=${{ secrets.VITE_FILE_URL }} 
+            VITE_MAX_FILE_SIZE=${{ secrets.VITE_MAX_FILE_SIZE }} 
+            ENV_CONTENT="VITE_API_BASE_URL=$VITE_API_BASE_URL
+            VITE_FILE_URL=$VITE_FILE_URL
+            VITE_MAX_FILE_SIZE=$VITE_MAX_FILE_SIZE"
+            echo "$ENV_CONTENT" > .env.production
             
             docker compose down
             docker compose up -d --build
