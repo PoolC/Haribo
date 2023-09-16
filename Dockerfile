@@ -12,4 +12,3 @@ RUN yarn codegen
 CMD yarn build
 
 VOLUME ["/app/build"]
-
