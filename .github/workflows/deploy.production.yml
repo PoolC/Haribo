@@ -40,5 +40,7 @@ jobs:
             VITE_MAX_FILE_SIZE=$VITE_MAX_FILE_SIZE"
             echo "$ENV_CONTENT" > .env.production
             
+            cat .env.production
+            
             docker compose down
             docker compose up -d --build
