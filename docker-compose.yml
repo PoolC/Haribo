@@ -10,8 +10,6 @@ services:
       - VITE_MAX_FILE_SIZE=${VITE_MAX_FILE_SIZE}
     volumes:
       - app-assets:/app/build
-    stdin_open: true
-    tty: true
 
   web:
     build:
