@@ -23,7 +23,7 @@ import {
 } from '~/lib/api-v2';
 import { match } from 'ts-pattern';
 import { stringify } from 'qs';
-import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
+import { BoardType } from '~/lib/utils/boardUtil';
 
 const useStyles = createStyles(({ css }) => ({
   fullWidth: css`
@@ -72,7 +72,7 @@ export default function BoardList({
     queryKey: queryKey.post.all(boardType, page),
     queryFn: () =>
       PostControllerService.viewPostsByBoardUsingGet({
-        boardTitle: getBoardTitleByBoardType(boardType),
+        boardTitle: boardType,
         page,
       }),
   });
