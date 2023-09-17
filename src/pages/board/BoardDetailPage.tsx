@@ -4,9 +4,12 @@ import {
   Breadcrumb,
   Button,
   Checkbox,
+  Descriptions,
   Divider,
   Input,
   Popconfirm,
+  Result,
+  Skeleton,
   Space,
   Tooltip,
   Typography,
@@ -32,6 +35,7 @@ import { useSelector } from 'react-redux';
 import { queryClient } from '~/lib/utils/queryClient';
 import { useMessage } from '~/hooks/useMessage';
 import getFileUrl from '~/lib/utils/getFileUrl';
+import { getEmptyArray } from '~/lib/utils/getEmptyArray';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -92,6 +96,15 @@ const useStyles = createStyles(({ css }) => ({
   fileItem: css`
     font-size: 14px;
   `,
+  skeletonWrap: css`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+    gap: 20px;
+    box-sizing: border-box;
+  `,
 }));
 
 /**
@@ -107,7 +120,11 @@ export default function BoardDetailPage() {
   const params = useParams<{ id: string }>();
   const postId = Number(params.id);
 
-  const { data: post } = useAppQuery({
+  const {
+    data: post,
+    isLoading: isPostLoading,
+    isError: isPostError,
+  } = useAppQuery({
     queryKey: queryKey.post.post(postId),
     queryFn: () => PostControllerService.viewPostUsingGet({ postId }),
   });
@@ -194,143 +211,178 @@ export default function BoardDetailPage() {
   };
 
   // render
+  const renderContent = () => {
+    if (isPostLoading) {
+      return (
+        <div className={styles.skeletonWrap}>
+          {getEmptyArray(3).map((i) => (
+            <Skeleton key={i} active />
+          ))}
+        </div>
+      );
+    }
+
+    if (isPostError) {
+      return <Result status="500" subTitle="에러가 발생했습니다." />;
+    }
+
+    return (
+      <Space
+        direction={'vertical'}
+        size={0}
+        className={styles.wrapper}
+        split={<Divider />}
+      >
+        <Breadcrumb
+          items={[
+            { title: <Link to={`/${MENU.BOARD}`}>게시판</Link> },
+            {
+              title: (
+                <Link
+                  to={`/${MENU.BOARD}?${stringify({
+                    boardType: post.boardType,
+                  })}`}
+                >
+                  {getBoardTitleByBoardType(post.boardType ?? 'FREE')}
+                </Link>
+              ),
+            },
+          ]}
+        />
+        <Space
+          direction={'vertical'}
+          size={'middle'}
+          className={styles.fullWidth}
+        >
+          <Space align={'center'}>
+            <Avatar className={styles.writerAvatar} />
+            <Space direction={'vertical'} size={0}>
+              <Typography.Text>{post.writerName}</Typography.Text>
+              <Typography.Text type={'secondary'}>
+                {dayjs(post.createdAt).format('YYYY-MM-DD')}
+              </Typography.Text>
+            </Space>
+          </Space>
+          <Space direction={'vertical'} size={0}>
+            {post.boardType === 'JOB' ? (
+              <Descriptions title={post.title}>
+                <Descriptions.Item label={'고용형태'}>
+                  {post.position}
+                </Descriptions.Item>
+                <Descriptions.Item label={'지역'}>
+                  {post.region}
+                </Descriptions.Item>
+                <Descriptions.Item label={'분야'}>
+                  {post.field}
+                </Descriptions.Item>
+                <Descriptions.Item label={'마감일자'}>
+                  {post.deadline}
+                </Descriptions.Item>
+              </Descriptions>
+            ) : (
+              <Typography.Title level={2}>{post.title}</Typography.Title>
+            )}
+            <div dangerouslySetInnerHTML={{ __html: post.body ?? '' }}></div>
+            <div className={styles.fileListBox}>
+              <Typography.Text className={styles.fileListTitle}>
+                첨부파일
+              </Typography.Text>
+              <div className={styles.fileList}>
+                {post.fileList && post.fileList.length > 0 ? (
+                  post.fileList.map((file, i) => (
+                    <a
+                      href={getFileUrl(file)}
+                      key={i}
+                      download={file}
+                      className={styles.fileItem}
+                    >
+                      {file}
+                    </a>
+                  ))
+                ) : (
+                  <Typography.Text>첨부파일이 없습니다.</Typography.Text>
+                )}
+              </div>
+            </div>
+          </Space>
+          <Space className={styles.buttonGroup}>
+            <Tooltip title={'좋아요'}>
+              <Button
+                icon={<FcLike />}
+                className={styles.emotionButton}
+                onClick={onLikeClick}
+              >
+                {post.likeCount ?? 0}
+              </Button>
+            </Tooltip>
+            <Tooltip title={'스크랩'}>
+              <Button
+                icon={<BsFillStarFill color={'orange'} />}
+                className={styles.emotionButton}
+                onClick={onScrapClick}
+              >
+                {post.scrapCount ?? 0}
+              </Button>
+            </Tooltip>
+          </Space>
+          {isWriter && (
+            <Space className={styles.actionButtonGroup}>
+              <Link
+                to={`/${MENU.BOARD}/write?${stringify({
+                  boardType: post.boardType,
+                  postId: post.postId,
+                })}`}
+              >
+                <Button type={'primary'}>수정</Button>
+              </Link>
+              <Popconfirm
+                title="게시글 삭제하기"
+                description="게시글을 정말 삭제하시겠어요?"
+                okText="네"
+                cancelText="아니요"
+                onConfirm={onDeleteConfirm}
+              >
+                <Button type={'primary'} danger>
+                  삭제
+                </Button>
+              </Popconfirm>
+            </Space>
+          )}
+        </Space>
+        <Space
+          direction={'vertical'}
+          size={'large'}
+          className={styles.fullWidth}
+        >
+          <Space align={'start'}>
+            <Avatar />
+            <Space direction={'vertical'} size={0}>
+              <Typography.Text>풀씨짱123</Typography.Text>
+              <Typography.Text>유익한 글이군요</Typography.Text>
+              <Typography.Text type={'secondary'}>2023. 07. 28</Typography.Text>
+            </Space>
+          </Space>
+          <form>
+            <Space direction={'vertical'} className={styles.fullWidth}>
+              <Input.TextArea
+                className={styles.commentTextArea}
+                placeholder="댓글을 남겨주세요 :)"
+              />
+              <div className={styles.commentButtonWrap}>
+                <Checkbox>익명</Checkbox>
+                <Button type={'primary'}>댓글 달기</Button>
+              </div>
+            </Space>
+          </form>
+        </Space>
+      </Space>
+    );
+  };
+
   return (
     <Block>
       <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
-        <Space
-          direction={'vertical'}
-          size={0}
-          className={styles.wrapper}
-          split={<Divider />}
-        >
-          <Breadcrumb
-            items={[
-              { title: <Link to={`/${MENU.BOARD}`}>게시판</Link> },
-              {
-                title: (
-                  <Link
-                    to={`/${MENU.BOARD}?${stringify({
-                      boardType: post?.boardType,
-                    })}`}
-                  >
-                    {getBoardTitleByBoardType(post?.boardType ?? 'FREE')}
-                  </Link>
-                ),
-              },
-            ]}
-          />
-          <Space
-            direction={'vertical'}
-            size={'middle'}
-            className={styles.fullWidth}
-          >
-            <Space align={'center'}>
-              <Avatar className={styles.writerAvatar} />
-              <Space direction={'vertical'} size={0}>
-                <Typography.Text>{post?.writerName}</Typography.Text>
-                <Typography.Text type={'secondary'}>
-                  {dayjs(post?.createdAt).format('YYYY-MM-DD')}
-                </Typography.Text>
-              </Space>
-            </Space>
-            <Space direction={'vertical'} size={0}>
-              <Typography.Title level={2}>{post?.title}</Typography.Title>
-              <div dangerouslySetInnerHTML={{ __html: post?.body ?? '' }}></div>
-              <div className={styles.fileListBox}>
-                <Typography.Text className={styles.fileListTitle}>
-                  첨부파일
-                </Typography.Text>
-                <div className={styles.fileList}>
-                  {post?.fileList && post?.fileList?.length > 0 ? (
-                    post.fileList.map((file, i) => (
-                      <a
-                        href={getFileUrl(file)}
-                        key={i}
-                        download={file}
-                        className={styles.fileItem}
-                      >
-                        {file}
-                      </a>
-                    ))
-                  ) : (
-                    <Typography.Text>첨부파일이 없습니다.</Typography.Text>
-                  )}
-                </div>
-              </div>
-            </Space>
-            <Space className={styles.buttonGroup}>
-              <Tooltip title={'좋아요'}>
-                <Button
-                  icon={<FcLike />}
-                  className={styles.emotionButton}
-                  onClick={onLikeClick}
-                >
-                  {post?.likeCount ?? 0}
-                </Button>
-              </Tooltip>
-              <Tooltip title={'스크랩'}>
-                <Button
-                  icon={<BsFillStarFill color={'orange'} />}
-                  className={styles.emotionButton}
-                  onClick={onScrapClick}
-                >
-                  {post?.scrapCount ?? 0}
-                </Button>
-              </Tooltip>
-            </Space>
-            {isWriter && (
-              <Space className={styles.actionButtonGroup}>
-                <Link
-                  to={`/${MENU.BOARD}/write?${stringify({
-                    boardType: post?.boardType,
-                    postId: post?.postId,
-                  })}`}
-                >
-                  <Button type={'primary'}>수정</Button>
-                </Link>
-                <Popconfirm
-                  title="게시글 삭제하기"
-                  description="게시글을 정말 삭제하시겠어요?"
-                  okText="네"
-                  cancelText="아니요"
-                  onConfirm={onDeleteConfirm}
-                >
-                  <Button type={'primary'} danger>
-                    삭제
-                  </Button>
-                </Popconfirm>
-              </Space>
-            )}
-          </Space>
-          <Space
-            direction={'vertical'}
-            size={'large'}
-            className={styles.fullWidth}
-          >
-            <Space align={'start'}>
-              <Avatar />
-              <Space direction={'vertical'} size={0}>
-                <Typography.Text>풀씨짱123</Typography.Text>
-                <Typography.Text>유익한 글이군요</Typography.Text>
-                <Typography.Text type={'secondary'}>
-                  2023. 07. 28
-                </Typography.Text>
-              </Space>
-            </Space>
-            <form>
-              <Space direction={'vertical'} className={styles.fullWidth}>
-                <Input.TextArea
-                  className={styles.commentTextArea}
-                  placeholder="댓글을 남겨주세요 :)"
-                />
-                <div className={styles.commentButtonWrap}>
-                  <Checkbox>익명</Checkbox>
-                  <Button type={'primary'}>댓글 달기</Button>
-                </div>
-              </Space>
-            </form>
-          </Space>
-        </Space>
+        {renderContent()}
       </WhiteBlock>
     </Block>
   );
