@@ -3,9 +3,9 @@ import {
   Avatar,
   Breadcrumb,
   Button,
-  Checkbox,
   Descriptions,
   Divider,
+  Form,
   Input,
   Popconfirm,
   Result,
@@ -24,6 +24,7 @@ import { getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
 import { stringify } from 'qs';
 import classNames from 'classnames';
 import {
+  CommentControllerService,
   PostControllerService,
   queryKey,
   ScrapControllerService,
@@ -36,6 +37,9 @@ import { queryClient } from '~/lib/utils/queryClient';
 import { useMessage } from '~/hooks/useMessage';
 import getFileUrl from '~/lib/utils/getFileUrl';
 import { getEmptyArray } from '~/lib/utils/getEmptyArray';
+import { useForm, zodResolver } from '@mantine/form';
+import { z } from 'zod';
+import { noop } from '~/lib/utils/noop';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -259,7 +263,7 @@ export default function BoardDetailPage() {
             <Space direction={'vertical'} size={0}>
               <Typography.Text>{post.writerName}</Typography.Text>
               <Typography.Text type={'secondary'}>
-                {dayjs(post.createdAt).format('YYYY-MM-DD')}
+                {dayjs(post.createdAt).format('YYYY. MM. DD')}
               </Typography.Text>
             </Space>
           </Space>
@@ -349,32 +353,7 @@ export default function BoardDetailPage() {
             </Space>
           )}
         </Space>
-        <Space
-          direction={'vertical'}
-          size={'large'}
-          className={styles.fullWidth}
-        >
-          <Space align={'start'}>
-            <Avatar />
-            <Space direction={'vertical'} size={0}>
-              <Typography.Text>풀씨짱123</Typography.Text>
-              <Typography.Text>유익한 글이군요</Typography.Text>
-              <Typography.Text type={'secondary'}>2023. 07. 28</Typography.Text>
-            </Space>
-          </Space>
-          <form>
-            <Space direction={'vertical'} className={styles.fullWidth}>
-              <Input.TextArea
-                className={styles.commentTextArea}
-                placeholder="댓글을 남겨주세요 :)"
-              />
-              <div className={styles.commentButtonWrap}>
-                <Checkbox>익명</Checkbox>
-                <Button type={'primary'}>댓글 달기</Button>
-              </div>
-            </Space>
-          </form>
-        </Space>
+        <CommentBox postId={postId} />
       </Space>
     );
   };
@@ -385,5 +364,66 @@ export default function BoardDetailPage() {
         {renderContent()}
       </WhiteBlock>
     </Block>
+  );
+}
+
+const commentSchema = z.object({
+  body: z.string().min(1),
+});
+
+function CommentBox({ postId }: { postId: number }) {
+  const { styles } = useStyles();
+  const message = useMessage();
+
+  const form = useForm<z.infer<typeof commentSchema>>({
+    initialValues: {
+      body: '',
+    },
+    validate: zodResolver(commentSchema),
+  });
+
+  const { mutate: createComment } = useAppMutation({
+    mutationFn: CommentControllerService.createCommentUsingPost,
+  });
+
+  const onSubmit = (val: typeof form.values) => {
+    createComment({
+      request: {
+        anonymous: false,
+        postId,
+        body: val.body,
+      },
+    });
+  };
+
+  return (
+    <Space direction={'vertical'} size={'large'} className={styles.fullWidth}>
+      <Space align={'start'}>
+        <Avatar />
+        <Space direction={'vertical'} size={0}>
+          <Typography.Text>풀씨짱123</Typography.Text>
+          <Typography.Text>유익한 글이군요</Typography.Text>
+          <Typography.Text type={'secondary'}>2023. 07. 28</Typography.Text>
+        </Space>
+      </Space>
+      <Form onSubmitCapture={form.onSubmit(onSubmit, noop)}>
+        <Space direction={'vertical'} className={styles.fullWidth}>
+          <Input.TextArea
+            className={styles.commentTextArea}
+            placeholder="댓글을 남겨주세요 :)"
+            {...form.getInputProps('body')}
+          />
+          <div className={styles.commentButtonWrap}>
+            <Button
+              type={'primary'}
+              disabled={!form.isValid()}
+              htmlType={'submit'}
+            >
+              댓글 달기
+            </Button>
+          </div>
+        </Space>
+      </Form>
+    </Space>
   );
 }
