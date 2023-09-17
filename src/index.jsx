@@ -13,6 +13,7 @@ import { ConfigProvider } from 'antd';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '~/lib/utils/queryClient';
 import { MessageProvider } from '~/hooks/useMessage';
+import BusinessScrollTopOnRouteChange from '~/components/@business/BusinessScrollTopOnRouteChange';
 
 const sagaMiddleware = createSagaMiddleware();
 export const store =
@@ -66,6 +67,7 @@ ReactDOM.render(
       <QueryClientProvider client={queryClient}>
         <MessageProvider>
           <BrowserRouter>
+            <BusinessScrollTopOnRouteChange />
             <App />
           </BrowserRouter>
         </MessageProvider>
