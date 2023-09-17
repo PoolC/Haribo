@@ -18,6 +18,7 @@ const useStyles = createStyles(({ css }) => ({
   wrapper: css`
     overflow-x: auto;
     overflow-y: clip;
+    padding-top: 10px;
   `,
   calendarWrap: css`
     width: 100%;

@@ -177,6 +177,7 @@ export default function MyPageBadgeListPage() {
             <Progress
               percent={((allBadges?.attendance ?? 0) / 30) * 100}
               showInfo={false}
+              strokeColor={'#47be9b'}
             />
           </Space>
         </Space>
@@ -205,6 +206,7 @@ export default function MyPageBadgeListPage() {
             <Progress
               percent={(allBadges?.baekjoon ?? 0) / 50}
               showInfo={false}
+              strokeColor={'#47be9b'}
             />
           </Space>
           <div className={styles.badgeWrap}>

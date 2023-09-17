@@ -34,6 +34,7 @@ import { queryClient } from '~/lib/utils/queryClient';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
+    box-sizing: border-box;
     &.scope {
       padding: 30px 20px;
     }
