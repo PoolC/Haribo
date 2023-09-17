@@ -268,7 +268,9 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
               <Form.Item label="마감일자">
                 <DatePicker
                   value={dayjs(form.values.deadline)}
-                  onChange={(_, date) => form.setFieldValue('deadline', date)}
+                  onChange={(_, date) =>
+                    date && form.setFieldValue('deadline', date)
+                  }
                 />
               </Form.Item>
               <div onInput={onEditorInput}>
