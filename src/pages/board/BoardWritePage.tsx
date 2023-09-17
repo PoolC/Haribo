@@ -16,7 +16,7 @@ export default function BoardWritePage() {
     .with('FREE', () => (
       <BoardNormalWriteSection postId={postId} boardType={'FREE'} />
     ))
-    .with('JOB', () => <BoardJobWriteSection />)
+    .with('JOB', () => <BoardJobWriteSection postId={postId} />)
     .with('PROJECT', () => (
       <BoardNormalWriteSection postId={postId} boardType={'PROJECT'} />
     ))

@@ -1,7 +1,5 @@
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
@@ -14,6 +12,9 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '~/lib/utils/queryClient';
 import { MessageProvider } from '~/hooks/useMessage';
 import BusinessScrollTopOnRouteChange from '~/components/@business/BusinessScrollTopOnRouteChange';
+import { Global } from '@emotion/react';
+import { globalStyles } from '~/styles/globalStyles';
+import { theme } from '~/styles/theme';
 
 const sagaMiddleware = createSagaMiddleware();
 export const store =
@@ -37,32 +38,9 @@ export function setUser() {
 sagaMiddleware.run(rootSaga);
 setUser();
 
-const fontFamily = [
-  'SUIT',
-  '-apple-system',
-  'BlinkMacSystemFont',
-  'system-ui',
-  'Roboto',
-  'Helvetica Neue',
-  'Segoe UI',
-  'Apple SD Gothic Neo',
-  'Noto Sans KR',
-  'Malgun Gothic',
-  'Apple Color Emoji',
-  'Segoe UI Emoji',
-  'Segoe UI Symbol',
-  'sans-serif',
-].join(',');
-
-const theme = {
-  token: {
-    colorPrimary: '#47be9b',
-    fontFamily,
-  },
-};
-
 ReactDOM.render(
   <Provider store={store}>
+    <Global styles={globalStyles} />
     <ConfigProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <MessageProvider>
@@ -76,8 +54,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root'),
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
