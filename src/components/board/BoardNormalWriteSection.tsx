@@ -119,6 +119,7 @@ export default function BoardNormalWriteSection({
           title: val.title,
           boardType,
           fileList: val.fileList,
+          postType: 'GENERAL_POST',
           /* always false */
           anonymous: false,
           isQuestion: false,
@@ -128,6 +129,9 @@ export default function BoardNormalWriteSection({
         onSuccess() {
           message.success('글이 작성되었습니다.');
           history.push(`/${MENU.BOARD}?${stringify({ boardType })}`);
+        },
+        onError() {
+          message.error('에러가 발생했습니다.');
         },
       },
     );

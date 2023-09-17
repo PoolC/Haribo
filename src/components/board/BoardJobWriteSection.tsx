@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useRef } from 'react';
+import React, { FormEventHandler, useEffect, useRef } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
@@ -15,13 +15,16 @@ import {
   Upload,
 } from 'antd';
 import {
+  CustomApi,
   PostControllerService,
   PostCreateRequest,
+  queryKey,
   useAppMutation,
+  useAppQuery,
 } from '~/lib/api-v2';
 import { UploadChangeParam } from 'antd/es/upload';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
 import { stringify } from 'qs';
 import { FiUpload } from 'react-icons/fi';
@@ -54,39 +57,48 @@ const useStyles = createStyles(({ css }) => ({
   `,
 }));
 
-export default function BoardJobWriteSection() {
+const schema = z.object({
+  title: z.string().min(1),
+  body: z.string().min(1),
+  position: z.string().min(1),
+  field: z.string().min(1),
+  deadline: z.string().min(1),
+  region: z.string().min(1),
+  fileList: z.array(z.string()),
+});
+
+export default function BoardJobWriteSection({ postId }: { postId: number }) {
   // data
-  const editorRef = useRef<Editor | null>(null);
-
   const { styles } = useStyles();
+  const message = useMessage();
+  const history = useHistory();
 
-  const form = useForm({
+  const editorRef = useRef<Editor | null>(null);
+  const form = useForm<z.infer<typeof schema>>({
     initialValues: {
       title: '',
-      content: '',
+      body: '',
       position: '',
       field: '',
       deadline: dayjs().format('YYYY-MM-DD'),
       region: '',
-      files: [] as File[],
+      fileList: [],
     },
-    validate: zodResolver(
-      z.object({
-        title: z.string().min(1),
-        content: z.string().min(1),
-        position: z.string().min(1),
-        field: z.string().min(1),
-        deadline: z.string().min(1),
-        region: z.string().min(1),
-        files: z.array(z.any()),
-      }),
-    ),
+    validate: zodResolver(schema),
   });
-
-  const message = useMessage();
 
   const { mutate: submitPost } = useAppMutation({
     mutationFn: PostControllerService.registerPostUsingPost,
+  });
+
+  const { mutate: mutateUploadFile } = useAppMutation({
+    mutationFn: CustomApi.uploadFile,
+  });
+
+  const { data: savedPost } = useAppQuery({
+    queryKey: queryKey.post.post(postId),
+    queryFn: () => PostControllerService.viewPostUsingGet({ postId }),
+    enabled: postId > 0,
   });
 
   const positions: { value: PostCreateRequest['position'] }[] = [
@@ -113,35 +125,68 @@ export default function BoardJobWriteSection() {
   // NOTE 에디터에서 값을 직접 가져올 수 없어서 이벤트 버블링 이용
   const onEditorInput: FormEventHandler = () => {
     form.setValues({
-      content: editorRef.current?.getInstance().getHtml(),
+      body: editorRef.current?.getInstance().getHtml(),
     });
   };
 
-  const onFileChange = (info: UploadChangeParam) => {
-    form.setValues({
-      files: info.fileList.map((file) => file.originFileObj) as File[],
+  const onUploadChange = (info: UploadChangeParam) => {
+    mutateUploadFile(info.file as unknown as File, {
+      onSuccess(fileUrl) {
+        form.setFieldValue('fileList', [...form.values.fileList, fileUrl]);
+      },
+      onError() {
+        message.error('에러가 발생했습니다.');
+      },
     });
+  };
+
+  const getUploadFileList = () => {
+    return form.values.fileList.map((file, i) => ({
+      uid: `UPLOAD_FILE@.${i}`,
+      url: file,
+      name: file,
+    }));
   };
 
   const onFormSubmit = (val: typeof form.values) => {
     submitPost(
       {
         request: {
-          body: val.content,
+          body: val.body,
           title: val.title,
           deadline: val.deadline,
           field: val.field,
           postType: 'JOB_POST',
           region: val.region,
+          fileList: val.fileList,
+          /* always false */
+          anonymous: false,
+          isQuestion: false,
         },
       },
       {
         onSuccess() {
           message.success('글이 수정되었습니다.');
+          history.push(`/${MENU.BOARD}?${stringify({ boardType: 'JOB' })}`);
+        },
+        onError() {
+          message.error('에러가 발생했습니다.');
         },
       },
     );
   };
+
+  // effects
+  useEffect(() => {
+    if (savedPost) {
+      form.setValues({
+        title: savedPost.title ?? '',
+        body: savedPost.body ?? '',
+        fileList: savedPost.fileList ?? [],
+      });
+      editorRef.current?.getInstance().setHtml(savedPost.body ?? '');
+    }
+  }, [savedPost]);
 
   return (
     <Block>
@@ -237,7 +282,8 @@ export default function BoardJobWriteSection() {
                 <Upload
                   multiple
                   beforeUpload={() => false}
-                  onChange={onFileChange}
+                  onChange={onUploadChange}
+                  fileList={getUploadFileList()}
                 >
                   <Button icon={<FiUpload />}>파일 업로드</Button>
                 </Upload>
