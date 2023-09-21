@@ -122,10 +122,14 @@ export default function AdminBadgeManagement() {
     {
       key: 'action',
       title: '수정/삭제',
-      render: (_, { id }) => (
+      render: (_, { id, category }) => (
         <Space>
           <Button onClick={() => onEditButtonClick(id)}>수정</Button>
-          <Button danger onClick={() => onDangerButtonClick(id)}>
+          <Button
+            danger
+            onClick={() => onDangerButtonClick(id)}
+            disabled={['BAEKJOON', 'ATTENDANCE'].includes(category)}
+          >
             삭제
           </Button>
         </Space>
