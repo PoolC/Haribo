@@ -135,9 +135,6 @@ export default function BoardNormalWriteSection({
             message.success('글이 수정되었습니다.');
             history.push(`/${MENU.BOARD}/${postId}`);
           },
-          onError() {
-            message.error('에러가 발생했습니다.');
-          },
         },
       );
     } else {
@@ -159,9 +156,6 @@ export default function BoardNormalWriteSection({
             message.success('글이 작성되었습니다.');
             history.push(`/${MENU.BOARD}?${stringify({ boardType })}`);
           },
-          onError() {
-            message.error('에러가 발생했습니다.');
-          },
         },
       );
     }
@@ -179,9 +173,6 @@ export default function BoardNormalWriteSection({
     uploadFile(info.file as unknown as File, {
       onSuccess(fileUrl) {
         form.setFieldValue('fileList', [...form.values.fileList, fileUrl]);
-      },
-      onError() {
-        message.error('에러가 발생했습니다.');
       },
     });
   };

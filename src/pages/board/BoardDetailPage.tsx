@@ -163,9 +163,6 @@ export default function BoardDetailPage() {
             .invalidateQueries(queryKey.post.post(postId))
             .catch(console.log);
         },
-        onError() {
-          message.error('에러가 발생했습니다.');
-        },
       },
     );
   };
@@ -186,9 +183,6 @@ export default function BoardDetailPage() {
             .invalidateQueries(queryKey.post.post(postId))
             .catch(console.log);
         },
-        onError() {
-          message.error('에러가 발생했습니다.');
-        },
       },
     );
   };
@@ -206,9 +200,6 @@ export default function BoardDetailPage() {
               boardType: post?.boardType,
             })}`,
           );
-        },
-        onError() {
-          message.error('에러가 발생했습니다.');
         },
       },
     );

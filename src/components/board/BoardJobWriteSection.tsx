@@ -140,9 +140,6 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
       onSuccess(fileUrl) {
         form.setFieldValue('fileList', [...form.values.fileList, fileUrl]);
       },
-      onError() {
-        message.error('에러가 발생했습니다.');
-      },
     });
   };
 
@@ -175,9 +172,6 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
             message.success('글이 수정되었습니다.');
             history.push(`/${MENU.BOARD}/${postId}`);
           },
-          onError() {
-            message.error('에러가 발생했습니다.');
-          },
         },
       );
     } else {
@@ -201,9 +195,6 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
           onSuccess() {
             message.success('글이 작성되었습니다.');
             history.push(`/${MENU.BOARD}?${stringify({ boardType: 'JOB' })}`);
-          },
-          onError() {
-            message.error('에러가 발생했습니다.');
           },
         },
       );

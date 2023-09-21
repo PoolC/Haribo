@@ -93,9 +93,6 @@ export default function AdminBadgeManagement() {
         onSuccess() {
           onRefecthAllBadges().then(noop);
         },
-        onError() {
-          alert('에러가 발생했습니다.');
-        },
       },
     );
   };
@@ -220,9 +217,6 @@ function BadgeGenerateModal({
           message.success('뱃지가 생성되었습니다.');
           _onOk();
         },
-        onError() {
-          message.error('에러가 발생했습니다.');
-        },
       },
     );
   };
@@ -240,9 +234,6 @@ function BadgeGenerateModal({
     mutateUploadFile(info.file as unknown as File, {
       onSuccess(imageUrl) {
         form.setFieldValue('imageUrl', imageUrl);
-      },
-      onError() {
-        message.error('에러가 발생했습니다.');
       },
     });
   };
@@ -336,9 +327,6 @@ function BadgeEditModal({
           message.success('뱃지가 수정되었습니다.');
           _onOk();
         },
-        onError() {
-          message.error('에러가 발생했습니다.');
-        },
       },
     );
   };
@@ -356,9 +344,6 @@ function BadgeEditModal({
     mutateUploadFile(info.file as unknown as File, {
       onSuccess(imageUrl) {
         form.setFieldValue('imageUrl', imageUrl);
-      },
-      onError() {
-        message.error('에러가 발생했습니다.');
       },
     });
   };
