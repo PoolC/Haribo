@@ -9,7 +9,7 @@ export const ProjectCardBlock = styled.li`
   margin: 10px;
   height: 210px;
 
-  &:first-child {
+  &:first-of-type {
     margin-left: 0;
   }
 
