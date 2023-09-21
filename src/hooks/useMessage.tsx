@@ -42,8 +42,8 @@ export const MessageProvider = ({ children }: PropsWithChildren<object>) => {
 
   return (
     <MessageContext.Provider value={value}>
-      {children}
       {contextHolder}
+      {children}
     </MessageContext.Provider>
   );
 };

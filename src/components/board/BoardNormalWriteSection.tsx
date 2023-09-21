@@ -89,18 +89,24 @@ export default function BoardNormalWriteSection({
 
   const message = useMessage();
 
-  const { mutate: submitPost } = useAppMutation({
+  const isEdit = postId > 0;
+
+  const { mutate: submitNewPost } = useAppMutation({
     mutationFn: PostControllerService.registerPostUsingPost,
   });
 
-  const { mutate: mutateUploadFile } = useAppMutation({
+  const { mutate: updatePost } = useAppMutation({
+    mutationFn: PostControllerService.updatePostUsingPut,
+  });
+
+  const { mutate: uploadFile } = useAppMutation({
     mutationFn: CustomApi.uploadFile,
   });
 
   const { data: savedPost } = useAppQuery({
     queryKey: queryKey.post.post(postId),
     queryFn: () => PostControllerService.viewPostUsingGet({ postId }),
-    enabled: postId > 0,
+    enabled: isEdit,
   });
 
   // methods
@@ -112,29 +118,53 @@ export default function BoardNormalWriteSection({
   };
 
   const onFormSubmit = (val: typeof form.values) => {
-    submitPost(
-      {
-        request: {
-          body: val.body,
-          title: val.title,
-          boardType,
-          fileList: val.fileList,
-          postType: 'GENERAL_POST',
-          /* always false */
-          anonymous: false,
-          isQuestion: false,
+    if (isEdit) {
+      updatePost(
+        {
+          postId,
+          request: {
+            body: val.body,
+            title: val.title,
+            fileList: val.fileList,
+            /* always false */
+            anonymous: false,
+          },
         },
-      },
-      {
-        onSuccess() {
-          message.success('글이 작성되었습니다.');
-          history.push(`/${MENU.BOARD}?${stringify({ boardType })}`);
+        {
+          onSuccess() {
+            message.success('글이 수정되었습니다.');
+            history.push(`/${MENU.BOARD}/${postId}`);
+          },
+          onError() {
+            message.error('에러가 발생했습니다.');
+          },
         },
-        onError() {
-          message.error('에러가 발생했습니다.');
+      );
+    } else {
+      submitNewPost(
+        {
+          request: {
+            body: val.body,
+            title: val.title,
+            boardType,
+            fileList: val.fileList,
+            postType: 'GENERAL_POST',
+            /* always false */
+            anonymous: false,
+            isQuestion: false,
+          },
         },
-      },
-    );
+        {
+          onSuccess() {
+            message.success('글이 작성되었습니다.');
+            history.push(`/${MENU.BOARD}?${stringify({ boardType })}`);
+          },
+          onError() {
+            message.error('에러가 발생했습니다.');
+          },
+        },
+      );
+    }
   };
 
   const renderDescription = () =>
@@ -146,7 +176,7 @@ export default function BoardNormalWriteSection({
       .exhaustive();
 
   const onUploadChange = (info: UploadChangeParam) => {
-    mutateUploadFile(info.file as unknown as File, {
+    uploadFile(info.file as unknown as File, {
       onSuccess(fileUrl) {
         form.setFieldValue('fileList', [...form.values.fileList, fileUrl]);
       },
