@@ -159,6 +159,7 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
           postType: 'JOB_POST',
           region: val.region,
           fileList: val.fileList,
+          boardType: 'JOB',
           /* always false */
           anonymous: false,
           isQuestion: false,
