@@ -1,4 +1,5 @@
 # Dialga
+![Dialga](./public/images/dialga.webp)  
 PoolC Renewal 2023 Web Frontend(forked from Haribo)
 
 ## Prerequisites 
@@ -7,5 +8,5 @@ PoolC Renewal 2023 Web Frontend(forked from Haribo)
 ## Commands
 ```shell
 yarn # install
-yarn dev # run local
+yarn dev # run locally
 ```
