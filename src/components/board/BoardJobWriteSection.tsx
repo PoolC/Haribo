@@ -87,8 +87,14 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
     validate: zodResolver(schema),
   });
 
-  const { mutate: submitPost } = useAppMutation({
+  const isEdit = postId > 0;
+
+  const { mutate: submitNewPost } = useAppMutation({
     mutationFn: PostControllerService.registerPostUsingPost,
+  });
+
+  const { mutate: updatePost } = useAppMutation({
+    mutationFn: PostControllerService.updatePostUsingPut,
   });
 
   const { mutate: mutateUploadFile } = useAppMutation({
@@ -98,7 +104,7 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
   const { data: savedPost } = useAppQuery({
     queryKey: queryKey.post.post(postId),
     queryFn: () => PostControllerService.viewPostUsingGet({ postId }),
-    enabled: postId > 0,
+    enabled: isEdit,
   });
 
   const positions: { value: PostCreateRequest['position'] }[] = [
@@ -149,32 +155,59 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
   };
 
   const onFormSubmit = (val: typeof form.values) => {
-    submitPost(
-      {
-        request: {
-          body: val.body,
-          title: val.title,
-          deadline: val.deadline,
-          field: val.field,
-          postType: 'JOB_POST',
-          region: val.region,
-          fileList: val.fileList,
-          boardType: 'JOB',
-          /* always false */
-          anonymous: false,
-          isQuestion: false,
+    if (isEdit) {
+      updatePost(
+        {
+          postId,
+          request: {
+            body: val.body,
+            title: val.title,
+            deadline: val.deadline,
+            field: val.field,
+            region: val.region,
+            fileList: val.fileList,
+            /* always false */
+            anonymous: false,
+          },
         },
-      },
-      {
-        onSuccess() {
-          message.success('글이 수정되었습니다.');
-          history.push(`/${MENU.BOARD}?${stringify({ boardType: 'JOB' })}`);
+        {
+          onSuccess() {
+            message.success('글이 수정되었습니다.');
+            history.push(`/${MENU.BOARD}/${postId}`);
+          },
+          onError() {
+            message.error('에러가 발생했습니다.');
+          },
         },
-        onError() {
-          message.error('에러가 발생했습니다.');
+      );
+    } else {
+      submitNewPost(
+        {
+          request: {
+            body: val.body,
+            title: val.title,
+            deadline: val.deadline,
+            field: val.field,
+            postType: 'JOB_POST',
+            region: val.region,
+            fileList: val.fileList,
+            boardType: 'JOB',
+            /* always false */
+            anonymous: false,
+            isQuestion: false,
+          },
         },
-      },
-    );
+        {
+          onSuccess() {
+            message.success('글이 작성되었습니다.');
+            history.push(`/${MENU.BOARD}?${stringify({ boardType: 'JOB' })}`);
+          },
+          onError() {
+            message.error('에러가 발생했습니다.');
+          },
+        },
+      );
+    }
   };
 
   // effects
