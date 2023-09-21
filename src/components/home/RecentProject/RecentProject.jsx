@@ -54,7 +54,9 @@ const RecentProject = ({ projects }) => {
         }
 
         targetRefs.forEach((t) => {
-          observer.observe(t.current);
+          if (t.current) {
+            observer.observe(t.current);
+          }
         });
       });
     };

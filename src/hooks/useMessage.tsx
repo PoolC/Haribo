@@ -5,12 +5,16 @@ import { noop } from '~/lib/utils/noop';
 const MessageContext = createContext<{
   success: (text: string) => void;
   error: (text: string) => void;
+  warn: (text: string) => void;
 }>({
   success: (text: string) => {
     throw new Error('not override yet. message context - success method');
   },
   error: (text: string) => {
     throw new Error('not override yet. message context - error method');
+  },
+  warn: (text: string) => {
+    throw new Error('not override yet. message context - warn method');
   },
 });
 
@@ -29,14 +33,17 @@ export const MessageProvider = ({ children }: PropsWithChildren<object>) => {
       error: (text: string) => {
         messageApi.error(text).then(noop);
       },
+      warn: (text: string) => {
+        messageApi.warning(text).then(noop);
+      },
     }),
     [messageApi],
   );
 
   return (
     <MessageContext.Provider value={value}>
-      {children}
       {contextHolder}
+      {children}
     </MessageContext.Provider>
   );
 };

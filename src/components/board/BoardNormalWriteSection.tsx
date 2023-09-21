@@ -1,32 +1,32 @@
-import React, { FormEventHandler, useRef } from 'react';
+import React, { FormEventHandler, useEffect, useRef } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
 import {
   Breadcrumb,
   Button,
-  Checkbox,
   Divider,
   Form,
   Input,
   Space,
   Typography,
   Upload,
-  UploadFile,
 } from 'antd';
-import { CustomApi, PostControllerService, useAppMutation } from '~/lib/api-v2';
+import {
+  CustomApi,
+  PostControllerService,
+  queryKey,
+  useAppMutation,
+  useAppQuery,
+} from '~/lib/api-v2';
 import { UploadChangeParam } from 'antd/es/upload';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
 import { stringify } from 'qs';
 import { FiUpload } from 'react-icons/fi';
 import { createStyles } from 'antd-style';
-import {
-  BoardType,
-  BoardWriteMode,
-  getBoardTitleByBoardType,
-} from '~/lib/utils/boardUtil';
+import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
 import { match } from 'ts-pattern';
 import { useMessage } from '~/hooks/useMessage';
 
@@ -57,9 +57,8 @@ const useStyles = createStyles(({ css }) => ({
 
 const schema = z.object({
   title: z.string().min(1),
-  content: z.string().min(1),
+  body: z.string().min(1),
   fileList: z.array(z.string()),
-  isAnonymous: z.boolean(),
 });
 
 /**
@@ -69,58 +68,97 @@ const schema = z.object({
  * */
 export default function BoardNormalWriteSection({
   boardType,
-  mode,
+  postId,
 }: {
   boardType: Exclude<BoardType, 'JOB'>;
-  mode: BoardWriteMode;
+  postId: number;
 }) {
-  const editorRef = useRef<Editor | null>(null);
-
   const { styles } = useStyles();
+  const history = useHistory();
+
+  const editorRef = useRef<Editor | null>(null);
 
   const form = useForm<z.infer<typeof schema>>({
     initialValues: {
       title: '',
-      content: '',
+      body: '',
       fileList: [],
-      isAnonymous: false,
     },
     validate: zodResolver(schema),
   });
 
   const message = useMessage();
 
-  const { mutate: submitPost } = useAppMutation({
+  const isEdit = postId > 0;
+
+  const { mutate: submitNewPost } = useAppMutation({
     mutationFn: PostControllerService.registerPostUsingPost,
   });
 
-  const { mutate: mutateUploadFile } = useAppMutation({
+  const { mutate: updatePost } = useAppMutation({
+    mutationFn: PostControllerService.updatePostUsingPut,
+  });
+
+  const { mutate: uploadFile } = useAppMutation({
     mutationFn: CustomApi.uploadFile,
   });
 
+  const { data: savedPost } = useAppQuery({
+    queryKey: queryKey.post.post(postId),
+    queryFn: () => PostControllerService.viewPostUsingGet({ postId }),
+    enabled: isEdit,
+  });
+
+  // methods
   // NOTE 에디터에서 값을 직접 가져올 수 없어서 이벤트 버블링 이용
   const onEditorInput: FormEventHandler = () => {
     form.setValues({
-      content: editorRef.current?.getInstance().getHtml(),
+      body: editorRef.current?.getInstance().getHtml(),
     });
   };
 
   const onFormSubmit = (val: typeof form.values) => {
-    submitPost(
-      {
-        request: {
-          body: val.content,
-          title: val.title,
-          anonymous: val.isAnonymous,
-          boardType,
+    if (isEdit) {
+      updatePost(
+        {
+          postId,
+          request: {
+            body: val.body,
+            title: val.title,
+            fileList: val.fileList,
+            /* always false */
+            anonymous: false,
+          },
         },
-      },
-      {
-        onSuccess() {
-          message.success('글이 작성되었습니다.');
+        {
+          onSuccess() {
+            message.success('글이 수정되었습니다.');
+            history.push(`/${MENU.BOARD}/${postId}`);
+          },
         },
-      },
-    );
+      );
+    } else {
+      submitNewPost(
+        {
+          request: {
+            body: val.body,
+            title: val.title,
+            boardType,
+            fileList: val.fileList,
+            postType: 'GENERAL_POST',
+            /* always false */
+            anonymous: false,
+            isQuestion: false,
+          },
+        },
+        {
+          onSuccess() {
+            message.success('글이 작성되었습니다.');
+            history.push(`/${MENU.BOARD}?${stringify({ boardType })}`);
+          },
+        },
+      );
+    }
   };
 
   const renderDescription = () =>
@@ -131,25 +169,35 @@ export default function BoardNormalWriteSection({
       .with('CS', () => 'CS 전공지식을 공유해요')
       .exhaustive();
 
-  const onUploadChange = (info: UploadChangeParam<UploadFile<any>>) => {
-    mutateUploadFile(info.file as unknown as File, {
+  const onUploadChange = (info: UploadChangeParam) => {
+    uploadFile(info.file as unknown as File, {
       onSuccess(fileUrl) {
         form.setFieldValue('fileList', [...form.values.fileList, fileUrl]);
-      },
-      onError() {
-        message.error('에러가 발생했습니다.');
       },
     });
   };
 
   const getUploadFileList = () => {
     return form.values.fileList.map((file, i) => ({
-      uid: `UPLOAD_FILE@.{i}`,
+      uid: `UPLOAD_FILE@.${i}`,
       url: file,
       name: file,
     }));
   };
 
+  // effects
+  useEffect(() => {
+    if (savedPost) {
+      form.setValues({
+        title: savedPost.title ?? '',
+        body: savedPost.body ?? '',
+        fileList: savedPost.fileList ?? [],
+      });
+      editorRef.current?.getInstance().setHtml(savedPost.body ?? '');
+    }
+  }, [savedPost]);
+
+  // render
   return (
     <Block>
       <WhiteBlock>
@@ -188,7 +236,7 @@ export default function BoardNormalWriteSection({
                 <Typography>{renderDescription()}</Typography>
               </Space>
               <div className={styles.fullWidth}>
-                <Form.Item label={'제목'} name={'title'}>
+                <Form.Item label={'제목'}>
                   <Input
                     placeholder={'제목을 입력해주세요.'}
                     {...form.getInputProps('title')}
@@ -211,16 +259,6 @@ export default function BoardNormalWriteSection({
                     <Button icon={<FiUpload />}>파일 업로드</Button>
                   </Upload>
                   <Space>
-                    {boardType !== 'NOTICE' && (
-                      <Checkbox
-                        checked={form.values.isAnonymous}
-                        onChange={(e) =>
-                          form.setFieldValue('isAnonymous', e.target.checked)
-                        }
-                      >
-                        익명
-                      </Checkbox>
-                    )}
                     <Button
                       type={'primary'}
                       htmlType={'submit'}

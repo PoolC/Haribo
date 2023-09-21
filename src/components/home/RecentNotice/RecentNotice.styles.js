@@ -44,7 +44,7 @@ export const RecentNoticeItem = styled.li`
   border-bottom: 1px solid ${colors.mint[1]};
   transition: 0.3s;
 
-  &:first-child {
+  &:first-of-type {
     border-top: 1px solid ${colors.mint[1]};
   }
 

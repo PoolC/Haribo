@@ -189,9 +189,6 @@ function MemberBadgeListModal({
           message.success('수정되었습니다.');
           _onOk();
         },
-        onError() {
-          message.error('에러가 발생했습니다.');
-        },
       },
     );
   };

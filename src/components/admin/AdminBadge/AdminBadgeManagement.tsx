@@ -93,9 +93,6 @@ export default function AdminBadgeManagement() {
         onSuccess() {
           onRefecthAllBadges().then(noop);
         },
-        onError() {
-          alert('에러가 발생했습니다.');
-        },
       },
     );
   };
@@ -125,10 +122,14 @@ export default function AdminBadgeManagement() {
     {
       key: 'action',
       title: '수정/삭제',
-      render: (_, { id }) => (
+      render: (_, { id, category }) => (
         <Space>
           <Button onClick={() => onEditButtonClick(id)}>수정</Button>
-          <Button danger onClick={() => onDangerButtonClick(id)}>
+          <Button
+            danger
+            onClick={() => onDangerButtonClick(id)}
+            disabled={['BAEKJOON', 'ATTENDANCE'].includes(category)}
+          >
             삭제
           </Button>
         </Space>
@@ -220,9 +221,6 @@ function BadgeGenerateModal({
           message.success('뱃지가 생성되었습니다.');
           _onOk();
         },
-        onError() {
-          message.error('에러가 발생했습니다.');
-        },
       },
     );
   };
@@ -240,9 +238,6 @@ function BadgeGenerateModal({
     mutateUploadFile(info.file as unknown as File, {
       onSuccess(imageUrl) {
         form.setFieldValue('imageUrl', imageUrl);
-      },
-      onError() {
-        message.error('에러가 발생했습니다.');
       },
     });
   };
@@ -336,9 +331,6 @@ function BadgeEditModal({
           message.success('뱃지가 수정되었습니다.');
           _onOk();
         },
-        onError() {
-          message.error('에러가 발생했습니다.');
-        },
       },
     );
   };
@@ -356,9 +348,6 @@ function BadgeEditModal({
     mutateUploadFile(info.file as unknown as File, {
       onSuccess(imageUrl) {
         form.setFieldValue('imageUrl', imageUrl);
-      },
-      onError() {
-        message.error('에러가 발생했습니다.');
       },
     });
   };

@@ -1,9 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 import * as authAPI from '../lib/api/auth';
-import { call, put } from 'redux-saga/effects';
-import { takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import client from '../lib/api/client';
-import { setApiAccessToken } from '~/lib/api-v2';
+import { removeApiAccessToken, setApiAccessToken } from '~/lib/api-v2';
 
 const LOGIN = 'auth/LOGIN';
 const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
@@ -79,6 +78,7 @@ function* loginSaga(action) {
   try {
     const result = yield call(authAPI.login, action.payload);
     yield localStorage.setItem('accessToken', result.data.accessToken);
+    yield setApiAccessToken(result.data.accessToken);
     yield put({
       type: LOGIN_SUCCESS,
       data: result.data.accessToken,
@@ -96,12 +96,14 @@ function* loginSaga(action) {
 function logoutRequest() {
   localStorage.removeItem('accessToken');
   client.defaults.headers.common['Authorization'] = '';
+  removeApiAccessToken();
 }
 
 function* handleExpiredAccessTokenRequest() {
   try {
     yield localStorage.removeItem('accessToken');
     yield (client.defaults.headers.common['Authorization'] = '');
+    yield removeApiAccessToken();
     yield (window.location.href = '/login');
   } catch (err) {
     console.error('*****');

@@ -4,6 +4,10 @@ export function setApiAccessToken(token: string) {
   OpenAPI.TOKEN = token;
 }
 
+export function removeApiAccessToken() {
+  OpenAPI.TOKEN = undefined;
+}
+
 function init() {
   // token
   const cachedToken = localStorage.getItem('accessToken');
@@ -12,10 +16,9 @@ function init() {
   }
 
   // base url
-  const API_BASE_URL = import.meta.env.DEV
+  OpenAPI.BASE = import.meta.env.DEV
     ? '/api/mincho'
     : import.meta.env.VITE_API_BASE_URL;
-  OpenAPI.BASE = API_BASE_URL;
 }
 
 init();
