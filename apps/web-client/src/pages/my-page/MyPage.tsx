@@ -1,22 +1,9 @@
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
-import {
-  Avatar,
-  Button,
-  List,
-  Popover,
-  Progress,
-  Space,
-  Typography,
-} from 'antd';
-import { JSX } from 'react';
+import { Avatar, Button, List, Popover, Progress, Space, Typography } from 'antd';
 import { createStyles } from 'antd-style';
 import { AiFillMessage } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import {
-  BsFillPencilFill,
-  BsFillQuestionCircleFill,
-  BsFillStarFill,
-} from 'react-icons/bs';
+import { BsFillPencilFill, BsFillQuestionCircleFill, BsFillStarFill } from 'react-icons/bs';
 import { BiSolidUser } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';
 import {

@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
 import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
 import classNames from 'classnames';
-import { JSX } from 'react';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`

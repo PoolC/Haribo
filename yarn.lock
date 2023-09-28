@@ -836,13 +836,13 @@ __metadata:
     "@toast-ui/editor-plugin-color-syntax": 1.0.1
     "@toast-ui/editor-plugin-table-merged-cell": 1.3.2
     "@toast-ui/react-editor": 2.5.1
-    "@types/node": 18.17.1
+    "@types/node": 18.15.3
     "@types/qs": 6.9.7
     "@types/react": 17.0.2
     "@types/react-dom": 17.0.2
     "@types/react-redux": 7.1.25
     "@types/react-router-dom": 5.3.3
-    "@types/redux-actions": 2.6.2
+    "@types/redux-actions": 2.6.3
     "@types/redux-devtools-extension": 2.13.2
     "@vitejs/plugin-react": 4.0.4
     antd: 5.7.3
@@ -868,7 +868,7 @@ __metadata:
     redux-devtools-extension: 2.13.8
     redux-saga: 1.1.3
     ts-pattern: 4.3.0
-    typescript: 4.9.5
+    typescript: 4.9.3
     vite: 4.4.7
     web-vitals: 1.1.0
     zod: 3.22.2
@@ -1156,10 +1156,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:18.17.1":
-  version: 18.17.1
-  resolution: "@types/node@npm:18.17.1"
-  checksum: 56201bda9a2d05d68602df63b4e67b0545ac8c6d0280bd5fb31701350a978a577a027501fbf49db99bf177f2242ebd1244896bfd35e89042d5bd7dfebff28d4e
+"@types/node@npm:18.15.3":
+  version: 18.15.3
+  resolution: "@types/node@npm:18.15.3"
+  checksum: 31b1d92475a82c30de29aa6c0771b18a276552d191283b4423ba2d61b3f01159bf0d02576c0b7cc834b043997893800db6bb47f246083ed85aa45e79c80875d7
   languageName: node
   linkType: hard
 
@@ -1226,17 +1226,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
-  version: 18.2.23
-  resolution: "@types/react@npm:18.2.23"
-  dependencies:
-    "@types/prop-types": "*"
-    "@types/scheduler": "*"
-    csstype: ^3.0.2
-  checksum: efb9d1ed1940c0e7ba08a21ffba5e266d8dbbb8fe618cfb97bc902dfc96385fdd8189e3f7f64b4aa13134f8e61947d60560deb23be151253c3a97b0d070897ca
-  languageName: node
-  linkType: hard
-
 "@types/react@npm:17.0.2":
   version: 17.0.2
   resolution: "@types/react@npm:17.0.2"
@@ -1247,10 +1236,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/redux-actions@npm:2.6.2":
-  version: 2.6.2
-  resolution: "@types/redux-actions@npm:2.6.2"
-  checksum: 61388ab6f590b61037c5366ddd030c1445c86d61314554488cf62cc3a79a0a4d76da5b61cf4e5fcd40b83d07d40a428a2eff0b2f4f8433f9c620db2b88061b2d
+"@types/redux-actions@npm:2.6.3":
+  version: 2.6.3
+  resolution: "@types/redux-actions@npm:2.6.3"
+  checksum: 10bc48ae508e5078f7c7e1eec2a0eb39ac1027a7570917acc75fd98acf0364d5e48a1448b5e877e89be643f4249c5383435af7e652554de20a0fdf03ea872762
   languageName: node
   linkType: hard
 
@@ -1260,13 +1249,6 @@ __metadata:
   dependencies:
     redux-devtools-extension: "*"
   checksum: ae9ab87db0d88476580d80bb09b0b5d6793197c495abc931374b01290761957098f75dfa02dbe3b205b6c2c1185eb188eaa2e2f2d6428a457b8f85fc258f7884
-  languageName: node
-  linkType: hard
-
-"@types/scheduler@npm:*":
-  version: 0.16.4
-  resolution: "@types/scheduler@npm:0.16.4"
-  checksum: a57b0f10da1b021e6bd5eeef8a1917dd3b08a8715bd8029e2ded2096d8f091bb1bb1fef2d66e139588a983c4bfbad29b59e48011141725fa83c76e986e1257d7
   languageName: node
   linkType: hard
 
@@ -1912,9 +1894,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.530":
-  version: 1.4.532
-  resolution: "electron-to-chromium@npm:1.4.532"
-  checksum: e9f77b5d6df84aa1f7598359ec2c988c3758e58106e63f2a0a6dc4756a6733b126316e61a79a2a6643aa2a0f9a1cf9ebe66c817dcb970a3fc9d8190342ef070a
+  version: 1.4.534
+  resolution: "electron-to-chromium@npm:1.4.534"
+  checksum: f4d67a4dc797bc74260aad58113a3c0115f9ce3e71174a774c0db644c066183fcb69ee94d9d09b2881b96189b37d21512be6b3402b112c1ad17dea9c1dce4843
   languageName: node
   linkType: hard
 
@@ -4465,23 +4447,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.9.5":
-  version: 4.9.5
-  resolution: "typescript@npm:4.9.5"
+"typescript@npm:4.9.3":
+  version: 4.9.3
+  resolution: "typescript@npm:4.9.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: ee000bc26848147ad423b581bd250075662a354d84f0e06eb76d3b892328d8d4440b7487b5a83e851b12b255f55d71835b008a66cbf8f255a11e4400159237db
+  checksum: 17b8f816050b412403e38d48eef0e893deb6be522d6dc7caf105e54a72e34daf6835c447735fd2b28b66784e72bfbf87f627abb4818a8e43d1fa8106396128dc
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.9.5#~builtin<compat/typescript>":
-  version: 4.9.5
-  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"
+"typescript@patch:typescript@4.9.3#~builtin<compat/typescript>":
+  version: 4.9.3
+  resolution: "typescript@patch:typescript@npm%3A4.9.3#~builtin<compat/typescript>::version=4.9.3&hash=a66ed4"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 1f8f3b6aaea19f0f67cba79057674ba580438a7db55057eb89cc06950483c5d632115c14077f6663ea76fd09fce3c190e6414bb98582ec80aa5a4eaf345d5b68
+  checksum: d7bdcf5e18193f709339540d69577f7b0389000265db2bf10edfaa67336a29d6bcbee11828084150f7fdd110d605794cfa6df33bebc0a2e33daad2dbe2a7a59f
   languageName: node
   linkType: hard
 

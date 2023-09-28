@@ -2,18 +2,7 @@ import React, { FormEventHandler, useEffect, useRef } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
-import {
-  Breadcrumb,
-  Button,
-  DatePicker,
-  Divider,
-  Form,
-  Input,
-  Radio,
-  Space,
-  Typography,
-  Upload,
-} from 'antd';
+import { Breadcrumb, Button, DatePicker, Divider, Form, Input, Radio, Space, Typography, Upload } from 'antd';
 import {
   CustomApi,
   PostControllerService,
@@ -292,7 +281,7 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
               </Form.Item>
               <Form.Item label="마감일자">
                 <DatePicker
-                  value={dayjs(form.values.deadline)}
+                  value={dayjs(form.values.deadline) as any}
                   onChange={(_, date) =>
                     date && form.setFieldValue('deadline', date)
                   }

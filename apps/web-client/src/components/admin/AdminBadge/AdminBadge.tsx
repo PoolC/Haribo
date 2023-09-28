@@ -2,7 +2,6 @@ import { WhiteNarrowBlock } from '~/styles/common/Block.styles';
 import { createStyles } from 'antd-style';
 import { Tabs } from 'antd';
 import { useSearchParams } from '~/hooks/useSearchParams';
-import { JSX } from 'react';
 import AdminBadgeManagement from '~/components/admin/AdminBadge/AdminBadgeManagement';
 import { useHistory } from 'react-router-dom';
 import { MENU } from '~/constants/menus';

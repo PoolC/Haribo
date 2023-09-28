@@ -1,9 +1,4 @@
-import {
-  PoolcControllerService,
-  ProjectControllerService,
-  queryKey,
-  useAppQueries,
-} from '~/lib/api-v2';
+import { PoolcControllerService, ProjectControllerService, queryKey, useAppQueries } from '~/lib/api-v2';
 import { Skeleton } from 'antd';
 import Carousel from '~/components/home/Carousel/Carousel';
 import { useSelector } from 'react-redux';
