@@ -1153,6 +1153,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/styled", "virtual:1976df9f66099404609180f288d7625241102adbbeacf1a12c1cfdfe607bfddad9f2fdbcd490df17e987bd7b6490bd730307ffd287824c3e2ca9f82da35c80b3#npm:11.11.0"],\
             ["@mantine/form", "virtual:1976df9f66099404609180f288d7625241102adbbeacf1a12c1cfdfe607bfddad9f2fdbcd490df17e987bd7b6490bd730307ffd287824c3e2ca9f82da35c80b3#npm:6.0.19"],\
             ["@tanstack/react-query", "virtual:1976df9f66099404609180f288d7625241102adbbeacf1a12c1cfdfe607bfddad9f2fdbcd490df17e987bd7b6490bd730307ffd287824c3e2ca9f82da35c80b3#npm:4.29.25"],\
+            ["@toast-ui/editor", "npm:2.5.1"],\
             ["@toast-ui/editor-plugin-code-syntax-highlight", "npm:1.0.0"],\
             ["@toast-ui/editor-plugin-color-syntax", "npm:1.0.1"],\
             ["@toast-ui/editor-plugin-table-merged-cell", "npm:1.3.2"],\
@@ -1170,6 +1171,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["antd-style", "virtual:1976df9f66099404609180f288d7625241102adbbeacf1a12c1cfdfe607bfddad9f2fdbcd490df17e987bd7b6490bd730307ffd287824c3e2ca9f82da35c80b3#npm:3.4.3"],\
             ["axios", "npm:0.21.2"],\
             ["classnames", "npm:2.3.2"],\
+            ["codemirror", "npm:5.65.15"],\
             ["concurrently", "npm:8.2.1"],\
             ["dayjs", "npm:1.11.9"],\
             ["dotenv", "npm:8.2.0"],\
@@ -1494,6 +1496,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@toast-ui/editor", [\
+        ["npm:2.5.1", {\
+          "packageLocation": "./.yarn/cache/@toast-ui-editor-npm-2.5.1-6c11554d90-e7b75d5e5d.zip/node_modules/@toast-ui/editor/",\
+          "packageDependencies": [\
+            ["@toast-ui/editor", "npm:2.5.1"],\
+            ["@types/codemirror", "npm:0.0.71"],\
+            ["codemirror", "npm:5.65.15"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:2.5.4", {\
           "packageLocation": "./.yarn/cache/@toast-ui-editor-npm-2.5.4-7f11654660-3396e34f88.zip/node_modules/@toast-ui/editor/",\
           "packageDependencies": [\
