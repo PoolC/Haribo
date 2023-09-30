@@ -2,8 +2,20 @@ import React, { FormEventHandler, useEffect, useRef } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
-import { Breadcrumb, Button, DatePicker, Divider, Form, Input, Radio, Space, Typography, Upload } from 'antd';
 import {
+  Breadcrumb,
+  Button,
+  DatePicker,
+  Divider,
+  Form,
+  Input,
+  Radio,
+  Space,
+  Typography,
+  Upload,
+} from 'antd';
+import {
+  ApiError,
   CustomApi,
   PostControllerService,
   PostCreateRequest,
@@ -88,6 +100,15 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
 
   const { mutate: mutateUploadFile } = useAppMutation({
     mutationFn: CustomApi.uploadFile,
+    onError(_e) {
+      const e = _e as ApiError;
+      if (e.status === 400) {
+        message.error('이미 존재하는 파일명입니다. 파일명을 수정해주세요.');
+      }
+      {
+        message.error('에러가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      }
+    },
   });
 
   const { data: savedPost } = useAppQuery({
@@ -296,7 +317,6 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
                 className={styles.buttonWrap}
               >
                 <Upload
-                  multiple
                   beforeUpload={() => false}
                   onChange={onUploadChange}
                   fileList={getUploadFileList()}

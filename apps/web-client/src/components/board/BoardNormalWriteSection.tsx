@@ -13,6 +13,7 @@ import {
   Upload,
 } from 'antd';
 import {
+  ApiError,
   CustomApi,
   PostControllerService,
   queryKey,
@@ -75,6 +76,7 @@ export default function BoardNormalWriteSection({
 }) {
   const { styles } = useStyles();
   const history = useHistory();
+  const message = useMessage();
 
   const editorRef = useRef<Editor | null>(null);
 
@@ -86,8 +88,6 @@ export default function BoardNormalWriteSection({
     },
     validate: zodResolver(schema),
   });
-
-  const message = useMessage();
 
   const isEdit = postId > 0;
 
@@ -101,6 +101,15 @@ export default function BoardNormalWriteSection({
 
   const { mutate: uploadFile } = useAppMutation({
     mutationFn: CustomApi.uploadFile,
+    onError(_e) {
+      const e = _e as ApiError;
+      if (e.status === 400) {
+        message.error('이미 존재하는 파일명입니다. 파일명을 수정해주세요.');
+      }
+      {
+        message.error('에러가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      }
+    },
   });
 
   const { data: savedPost } = useAppQuery({
@@ -251,7 +260,6 @@ export default function BoardNormalWriteSection({
                   className={styles.buttonWrap}
                 >
                   <Upload
-                    multiple
                     beforeUpload={() => false}
                     onChange={onUploadChange}
                     fileList={getUploadFileList()}

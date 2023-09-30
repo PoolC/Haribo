@@ -28,7 +28,7 @@ export const useAppMutation = <
   const message = useMessage();
   const mutationResults = useMutation(mutationFn!, {
     onError() {
-      message.error('에러가 발생했습니다.');
+      message.error('에러가 발생했습니다. 잠시 후 다시 시도해주세요.');
     },
     ...rest,
   });
