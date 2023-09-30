@@ -6,8 +6,6 @@ import Modal from '../Modal/Modal';
 import uploadableTypes from '../../../constants/uploadableTypes';
 import { SUCCESS } from '../../../constants/statusCode';
 
-const { REACT_APP_MAX_FILE_SIZE: MAX_FILE_SIZE } = process.env;
-
 const FileUploadButton = ({ files, onSubmit, multiple }) => {
   let formData = new FormData();
 
@@ -18,7 +16,7 @@ const FileUploadButton = ({ files, onSubmit, multiple }) => {
 
   const onBrowseFile = (e) => {
     e.preventDefault();
-    if (e.target.files[0].size > MAX_FILE_SIZE) {
+    if (e.target.files[0].size > +process.env.VITE_MAX_FILE_SIZE) {
       setErrorMessage('첨부 가능한 최대 크기를 초과하였습니다.');
       onShowErrorModal();
       return;
