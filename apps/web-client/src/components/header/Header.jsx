@@ -26,7 +26,7 @@ const Header = ({ member, onLogout }) => {
 
   const {
     status: { isLogin },
-    user: { isAdmin, role },
+    user: { isAdmin, role, profileImageURL },
   } = member;
 
   const [menuVisible, setMenuVisible] = useState(false);
@@ -77,10 +77,7 @@ const Header = ({ member, onLogout }) => {
           {isLogin && (
             <Dropdown menu={{ items: dropDownItems }}>
               <Button shape={'circle'} className={styles.avatarButton}>
-                <Avatar
-                  src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=3"
-                  size={36}
-                />
+                <Avatar src={profileImageURL} size={36} />
               </Button>
             </Dropdown>
           )}
@@ -94,6 +91,7 @@ const Header = ({ member, onLogout }) => {
         role={role}
         isAdmin={isAdmin}
         dropDownItems={dropDownItems}
+        profileImageURL={profileImageURL}
       />
     </HeaderBlock>
   );

@@ -3,6 +3,7 @@ import * as authAPI from '../lib/api/auth';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import client from '../lib/api/client';
 import { removeApiAccessToken, setApiAccessToken } from '~/lib/api-v2';
+import { getProfileImageUrl } from '~/lib/utils/getProfileImageUrl';
 
 const LOGIN = 'auth/LOGIN';
 const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
@@ -141,6 +142,7 @@ const initialState = {
     password: '',
     isAdmin: false,
     role: null,
+    profileImageURL: '',
   },
 };
 
@@ -183,6 +185,7 @@ const auth = handleActions(
           isAdmin: data.isAdmin,
           name: data.name,
           role: data.role,
+          profileImageURL: getProfileImageUrl(data.profileImageURL),
         },
       };
     },
@@ -205,6 +208,7 @@ const auth = handleActions(
         name: '',
         isAdmin: false,
         role: null,
+        profileImageURL: '',
       },
     }),
   },

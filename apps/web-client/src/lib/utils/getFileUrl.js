@@ -1,15 +1,11 @@
-const FILE_URL = import.meta.env.DEV
-  ? import.meta.env.VITE_TEST_FILE_URL
-  : import.meta.env.VITE_FILE_URL;
+const FILE_URL = import.meta.env.VITE_FILE_URL;
 
 const getFileUrl = (url) => {
-  const fileUrl =
-    url?.includes('http://') ||
+  return url?.includes('http://') ||
     url?.includes('https://') ||
     url?.includes(FILE_URL)
-      ? url
-      : FILE_URL + url;
-  return fileUrl;
+    ? url
+    : FILE_URL + url;
 };
 
 export const getDecodedFileUrl = (url) => {

@@ -1,9 +1,21 @@
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
-import { Avatar, Button, List, Popover, Progress, Space, Typography } from 'antd';
+import {
+  Avatar,
+  Button,
+  List,
+  Popover,
+  Progress,
+  Space,
+  Typography,
+} from 'antd';
 import { createStyles } from 'antd-style';
 import { AiFillMessage } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { BsFillPencilFill, BsFillQuestionCircleFill, BsFillStarFill } from 'react-icons/bs';
+import {
+  BsFillPencilFill,
+  BsFillQuestionCircleFill,
+  BsFillStarFill,
+} from 'react-icons/bs';
 import { BiSolidUser } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';
 import {
@@ -18,6 +30,7 @@ import { MENU } from '~/constants/menus';
 import MyPageGrassSection from '~/components/my-page/MyPageGrassSection';
 import classNames from 'classnames';
 import { queryClient } from '~/lib/utils/queryClient';
+import { getProfileImageUrl } from '~/lib/utils/getProfileImageUrl';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
@@ -163,7 +176,9 @@ export default function MyPage() {
       <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
         <Space direction={'vertical'} className={styles.fullWidth} size={40}>
           <Space className={styles.wrapper} size={'middle'}>
-            <Avatar size={80} src={me?.profileImageURL} />
+            {me?.profileImageURL && (
+              <Avatar size={80} src={getProfileImageUrl(+me.profileImageURL)} />
+            )}
             <Space direction={'vertical'}>
               <Space>
                 <Typography.Text className={styles.userName}>

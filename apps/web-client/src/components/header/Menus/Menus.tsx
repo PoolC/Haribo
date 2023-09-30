@@ -13,12 +13,14 @@ const Menus = ({
   role,
   onToggleMenu,
   dropDownItems,
+  profileImageURL,
 }: {
   menuVisible: boolean;
   isLogin: boolean;
   role: any;
   onToggleMenu: () => void;
   dropDownItems: MenuProps['items'];
+  profileImageURL: string;
 }) => {
   const links: {
     to: string;
@@ -109,10 +111,7 @@ const Menus = ({
               shape={'circle'}
               style={{ padding: 0, width: '40px', height: '40px' }}
             >
-              <Avatar
-                src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=3"
-                size={36}
-              />
+              <Avatar src={profileImageURL} size={36} />
             </Button>
           </Dropdown>
         )}
