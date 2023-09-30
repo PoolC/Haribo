@@ -18,11 +18,11 @@ const MessageContext = createContext<{
   },
 });
 
-export const useMessage = () => {
+export function useMessage() {
   return useContext(MessageContext);
-};
+}
 
-export const MessageProvider = ({ children }: PropsWithChildren<object>) => {
+export function MessageProvider({ children }: PropsWithChildren<object>) {
   const [messageApi, contextHolder] = message.useMessage();
 
   const value = useMemo(
@@ -46,4 +46,4 @@ export const MessageProvider = ({ children }: PropsWithChildren<object>) => {
       {children}
     </MessageContext.Provider>
   );
-};
+}

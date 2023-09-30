@@ -1,4 +1,4 @@
 /**
  * @description do no operation
  * */
-export const noop = () => {};
+export function noop() {}
