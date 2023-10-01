@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AdminBoardForm from '../../../components/admin/AdminBoardForm/AdminBoardForm';
 import * as boardAPI from '../../../lib/api/board';
 import { withRouter } from 'react-router-dom';

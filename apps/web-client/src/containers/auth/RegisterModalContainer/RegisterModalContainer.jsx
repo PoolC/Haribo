@@ -1,6 +1,5 @@
 import ActionButton from '../../../components/common/Buttons/ActionButton';
 import Modal from '../../../components/common/Modal/Modal';
-import React from 'react';
 
 const RegisterModalContainer = ({ visible, onConfirm, onCancel, message }) => {
   const action = '확인';

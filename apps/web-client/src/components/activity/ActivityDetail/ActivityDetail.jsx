@@ -1,5 +1,5 @@
 import MemberCard from '../../members/MemberCard/MemberCard';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Viewer } from '@toast-ui/react-editor';
 import SessionContainer from '../../../containers/activity/SessionContainer/SessionContainer';
 import {

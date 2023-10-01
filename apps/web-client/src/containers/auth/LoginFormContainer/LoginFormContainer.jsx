@@ -1,5 +1,5 @@
 import AuthForm from '../../../components/auth/AuthForm';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { initLogin, login } from '../../../modules/auth';

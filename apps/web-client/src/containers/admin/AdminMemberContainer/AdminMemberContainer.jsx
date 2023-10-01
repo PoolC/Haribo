@@ -1,5 +1,5 @@
 import AdminMember from '../../../components/admin/AdminMember/AdminMember';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as memberAPI from '../../../lib/api/member';
 import Spinner from '../../../components/common/Spinner/Spinner';
 import { CLIENT_ERROR, SUCCESS } from '../../../constants/statusCode';
@@ -113,9 +113,7 @@ const AdminMemberContainer = ({ history }) => {
     memberAPI.deleteUnacceptedMembers().then((res) => {
       if (res.status === SUCCESS.OK) {
         alert('승인 전 회원들을 모두 탈퇴 처리 하였습니다.');
-        setMembers(
-          members.filter(m => m.role !== MEMBER_ROLE.UNACCEPTED)
-        );
+        setMembers(members.filter((m) => m.role !== MEMBER_ROLE.UNACCEPTED));
       } else if (res.status === CLIENT_ERROR.FORBIDDEN) {
         alert('권한이 없습니다.');
       } else {
@@ -123,8 +121,6 @@ const AdminMemberContainer = ({ history }) => {
       }
     });
   };
-
-
 
   const onSearchMember = (name) => {
     setSearchMembers(members.filter((member) => member.name.includes(name)));

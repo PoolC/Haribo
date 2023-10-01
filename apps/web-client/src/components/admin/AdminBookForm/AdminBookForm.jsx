@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useInput from '../../../hooks/useInput';
 import getFileUrl from '../../../lib/utils/getFileUrl';
 import throttle from '../../../lib/utils/throttle';

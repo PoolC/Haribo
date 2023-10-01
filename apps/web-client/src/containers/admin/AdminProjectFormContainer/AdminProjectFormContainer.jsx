@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AdminProjectForm from '../../../components/admin/AdminProjectForm/AdminProjectForm';
 import * as projectAPI from '../../../lib/api/project';
 import * as memberAPI from '../../../lib/api/member';

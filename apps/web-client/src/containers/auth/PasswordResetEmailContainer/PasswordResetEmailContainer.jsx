@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { withRouter } from 'react-router';
 import PasswordResetForm from '../../../components/auth/PasswordResetForm';
 import { MENU } from '../../../constants/menus';

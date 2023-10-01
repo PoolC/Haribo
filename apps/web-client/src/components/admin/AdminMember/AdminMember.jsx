@@ -1,4 +1,3 @@
-import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { MENU } from '../../../constants/menus';
 import useInput from '../../../hooks/useInput';
@@ -180,7 +179,7 @@ const AdminMember = ({
     if (result) {
       onDeleteUnacceptedMembers();
     }
-  }
+  };
 
   const onClickSearch = (e) => {
     e.preventDefault();
@@ -188,7 +187,6 @@ const AdminMember = ({
     e.target.value = '';
     onChangeSearchMember(e);
   };
-
 
   return (
     <WhiteNarrowBlock>
@@ -228,7 +226,14 @@ const AdminMember = ({
             </tbody>
           </Table>
         )}
-        <SearchHeader>승인 전 회원 목록<span><StyledDeleteButton onClick={handleDeleteUnacceptedMembers}>전체 삭제</StyledDeleteButton></span></SearchHeader>
+        <SearchHeader>
+          승인 전 회원 목록
+          <span>
+            <StyledDeleteButton onClick={handleDeleteUnacceptedMembers}>
+              전체 삭제
+            </StyledDeleteButton>
+          </span>
+        </SearchHeader>
         <Table>
           <MemberTableHead />
           <tbody>

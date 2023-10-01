@@ -1,5 +1,5 @@
 import BookList from '../../../components/books/BookList/BookList';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as bookAPI from '../../../lib/api/book';
 import { getFullCurrentDateString } from '../../../lib/utils/getDateString';

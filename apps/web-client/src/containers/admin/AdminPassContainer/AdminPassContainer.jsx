@@ -1,5 +1,5 @@
 import AdminPass from '../../../components/admin/AdminPass/AdminPass';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import * as memberAPI from '../../../lib/api/member';
 import { SUCCESS } from '../../../constants/statusCode';
 

@@ -1,5 +1,5 @@
 import AdminActivity from '../../../components/admin/AdminActivity/AdminActivity';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as activityAPI from '../../../lib/api/activity';
 import { withRouter } from 'react-router-dom';
 import { SUCCESS } from '../../../constants/statusCode';

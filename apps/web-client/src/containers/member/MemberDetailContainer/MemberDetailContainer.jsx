@@ -1,5 +1,5 @@
 import MemberDetail from '../../../components/members/MemberDetail/MemberDetail';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as memberAPI from '../../../lib/api/member';
 import { MENU } from '../../../constants/menus';

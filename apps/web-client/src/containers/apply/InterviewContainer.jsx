@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Interview from '../../components/apply/Interview/Interview';
 import InterviewAccessDenied from '../../components/apply/Interview/InterviewAccessDenied';
 import { CLIENT_ERROR, SUCCESS } from '../../constants/statusCode';

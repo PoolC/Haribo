@@ -1,5 +1,5 @@
 import ActionButton from '../../common/Buttons/ActionButton';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
   ContentsContainer,
   ExpellActionButton,

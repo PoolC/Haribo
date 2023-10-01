@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AdminInterviewTime from '../../../components/admin/AdminInterviewTime/AdminInterviewTime';
 import { SUCCESS } from '../../../constants/statusCode';
 import * as interviewAPI from '../../../lib/api/interview';

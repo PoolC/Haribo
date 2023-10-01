@@ -1,5 +1,5 @@
 import ActionButton from '../../common/Buttons/ActionButton';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import useInput from '../../../hooks/useInput';

@@ -1,5 +1,5 @@
 import ProjectDetail from '../../../components/projects/ProjectDetail/ProjectDetail';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as projectAPI from '../../../lib/api/project';
 import { withRouter } from 'react-router-dom';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';
 import { ContentsContainer, TitleContainer } from './AdminHome.styles';
 

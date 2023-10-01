@@ -1,4 +1,3 @@
-import React from 'react';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import { StyledIcon } from '../Apply';
 import { Content } from '../Apply';

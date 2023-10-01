@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import styled from '@emotion/styled';
 import IntroMenu from '../../components/intro/IntroMenu/IntroMenu';

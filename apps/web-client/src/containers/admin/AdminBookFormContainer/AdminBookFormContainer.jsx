@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as bookAPI from '../../../lib/api/book';
 import AdminBookForm from '../../../components/admin/AdminBookForm/AdminBookForm';
 import { withRouter } from 'react-router-dom';

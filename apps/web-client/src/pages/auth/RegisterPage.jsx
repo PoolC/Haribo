@@ -1,4 +1,3 @@
-import React from 'react';
 import RegisterFormContainer from '../../containers/auth/RegisterFormContainer/RegisterFormContainer';
 import { Route, Switch } from 'react-router-dom';
 import { MENU } from '../../constants/menus';

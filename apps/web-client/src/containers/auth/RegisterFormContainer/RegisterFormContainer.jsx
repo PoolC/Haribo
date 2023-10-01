@@ -1,5 +1,5 @@
 import AuthForm from '../../../components/auth/AuthForm';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import * as authAPI from '../../../lib/api/auth';
 import { removeHeaderAccessToken } from '../../../lib/utils/axiosUtil';

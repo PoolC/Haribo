@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Switch } from 'react-router';
 import PasswordResetEmailSuccess from '../../components/auth/PasswordResetEmailSuccess';
 import PasswordResetSuccess from '../../components/auth/PasswordResetSuccess';

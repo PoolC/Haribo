@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
+  ButtonContainer,
+  ContentContainer,
+  FileLabel,
+  FileName,
+  FileNameContainer,
+  HeaderBar,
   ModalBlock,
   ModalContainer,
-  HeaderBar,
-  ContentContainer,
-  ButtonContainer,
   ModalName,
-  StyledFileButton,
-  FileName,
   StyledActionButton,
+  StyledFileButton,
   StyledFileInput,
   StyledForm,
-  FileNameContainer,
-  FileLabel,
 } from './FileUploadModal.styles.js';
 
 const FileUploadModal = ({

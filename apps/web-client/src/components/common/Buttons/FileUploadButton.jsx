@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ActionButton from './ActionButton';
 import * as fileAPI from '../../../lib/api/file';
 import FileUploadModal from '../FileUploadModal/FileUploadModal';

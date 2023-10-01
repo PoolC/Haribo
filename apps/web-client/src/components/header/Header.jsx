@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import logoImage from '../../resources/poolc.icon.transparent.png';
 import { Link } from 'react-router-dom';
 import {

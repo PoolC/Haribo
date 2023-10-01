@@ -1,5 +1,5 @@
 import ActionButton from '../../common/Buttons/ActionButton';
-import React from 'react';
+
 import { MENU } from '../../../constants/menus';
 import {
   ButtonContainer,

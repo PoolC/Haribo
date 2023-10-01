@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useEffect, useRef } from 'react';
+import { FormEventHandler, useEffect, useRef } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';

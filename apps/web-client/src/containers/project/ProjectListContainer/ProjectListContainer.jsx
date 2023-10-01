@@ -1,5 +1,5 @@
 import ProjectList from '../../../components/projects/ProjectList/ProjectList';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as projectAPI from '../../../lib/api/project';
 
 const ProjectListContainer = () => {

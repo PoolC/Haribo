@@ -1,4 +1,3 @@
-import React from 'react';
 import LoginFormContainer from '../../containers/auth/LoginFormContainer/LoginFormContainer';
 
 const LoginPage = () => {

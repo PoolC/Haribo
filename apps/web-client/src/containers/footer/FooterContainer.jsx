@@ -1,4 +1,3 @@
-import React from 'react';
 import Footer from '../../components/footer/Footer';
 import { PoolcControllerService, queryKey, useAppQuery } from '~/lib/api-v2';
 

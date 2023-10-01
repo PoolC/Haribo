@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import ActivityMenu from '../../../components/activity/ActivityMenu/ActivityMenu';
 import ActivityList from '../../../components/activity/ActivityList/ActivityList';

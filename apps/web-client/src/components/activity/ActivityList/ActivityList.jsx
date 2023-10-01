@@ -1,7 +1,7 @@
 import { MENU } from '../../../constants/menus';
 import ActionButton from '../../common/Buttons/ActionButton';
 import ActivityCard from '../ActivityCard/ActivityCard';
-import React from 'react';
+
 import {
   ActivityBlock,
   ActivityListHeader,

@@ -1,4 +1,3 @@
-import React from 'react';
 import { WhiteNarrowBlock } from '../../styles/common/Block.styles';
 import styled from '@emotion/styled';
 import getFileUrl from '../../lib/utils/getFileUrl';

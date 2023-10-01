@@ -1,6 +1,6 @@
 import colors from '../../../lib/styles/colors';
 import ActionButton from '../../common/Buttons/ActionButton';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import BookModalContainer from '../../../containers/book/BookModal/BookModalContainer';
 import getFileUrl from '../../../lib/utils/getFileUrl';
 import { isAuthorizedRole } from '~/lib/utils/checkRole';

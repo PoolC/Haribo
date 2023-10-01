@@ -1,4 +1,3 @@
-import React from 'react';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import ActivityCard from '../../activity/ActivityCard/ActivityCard';
 import ProjectCard from '../../projects/ProjectCard/ProjectCard';

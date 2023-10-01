@@ -1,4 +1,3 @@
-import React from 'react';
 import { MENU } from '../../../constants/menus';
 import { getFullCurrentDateString } from '../../../lib/utils/getDateString';
 import {

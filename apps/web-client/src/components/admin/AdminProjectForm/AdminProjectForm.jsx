@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import useInput from '../../../hooks/useInput';
 import ActionButton from '../../common/Buttons/ActionButton';
 import Input from '../../common/Input/Input';

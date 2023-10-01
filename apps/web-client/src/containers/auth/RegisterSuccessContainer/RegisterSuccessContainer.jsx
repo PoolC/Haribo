@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import RegisterSuccess from '../../../components/auth/RegisterSuccess';
 import * as infoAPI from '../../../lib/api/info';
 import Spinner from '../../../components/common/Spinner/Spinner';

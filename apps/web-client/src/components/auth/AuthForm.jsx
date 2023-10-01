@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import profileImagePlaceholders from '../../constants/profileImagePlaceholders';
 import RegisterModalContainer from '../../containers/auth/RegisterModalContainer/RegisterModalContainer';
 import useInput from '../../hooks/useInput';
@@ -15,17 +15,17 @@ import { Block, WhiteBlock } from '../../styles/common/Block.styles';
 import {
   FormList,
   FormListHeader,
-  SubmitButton,
-  StyledInput,
-  Warning,
-  StyledTextarea,
-  StyledLabel,
-  ProfileImageSelectContainer,
-  ProfileImageSelect,
   ProfileImage,
-  StyledSelect,
-  WithdrawalButton,
+  ProfileImageSelect,
+  ProfileImageSelectContainer,
+  StyledInput,
+  StyledLabel,
   StyledLink,
+  StyledSelect,
+  StyledTextarea,
+  SubmitButton,
+  Warning,
+  WithdrawalButton,
 } from './AuthForm.styles';
 import { MENU } from '../../constants/menus';
 import throttle from '../../lib/utils/throttle';

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
+  ButtonContainer,
+  ContentContainer,
+  HeaderBar,
   ModalBlock,
   ModalContainer,
-  HeaderBar,
-  ContentContainer,
-  ButtonContainer,
 } from './Modal.styles.js';
 
 const Modal = ({ contents, buttons, visible, onConfirm, onCancel }) => {

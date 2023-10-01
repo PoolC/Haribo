@@ -1,4 +1,3 @@
-import React from 'react';
 import ActivityAttendanceContainer from '../../containers/activity/ActivityFormContainer/ActivityAttendanceContainer';
 
 const ActivityAttendancePage = () => {

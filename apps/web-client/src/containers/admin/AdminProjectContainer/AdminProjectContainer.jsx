@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AdminProject from '../../../components/admin/AdminProject/AdminProject';
 import { SUCCESS } from '../../../constants/statusCode';
 import * as projectAPI from '../../../lib/api/project';

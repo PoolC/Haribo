@@ -1,4 +1,3 @@
-import React from 'react';
 import FAQ from '../../../components/intro/FAQ/FAQ';
 
 const FAQContainer = () => {

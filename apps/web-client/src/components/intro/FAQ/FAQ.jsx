@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import colors from '../../../lib/styles/colors';
 import { WhiteNarrowBlock } from '../../../styles/common/Block.styles';

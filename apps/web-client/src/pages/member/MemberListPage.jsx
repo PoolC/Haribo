@@ -1,4 +1,3 @@
-import React from 'react';
 import MemberListContainer from '../../containers/member/MemberListContainer/MemberListContainer';
 
 const MemberListPage = () => {

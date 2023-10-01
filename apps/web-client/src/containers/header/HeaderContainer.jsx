@@ -1,7 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/header/Header';
-import { useDispatch } from 'react-redux';
 import { logout } from '../../modules/auth';
 import { withRouter } from 'react-router-dom';
 

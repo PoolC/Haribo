@@ -1,20 +1,20 @@
 import { MENU } from '../../../constants/menus';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
+  ActivityButtons,
+  ActivityCapacity,
   ActivityCardBlock,
   ActivityCardContainer,
-  ActivityCapacity,
-  StyledLink,
-  ActivityTitle,
   ActivityClassHour,
   ActivityDate,
   ActivityHost,
-  ActivityTags,
   ActivityTag,
-  ActivityButtons,
+  ActivityTags,
+  ActivityTitle,
+  FullText,
   StyledActionButton,
   StyledDeleteButton,
-  FullText,
+  StyledLink,
 } from './ActivityCard.styles.js';
 import ActivityRegisterModalContainer from '../../../containers/activity/ActivityModalContainer/ActivityRegisterModalContainer';
 import ActivityDeleteModalContainer from '../../../containers/activity/ActivityModalContainer/ActivityDeleteModalContainer';

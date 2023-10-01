@@ -1,4 +1,3 @@
-import React from 'react';
 import { getHourMinuteString } from '../../../../lib/utils/getDateString';
 import ActionButton from '../../../common/Buttons/ActionButton';
 import Modal from '../../../common/Modal/Modal';

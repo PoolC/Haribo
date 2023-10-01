@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import Spinner from '../../common/Spinner/Spinner';
 import {
-  StyledDateBlock,
-  StyledTimeList,
-  StyledTimeBlock,
-  TimeBlockTime,
-  TimeBlockCapacity,
   DisabledActionButton,
   InterviewWarningBlock,
+  StyledDateBlock,
+  StyledTimeBlock,
+  StyledTimeList,
+  TimeBlockCapacity,
+  TimeBlockTime,
 } from './Interview.styles';
 import ActionButton from '../../common/Buttons/ActionButton';
 import { useSelector } from 'react-redux';
@@ -179,15 +179,11 @@ const Interview = ({
         {!loading && !isLogin && (
           <InterviewWarningBlock>
             <p>회원가입 후 로그인을 하셔야 면접 신청이 가능합니다.</p>
-            <LinkButton
-            className="right-menu"
-            to="/register">
-            회원가입 하러 가기
+            <LinkButton className="right-menu" to="/register">
+              회원가입 하러 가기
             </LinkButton>
-            <ActionButton
-            className="right-menu sign-in"
-            to="/login">
-            로그인
+            <ActionButton className="right-menu sign-in" to="/login">
+              로그인
             </ActionButton>
           </InterviewWarningBlock>
         )}

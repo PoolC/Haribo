@@ -1,4 +1,3 @@
-import React from 'react';
 import MemberCard from '../../members/MemberCard/MemberCard';
 import {
   BodyContainer,

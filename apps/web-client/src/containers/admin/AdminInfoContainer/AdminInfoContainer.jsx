@@ -1,5 +1,5 @@
 import AdminInfo from '../../../components/admin/AdminInfo/AdminInfo';
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as infoAPI from '../../../lib/api/info';
 import { withRouter } from 'react-router';
 import ActionButton from '../../../components/common/Buttons/ActionButton';

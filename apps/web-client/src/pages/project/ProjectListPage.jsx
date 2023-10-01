@@ -1,4 +1,3 @@
-import React from 'react';
 import ProjectListContainer from '../../containers/project/ProjectListContainer/ProjectListContainer';
 
 const ProjectListPage = () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Session from '../../../components/activity/Session/Session';
 import { useSelector } from 'react-redux';
 import * as activityAPI from '../../../lib/api/activity';

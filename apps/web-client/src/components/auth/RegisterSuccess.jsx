@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { MENU } from '../../constants/menus';
 import colors from '../../lib/styles/colors';

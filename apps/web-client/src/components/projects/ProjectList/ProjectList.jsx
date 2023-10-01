@@ -1,4 +1,3 @@
-import React from 'react';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import Spinner from '../../common/Spinner/Spinner';
 import ProjectCard from '../ProjectCard/ProjectCard';

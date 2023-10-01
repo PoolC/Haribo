@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import useInput from '../../../hooks/useInput';
 import Input from '../../common/Input/Input';
 import { notEmptyValidation } from '../../../lib/utils/validation';

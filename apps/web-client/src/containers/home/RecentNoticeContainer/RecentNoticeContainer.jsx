@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import RecentNotice from '../../../components/home/RecentNotice/RecentNotice';
 import * as postAPI from '../../../lib/api/post';
 import Spinner from '../../../components/common/Spinner/Spinner';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { MENU } from '../../../constants/menus';
 import { SelectedLinkButton } from '../../../styles/common/Button.styles';

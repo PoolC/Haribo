@@ -1,5 +1,5 @@
 import AdminBoard from '../../../components/admin/AdminBoard/AdminBoard';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as boardAPI from '../../../lib/api/board';
 import { SUCCESS } from '../../../constants/statusCode';
 

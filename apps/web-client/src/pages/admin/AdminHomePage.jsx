@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import AdminMenu from '../../components/admin/AdminMenu/AdminMenu';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { MENU } from '../../../constants/menus';
 import getFileUrl from '../../../lib/utils/getFileUrl';
 import { getParametersForUnsplash } from '../../../lib/utils/imageUtils';
@@ -9,8 +8,8 @@ import {
   ProjectGenre,
   ProjectThumbnail,
   ProjectTitle,
-  ThumbnailContainer,
   StyledLink,
+  ThumbnailContainer,
 } from './ProjectCard.styles';
 
 const ProjectCard = ({ project }) => {

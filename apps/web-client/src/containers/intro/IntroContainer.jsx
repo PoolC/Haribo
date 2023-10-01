@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Intro from '../../components/intro/Intro';
 import { SUCCESS } from '../../constants/statusCode';
 import * as infoAPI from '../../lib/api/info';

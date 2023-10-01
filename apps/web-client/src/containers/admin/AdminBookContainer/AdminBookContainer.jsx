@@ -1,5 +1,5 @@
 import AdminBook from '../../../components/admin/AdminBook/AdminBook';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as bookAPI from '../../../lib/api/book';
 import { SUCCESS } from '../../../constants/statusCode';
 

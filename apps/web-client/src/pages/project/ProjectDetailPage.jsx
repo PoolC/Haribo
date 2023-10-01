@@ -1,4 +1,3 @@
-import React from 'react';
 import ProjectDetailContainer from '../../containers/project/ProjectDetailContainer/ProjectDetailContainer';
 
 const ProjectDetailPage = () => {

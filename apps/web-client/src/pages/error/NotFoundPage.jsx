@@ -1,4 +1,3 @@
-import React from 'react';
 import { withRouter } from 'react-router';
 import styled from '@emotion/styled';
 import ActionButton from '../../components/common/Buttons/ActionButton';

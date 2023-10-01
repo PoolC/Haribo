@@ -1,5 +1,5 @@
 import ActivityAttendance from '../../../components/activity/ActivityForm/ActivityAttendance';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as activityAPI from '../../../lib/api/activity';
 import * as authAPI from '../../../lib/api/auth';
 import { withRouter } from 'react-router-dom';
