@@ -11,7 +11,10 @@
     "web-client:check:type": "yarn workspace @poolc-dialga/web-client check:type"
   },
   "resolutions": {
-    "@types/react": "17.0.2",
-    "@types/react-dom": "17.0.2"
+    "@types/react-redux@npm:7.1.25/@types/react": "17.0.2",
+    "@types/hoist-non-react-statics@npm:3.3.2/@types/react": "17.0.2",
+    "@types/react-dom@npm:17.0.2/@types/react": "17.0.2",
+    "@types/react-router-dom@npm:5.3.3/@types/react": "17.0.2",
+    "@types/react-router@npm:5.1.20/@types/react": "17.0.2"
   }
 }
