@@ -41,4 +41,4 @@ jobs:
             echo "$ENV_CONTENT" > .env
             
             docker compose down
-            docker compose up -d --build
+            docker compose up -d --build -f=./apps/web-client/docker-compose.yml
