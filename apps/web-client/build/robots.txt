@@ -1,0 +1,7 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Disallow: /members/
+Disallow: /member/
+Disallow: /activity/edit/
+Disallow: /admin/
+Disallow: /my-info

@@ -1,5 +1,5 @@
 import ActionButton from '../../common/Buttons/ActionButton';
-import { useRef, useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import { notEmptyValidation } from '../../../lib/utils/validation';
 import useInput from '../../../hooks/useInput';
@@ -34,7 +34,7 @@ import Modal from '../../common/Modal/Modal';
 import getFileUrl, { getDecodedFileUrl } from '../../../lib/utils/getFileUrl';
 import throttle from '../../../lib/utils/throttle';
 
-const TagItem = React.memo(({ tag, onDeleteTag }) => {
+const TagItem = memo(({ tag, onDeleteTag }) => {
   const handleDeleteTag = () => {
     onDeleteTag(tag);
   };

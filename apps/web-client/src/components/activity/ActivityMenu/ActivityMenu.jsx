@@ -1,18 +1,6 @@
 import LinkButton from '../../common/Buttons/LinkButton';
-import React from 'react';
 import { SelectedLinkButton } from './ActivityMenu.styles';
-import {
-  MenuBlock,
-  MenuItem,
-  MenuList,
-} from '../../../styles/common/Menu.styles';
-import Spinner from '../../common/Spinner/Spinner';
-import { SelectedLinkButton } from './ActivityMenu.styles';
-import {
-  MenuBlock,
-  MenuItem,
-  MenuList,
-} from '../../../styles/common/Menu.styles';
+import { MenuBlock, MenuItem, MenuList } from '~/styles/common/Menu.styles';
 import Spinner from '../../common/Spinner/Spinner';
 
 const ActivityMenu = ({ loading, semesters, currentLocation }) => {
