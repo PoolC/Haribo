@@ -1,1 +1,0 @@
-import{v as o}from"./index-04133603.js";const g=()=>o.get("/poolc"),r=({presidentName:t,phoneNumber:p,location:c,locationUrl:e,introduction:l,mainImageUrl:n,isSubscriptionPeriod:s,applyUri:a})=>o.put("/poolc",{presidentName:t,phoneNumber:p,location:c,locationUrl:e,introduction:l,mainImageUrl:n,isSubscriptionPeriod:s,applyUri:a});export{g,r as u};

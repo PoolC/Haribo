@@ -1,1 +1,0 @@
-const g=e=>{const t=e?new Date(e):new Date,n=t.getMonth()+1<10?`0${t.getMonth()+1}`:t.getMonth()+1,r=t.getDate()<10?`0${t.getDate()}`:t.getDate();return`${t.getFullYear()}-${n}-${r}`},a=e=>e.substring(0,5);export{a,g};

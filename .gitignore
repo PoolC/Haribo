@@ -21,6 +21,7 @@ yarn-error.log*
 
 # generated
 __generated__
+build
 
 # dependencies @see https://yarnpkg.com/getting-started/qa/#which-files-should-be-gitignored
 .yarn/*
@@ -32,3 +33,4 @@ __generated__
 !.yarn/versions
 
 node_modules
+

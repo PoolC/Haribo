@@ -1,1 +1,0 @@
-import{v as e}from"./index-04133603.js";const s=()=>{localStorage.getItem("accessToken")?e.defaults.headers.common.Authorization=`Bearer ${localStorage.getItem("accessToken")}`:e.defaults.headers.common.Authorization=""},a=()=>{e.defaults.headers.common.Authorization=""};export{a as r,s};
