@@ -25,13 +25,14 @@
     "jest": "^29.3.1",
     "prettier": "^2.7.1"
   },
-  "dependencies": {},
   "jest": {
     "globals": {
       "__DEV__": true
     }
   },
   "babel": {
-    "presets": ["@babel/preset-env"]
+    "presets": [
+      "@babel/preset-env"
+    ]
   }
 }
