@@ -1,7 +1,4 @@
 import React from 'react';
-import profileImagePlaceholders from '../../../constants/profileImagePlaceholders';
-import getFileUrl from '../../../lib/utils/getFileUrl';
-import { randomNumber } from '../../../lib/utils/random';
 import { Block, WhiteBlock } from '../../../styles/common/Block.styles';
 import ActivityCard from '../../activity/ActivityCard/ActivityCard';
 import ProjectCard from '../../projects/ProjectCard/ProjectCard';
@@ -20,6 +17,7 @@ import {
   StyledImage,
   TextContainer,
 } from './MemberDetail.styles';
+import { getProfileImageUrl } from '~/lib/utils/getProfileImageUrl';
 
 const MemberDetail = ({ member }) => {
   const {
@@ -37,13 +35,7 @@ const MemberDetail = ({ member }) => {
       <WhiteBlock>
         <ContentContainer>
           <ImageContainer>
-            <StyledImage
-              src={
-                profileImageURL
-                  ? getFileUrl(profileImageURL)
-                  : getFileUrl(profileImagePlaceholders[randomNumber(5)])
-              }
-            />
+            <StyledImage src={getProfileImageUrl(profileImageURL)} />
           </ImageContainer>
           <TextContainer>
             <NameContainer>

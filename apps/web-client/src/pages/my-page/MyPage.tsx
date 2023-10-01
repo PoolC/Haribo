@@ -176,9 +176,7 @@ export default function MyPage() {
       <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
         <Space direction={'vertical'} className={styles.fullWidth} size={40}>
           <Space className={styles.wrapper} size={'middle'}>
-            {me?.profileImageURL && (
-              <Avatar size={80} src={getProfileImageUrl(+me.profileImageURL)} />
-            )}
+            <Avatar size={80} src={getProfileImageUrl(me?.profileImageURL)} />
             <Space direction={'vertical'}>
               <Space>
                 <Typography.Text className={styles.userName}>

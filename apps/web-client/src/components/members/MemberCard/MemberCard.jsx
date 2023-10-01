@@ -1,9 +1,7 @@
-import React from 'react';
-import { MENU } from '../../../constants/menus';
-import profileImagePlaceholders from '../../../constants/profileImagePlaceholders';
-import colors from '../../../lib/styles/colors';
-import getFileUrl from '../../../lib/utils/getFileUrl';
-import { randomNumber } from '../../../lib/utils/random';
+import colors from '~/lib/styles/colors';
+import { randomNumber } from '~/lib/utils/random';
+import { getProfileImageUrl } from '~/lib/utils/getProfileImageUrl';
+
 import {
   MemberCardBlock,
   MemberCardMajor,
@@ -14,6 +12,7 @@ import {
   MemberItem,
   StyledLink,
 } from './MemberCard.styles';
+import { MENU } from '~/constants/menus';
 
 const MemberCard = ({ member }) => {
   const { loginID, name, department, isAdmin, profileImageURL } = member;
@@ -26,11 +25,7 @@ const MemberCard = ({ member }) => {
           }}
         >
           <MemberCardThumbnail
-            src={
-              profileImageURL
-                ? getFileUrl(profileImageURL)
-                : getFileUrl(profileImagePlaceholders[randomNumber(5)])
-            }
+            src={getProfileImageUrl(profileImageURL)}
             alt="member_thumbnail"
           />
           <MemberCardText>

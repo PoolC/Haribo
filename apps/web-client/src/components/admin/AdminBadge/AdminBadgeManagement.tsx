@@ -1,6 +1,23 @@
-import { Avatar, Button, Form, Input, Modal, Space, Table, Typography, Upload, UploadFile } from 'antd';
+import {
+  Avatar,
+  Button,
+  Form,
+  Input,
+  Modal,
+  Space,
+  Table,
+  Typography,
+  Upload,
+  UploadFile,
+} from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { BadgeControllerService, CustomApi, queryKey, useAppMutation, useAppQuery } from '~/lib/api-v2';
+import {
+  BadgeControllerService,
+  CustomApi,
+  queryKey,
+  useAppMutation,
+  useAppQuery,
+} from '~/lib/api-v2';
 import { UploadOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useForm, zodResolver } from '@mantine/form';
@@ -256,7 +273,7 @@ function BadgeGenerateModal({
             onChange={onUploadChange}
             fileList={getUploadFileList()}
           >
-            <Button icon={<UploadOutlined rev />}>로고파일 업로드</Button>
+            <Button icon={<UploadOutlined rev={0} />}>로고파일 업로드</Button>
           </Upload>
         </Form.Item>
       </Form>
@@ -366,7 +383,7 @@ function BadgeEditModal({
             onChange={onUploadChange}
             fileList={getUploadFileList()}
           >
-            <Button icon={<UploadOutlined rev />}>로고파일 업로드</Button>
+            <Button icon={<UploadOutlined rev={0} />}>로고파일 업로드</Button>
           </Upload>
         </Form.Item>
       </Form>

@@ -144,9 +144,7 @@ export default function MyPageBadgeListPage() {
     <Block>
       <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
         <Space className={styles.wrapper} size={'middle'}>
-          {me?.profileImageURL && (
-            <Avatar size={80} src={getProfileImageUrl(+me.profileImageURL)} />
-          )}
+          <Avatar size={80} src={getProfileImageUrl(me?.profileImageURL)} />
           <Space>
             <Typography.Text className={styles.userName}>
               {me?.name}님

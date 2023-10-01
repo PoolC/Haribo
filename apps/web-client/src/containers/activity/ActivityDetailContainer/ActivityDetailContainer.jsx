@@ -1,10 +1,10 @@
-import ActivityDetail from '../../../components/activity/ActivityDetail/ActivityDetail';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import * as activityAPI from '../../../lib/api/activity';
+import ActivityDetail from '~/components/activity/ActivityDetail/ActivityDetail';
+import * as activityAPI from '~/lib/api/activity';
 import { withRouter } from 'react-router-dom';
-import { SUCCESS } from '../../../constants/statusCode';
-import { MEMBER_ROLE } from '../../../constants/memberRoles';
+import { SUCCESS } from '~/constants/statusCode';
+import { MEMBER_ROLE } from '~/constants/memberRoles';
 
 const ActivityDetailContainer = ({ match }) => {
   const activityID = match.params.activityID;
