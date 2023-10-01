@@ -10,6 +10,8 @@ import {
 } from '~/lib/api-v2';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
 import classNames from 'classnames';
+import { getProfileImageUrl } from '~/lib/utils/getProfileImageUrl';
+import getFileUrl from '~/lib/utils/getFileUrl';
 
 const useStyles = createStyles(({ css }) => ({
   whiteBlock: css`
@@ -142,7 +144,9 @@ export default function MyPageBadgeListPage() {
     <Block>
       <WhiteBlock className={classNames(styles.whiteBlock, 'scope')}>
         <Space className={styles.wrapper} size={'middle'}>
-          <Avatar size={80} src={me?.profileImageURL} />
+          {me?.profileImageURL && (
+            <Avatar size={80} src={getProfileImageUrl(+me.profileImageURL)} />
+          )}
           <Space>
             <Typography.Text className={styles.userName}>
               {me?.name}님
@@ -165,7 +169,7 @@ export default function MyPageBadgeListPage() {
               ?.filter((badge) => badge.category === 'ATTENDANCE')
               .map((badge) => (
                 <Tooltip key={badge.id} title={renderBadgeTooltipTitle(badge)}>
-                  <Avatar src={badge.imageUrl} alt={badge.name} />
+                  <Avatar src={getFileUrl(badge.imageUrl)} alt={badge.name} />
                 </Tooltip>
               ))}
           </div>
@@ -194,7 +198,7 @@ export default function MyPageBadgeListPage() {
           <div className={styles.badgeWrap}>
             {baekjoonSuccessiveSolveBadges.map((badge) => (
               <Tooltip key={badge.id} title={renderBadgeTooltipTitle(badge)}>
-                <Avatar src={badge.imageUrl} alt={badge.name} />
+                <Avatar src={getFileUrl(badge.imageUrl)} alt={badge.name} />
               </Tooltip>
             ))}
           </div>
@@ -212,7 +216,7 @@ export default function MyPageBadgeListPage() {
           <div className={styles.badgeWrap}>
             {baekjoonTierBadges.map((badge) => (
               <Tooltip key={badge.id} title={renderBadgeTooltipTitle(badge)}>
-                <Avatar src={badge.imageUrl} alt={badge.name} />
+                <Avatar src={getFileUrl(badge.imageUrl)} alt={badge.name} />
               </Tooltip>
             ))}
           </div>
