@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button,
   Empty,
   Pagination,
@@ -24,6 +25,8 @@ import { match } from 'ts-pattern';
 import { stringify } from 'qs';
 import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
 import dayjs from 'dayjs';
+import { getProfileImageUrl } from '~/lib/utils/getProfileImageUrl';
+import getFileUrl from '~/lib/utils/getFileUrl';
 
 const useStyles = createStyles(({ css }) => ({
   fullWidth: css`
@@ -60,6 +63,14 @@ const useStyles = createStyles(({ css }) => ({
     display: flex;
     align-items: center;
     gap: 8px;
+  `,
+  avatar: css`
+    width: 40px;
+    height: 40px;
+  `,
+  badge: css`
+    width: 25px;
+    height: 25px;
   `,
 }));
 
@@ -105,15 +116,27 @@ export default function BoardList({
           >
             <Space className={styles.metaInfoArea} size={'middle'}>
               <Space>
+                <Avatar
+                  src={getProfileImageUrl(post.postProfileImageUrl)}
+                  className={styles.avatar}
+                />
                 <Typography.Text>{post.writerName}</Typography.Text>
+                {post.badge && (
+                  <Avatar
+                    src={getFileUrl(post.badge?.imageUrl)}
+                    className={styles.badge}
+                  />
+                )}
+              </Space>
+              <Space size={'middle'}>
                 <Typography.Text type={'secondary'}>
                   {dayjs(post.createdAt).format('YYYY. MM. DD')}
                 </Typography.Text>
+                <div className={styles.commentWrap}>
+                  <FaRegCommentAlt />
+                  {post.commentCount ?? 0}
+                </div>
               </Space>
-              <div className={styles.commentWrap}>
-                <FaRegCommentAlt />
-                {post.commentCount ?? 0}
-              </div>
             </Space>
             <Space direction={'vertical'} size={0}>
               <Typography.Title level={5}>{post.title}</Typography.Title>
