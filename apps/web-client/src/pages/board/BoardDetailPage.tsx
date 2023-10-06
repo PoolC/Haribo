@@ -10,14 +10,11 @@ import {
   Result,
   Skeleton,
   Space,
-  Tooltip,
   Typography,
 } from 'antd';
 import { Block, WhiteBlock } from '~/styles/common/Block.styles';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
-import { FcLike } from 'react-icons/fc';
-import { BsFillStarFill } from 'react-icons/bs';
 import { createStyles } from 'antd-style';
 import { getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
 import { stringify } from 'qs';
@@ -25,20 +22,20 @@ import classNames from 'classnames';
 import {
   CommentControllerService,
   PostControllerService,
+  PostResponse,
   queryKey,
-  ScrapControllerService,
   useAppMutation,
   useAppQuery,
 } from '~/lib/api-v2';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
-import { queryClient } from '~/lib/utils/queryClient';
 import { useMessage } from '~/hooks/useMessage';
 import getFileUrl from '~/lib/utils/getFileUrl';
 import { getEmptyArray } from '~/lib/utils/getEmptyArray';
 import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
 import { noop } from '~/lib/utils/noop';
+import { getProfileImageUrl } from '~/lib/utils/getProfileImageUrl';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -108,13 +105,13 @@ const useStyles = createStyles(({ css }) => ({
     gap: 20px;
     box-sizing: border-box;
   `,
+  loginDescription: css`
+    text-align: center;
+    color: #666;
+    margin-top: 20px;
+  `,
 }));
 
-/**
- * TODO
- * - 권한 체크
- * - 댓글 작업
- * */
 export default function BoardDetailPage() {
   const { styles } = useStyles();
   const message = useMessage();
@@ -127,18 +124,19 @@ export default function BoardDetailPage() {
     data: post,
     isLoading: isPostLoading,
     isError: isPostError,
+    refetch: refetchPost,
   } = useAppQuery({
     queryKey: queryKey.post.post(postId),
     queryFn: () => PostControllerService.viewPostUsingGet({ postId }),
   });
 
-  const { mutate: likePost } = useAppMutation({
-    mutationFn: PostControllerService.likePostUsingPost,
-  });
-
-  const { mutate: addScrap } = useAppMutation({
-    mutationFn: ScrapControllerService.addScrapUsingPost,
-  });
+  // const { mutate: likePost } = useAppMutation({
+  //   mutationFn: PostControllerService.likePostUsingPost,
+  // });
+  //
+  // const { mutate: addScrap } = useAppMutation({
+  //   mutationFn: ScrapControllerService.addScrapUsingPost,
+  // });
 
   const { mutate: deletePost } = useAppMutation({
     mutationFn: PostControllerService.deletePostUsingDelete,
@@ -148,43 +146,43 @@ export default function BoardDetailPage() {
   const isWriter = post?.writerLoginId === member?.user.memberId;
 
   // methods
-  const onLikeClick = () => {
-    if (isWriter) {
-      message.warn('자기 자신의 글은 좋아요할 수 없습니다.');
-      return;
-    }
-
-    likePost(
-      { postId },
-      {
-        onSuccess() {
-          queryClient
-            .invalidateQueries(queryKey.post.post(postId))
-            .catch(console.log);
-        },
-      },
-    );
-  };
-
-  const onScrapClick = () => {
-    if (isWriter) {
-      message.warn('자기 자신의 글은 스크랩할 수 없습니다.');
-      return;
-    }
-
-    addScrap(
-      {
-        postId,
-      },
-      {
-        onSuccess() {
-          queryClient
-            .invalidateQueries(queryKey.post.post(postId))
-            .catch(console.log);
-        },
-      },
-    );
-  };
+  // const onLikeClick = () => {
+  //   if (isWriter) {
+  //     message.warn('자기 자신의 글은 좋아요할 수 없습니다.');
+  //     return;
+  //   }
+  //
+  //   likePost(
+  //     { postId },
+  //     {
+  //       onSuccess() {
+  //         queryClient
+  //           .invalidateQueries(queryKey.post.post(postId))
+  //           .catch(console.log);
+  //       },
+  //     },
+  //   );
+  // };
+  //
+  // const onScrapClick = () => {
+  //   if (isWriter) {
+  //     message.warn('자기 자신의 글은 스크랩할 수 없습니다.');
+  //     return;
+  //   }
+  //
+  //   addScrap(
+  //     {
+  //       postId,
+  //     },
+  //     {
+  //       onSuccess() {
+  //         queryClient
+  //           .invalidateQueries(queryKey.post.post(postId))
+  //           .catch(console.log);
+  //       },
+  //     },
+  //   );
+  // };
 
   const onDeleteConfirm = () => {
     deletePost(
@@ -249,13 +247,17 @@ export default function BoardDetailPage() {
           className={styles.fullWidth}
         >
           <Space align={'center'}>
-            <Avatar className={styles.writerAvatar} />
+            <Avatar
+              className={styles.writerAvatar}
+              src={getProfileImageUrl(post.postProfileImageUrl)}
+            />
             <Space direction={'vertical'} size={0}>
               <Typography.Text>{post.writerName}</Typography.Text>
               <Typography.Text type={'secondary'}>
                 {dayjs(post.createdAt).format('YYYY. MM. DD')}
               </Typography.Text>
             </Space>
+            {post.badge && <Avatar src={getFileUrl(post.badge.imageUrl)} />}
           </Space>
           <Space direction={'vertical'} size={0}>
             {post.boardType === 'JOB' ? (
@@ -277,13 +279,13 @@ export default function BoardDetailPage() {
               <Typography.Title level={2}>{post.title}</Typography.Title>
             )}
             <div dangerouslySetInnerHTML={{ __html: post.body ?? '' }}></div>
-            <div className={styles.fileListBox}>
-              <Typography.Text className={styles.fileListTitle}>
-                첨부파일
-              </Typography.Text>
-              <div className={styles.fileList}>
-                {post.fileList && post.fileList.length > 0 ? (
-                  post.fileList.map((file, i) => (
+            {post.fileList && post.fileList.length > 0 && (
+              <div className={styles.fileListBox}>
+                <Typography.Text className={styles.fileListTitle}>
+                  첨부파일
+                </Typography.Text>
+                <div className={styles.fileList}>
+                  {post.fileList.map((file, i) => (
                     <a
                       href={getFileUrl(file)}
                       key={i}
@@ -292,33 +294,31 @@ export default function BoardDetailPage() {
                     >
                       {file}
                     </a>
-                  ))
-                ) : (
-                  <Typography.Text>첨부파일이 없습니다.</Typography.Text>
-                )}
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </Space>
-          <Space className={styles.buttonGroup}>
-            <Tooltip title={'좋아요'}>
-              <Button
-                icon={<FcLike />}
-                className={styles.emotionButton}
-                onClick={onLikeClick}
-              >
-                {post.likeCount ?? 0}
-              </Button>
-            </Tooltip>
-            <Tooltip title={'스크랩'}>
-              <Button
-                icon={<BsFillStarFill color={'orange'} />}
-                className={styles.emotionButton}
-                onClick={onScrapClick}
-              >
-                {post.scrapCount ?? 0}
-              </Button>
-            </Tooltip>
-          </Space>
+          {/*<Space className={styles.buttonGroup}>*/}
+          {/*  <Tooltip title={'좋아요'}>*/}
+          {/*    <Button*/}
+          {/*      icon={<FcLike />}*/}
+          {/*      className={styles.emotionButton}*/}
+          {/*      onClick={onLikeClick}*/}
+          {/*    >*/}
+          {/*      {post.likeCount ?? 0}*/}
+          {/*    </Button>*/}
+          {/*  </Tooltip>*/}
+          {/*  <Tooltip title={'스크랩'}>*/}
+          {/*    <Button*/}
+          {/*      icon={<BsFillStarFill color={'orange'} />}*/}
+          {/*      className={styles.emotionButton}*/}
+          {/*      onClick={onScrapClick}*/}
+          {/*    >*/}
+          {/*      {post.scrapCount ?? 0}*/}
+          {/*    </Button>*/}
+          {/*  </Tooltip>*/}
+          {/*</Space>*/}
           {isWriter && (
             <Space className={styles.actionButtonGroup}>
               <Link
@@ -343,7 +343,11 @@ export default function BoardDetailPage() {
             </Space>
           )}
         </Space>
-        <CommentBox postId={postId} />
+        <CommentBox
+          postId={postId}
+          commentList={post.commentList}
+          onRefetch={() => refetchPost()}
+        />
       </Space>
     );
   };
@@ -361,9 +365,19 @@ const commentSchema = z.object({
   body: z.string().min(1),
 });
 
-function CommentBox({ postId }: { postId: number }) {
+function CommentBox({
+  postId,
+  commentList,
+  onRefetch,
+}: {
+  postId: number;
+  commentList: PostResponse['commentList'];
+  onRefetch: () => void;
+}) {
   const { styles } = useStyles();
   const message = useMessage();
+  const member = useSelector((state: any) => state.auth);
+  const isLogin = member.status.isLogin;
 
   const form = useForm<z.infer<typeof commentSchema>>({
     initialValues: {
@@ -377,43 +391,62 @@ function CommentBox({ postId }: { postId: number }) {
   });
 
   const onSubmit = (val: typeof form.values) => {
-    createComment({
-      request: {
-        anonymous: false,
-        postId,
-        body: val.body,
+    createComment(
+      {
+        request: {
+          anonymous: false,
+          postId,
+          body: val.body,
+        },
       },
-    });
+      {
+        onSuccess() {
+          message.success('댓글이 등록되었습니다.');
+          onRefetch();
+          form.reset();
+        },
+      },
+    );
   };
 
   return (
     <Space direction={'vertical'} size={'large'} className={styles.fullWidth}>
-      <Space align={'start'}>
-        <Avatar />
-        <Space direction={'vertical'} size={0}>
-          <Typography.Text>풀씨짱123</Typography.Text>
-          <Typography.Text>유익한 글이군요</Typography.Text>
-          <Typography.Text type={'secondary'}>2023. 07. 28</Typography.Text>
+      {commentList?.map((comment) => (
+        <Space align={'start'} key={comment.commentId}>
+          <Avatar />
+          <Space direction={'vertical'} size={0}>
+            <Typography.Text>{comment.writerName}</Typography.Text>
+            <Typography.Text>{comment.body}</Typography.Text>
+            <Typography.Text type={'secondary'}>
+              {dayjs(comment.createdAt).format('YYYY. MM. DD')}
+            </Typography.Text>
+          </Space>
         </Space>
-      </Space>
-      <Form onSubmitCapture={form.onSubmit(onSubmit, noop)}>
-        <Space direction={'vertical'} className={styles.fullWidth}>
-          <Input.TextArea
-            className={styles.commentTextArea}
-            placeholder="댓글을 남겨주세요 :)"
-            {...form.getInputProps('body')}
-          />
-          <div className={styles.commentButtonWrap}>
-            <Button
-              type={'primary'}
-              disabled={!form.isValid()}
-              htmlType={'submit'}
-            >
-              댓글 달기
-            </Button>
-          </div>
-        </Space>
-      </Form>
+      ))}
+      {isLogin ? (
+        <Form onSubmitCapture={form.onSubmit(onSubmit, noop)}>
+          <Space direction={'vertical'} className={styles.fullWidth}>
+            <Input.TextArea
+              className={styles.commentTextArea}
+              placeholder="댓글을 남겨주세요 :)"
+              {...form.getInputProps('body')}
+            />
+            <div className={styles.commentButtonWrap}>
+              <Button
+                type={'primary'}
+                disabled={!form.isValid()}
+                htmlType={'submit'}
+              >
+                댓글 달기
+              </Button>
+            </div>
+          </Space>
+        </Form>
+      ) : (
+        <Typography.Paragraph className={styles.loginDescription}>
+          로그인하고 댓글을 남겨보세요.
+        </Typography.Paragraph>
+      )}
     </Space>
   );
 }
