@@ -12,7 +12,6 @@ import { ColumnsType } from 'antd/es/table';
 import { Link, useHistory } from 'react-router-dom';
 import { MENU } from '~/constants/menus';
 import { GoPencil } from 'react-icons/go';
-import { FcLike } from 'react-icons/fc';
 import { FaRegCommentAlt } from 'react-icons/fa';
 import { createStyles } from 'antd-style';
 import {
@@ -23,7 +22,8 @@ import {
 } from '~/lib/api-v2';
 import { match } from 'ts-pattern';
 import { stringify } from 'qs';
-import { BoardType } from '~/lib/utils/boardUtil';
+import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
+import dayjs from 'dayjs';
 
 const useStyles = createStyles(({ css }) => ({
   fullWidth: css`
@@ -56,6 +56,11 @@ const useStyles = createStyles(({ css }) => ({
     justify-content: center;
     margin-top: 10px;
   `,
+  commentWrap: css`
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  `,
 }));
 
 export default function BoardList({
@@ -72,8 +77,8 @@ export default function BoardList({
     queryKey: queryKey.post.all(boardType, page),
     queryFn: () =>
       PostControllerService.viewPostsByBoardUsingGet({
-        boardTitle: boardType,
-        page,
+        boardTitle: getBoardTitleByBoardType(boardType),
+        page: page - 1,
       }),
   });
 
@@ -102,19 +107,13 @@ export default function BoardList({
               <Space>
                 <Typography.Text>{post.writerName}</Typography.Text>
                 <Typography.Text type={'secondary'}>
-                  {post.createdAt}
+                  {dayjs(post.createdAt).format('YYYY. MM. DD')}
                 </Typography.Text>
               </Space>
-              <Space size={'middle'}>
-                <Space>
-                  <FcLike />
-                  {post.likeCount}
-                </Space>
-                <Space>
-                  <FaRegCommentAlt />
-                  {post.commentCount ?? 0}
-                </Space>
-              </Space>
+              <div className={styles.commentWrap}>
+                <FaRegCommentAlt />
+                {post.commentCount ?? 0}
+              </div>
             </Space>
             <Space direction={'vertical'} size={0}>
               <Typography.Title level={5}>{post.title}</Typography.Title>
@@ -152,10 +151,11 @@ export default function BoardList({
                 columns={columns}
                 showHeader={false}
                 pagination={false}
+                rowKey={'postId'}
               />
               <div className={styles.paginationWrap}>
                 <Pagination
-                  total={100}
+                  total={postList[0].boardPostCount}
                   showSizeChanger={false}
                   onChange={onPageChange}
                 />
