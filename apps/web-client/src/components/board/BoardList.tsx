@@ -85,7 +85,7 @@ export default function BoardList({
   const { styles } = useStyles();
 
   const boardListQuery = useAppQuery({
-    queryKey: queryKey.post.all(boardType, page),
+    queryKey: queryKey.post.all(boardType, page - 1),
     queryFn: () =>
       PostControllerService.viewPostsByBoardUsingGet({
         boardTitle: getBoardTitleByBoardType(boardType),
