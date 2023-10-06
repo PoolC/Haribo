@@ -29,7 +29,6 @@ const useStyles = createStyles(({ css }) => ({
     left: 0;
     right: 0;
     justify-content: center;
-    margin: 0 0 300px 0;
     @media (max-width: 768px) {
       margin-bottom: 500px;
     }

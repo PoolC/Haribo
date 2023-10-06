@@ -10,8 +10,17 @@ import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
 const useStyles = createStyles(({ css }) => ({
-  container: css`
+  appContainer: css`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    min-height: 100vh;
+    width: 100%;
+  `,
+  content: css`
     padding-top: 90px;
+    flex: 1;
 
     @media (max-width: 768px) {
       padding-top: 0;
@@ -80,9 +89,9 @@ function App() {
   const { styles } = useStyles();
 
   return (
-    <>
+    <div className={styles.appContainer}>
       <HeaderContainer />
-      <div className={styles.container}>
+      <div className={styles.content}>
         <Suspense fallback={null}>
           <Switch>
             <Route component={HomePage} path="/" exact />
@@ -150,7 +159,7 @@ function App() {
         </Suspense>
       </div>
       <FooterContainer />
-    </>
+    </div>
   );
 }
 
