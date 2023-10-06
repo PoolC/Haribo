@@ -112,6 +112,14 @@ const useStyles = createStyles(({ css }) => ({
     color: #666;
     margin-top: 20px;
   `,
+  commentAvatar: css`
+    width: 40px;
+    height: 40px;
+  `,
+  comment: css`
+    border-bottom: 1px solid #eee;
+    width: 100%;
+  `,
 }));
 
 export default function BoardDetailPage() {
@@ -414,14 +422,28 @@ function CommentBox({
   return (
     <Space direction={'vertical'} size={'large'} className={styles.fullWidth}>
       {commentList?.map((comment) => (
-        <Space align={'start'} key={comment.commentId}>
-          <Avatar />
-          <Space direction={'vertical'} size={0}>
-            <Typography.Text>{comment.writerName}</Typography.Text>
-            <Typography.Text>{comment.body}</Typography.Text>
-            <Typography.Text type={'secondary'}>
-              {dayjs(comment.createdAt).format('YYYY. MM. DD')}
-            </Typography.Text>
+        <Space
+          align={'start'}
+          key={comment.commentId}
+          className={styles.comment}
+        >
+          <Avatar
+            src={getProfileImageUrl(comment.profileImageUrl)}
+            className={styles.commentAvatar}
+          />
+          <Space direction={'vertical'}>
+            <Space>
+              <Space direction={'vertical'} size={0}>
+                <Typography.Text>{comment.writerName}</Typography.Text>
+                <Typography.Text type={'secondary'}>
+                  {dayjs(comment.createdAt).format('YYYY. MM. DD')}
+                </Typography.Text>
+              </Space>
+              {comment.badge && (
+                <Avatar src={getFileUrl(comment.badge.imageUrl)} />
+              )}
+            </Space>
+            <Typography.Paragraph>{comment.body}</Typography.Paragraph>
           </Space>
         </Space>
       ))}
