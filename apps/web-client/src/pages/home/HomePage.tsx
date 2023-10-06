@@ -1,11 +1,16 @@
-import { PoolcControllerService, ProjectControllerService, queryKey, useAppQueries } from '~/lib/api-v2';
+import {
+  PoolcControllerService,
+  ProjectControllerService,
+  queryKey,
+  useAppQueries,
+} from '~/lib/api-v2';
 import { Skeleton } from 'antd';
 import Carousel from '~/components/home/Carousel/Carousel';
-import { useSelector } from 'react-redux';
 import ApplyBanner from '~/components/home/ApplyBanner/ApplyBanner';
 import RecentProject from '~/components/home/RecentProject/RecentProject';
 import { getEmptyArray } from '~/lib/utils/getEmptyArray';
 import { createStyles } from 'antd-style';
+import { useAppSelector } from '~/hooks/useAppSelector';
 
 const useStyles = createStyles(({ css }) => ({
   block: css`
@@ -41,10 +46,9 @@ const HomePage = () => {
       },
     ],
   });
-  // @ts-ignore
-  const member = useSelector((state) => state.auth);
-  const isLogin = member.status.isLogin;
-  const role = member.user.role;
+
+  const isLogin = useAppSelector((state) => state.auth.status.isLogin);
+  const role = useAppSelector((state) => state.auth.user.role);
 
   const isLoading = !poolcInfo || !projectInfo;
 
