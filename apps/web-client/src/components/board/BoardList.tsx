@@ -27,6 +27,7 @@ import { BoardType, getBoardTitleByBoardType } from '~/lib/utils/boardUtil';
 import dayjs from 'dayjs';
 import { getProfileImageUrl } from '~/lib/utils/getProfileImageUrl';
 import getFileUrl from '~/lib/utils/getFileUrl';
+import { useAppSelector } from '~/hooks/useAppSelector';
 
 const useStyles = createStyles(({ css }) => ({
   fullWidth: css`
@@ -83,6 +84,7 @@ export default function BoardList({
 }) {
   // data
   const { styles } = useStyles();
+  const isAdmin = useAppSelector((state) => state.auth.user.isAdmin);
 
   const boardListQuery = useAppQuery({
     queryKey: queryKey.post.all(boardType, page - 1),
@@ -148,15 +150,25 @@ export default function BoardList({
     },
   ];
 
+  const renderWriteButton = () => {
+    const button = (
+      <Link to={`/${MENU.BOARD}/write?${stringify({ boardType })}`}>
+        <Button type={'primary'} icon={<GoPencil />}>
+          글쓰기
+        </Button>
+      </Link>
+    );
+
+    if (boardType !== 'NOTICE') {
+      return button;
+    }
+
+    return isAdmin ? button : null;
+  };
+
   return (
     <div className={styles.wrapper}>
-      <div className={styles.topArea}>
-        <Link to={`/${MENU.BOARD}/write?${stringify({ boardType })}`}>
-          <Button type={'primary'} icon={<GoPencil />}>
-            글쓰기
-          </Button>
-        </Link>
-      </div>
+      <div className={styles.topArea}>{renderWriteButton()}</div>
       {match(boardListQuery)
         .with({ status: 'loading' }, () => <Skeleton />)
         .with({ status: 'error' }, () => (
