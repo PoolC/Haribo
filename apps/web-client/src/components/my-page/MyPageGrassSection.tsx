@@ -17,8 +17,7 @@ dayjs.extend(weekOfYear);
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
     overflow-x: auto;
-    overflow-y: clip;
-    padding-top: 10px;
+    padding: 10px 30px;
   `,
   calendarWrap: css`
     width: 100%;
