@@ -36,6 +36,7 @@ import { useForm, zodResolver } from '@mantine/form';
 import { z } from 'zod';
 import { noop } from '~/lib/utils/noop';
 import { getProfileImageUrl } from '~/lib/utils/getProfileImageUrl';
+import { convertPositionToText } from '~/lib/utils/positionUtil';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -263,7 +264,7 @@ export default function BoardDetailPage() {
             {post.boardType === 'JOB' ? (
               <Descriptions title={post.title}>
                 <Descriptions.Item label={'고용형태'}>
-                  {post.position}
+                  {convertPositionToText(post.position)}
                 </Descriptions.Item>
                 <Descriptions.Item label={'지역'}>
                   {post.region}
@@ -272,7 +273,7 @@ export default function BoardDetailPage() {
                   {post.field}
                 </Descriptions.Item>
                 <Descriptions.Item label={'마감일자'}>
-                  {post.deadline}
+                  {dayjs(post.deadline).format('YYYY. MM. DD')}
                 </Descriptions.Item>
               </Descriptions>
             ) : (

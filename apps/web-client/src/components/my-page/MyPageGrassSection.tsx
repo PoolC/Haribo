@@ -1,7 +1,5 @@
 import { createStyles } from 'antd-style';
 import dayjs from 'dayjs';
-import weekOfYear from 'dayjs/plugin/weekOfYear';
-import objectSupport from 'dayjs/plugin/objectSupport';
 import { memo } from 'react';
 import { BaekjoonResponse } from '~/lib/api-v2';
 import ActivityCalendar, {
@@ -10,9 +8,6 @@ import ActivityCalendar, {
   Level,
 } from 'react-activity-calendar';
 import { Tooltip } from 'antd';
-
-dayjs.extend(objectSupport);
-dayjs.extend(weekOfYear);
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
