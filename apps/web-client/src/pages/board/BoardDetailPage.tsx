@@ -37,6 +37,7 @@ import { z } from 'zod';
 import { noop } from '~/lib/utils/noop';
 import { getProfileImageUrl } from '~/lib/utils/getProfileImageUrl';
 import { convertPositionToText } from '~/lib/utils/positionUtil';
+import { useAppSelector } from '~/hooks/useAppSelector';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -143,8 +144,8 @@ export default function BoardDetailPage() {
     mutationFn: PostControllerService.deletePostUsingDelete,
   });
 
-  const member = useSelector((state: any) => state.auth);
-  const isWriter = post?.writerLoginId === member?.user.memberId;
+  const memberId = useAppSelector((state) => state.auth.user.memberId);
+  const isWriter = post?.writerLoginId === memberId;
 
   // methods
   // const onLikeClick = () => {
