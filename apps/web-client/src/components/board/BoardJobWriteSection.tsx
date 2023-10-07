@@ -34,6 +34,7 @@ import dayjs from 'dayjs';
 import { convertPositionToText } from '~/lib/utils/positionUtil';
 import { useMessage } from '~/hooks/useMessage';
 import { noop } from '~/lib/utils/noop';
+import getFileUrl from '~/lib/utils/getFileUrl';
 
 const useStyles = createStyles(({ css }) => ({
   wrapper: css`
@@ -163,7 +164,7 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
   const getUploadFileList = () => {
     return form.values.fileList.map((file, i) => ({
       uid: `UPLOAD_FILE@.${i}`,
-      url: file,
+      url: getFileUrl(file),
       name: file,
     }));
   };
