@@ -104,8 +104,7 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
       const e = _e as ApiError;
       if (e.status === 400) {
         message.error('이미 존재하는 파일명입니다. 파일명을 수정해주세요.');
-      }
-      {
+      } else {
         message.error('에러가 발생했습니다. 잠시 후 다시 시도해주세요.');
       }
     },
@@ -146,6 +145,14 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
   };
 
   const onUploadChange = (info: UploadChangeParam) => {
+    if (info.file.status === 'removed') {
+      form.setFieldValue(
+        'fileList',
+        form.values.fileList.filter((file) => file !== info.file.name),
+      );
+      return;
+    }
+
     mutateUploadFile(info.file as unknown as File, {
       onSuccess(fileUrl) {
         form.setFieldValue('fileList', [...form.values.fileList, fileUrl]);
@@ -191,12 +198,10 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
           request: {
             body: val.body,
             title: val.title,
-            deadline: dayjs(val.deadline).toISOString(),
+            deadline: dayjs(val.deadline).format('YYYY-MM-DD'),
             field: val.field,
-            postType: 'JOB_POST',
             region: val.region,
-            fileList: val.fileList,
-            boardType: 'JOB',
+            fileList: val.fileList ?? [],
             position: val.position as PostCreateRequest['position'],
             /* always false */
             anonymous: false,
@@ -220,6 +225,10 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
         title: savedPost.title ?? '',
         body: savedPost.body ?? '',
         fileList: savedPost.fileList ?? [],
+        deadline: savedPost.deadline,
+        field: savedPost.field?.trim(),
+        region: savedPost.region,
+        position: savedPost.position,
       });
       editorRef.current?.getInstance().setHtml(savedPost.body ?? '');
     }

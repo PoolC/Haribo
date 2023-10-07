@@ -176,6 +176,14 @@ export default function BoardNormalWriteSection({
       .exhaustive();
 
   const onUploadChange = (info: UploadChangeParam) => {
+    if (info.file.status === 'removed') {
+      form.setFieldValue(
+        'fileList',
+        form.values.fileList.filter((file) => file !== info.file.name),
+      );
+      return;
+    }
+
     uploadFile(info.file as unknown as File, {
       onSuccess(fileUrl) {
         form.setFieldValue('fileList', [...form.values.fileList, fileUrl]);
