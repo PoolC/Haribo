@@ -165,7 +165,7 @@ export default function BoardJobWriteSection({ postId }: { postId: number }) {
     return form.values.fileList.map((file, i) => ({
       uid: `UPLOAD_FILE@.${i}`,
       url: getFileUrl(file),
-      name: file,
+      name: decodeURI(file),
     }));
   };
 
